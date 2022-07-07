@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Updated README thumbnail
+
 ## 0.0.7
 
 * Updated README thumbnail
