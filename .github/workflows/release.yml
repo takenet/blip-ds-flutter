@@ -1,0 +1,97 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  auto-gen-tag:
+    name: Auto Generate Tag
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.gen-tag-step.outputs.tagname }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jacopocarlini/action-autotag@2.0.4
+      id: gen-tag-step
+      with:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        tag_prefix: "v"
+
+  generate-changelog:
+    if: ${{ startsWith(needs.auto-gen-tag.outputs.tag, 'v') }}
+    name: Generate changelog
+    needs: auto-gen-tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest published release tag
+        id: get_latest_release
+        uses: pozetroninc/github-action-get-latest-release@2b51d48e904071035d6632715d41966f516711dd
+        with:
+          repository: ${{ github.repository }}
+          excludes: prerelease, draft
+      - name: Generate changelog since last published release
+        uses: charmixer/auto-changelog-action@5c6320ae4dedc8743e4439a3c56294c294553fb9
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          future_release: ${{ needs.auto-gen-tag.outputs.tag }}
+          since_tag: ${{ steps.get_latest_release.outputs.release }}
+      - name: Upload changelog
+        uses: actions/upload-artifact@v2
+        with:
+          name: changelog
+          path: CHANGELOG.md
+  
+  # This workflow contains a single job called "build"
+  create-release:
+    name: Draft Github release
+    needs: [auto-gen-tag, generate-changelog]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{needs.auto-gen-tag.outputs.tag}}
+      - name: Download changelog
+        uses: actions/download-artifact@v2
+        with:
+          name: changelog
+      - name: Draft release with changelog
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.auto-gen-tag.outputs.tag }}
+          release_name: Blip DS ${{ needs.auto-gen-tag.outputs.tag }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+          
+  publish:
+    name: Upload package to pub.dev
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup credentials
+        run: | 
+          mkdir -p ~/.pub-cache 
+          cat <<EOF > ~/.pub-cache/credentials.json
+          {
+            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 4102369200000
+          }
+          EOF
+      - name: Publish package
+        uses: subosito/flutter-action@v2.4.0
+        with:
+          flutter-version: '3.0.4'
+      - run: flutter pub publish -f
