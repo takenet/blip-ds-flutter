@@ -1,7 +1,8 @@
 name: blip_ds
-description: A new Flutter package project.
+description: Blip Design System for Flutter.
 version: 0.0.1
-homepage:
+homepage: https://github.com/takenet/blip-ds-flutter#readme
+repository: https://github.com/takenet/blip-ds-flutter
 
 environment:
   sdk: ">=2.17.5 <3.0.0"
