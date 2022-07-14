@@ -1,7 +1,3 @@
 library blip_ds;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/components/chat/ds_message_bubble.dart' show DSMessageBubble;
