@@ -84,11 +84,9 @@ class _DSMessageBubbleState extends State<DSMessageBubble> {
     List<Widget> children = [];
 
     if (widget.align == DSAlign.right) {
-      children.insert(0, emptyWidget());
-      children.insert(1, messageContainer());
+      children.insertAll(0, [emptyWidget(), messageContainer()]);
     } else {
-      children.insert(0, messageContainer());
-      children.insert(1, emptyWidget());
+      children.insertAll(0, [messageContainer(), emptyWidget()]);
     }
 
     return Row(
