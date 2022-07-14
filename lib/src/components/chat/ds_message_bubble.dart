@@ -49,23 +49,15 @@ class _DSMessageBubbleState extends State<DSMessageBubble> {
           );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width * (1 / 6);
+  Widget emptyWidget() {
+    return const Flexible(flex: 1, child: SizedBox());
+  }
 
-    final EdgeInsets mainMargin = EdgeInsets.fromLTRB(
-      widget.align == DSAlign.right ? width : 16.0,
-      15.0,
-      widget.align == DSAlign.right ? 16.0 : width,
-      5.0,
-    );
-
-    return Align(
-      alignment: widget.align == DSAlign.right
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
+  Widget messageContainer() {
+    return Flexible(
+      flex: 5,
       child: Container(
-        margin: mainMargin,
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
         decoration: BoxDecoration(
           borderRadius: getBorderRadius(),
           color: widget.align == DSAlign.right
@@ -84,6 +76,26 @@ class _DSMessageBubbleState extends State<DSMessageBubble> {
           ),
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [];
+
+    if (widget.align == DSAlign.right) {
+      children.insert(0, emptyWidget());
+      children.insert(1, messageContainer());
+    } else {
+      children.insert(0, messageContainer());
+      children.insert(1, emptyWidget());
+    }
+
+    return Row(
+      mainAxisAlignment: widget.align == DSAlign.right
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
+      children: children,
     );
   }
 }
