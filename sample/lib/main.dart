@@ -41,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: const <Widget>[
           //TODO: Remove this widget from sample when DSTextMessageBubble is implemented
           DSMessageBubble(
-            alignRight: true,
+            borderRadius: [DSBorderRadius.topLeft, DSBorderRadius.topRight],
+            align: DSAlign.right,
             child: Text('Olá, tudo bem?'),
           ),
         ],
