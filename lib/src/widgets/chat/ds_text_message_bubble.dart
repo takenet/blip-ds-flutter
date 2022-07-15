@@ -1,6 +1,8 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble_controller.dart';
 import 'package:blip_ds/src/theme/systems_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
@@ -19,19 +21,13 @@ class DSTextMessageBubble extends StatefulWidget {
 }
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
-  bool _expandText = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final controller = Get.put(DSTextMessageBubbleController());
 
   @override
   void didUpdateWidget(covariant DSTextMessageBubble oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    if (widget.text != oldWidget.text) {
-      _expandText = false;
+    if (oldWidget.text != widget.text) {
+      controller.showFullText.value = false;
     }
   }
 
@@ -43,50 +39,68 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       child: AnimatedSize(
         alignment: Alignment.topCenter,
         curve: Curves.linearToEaseOut,
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 300),
         clipBehavior: Clip.none,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildText(),
-            if (_checkTextOverflow()) _buildShowMore(),
-          ],
+        child: Obx(
+          () => _buildText(),
         ),
       ),
     );
   }
 
-  Text _buildText() {
-    return Text(
-      widget.text,
-      overflow: !_expandText ? TextOverflow.ellipsis : null,
-      style: const TextStyle(
+  Widget _buildText() {
+    final overflow =
+        !controller.showFullText.value ? TextOverflow.ellipsis : null;
+
+    final maxLines = !controller.showFullText.value ? 12 : null;
+
+    final textSpan = TextSpan(
+      text: widget.text,
+      style: TextStyle(
         color: SystemColors.neutralLightSnow,
+        overflow: overflow,
       ),
+    );
+
+    final textPainter = TextPainter(
+      textAlign: TextAlign.start,
+      textDirection: TextDirection.ltr,
+      maxLines: maxLines,
+      text: textSpan,
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        textPainter.layout(maxWidth: constraints.maxWidth);
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              textSpan,
+              maxLines: maxLines,
+            ),
+            if (textPainter.didExceedMaxLines) _buildShowMore(),
+          ],
+        );
+      },
     );
   }
 
   Widget _buildShowMore() {
-    return GestureDetector(
-      onTap: _showMoreOnTap,
-      child: const Text(
-        /// TODO: Need localized translate.
-        'Mostrar mais',
-        style: TextStyle(
-          color: SystemColors.primaryLight,
-          decoration: TextDecoration.underline,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: GestureDetector(
+        onTap: controller.showMoreOnTap,
+        child: const Text(
+          /// TODO: Need localized translate.
+          'Mostrar mais',
+          style: TextStyle(
+            color: SystemColors.primaryLight,
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     );
-  }
-
-  bool _checkTextOverflow() {
-    return !_expandText && widget.text.length > 30;
-  }
-
-  void _showMoreOnTap() {
-    setState(() {
-      _expandText = true;
-    });
   }
 }
