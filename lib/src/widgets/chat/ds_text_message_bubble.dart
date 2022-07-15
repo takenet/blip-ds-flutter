@@ -1,6 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble_controller.dart';
-import 'package:blip_ds/src/theme/systems_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +20,14 @@ class DSTextMessageBubble extends StatefulWidget {
 }
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
-  final controller = Get.put(DSTextMessageBubbleController());
+  late final DSTextMessageBubbleController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = Get.put(DSTextMessageBubbleController());
+  }
 
   @override
   void didUpdateWidget(covariant DSTextMessageBubble oldWidget) {
@@ -57,7 +63,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     final textSpan = TextSpan(
       text: widget.text,
       style: TextStyle(
-        color: SystemColors.neutralLightSnow,
+        color: widget.align == DSAlign.right
+            ? SystemColors.neutralLightSnow
+            : SystemColors.neutralDarkCity,
         overflow: overflow,
       ),
     );
@@ -92,11 +100,13 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
         onTap: controller.showMoreOnTap,
-        child: const Text(
-          /// TODO: Need localized translate.
+        child: Text(
+          // TODO: Need localized translate.
           'Mostrar mais',
           style: TextStyle(
-            color: SystemColors.primaryLight,
+            color: widget.align == DSAlign.right
+                ? SystemColors.primaryLight
+                : SystemColors.primaryNight,
             decoration: TextDecoration.underline,
           ),
         ),

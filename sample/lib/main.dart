@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -23,8 +24,17 @@ class SampleApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final _sampleText = RxString(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+  final _shorText = lorem(
+    words: 3,
+    paragraphs: 1,
+  );
+
+  final _longText = lorem(
+    words: 100,
+    paragraphs: 1,
+  );
+
+  final RxString _sampleText = RxString('');
 
   HomePage({Key? key}) : super(key: key);
 
@@ -36,22 +46,43 @@ class HomePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Obx(
-          () => Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          () => ListView(
+            reverse: true,
             children: [
-              DSTextMessageBubble(
-                text: _sampleText.value,
-                align: DSAlign.right,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DSTextMessageBubble(
+                    text: _sampleText.value.isNotEmpty
+                        ? _sampleText.value
+                        : _shorText,
+                    align: DSAlign.left,
+                  ),
+                  DSTextMessageBubble(
+                    text: _sampleText.value.isNotEmpty
+                        ? _sampleText.value
+                        : _shorText,
+                    align: DSAlign.right,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ElevatedButton(
+                          onPressed: () => _sampleText.value = _shorText,
+                          child: const Text('Texto Curto'),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _sampleText.value = _longText,
+                        child: const Text('Texto Longo'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () => _sampleText.value = 'Texto pequeno',
-                child: const Text('Teste 1'),
-              ),
-              ElevatedButton(
-                onPressed: () => _sampleText.value =
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                child: const Text('Teste 2'),
-              )
+              const Divider(color: SystemColors.neutralDarkCity)
             ],
           ),
         ),
