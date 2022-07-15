@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 abstract class SystemColors {
-  static const Color neutralDarkCity = Color(0xff202C44);
-  static const Color neutralLightSnow = Color(0xffffffff);
-  static const Color neutralMediumSilver = Color(0xffB9CBD3);
+  static const Color primaryLight = Color(0xFFB3D4FF);
+  static const Color neutralDarkCity = Color(0xFF202C44);
+  static const Color neutralLightSnow = Color(0xFFFFFFFF);
+  static const Color neutralMediumSilver = Color(0xFFB9CBD3);
 }

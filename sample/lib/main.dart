@@ -2,50 +2,61 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SampleApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SampleApp extends StatelessWidget {
+  const SampleApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DS Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Blip Design System Showcase',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Blip Design System Sample'),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
+  var _sampleText =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Blip Design System Showcase'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: const <Widget>[
-          //TODO: Remove this widget from sample when DSTextMessageBubble is implemented
-          DSMessageBubble(
-            borderRadius: [DSBorderRadius.topLeft, DSBorderRadius.topRight],
-            align: DSAlign.right,
-            child: Text('Olá, tudo bem?'),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DSTextMessageBubble(
+              text: _sampleText,
+              align: DSAlign.right,
+            ),
+            ElevatedButton(
+              onPressed: () => setState(() => _sampleText = 'Oi!'),
+              child: const Text('Teste 1'),
+            ),
+            ElevatedButton(
+              onPressed: () => setState(() => _sampleText =
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+              child: const Text('Teste 2'),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -5,23 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "blip-ds-flutter",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "blip-ds-flutter (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "blip-ds-flutter (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
             "name": "sample",
             "cwd": "sample",
             "request": "launch",
