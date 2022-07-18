@@ -20,14 +20,8 @@ class DSTextMessageBubble extends StatefulWidget {
 }
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
-  late final DSTextMessageBubbleController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = Get.put(DSTextMessageBubbleController());
-  }
+  final DSTextMessageBubbleController controller =
+      DSTextMessageBubbleController();
 
   @override
   void didUpdateWidget(covariant DSTextMessageBubble oldWidget) {
