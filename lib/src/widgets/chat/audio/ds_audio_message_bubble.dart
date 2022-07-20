@@ -11,12 +11,12 @@ class DSAudioMessageBubble extends StatefulWidget {
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
 
-  const DSAudioMessageBubble(
-      {Key? key,
-      required this.uri,
-      required this.align,
-      required this.borderRadius})
-      : super(key: key);
+  const DSAudioMessageBubble({
+    Key? key,
+    required this.uri,
+    required this.align,
+    this.borderRadius = const [DSBorderRadius.all],
+  }) : super(key: key);
 
   @override
   State<DSAudioMessageBubble> createState() => _DSAudioMessageBubbleState();
