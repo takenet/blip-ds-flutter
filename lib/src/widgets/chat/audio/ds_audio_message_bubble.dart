@@ -1,11 +1,9 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/components/chat/audio/audio_seek_bar.widget.dart';
+import 'package:blip_ds/src/widgets/chat/audio/audio_seek_bar.widget.dart';
 import 'package:blip_ds/src/controllers/chat/ds_audio_message_bubble.controller.dart';
-import 'package:blip_ds/src/theme/systems_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DSAudioMessageBubble extends StatefulWidget {

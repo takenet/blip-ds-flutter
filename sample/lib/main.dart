@@ -1,51 +1,91 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SampleApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SampleApp extends StatelessWidget {
+  const SampleApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DS Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Blip Design System Showcase',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Blip Design System Sample'),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class HomePage extends StatelessWidget {
+  final _shorText = lorem(
+    words: 3,
+    paragraphs: 1,
+  );
 
-  final String title;
+  final _longText = lorem(
+    words: 100,
+    paragraphs: 1,
+  );
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  final RxString _sampleText = RxString('');
 
-class _MyHomePageState extends State<MyHomePage> {
+  HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Blip Design System Showcase'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: const <Widget>[
-          //TODO: Remove this widget from sample when DSTextMessageBubble is implemented
-          DSMessageBubble(
-            borderRadius: [DSBorderRadius.topLeft, DSBorderRadius.topRight],
-            align: DSAlign.right,
-            child: Text('Olá, tudo bem?'),
+      body: SafeArea(
+        child: Obx(
+          () => ListView(
+            reverse: true,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DSTextMessageBubble(
+                    text: _sampleText.value.isNotEmpty
+                        ? _sampleText.value
+                        : _shorText,
+                    align: DSAlign.left,
+                  ),
+                  DSTextMessageBubble(
+                    text: _sampleText.value.isNotEmpty
+                        ? _sampleText.value
+                        : _shorText,
+                    align: DSAlign.right,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ElevatedButton(
+                          onPressed: () => _sampleText.value = _shorText,
+                          child: const Text('Texto Curto'),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _sampleText.value = _longText,
+                        child: const Text('Texto Longo'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Divider(color: SystemColors.neutralDarkCity)
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
