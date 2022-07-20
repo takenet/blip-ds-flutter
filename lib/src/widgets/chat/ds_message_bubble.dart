@@ -1,6 +1,6 @@
 import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
 import 'package:blip_ds/src/enums/ds_align.enum.dart';
-import 'package:blip_ds/src/themes/system_colors.dart';
+import 'package:blip_ds/src/themes/colors/ds_colors.dart';
 import 'package:flutter/material.dart';
 
 class DSMessageBubble extends StatelessWidget {
@@ -53,8 +53,8 @@ class DSMessageBubble extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: getBorderRadius(),
           color: align == DSAlign.right
-              ? SystemColors.neutralDarkCity
-              : SystemColors.neutralMediumSilver,
+              ? DSColors.neutralDarkCity
+              : DSColors.neutralMediumSilver,
         ),
         padding: const EdgeInsets.all(1.0),
         child: ClipRRect(
@@ -62,8 +62,8 @@ class DSMessageBubble extends StatelessWidget {
           child: Container(
             padding: contentPadding,
             color: align == DSAlign.right
-                ? SystemColors.neutralDarkCity
-                : SystemColors.neutralLightSnow,
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
             child: child,
           ),
         ),

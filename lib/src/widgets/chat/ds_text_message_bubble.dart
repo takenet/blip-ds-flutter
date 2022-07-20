@@ -56,10 +56,11 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
     final textSpan = TextSpan(
       text: widget.text,
-      style: TextStyle(
+      style: DSBodyTextStyle(
         color: widget.align == DSAlign.right
-            ? SystemColors.neutralLightSnow
-            : SystemColors.neutralDarkCity,
+            ? DSColors.neutralLightSnow
+            : DSColors.neutralDarkCity,
+      ).copyWith(
         overflow: overflow,
       ),
     );
@@ -97,10 +98,11 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         child: Text(
           // TODO: Need localized translate.
           'Mostrar mais',
-          style: TextStyle(
+          style: DSBodyTextStyle(
             color: widget.align == DSAlign.right
-                ? SystemColors.primaryLight
-                : SystemColors.primaryNight,
+                ? DSColors.primaryLight
+                : DSColors.primaryNight,
+          ).copyWith(
             decoration: TextDecoration.underline,
           ),
         ),
