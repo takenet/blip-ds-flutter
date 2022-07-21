@@ -1,14 +1,12 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/material.dart';
+import 'package:blip_ds/src/widgets/texts/ds_text.dart';
 
-class DSButtonText extends Text {
+class DSButtonText extends DSText {
   DSButtonText({
-    required String text,
-    Key? key,
-    Color color = DSColors.neutralLightSnow,
+    required super.text,
+    super.key,
+    super.color = DSColors.neutralLightSnow,
   }) : super(
-          text,
-          key: key,
           style: DSButtonTextStyle(
             color: color,
           ),

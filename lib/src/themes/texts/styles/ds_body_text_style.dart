@@ -6,15 +6,11 @@ import 'package:flutter/material.dart';
 /// Texts, messages and inputs.
 class DSBodyTextStyle extends DSTextStyle {
   const DSBodyTextStyle({
-    FontWeight fontWeight = DSFontWeights.regular,
-    Color color = DSColors.neutralDarkCity,
-    TextDecoration? decoration,
-    TextOverflow? overflow = TextOverflow.ellipsis,
+    super.fontWeight = DSFontWeights.regular,
+    super.color = DSColors.neutralDarkCity,
+    super.decoration,
+    super.overflow = TextOverflow.ellipsis,
   }) : super(
           fontSize: 16,
-          fontWeight: fontWeight,
-          color: color,
-          decoration: decoration,
-          overflow: overflow,
         );
 }

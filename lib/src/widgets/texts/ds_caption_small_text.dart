@@ -1,15 +1,13 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/material.dart';
+import 'package:blip_ds/src/widgets/texts/ds_text.dart';
 
-class DSCaptionSmallText extends Text {
+class DSCaptionSmallText extends DSText {
   DSCaptionSmallText({
-    required String text,
-    Key? key,
-    FontWeight fontWeight = DSFontWeights.regular,
-    Color color = DSColors.neutralDarkCity,
+    required super.text,
+    super.key,
+    super.fontWeight,
+    super.color,
   }) : super(
-          text,
-          key: key,
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
             color: color,

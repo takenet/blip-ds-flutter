@@ -1,13 +1,11 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/material.dart';
+import 'package:blip_ds/src/widgets/texts/ds_text.dart';
 
-class DSHeadlineSmallText extends Text {
+class DSHeadlineSmallText extends DSText {
   const DSHeadlineSmallText({
-    required String text,
-    Key? key,
+    required super.text,
+    super.key,
   }) : super(
-          text,
-          key: key,
           style: const DSHeadlineSmallTextStyle(),
         );
 }

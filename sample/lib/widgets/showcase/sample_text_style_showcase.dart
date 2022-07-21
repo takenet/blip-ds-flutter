@@ -16,6 +16,10 @@ class SampleTextStyleShowcase extends StatelessWidget {
         ),
         DSBodyText(
           text: 'Body Text',
+          // color: DSColors.extendRedsLipstick,
+          // decoration: TextDecoration.underline,
+          // fontWeight: DSFontWeights.extraBold,
+          // overflow: TextOverflow.fade,
         ),
         DSButtonText(
           text: 'Button Text',
@@ -23,9 +27,13 @@ class SampleTextStyleShowcase extends StatelessWidget {
         ),
         DSCaptionText(
           text: 'Caption Large Text',
+          // color: DSColors.extendRedsLipstick,
+          // fontWeight: DSFontWeights.extraBold,
         ),
         DSCaptionSmallText(
           text: 'Caption Small Text',
+          // color: DSColors.extendRedsLipstick,
+          // fontWeight: DSFontWeights.extraBold,
         ),
       ],
     );

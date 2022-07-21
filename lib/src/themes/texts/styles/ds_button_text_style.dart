@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 /// Buttons
 class DSButtonTextStyle extends DSTextStyle {
   const DSButtonTextStyle({
-    Color color = DSColors.neutralLightSnow,
+    super.color = DSColors.neutralLightSnow,
   }) : super(
           fontSize: 16,
           fontWeight: DSFontWeights.bold,
-          color: color,
         );
 }

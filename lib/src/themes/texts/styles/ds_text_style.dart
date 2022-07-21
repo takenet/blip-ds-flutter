@@ -4,18 +4,13 @@ import 'package:flutter/material.dart';
 
 class DSTextStyle extends TextStyle {
   const DSTextStyle({
-    double? fontSize,
-    FontWeight? fontWeight,
-    Color? color,
-    TextDecoration? decoration,
-    TextOverflow? overflow = TextOverflow.ellipsis,
+    super.fontSize,
+    super.fontWeight,
+    super.color,
+    super.decoration,
+    super.overflow = TextOverflow.ellipsis,
   }) : super(
           package: DSUtils.packageName,
           fontFamily: DSFontFamilies.nunitoSans,
-          overflow: overflow,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          color: color,
-          decoration: decoration,
         );
 }
