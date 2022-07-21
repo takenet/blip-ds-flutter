@@ -3,6 +3,8 @@ library blip_ds;
 /// Widgets - Chat
 export 'src/widgets/chat/ds_message_bubble.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.dart' show DSTextMessageBubble;
+export 'src/widgets/chat/ds_image_message_bubble.dart'
+    show DSImageMessageBubble;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;

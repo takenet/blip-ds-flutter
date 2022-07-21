@@ -52,6 +52,9 @@ class HomePage extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  DSImageMessageBubble(
+                      align: DSAlign.left,
+                      url: 'http://via.placeholder.com/350x150'),
                   DSTextMessageBubble(
                     text: _sampleText.value.isNotEmpty
                         ? _sampleText.value
