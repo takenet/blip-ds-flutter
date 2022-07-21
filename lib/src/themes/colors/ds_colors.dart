@@ -12,4 +12,6 @@ abstract class DSColors {
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
   static const Color extendRedsLipstick = Color(0xFFA01C2C);
+
+  static const Color disabledText = Color(0xFF637798);
 }
