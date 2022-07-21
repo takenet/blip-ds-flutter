@@ -94,15 +94,13 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
         onTap: controller.showMoreOnTap,
-        child: Text(
+        child: DSBodyText(
           // TODO: Need localized translate.
-          'Mostrar mais',
-          style: DSBodyTextStyle(
-            color: widget.align == DSAlign.right
-                ? DSColors.primaryLight
-                : DSColors.primaryNight,
-            decoration: TextDecoration.underline,
-          ),
+          text: 'Mostrar mais',
+          color: widget.align == DSAlign.right
+              ? DSColors.primaryLight
+              : DSColors.primaryNight,
+          decoration: TextDecoration.underline,
         ),
       ),
     );

@@ -7,36 +7,25 @@ class SampleTextStyleShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        Text(
-          'Headline Large Text',
-          style: DSHeadlineLargeTextStyle(),
-          // style: Theme.of(context).textTheme.headline1,
+      children: [
+        const DSHeadlineLargeText(
+          text: 'Headline Large Text',
         ),
-        Text(
-          'Headline Small Text',
-          style: DSHeadlineSmallTextStyle(),
-          // style: Theme.of(context).textTheme.headline2,
+        const DSHeadlineSmallText(
+          text: 'Headline Small Text',
         ),
-        Text(
-          'Body Text',
-          style: DSBodyTextStyle(),
-          // style: Theme.of(context).textTheme.bodyText1,
+        DSBodyText(
+          text: 'Body Text',
         ),
-        Text(
-          'Button Text',
-          style: DSButtonTextStyle(),
-          // style: Theme.of(context).textTheme.button,
+        DSButtonText(
+          text: 'Button Text',
+          color: DSColors.neutralDarkCity,
         ),
-        Text(
-          'Caption Large Text',
-          style: DSCaptionTextStyle(),
-          // style: Theme.of(context).textTheme.subtitle1,
+        DSCaptionText(
+          text: 'Caption Large Text',
         ),
-        Text(
-          'Caption Small Text',
-          style: DSCaptionSmallTextStyle(),
-          // style: Theme.of(context).textTheme.subtitle2,
+        DSCaptionSmallText(
+          text: 'Caption Small Text',
         ),
       ],
     );
