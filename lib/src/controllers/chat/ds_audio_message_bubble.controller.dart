@@ -4,7 +4,6 @@ import 'package:rxdart/rxdart.dart' as rx_dart;
 
 class DSAudioMessageBubbleController extends GetxController {
   final audioSpeed = RxDouble(1.0);
-  final audioSpeedLabel = RxString('x1');
 
   final player = AudioPlayer();
 
@@ -19,15 +18,10 @@ class DSAudioMessageBubbleController extends GetxController {
               position, bufferedPosition, duration ?? Duration.zero));
 
   void setAudioSpeed() {
-    if (audioSpeed.value == 1) {
-      audioSpeed.value = 1.5;
-      audioSpeedLabel.value = 'x1.5';
-    } else if (audioSpeed.value == 1.5) {
-      audioSpeed.value = 2.0;
-      audioSpeedLabel.value = 'x2';
+    if (audioSpeed.value == 1 || audioSpeed.value == 1.5) {
+      audioSpeed.value += 0.5;
     } else {
       audioSpeed.value = 1.0;
-      audioSpeedLabel.value = 'x1';
     }
     player.setSpeed(audioSpeed.value);
   }

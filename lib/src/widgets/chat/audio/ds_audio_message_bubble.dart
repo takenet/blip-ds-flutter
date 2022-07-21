@@ -1,6 +1,10 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/chat/audio/audio_seek_bar.widget.dart';
+import 'package:blip_ds/src/widgets/chat/audio/ds_audio_seek_bar.widget.dart';
 import 'package:blip_ds/src/controllers/chat/ds_audio_message_bubble.controller.dart';
+import 'package:blip_ds/src/widgets/chat/audio/ds_audio_speed_button.widget.dart';
+import 'package:blip_ds/src/widgets/ds_circle_loading.widget.dart';
+import 'package:blip_ds/src/widgets/ds_pause_button.widget.dart';
+import 'package:blip_ds/src/widgets/ds_play_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -24,26 +28,26 @@ class DSAudioMessageBubble extends StatefulWidget {
 
 class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
     with WidgetsBindingObserver {
-  final controller = DSAudioMessageBubbleController();
+  final _controller = DSAudioMessageBubbleController();
 
   @override
   void initState() {
     super.initState();
 
-    init();
+    _init();
   }
 
   @override
   void dispose() {
-    controller.player.dispose();
-    controller.dispose();
+    _controller.player.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      controller.player.stop();
+      _controller.player.stop();
     }
   }
 
@@ -57,165 +61,96 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
         height: 62.0,
         child: Stack(
           children: [
-            controlButtons(),
-            seekBar(),
-            audioSpeed(),
+            _controlButtons(),
+            _seekBar(),
+            Obx(
+              () => DSAudioSpeedButtonWidget(
+                text:
+                    "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
+                onTap: _controller.setAudioSpeed,
+                borderColor: widget.align == DSAlign.right
+                    ? SystemColors.disabledText
+                    : SystemColors.neutralMediumSilver,
+                color: widget.align == DSAlign.right
+                    ? SystemColors.neutralLightSnow
+                    : SystemColors.neutralDarkCity,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Future<void> init() async {
-    controller.player.playerStateStream.listen((event) {
+  Future<void> _init() async {
+    _controller.player.playerStateStream.listen((event) {
       if (event.processingState == ProcessingState.completed) {
-        controller.player.seek(Duration.zero);
-        controller.player.stop();
+        _controller.player.seek(Duration.zero);
+        _controller.player.stop();
       }
     });
 
-    await controller.player
+    await _controller.player
         .setAudioSource(AudioSource.uri(Uri.parse(widget.uri)));
   }
 
-  Widget controlButtons() {
-    Widget playButton() {
-      return IconButton(
-        splashRadius: 1,
-        icon: Image.asset(widget.align == DSAlign.left
-            ? 'play_neutral_dark_rooftop.png'
-            : 'play_neutral_light_snow.png'),
-        iconSize: 42.0,
-        onPressed: controller.player.play,
-      );
-    }
-
-    Widget loading() {
-      return Positioned(
-        left: 12.0,
-        top: 14.0,
-        child: SpinKitFadingCircle(
-          color: widget.align == DSAlign.left
-              ? SystemColors.neutralDarkRooftop
-              : SystemColors.neutralLightSnow,
-          size: 30.0,
-        ),
-      );
-    }
-
-    Widget pauseButton() {
-      return IconButton(
-        splashRadius: 1,
-        icon: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 9.0,
-              height: 26.0,
-              decoration: BoxDecoration(
-                color: widget.align == DSAlign.right
-                    ? SystemColors.neutralLightSnow
-                    : SystemColors.neutralDarkRooftop,
-                borderRadius: const BorderRadius.all(Radius.circular(3.0)),
-              ),
-            ),
-            Container(
-              width: 9.0,
-              height: 26.0,
-              decoration: BoxDecoration(
-                color: widget.align == DSAlign.right
-                    ? SystemColors.neutralLightSnow
-                    : SystemColors.neutralDarkRooftop,
-                borderRadius: const BorderRadius.all(Radius.circular(3.0)),
-              ),
-            )
-          ],
-        ),
-        iconSize: 42.0,
-        onPressed: controller.player.pause,
-      );
-    }
-
-    Widget replayButton() {
-      return IconButton(
-        splashRadius: 1,
-        icon: const Icon(
-          Icons.replay,
-          color: SystemColors.neutralDarkRooftop,
-        ),
-        iconSize: 42.0,
-        onPressed: () => controller.player.seek(Duration.zero),
-      );
-    }
-
+  Widget _controlButtons() {
     return StreamBuilder<PlayerState>(
-      stream: controller.player.playerStateStream,
+      stream: _controller.player.playerStateStream,
       builder: (context, snapshot) {
         final playerState = snapshot.data;
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
         if ([ProcessingState.loading, ProcessingState.buffering]
             .contains(processingState)) {
-          return loading();
+          return Positioned(
+            left: 12.0,
+            top: 14.0,
+            child: DSCircleLoadingWidget(
+              color: widget.align == DSAlign.left
+                  ? SystemColors.neutralDarkRooftop
+                  : SystemColors.neutralLightSnow,
+            ),
+          );
         } else if (playing != true) {
-          return playButton();
+          return DSPlayButtonWidget(
+            onPressed: _controller.player.play,
+            imageAsset: widget.align == DSAlign.left
+                ? 'play_neutral_dark_rooftop.png'
+                : 'play_neutral_light_snow.png',
+          );
         } else if (processingState != ProcessingState.completed) {
-          return pauseButton();
+          return DSPauseButtonWidget(
+            onPressed: _controller.player.pause,
+            color: widget.align == DSAlign.right
+                ? SystemColors.neutralLightSnow
+                : SystemColors.neutralDarkRooftop,
+          );
         } else {
-          return replayButton();
+          return const SizedBox();
         }
       },
     );
   }
 
-  Widget seekBar() {
+  Widget _seekBar() {
     return StreamBuilder<PositionData>(
-      stream: controller.positionDataStream,
+      stream: _controller.positionDataStream,
       builder: (context, snapshot) {
         final positionData = snapshot.data;
         return Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 40.0,
           ),
-          child: AudioSeekBarWidget(
+          child: DSAudioSeekBarWidget(
             duration: positionData?.duration ?? Duration.zero,
             position: positionData?.position ?? Duration.zero,
             bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-            onChangeEnd: controller.player.seek,
+            onChangeEnd: _controller.player.seek,
             align: widget.align,
           ),
         );
       },
-    );
-  }
-
-  Widget audioSpeed() {
-    return Positioned(
-      right: 10,
-      top: 10,
-      child: GestureDetector(
-        onTap: () => controller.setAudioSpeed(),
-        child: Container(
-          width: 40.0,
-          height: 40.0,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-            border: Border.all(color: SystemColors.neutralMediumSilver),
-          ),
-          child: Align(
-            alignment: Alignment.center,
-            child: Obx(
-              () => Text(
-                controller.audioSpeedLabel.value,
-                style: TextStyle(
-                    color: widget.align == DSAlign.right
-                        ? SystemColors.neutralLightSnow
-                        : SystemColors.neutralDarkCity),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

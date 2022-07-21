@@ -2,7 +2,7 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class AudioSeekBarWidget extends StatefulWidget {
+class DSAudioSeekBarWidget extends StatefulWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
@@ -10,7 +10,7 @@ class AudioSeekBarWidget extends StatefulWidget {
   final ValueChanged<Duration>? onChangeEnd;
   final DSAlign align;
 
-  const AudioSeekBarWidget({
+  const DSAudioSeekBarWidget({
     Key? key,
     required this.duration,
     required this.position,
@@ -21,10 +21,10 @@ class AudioSeekBarWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  AudioSeekBarWidgetState createState() => AudioSeekBarWidgetState();
+  DSAudioSeekBarWidgetState createState() => DSAudioSeekBarWidgetState();
 }
 
-class AudioSeekBarWidgetState extends State<AudioSeekBarWidget> {
+class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
   late SliderThemeData sliderThemeData = SliderTheme.of(context).copyWith(
     trackHeight: 2.0,
   );
@@ -33,15 +33,15 @@ class AudioSeekBarWidgetState extends State<AudioSeekBarWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        bufferSlider(),
-        slider(),
-        audioDuration(),
-        audioPosition(),
+        _bufferSlider(),
+        _slider(),
+        _audioLabel(widget.duration, DSAlign.right),
+        _audioLabel(widget.position, DSAlign.left),
       ],
     );
   }
 
-  Widget bufferSlider() {
+  Widget _bufferSlider() {
     return Positioned.fill(
       bottom: 12.0,
       child: SliderTheme(
@@ -65,7 +65,7 @@ class AudioSeekBarWidgetState extends State<AudioSeekBarWidget> {
     );
   }
 
-  Widget slider() {
+  Widget _slider() {
     return Positioned.fill(
       bottom: 12.0,
       child: SliderTheme(
@@ -101,32 +101,16 @@ class AudioSeekBarWidgetState extends State<AudioSeekBarWidget> {
     );
   }
 
-  Widget audioDuration() {
+  Widget _audioLabel(final Duration value, final DSAlign align) {
     return Positioned(
-      right: 22.0,
+      right: align == DSAlign.right ? 22.0 : null,
+      left: align == DSAlign.left ? 22.0 : null,
       bottom: 10.0,
       child: Text(
         RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                .firstMatch("${widget.duration}")
+                .firstMatch("$value")
                 ?.group(1) ??
-            '${widget.duration}',
-        style: TextStyle(
-            color: widget.align == DSAlign.right
-                ? SystemColors.neutralLightSnow
-                : SystemColors.neutralDarkCity),
-      ),
-    );
-  }
-
-  Widget audioPosition() {
-    return Positioned(
-      left: 22.0,
-      bottom: 10.0,
-      child: Text(
-        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                .firstMatch("${widget.position}")
-                ?.group(1) ??
-            '${widget.position}',
+            "$value",
         style: TextStyle(
             color: widget.align == DSAlign.right
                 ? SystemColors.neutralLightSnow
