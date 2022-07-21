@@ -36,6 +36,9 @@ class HomePage extends StatelessWidget {
 
   final RxString _sampleText = RxString('');
 
+  final String _sampleAudio =
+      'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -43,6 +46,25 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Blip Design System Showcase'),
+      ),
+      bottomNavigationBar: Container(
+        color: SystemColors.neutralDarkCity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: ElevatedButton(
+                onPressed: () => _sampleText.value = _shorText,
+                child: const Text('Texto Curto'),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => _sampleText.value = _longText,
+              child: const Text('Texto Longo'),
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Obx(
@@ -64,25 +86,10 @@ class HomePage extends StatelessWidget {
                         : _shorText,
                     align: DSAlign.right,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: ElevatedButton(
-                          onPressed: () => _sampleText.value = _shorText,
-                          child: const Text('Texto Curto'),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => _sampleText.value = _longText,
-                        child: const Text('Texto Longo'),
-                      ),
-                    ],
-                  ),
+                  DSAudioMessageBubble(align: DSAlign.left, uri: _sampleAudio),
+                  DSAudioMessageBubble(align: DSAlign.right, uri: _sampleAudio),
                 ],
               ),
-              const Divider(color: SystemColors.neutralDarkCity)
             ],
           ),
         ),
