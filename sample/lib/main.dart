@@ -53,8 +53,10 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DSImageMessageBubble(
+                      title: 'image.png',
+                      subtitle: 'essa foto é boa',
                       align: DSAlign.left,
-                      url: 'http://via.placeholder.com/350x150'),
+                      url: 'https://picsum.photos/id/1001/5616/3744'),
                   DSTextMessageBubble(
                     text: _sampleText.value.isNotEmpty
                         ? _sampleText.value
