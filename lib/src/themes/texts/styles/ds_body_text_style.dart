@@ -8,9 +8,13 @@ class DSBodyTextStyle extends DSTextStyle {
   const DSBodyTextStyle({
     FontWeight fontWeight = DSFontWeights.regular,
     Color color = DSColors.neutralDarkCity,
+    TextDecoration? decoration,
+    TextOverflow? overflow = TextOverflow.ellipsis,
   }) : super(
           fontSize: 16,
           fontWeight: fontWeight,
           color: color,
+          decoration: decoration,
+          overflow: overflow,
         );
 }

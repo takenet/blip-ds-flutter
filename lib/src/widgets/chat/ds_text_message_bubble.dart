@@ -51,7 +51,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   Widget _buildText() {
     final overflow =
         !controller.showFullText.value ? TextOverflow.ellipsis : null;
-
     final maxLines = !controller.showFullText.value ? 12 : null;
 
     final textSpan = TextSpan(
@@ -60,7 +59,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         color: widget.align == DSAlign.right
             ? DSColors.neutralLightSnow
             : DSColors.neutralDarkCity,
-      ).copyWith(
         overflow: overflow,
       ),
     );
@@ -81,7 +79,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
           children: [
             Text.rich(
               textSpan,
-              maxLines: maxLines,
+              maxLines: textPainter.maxLines,
+              style: textSpan.style,
             ),
             if (textPainter.didExceedMaxLines) _buildShowMore(),
           ],
@@ -102,7 +101,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
             color: widget.align == DSAlign.right
                 ? DSColors.primaryLight
                 : DSColors.primaryNight,
-          ).copyWith(
             decoration: TextDecoration.underline,
           ),
         ),

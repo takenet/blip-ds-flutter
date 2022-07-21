@@ -7,12 +7,15 @@ class DSTextStyle extends TextStyle {
     double? fontSize,
     FontWeight? fontWeight,
     Color? color,
+    TextDecoration? decoration,
+    TextOverflow? overflow = TextOverflow.ellipsis,
   }) : super(
           package: DSUtils.packageName,
           fontFamily: DSFontFamilies.nunitoSans,
-          overflow: TextOverflow.ellipsis,
+          overflow: overflow,
           fontSize: fontSize,
           fontWeight: fontWeight,
           color: color,
+          decoration: decoration,
         );
 }
