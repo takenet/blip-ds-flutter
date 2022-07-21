@@ -7,7 +7,8 @@ class DSAudioSeekBarWidget extends StatefulWidget {
   final Duration position;
   final Duration bufferedPosition;
   final ValueChanged<Duration>? onChanged;
-  final ValueChanged<Duration>? onChangeEnd;
+  final VoidCallback? onChangeEnd;
+  final VoidCallback? onChangeStart;
   final DSAlign align;
 
   const DSAudioSeekBarWidget({
@@ -17,6 +18,7 @@ class DSAudioSeekBarWidget extends StatefulWidget {
     required this.bufferedPosition,
     this.onChanged,
     this.onChangeEnd,
+    this.onChangeStart,
     required this.align,
   }) : super(key: key);
 
@@ -93,7 +95,12 @@ class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
           },
           onChangeEnd: (value) {
             if (widget.onChangeEnd != null) {
-              widget.onChangeEnd!(Duration(milliseconds: value.round()));
+              widget.onChangeEnd!();
+            }
+          },
+          onChangeStart: (value) {
+            if (widget.onChangeStart != null) {
+              widget.onChangeStart!();
             }
           },
         ),

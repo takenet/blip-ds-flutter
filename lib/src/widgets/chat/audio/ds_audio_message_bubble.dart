@@ -8,7 +8,6 @@ import 'package:blip_ds/src/widgets/ds_play_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DSAudioMessageBubble extends StatefulWidget {
   final String uri;
@@ -115,9 +114,9 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
         } else if (playing != true) {
           return DSPlayButtonWidget(
             onPressed: _controller.player.play,
-            imageAsset: widget.align == DSAlign.left
-                ? 'play_neutral_dark_rooftop.png'
-                : 'play_neutral_light_snow.png',
+            icon: widget.align == DSAlign.left
+                ? DSPlayButtonIconColor.neutralLightSnow
+                : DSPlayButtonIconColor.neutralDarkRooftop,
           );
         } else if (processingState != ProcessingState.completed) {
           return DSPauseButtonWidget(
@@ -146,7 +145,9 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
             duration: positionData?.duration ?? Duration.zero,
             position: positionData?.position ?? Duration.zero,
             bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-            onChangeEnd: _controller.player.seek,
+            onChangeEnd: _controller.player.play,
+            onChanged: _controller.player.seek,
+            onChangeStart: _controller.player.pause,
             align: widget.align,
           ),
         );

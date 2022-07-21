@@ -7,8 +7,10 @@ class DSAudioMessageBubbleController extends GetxController {
 
   final player = AudioPlayer();
 
-  /// Collects the data useful for displaying in a seek bar, using a handy
-  /// feature of rx_dart to combine the 3 streams of interest into one.
+  /// Collects the data useful for displaying in a SeekBar widget.
+  ///
+  /// Uses a useful feature of rx_dart to combine the 3 streams of interest into one.
+  /// Returns a PositionData with three Position objects.
   Stream<PositionData> get positionDataStream =>
       rx_dart.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
           player.positionStream,
