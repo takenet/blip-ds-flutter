@@ -1,10 +1,10 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/widgets/loading/ds_circle_loading.widget.dart';
+import 'package:blip_ds/src/widgets/buttons/ds_pause_button.widget.dart';
+import 'package:blip_ds/src/widgets/buttons/ds_play_button.widget.dart';
 import 'package:blip_ds/src/widgets/chat/audio/ds_audio_seek_bar.widget.dart';
 import 'package:blip_ds/src/controllers/chat/ds_audio_message_bubble.controller.dart';
 import 'package:blip_ds/src/widgets/chat/audio/ds_audio_speed_button.widget.dart';
-import 'package:blip_ds/src/widgets/ds_circle_loading.widget.dart';
-import 'package:blip_ds/src/widgets/ds_pause_button.widget.dart';
-import 'package:blip_ds/src/widgets/ds_play_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';

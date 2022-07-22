@@ -113,16 +113,14 @@ class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
       right: align == DSAlign.right ? 22.0 : null,
       left: align == DSAlign.left ? 22.0 : null,
       bottom: 10.0,
-      child: Text(
-        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+      child: DSCaptionText(
+        text: RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                 .firstMatch("$value")
                 ?.group(1) ??
             "$value",
-        style: TextStyle(
-          color: widget.align == DSAlign.right
-              ? DSColors.neutralLightSnow
-              : DSColors.neutralDarkCity,
-        ),
+        color: widget.align == DSAlign.right
+            ? DSColors.neutralLightSnow
+            : DSColors.neutralDarkCity,
       ),
     );
   }
