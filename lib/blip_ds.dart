@@ -6,6 +6,8 @@ export 'src/utils/ds_utils.dart' show DSUtils;
 /// Widgets / Chat
 export 'src/widgets/chat/ds_message_bubble.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.dart' show DSTextMessageBubble;
+export 'src/widgets/chat/audio/ds_audio_message_bubble.dart'
+    show DSAudioMessageBubble;
 
 /// Widgets / Texts
 export 'src/widgets/texts/ds_body_text.dart' show DSBodyText;
@@ -16,6 +18,7 @@ export 'src/widgets/texts/ds_caption_small_text.dart' show DSCaptionSmallText;
 export 'src/widgets/texts/ds_button_text.dart' show DSButtonText;
 
 /// Enums
+
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 
