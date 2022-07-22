@@ -25,9 +25,6 @@ class SampleApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final String _sampleAudio =
-      'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
-
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -40,9 +37,6 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: [
             SampleMessageBubbleShowcase(),
-            const Divider(color: DSColors.neutralDarkCity),
-            DSAudioMessageBubble(align: DSAlign.left, uri: _sampleAudio),
-            DSAudioMessageBubble(align: DSAlign.right, uri: _sampleAudio),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
           ],

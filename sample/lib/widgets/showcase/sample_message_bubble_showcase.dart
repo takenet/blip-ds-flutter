@@ -1,7 +1,8 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
-import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class SampleMessageBubbleShowcase extends StatelessWidget {
   final String _shorText = lorem(
@@ -15,6 +16,8 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   );
 
   final RxString _sampleText = RxString('');
+  final String _sampleAudio =
+      'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
@@ -30,6 +33,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.right,
+          ),
+          DSAudioMessageBubble(
+            align: DSAlign.left,
+            uri: _sampleAudio,
+          ),
+          DSAudioMessageBubble(
+            align: DSAlign.right,
+            uri: _sampleAudio,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
