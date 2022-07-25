@@ -1,4 +1,4 @@
-import 'package:blip_ds/src/utils/ds_utils.dart';
+import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
 class DSPlayButtonWidget extends StatelessWidget {

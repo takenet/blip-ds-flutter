@@ -1,6 +1,6 @@
 import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
 import 'package:blip_ds/src/enums/ds_align.enum.dart';
-import 'package:blip_ds/src/themes/colors/ds_colors.dart';
+import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
 import 'package:flutter/material.dart';
 
 class DSMessageBubble extends StatelessWidget {

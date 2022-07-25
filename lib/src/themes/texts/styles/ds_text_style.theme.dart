@@ -1,5 +1,5 @@
-import 'package:blip_ds/src/themes/texts/utils/ds_font_families.dart';
-import 'package:blip_ds/src/utils/ds_utils.dart';
+import 'package:blip_ds/src/themes/texts/utils/ds_font_families.theme.dart';
+import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [TextStyle].
