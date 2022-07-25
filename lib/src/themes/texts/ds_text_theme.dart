@@ -6,6 +6,7 @@ import 'package:blip_ds/src/themes/texts/styles/ds_headline_large_text_style.dar
 import 'package:blip_ds/src/themes/texts/styles/ds_headline_small_text_style.dart';
 import 'package:flutter/material.dart';
 
+/// A [TextTheme] used by Material Design to automatically apply our Design System's [TextStyle].
 class DSTextTheme extends TextTheme {
   const DSTextTheme()
       : super(

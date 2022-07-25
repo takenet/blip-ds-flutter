@@ -18,7 +18,6 @@ export 'src/widgets/texts/ds_caption_small_text.dart' show DSCaptionSmallText;
 export 'src/widgets/texts/ds_button_text.dart' show DSButtonText;
 
 /// Enums
-
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 

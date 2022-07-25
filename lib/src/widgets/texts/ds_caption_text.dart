@@ -1,6 +1,9 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/texts/ds_text.dart';
 
+/// A Design System's [Text] primarily used by regular subtitles and descriptions.
+///
+/// Sets [DSCaptionTextStyle] as [style] default value.
 class DSCaptionText extends DSText {
   DSCaptionText({
     required super.text,
