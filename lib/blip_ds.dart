@@ -23,6 +23,11 @@ export 'src/widgets/texts/ds_caption_small_text.widget.dart'
     show DSCaptionSmallText;
 export 'src/widgets/texts/ds_button_text.widget.dart' show DSButtonText;
 
+/// Widgets / Utils
+export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
+    show DSCachedNetworkImageView;
+export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
+
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
