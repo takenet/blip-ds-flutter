@@ -6,6 +6,7 @@ class DSUserAvatar extends StatelessWidget {
   final double radius;
   final Color backgroundColor;
   final Color textColor;
+
   const DSUserAvatar({
     Key? key,
     required this.text,
@@ -20,23 +21,13 @@ class DSUserAvatar extends StatelessWidget {
       radius: radius,
       backgroundColor: backgroundColor,
       child: DSHeadlineSmallText(
-        text: text.initials(),
+        text: RegExp(r'\b[A-a-Z-z]')
+            .allMatches(text)
+            .map((m) => m.group(0))
+            .join()
+            .toUpperCase(),
         color: textColor,
       ),
     );
-  }
-}
-
-extension on String {
-  String initials() {
-    String result = "";
-    List<String> words = split(" ");
-    for (var element in words) {
-      if (element.isNotEmpty && result.length < 2) {
-        result += element[0];
-      }
-    }
-
-    return result.trim().toUpperCase();
   }
 }
