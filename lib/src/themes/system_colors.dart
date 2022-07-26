@@ -6,4 +6,5 @@ abstract class SystemColors {
   static const Color neutralDarkCity = Color(0xFF202C44);
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
   static const Color neutralMediumSilver = Color(0xFFB9CBD3);
+  static const Color primaryGreensTrue = Color(0xFF21CC79);
 }

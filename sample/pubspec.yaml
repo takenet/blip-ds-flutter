@@ -37,8 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   flutter_lorem: ^2.0.0
-  cached_network_image: ^3.2.1
-  easy_image_viewer: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +62,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/file-image-broken.png
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
