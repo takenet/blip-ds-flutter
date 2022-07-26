@@ -11,7 +11,7 @@ class SampleTextStyleShowcase extends StatelessWidget {
         const DSHeadlineLargeText(
           text: 'Headline Large Text',
         ),
-        const DSHeadlineSmallText(
+        DSHeadlineSmallText(
           text: 'Headline Small Text',
         ),
         DSBodyText(

@@ -82,8 +82,7 @@ class DSImageMessageBubble extends StatelessWidget {
                                               Navigator.of(context).pop(),
                                           icon: const Icon(
                                             Icons.arrow_back_ios,
-                                            color:
-                                                SystemColors.neutralLightSnow,
+                                            color: DSColors.neutralLightSnow,
                                           ),
                                         ),
                                         Expanded(
@@ -92,12 +91,9 @@ class DSImageMessageBubble extends StatelessWidget {
                                             leading: DSUserAvatar(
                                               text: appBarText,
                                             ),
-                                            title: Text(
-                                              appBarText,
-                                              style: const TextStyle(
-                                                color: SystemColors
-                                                    .neutralLightSnow,
-                                              ),
+                                            title: DSHeadlineSmallText(
+                                              text: appBarText,
+                                              color: DSColors.neutralLightSnow,
                                             ),
                                           ),
                                         ),
@@ -144,7 +140,10 @@ class DSImageMessageBubble extends StatelessWidget {
               ),
               errorWidget: (context, url, error) {
                 _controller.setError();
-                return Image.asset('assets/images/file-image-broken.png');
+                return Image.asset(
+                  'assets/images/file_image_broken.png',
+                  package: DSUtils.packageName,
+                );
               },
             ),
           ),
@@ -153,26 +152,21 @@ class DSImageMessageBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  imageTitle,
-                  style: TextStyle(
-                    color: align == DSAlign.right
-                        ? SystemColors.neutralLightSnow
-                        : SystemColors.neutralDarkCity,
-                  ),
+                DSCaptionSmallText(
+                  text: imageTitle,
+                  color: align == DSAlign.right
+                      ? DSColors.neutralLightSnow
+                      : DSColors.neutralDarkCity,
                 ),
                 if (imageText != null) ...[
                   const SizedBox(
                     height: 6.0,
                   ),
-                  Text(
-                    imageText!,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: align == DSAlign.right
-                          ? SystemColors.neutralLightSnow
-                          : SystemColors.neutralDarkCity,
-                    ),
+                  DSCaptionText(
+                    text: imageText!,
+                    color: align == DSAlign.right
+                        ? DSColors.neutralLightSnow
+                        : DSColors.neutralDarkCity,
                   ),
                 ]
               ],

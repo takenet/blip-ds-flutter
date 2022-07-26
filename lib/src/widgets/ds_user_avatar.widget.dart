@@ -10,7 +10,7 @@ class DSUserAvatar extends StatelessWidget {
     Key? key,
     required this.text,
     this.radius = 25.0,
-    this.backgroundColor = SystemColors.primaryGreensTrue,
+    this.backgroundColor = DSColors.primaryGreensTrue,
     this.textColor = Colors.black,
   }) : super(key: key);
 
@@ -19,9 +19,9 @@ class DSUserAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: backgroundColor,
-      child: Text(
-        text.initials(),
-        style: TextStyle(color: textColor),
+      child: DSHeadlineSmallText(
+        text: text.initials(),
+        color: textColor,
       ),
     );
   }
