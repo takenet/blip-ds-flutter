@@ -1,7 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
-import 'package:blip_ds/src/widgets/ds_cached_network_image_view.widget.dart';
-import 'package:blip_ds/src/widgets/ds_user_avatar.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
@@ -114,9 +112,7 @@ class DSImageMessageBubble extends StatelessWidget {
                                         const Duration(milliseconds: 100),
                                     child: DSCachedNetworkImageView(
                                       url: url,
-                                      placeholder: () {},
-                                      errorWidget: () {},
-                                      fix: BoxFit.contain,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ),
