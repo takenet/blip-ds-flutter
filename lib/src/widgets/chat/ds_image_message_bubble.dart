@@ -15,15 +15,89 @@ class DSImageMessageBubble extends StatelessWidget {
   final DSImageMessageBubbleController _controller;
 
   DSImageMessageBubble({
-    Key? key,
+    super.key,
     required this.align,
     required this.url,
     required this.imageTitle,
     required this.appBarText,
     this.borderRadius = const [DSBorderRadius.all],
     this.imageText,
-  })  : _controller = DSImageMessageBubbleController(),
-        super(key: key);
+  }) : _controller = DSImageMessageBubbleController();
+
+  Widget _buildTransition(Animation<double> animation, Widget? child) {
+    return FadeTransition(
+      opacity: animation,
+      child: ScaleTransition(
+        scale: animation,
+        child: child,
+      ),
+    );
+  }
+
+  Widget _buildPage(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      child: SafeArea(
+        child: Obx(
+          () {
+            return Scaffold(
+              backgroundColor: Colors.black,
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(80.0),
+                child: AnimatedOpacity(
+                  opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 300),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            color: DSColors.neutralLightSnow,
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: DSUserAvatar(
+                              text: appBarText,
+                            ),
+                            title: DSHeadlineSmallText(
+                              text: appBarText,
+                              color: DSColors.neutralLightSnow,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              body: GestureDetector(
+                onTap: () => _controller.showAppBar(),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  padding: const EdgeInsets.all(8.0),
+                  color: Colors.black,
+                  child: PinchZoom(
+                    resetDuration: const Duration(milliseconds: 100),
+                    child: DSCachedNetworkImageView(
+                      url: url,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,84 +119,9 @@ class DSImageMessageBubble extends StatelessWidget {
                     milliseconds:
                         300, //TODO: Create a global constant to animations duration..
                   ),
-                  transitionBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: ScaleTransition(
-                        scale: animation,
-                        child: child,
-                      ),
-                    );
-                  },
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return Container(
-                      color: Colors.black,
-                      child: SafeArea(
-                        child: Obx(
-                          () {
-                            return Scaffold(
-                              backgroundColor: Colors.black,
-                              appBar: PreferredSize(
-                                preferredSize: const Size.fromHeight(80.0),
-                                child: AnimatedOpacity(
-                                  opacity: _controller.appBarVisible.value
-                                      ? 1.0
-                                      : 0.0,
-                                  duration: const Duration(milliseconds: 300),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          padding: EdgeInsets.zero,
-                                          onPressed: () =>
-                                              Navigator.of(context).pop(),
-                                          icon: const Icon(
-                                            Icons.arrow_back_ios,
-                                            color: DSColors.neutralLightSnow,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: ListTile(
-                                            contentPadding: EdgeInsets.zero,
-                                            leading: DSUserAvatar(
-                                              text: appBarText,
-                                            ),
-                                            title: DSHeadlineSmallText(
-                                              text: appBarText,
-                                              color: DSColors.neutralLightSnow,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              body: GestureDetector(
-                                onTap: () => _controller.showAppBar(),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height,
-                                  padding: const EdgeInsets.all(8.0),
-                                  color: Colors.black,
-                                  child: PinchZoom(
-                                    resetDuration:
-                                        const Duration(milliseconds: 100),
-                                    child: DSCachedNetworkImageView(
-                                      url: url,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
+                  transitionBuilder: (_, animation, __, child) =>
+                      _buildTransition(animation, child),
+                  pageBuilder: (context, _, __) => _buildPage(context),
                 );
               }
             },
@@ -130,11 +129,11 @@ class DSImageMessageBubble extends StatelessWidget {
               width: 240.0,
               height: 240.0,
               url: url,
-              placeholder: (context, url) => const Padding(
+              placeholder: (_, __) => const Padding(
                 padding: EdgeInsets.all(80.0),
                 child: CircularProgressIndicator(),
               ),
-              errorWidget: (context, url, error) {
+              errorWidget: (_, __, ___) {
                 _controller.setError();
                 return Image.asset(
                   'assets/images/file_image_broken.png',
