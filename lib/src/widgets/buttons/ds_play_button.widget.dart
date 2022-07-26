@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
 class DSPlayButtonWidget extends StatelessWidget {
@@ -13,8 +14,14 @@ class DSPlayButtonWidget extends StatelessWidget {
     return IconButton(
       splashRadius: 1,
       icon: icon == DSPlayButtonIconColor.neutralDarkRooftop
-          ? Image.asset('assets/images/play_neutral_light_snow.png')
-          : Image.asset('assets/images/play_neutral_dark_rooftop.png'),
+          ? Image.asset(
+              'assets/images/play_neutral_light_snow.png',
+              package: DSUtils.packageName,
+            )
+          : Image.asset(
+              'assets/images/play_neutral_dark_rooftop.png',
+              package: DSUtils.packageName,
+            ),
       iconSize: 42.0,
       onPressed: onPressed,
     );

@@ -51,8 +51,8 @@ class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
           thumbShape: HiddenThumbComponentShape(),
           activeTrackColor: Colors.red, //TODO: Buffer's color
           inactiveTrackColor: widget.align == DSAlign.right
-              ? SystemColors.neutralDarkRooftop
-              : SystemColors.neutralLightBox,
+              ? DSColors.neutralDarkRooftop
+              : DSColors.neutralLightBox,
         ),
         child: ExcludeSemantics(
           child: Slider(
@@ -74,11 +74,11 @@ class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
         data: sliderThemeData.copyWith(
           inactiveTrackColor: Colors.transparent,
           thumbColor: widget.align == DSAlign.right
-              ? SystemColors.neutralLightSnow
-              : SystemColors.neutralDarkRooftop,
+              ? DSColors.neutralLightSnow
+              : DSColors.neutralDarkRooftop,
           activeTrackColor: widget.align == DSAlign.right
-              ? SystemColors.primaryLight
-              : SystemColors.primaryNight,
+              ? DSColors.primaryLight
+              : DSColors.primaryNight,
           thumbShape: const RoundSliderThumbShape(
             enabledThumbRadius: 7.0,
           ),
@@ -113,15 +113,14 @@ class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
       right: align == DSAlign.right ? 22.0 : null,
       left: align == DSAlign.left ? 22.0 : null,
       bottom: 10.0,
-      child: Text(
-        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+      child: DSCaptionText(
+        text: RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                 .firstMatch("$value")
                 ?.group(1) ??
             "$value",
-        style: TextStyle(
-            color: widget.align == DSAlign.right
-                ? SystemColors.neutralLightSnow
-                : SystemColors.neutralDarkCity),
+        color: widget.align == DSAlign.right
+            ? DSColors.neutralLightSnow
+            : DSColors.neutralDarkCity,
       ),
     );
   }

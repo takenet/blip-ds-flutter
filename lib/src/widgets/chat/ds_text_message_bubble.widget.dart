@@ -1,5 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble_controller.dart';
+import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,15 +51,14 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   Widget _buildText() {
     final overflow =
         !controller.showFullText.value ? TextOverflow.ellipsis : null;
-
     final maxLines = !controller.showFullText.value ? 12 : null;
 
     final textSpan = TextSpan(
       text: widget.text,
-      style: TextStyle(
+      style: DSBodyTextStyle(
         color: widget.align == DSAlign.right
-            ? SystemColors.neutralLightSnow
-            : SystemColors.neutralDarkCity,
+            ? DSColors.neutralLightSnow
+            : DSColors.neutralDarkCity,
         overflow: overflow,
       ),
     );
@@ -80,7 +79,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
           children: [
             Text.rich(
               textSpan,
-              maxLines: maxLines,
+              maxLines: textPainter.maxLines,
+              style: textSpan.style,
             ),
             if (textPainter.didExceedMaxLines) _buildShowMore(),
           ],
@@ -94,15 +94,13 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
         onTap: controller.showMoreOnTap,
-        child: Text(
+        child: DSBodyText(
           // TODO: Need localized translate.
-          'Mostrar mais',
-          style: TextStyle(
-            color: widget.align == DSAlign.right
-                ? SystemColors.primaryLight
-                : SystemColors.primaryNight,
-            decoration: TextDecoration.underline,
-          ),
+          text: 'Mostrar mais',
+          color: widget.align == DSAlign.right
+              ? DSColors.primaryLight
+              : DSColors.primaryNight,
+          decoration: TextDecoration.underline,
         ),
       ),
     );

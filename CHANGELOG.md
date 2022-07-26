@@ -1,3 +1,9 @@
+## 0.0.11
+
+* Add typography styles
+* Add audio message bubble
+* Add text message bubble
+
 ## 0.0.10
 
 * Updated README thumbnail

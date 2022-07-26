@@ -1,3 +1,4 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 class DSAudioSpeedButtonWidget extends StatelessWidget {
@@ -30,9 +31,10 @@ class DSAudioSpeedButtonWidget extends StatelessWidget {
           ),
           child: Align(
             alignment: Alignment.center,
-            child: Text(
-              text,
-              style: TextStyle(color: color),
+            child: DSCaptionText(
+              text: text,
+              color: color,
+              fontWeight: DSFontWeights.bold,
             ),
           ),
         ),
