@@ -1,7 +1,8 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'package:sample/widgets/showcase/sample_message_bubble_showcase.dart';
-import 'package:sample/widgets/showcase/sample_text_style_showcase.dart';
+import 'package:sample/widgets/showcase/sample_button.showcase.dart';
+import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
+import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -39,6 +40,8 @@ class HomePage extends StatelessWidget {
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleButtonShowcase(),
           ],
         ),
       ),

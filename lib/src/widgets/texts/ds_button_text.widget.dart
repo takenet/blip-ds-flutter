@@ -7,8 +7,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 class DSButtonText extends DSText {
   DSButtonText({
     required super.text,
+    required super.color,
     super.key,
-    super.color = DSColors.neutralLightSnow,
   }) : super(
           style: DSButtonTextStyle(
             color: color,

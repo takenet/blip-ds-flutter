@@ -7,8 +7,17 @@ export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
-export 'src/widgets/chat/audio/ds_audio_message_bubble.dart'
+
+/// Widgets / Chat / Audio
+export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
+
+/// Widgets / Buttons
+export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
+export 'src/widgets/buttons/ds_secondary_button.widget.dart'
+    show DSSecondaryButton;
+export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
+    show DSTertiaryButton;
 
 /// Widgets / Texts
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;
