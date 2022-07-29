@@ -1,5 +1,5 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/loading/ds_ring_loading.widget.dart';
-import 'package:blip_ds/src/widgets/texts/ds_button_text.widget.dart';
 import 'package:flutter/material.dart';
 
 class DSButton extends StatelessWidget {
@@ -31,7 +31,7 @@ class DSButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: onPressed,
+      onPressed: !disable ? onPressed : null,
       style: OutlinedButton.styleFrom(
         primary: foregroundColor,
         backgroundColor: backgroundColor,
@@ -42,7 +42,9 @@ class DSButton extends StatelessWidget {
           color: borderColor ?? backgroundColor,
         ),
       ),
-      child: _buildChild(),
+      child: DSAnimatedSize(
+        child: _buildChild(),
+      ),
     );
   }
 
@@ -67,7 +69,7 @@ class DSButton extends StatelessWidget {
 
   void _addLoading() {
     _contentList.add(
-      DSRingLoadingWidget(
+      DSRingLoading(
         color: foregroundColor,
       ),
     );
@@ -82,9 +84,11 @@ class DSButton extends StatelessWidget {
   void _addLabel() {
     if (label != null) {
       _contentList.add(
-        DSButtonText(
-          text: label!,
-          color: foregroundColor,
+        Flexible(
+          child: DSButtonText(
+            text: label!,
+            color: foregroundColor,
+          ),
         ),
       );
     }

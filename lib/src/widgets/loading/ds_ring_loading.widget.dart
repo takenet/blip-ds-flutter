@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class DSRingLoadingWidget extends StatelessWidget {
+class DSRingLoading extends StatelessWidget {
   final Color color;
   final double size;
   final double lineWidth;
 
-  const DSRingLoadingWidget({
+  const DSRingLoading({
     Key? key,
     required this.color,
     this.size = 20,

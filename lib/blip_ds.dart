@@ -12,6 +12,10 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 
+/// Widgets / Animations
+export 'src/widgets/animations/ds_animated_size.widget.dart'
+    show DSAnimatedSize;
+
 /// Widgets / Buttons
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
 export 'src/widgets/buttons/ds_secondary_button.widget.dart'

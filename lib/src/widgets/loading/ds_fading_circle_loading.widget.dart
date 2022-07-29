@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class DSFadingCircleLoadingWidget extends StatelessWidget {
+class DSFadingCircleLoading extends StatelessWidget {
   final Color color;
   final double size;
 
-  const DSFadingCircleLoadingWidget({
+  const DSFadingCircleLoading({
     Key? key,
     required this.color,
     this.size = 30.0,

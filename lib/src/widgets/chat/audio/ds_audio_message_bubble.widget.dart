@@ -63,7 +63,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
             _controlButtons(),
             _seekBar(),
             Obx(
-              () => DSAudioSpeedButtonWidget(
+              () => DSAudioSpeedButton(
                 text:
                     "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
                 onTap: _controller.setAudioSpeed,
@@ -105,21 +105,21 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
           return Positioned(
             left: 12.0,
             top: 14.0,
-            child: DSFadingCircleLoadingWidget(
+            child: DSFadingCircleLoading(
               color: widget.align == DSAlign.left
                   ? DSColors.neutralDarkRooftop
                   : DSColors.neutralLightSnow,
             ),
           );
         } else if (playing != true) {
-          return DSPlayButtonWidget(
+          return DSPlayButton(
             onPressed: _controller.player.play,
             icon: widget.align == DSAlign.left
                 ? DSPlayButtonIconColor.neutralLightSnow
                 : DSPlayButtonIconColor.neutralDarkRooftop,
           );
         } else if (processingState != ProcessingState.completed) {
-          return DSPauseButtonWidget(
+          return DSPauseButton(
             onPressed: _controller.player.pause,
             color: widget.align == DSAlign.right
                 ? DSColors.neutralLightSnow
@@ -141,7 +141,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
           padding: const EdgeInsets.symmetric(
             horizontal: 40.0,
           ),
-          child: DSAudioSeekBarWidget(
+          child: DSAudioSeekBar(
             duration: positionData?.duration ?? Duration.zero,
             position: positionData?.position ?? Duration.zero,
             bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,

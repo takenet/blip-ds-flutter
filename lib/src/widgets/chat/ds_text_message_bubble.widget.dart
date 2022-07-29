@@ -36,11 +36,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return DSMessageBubble(
       align: widget.align,
       borderRadius: widget.borderRadius,
-      child: AnimatedSize(
-        alignment: Alignment.topCenter,
-        curve: Curves.linearToEaseOut,
-        duration: const Duration(milliseconds: 300),
-        clipBehavior: Clip.none,
+      child: DSAnimatedSize(
         child: Obx(
           () => _buildText(),
         ),
