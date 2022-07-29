@@ -5,14 +5,14 @@ import 'ds_dot.widget.dart';
 /// To define the stitch appearance use [size] and [color]
 /// Use [numberOfDots] to set the amount of dots and use [innerPadding] to set the spacing between them
 /// To change the animation speed use [animationTime]
-class DSDotAnimationWidget extends StatefulWidget {
+class DSDotAnimation extends StatefulWidget {
   final double size;
   final Color color;
   final int numberOfDots;
   final double innerPadding;
   final Duration animationTime;
 
-  const DSDotAnimationWidget({
+  const DSDotAnimation({
     Key? key,
     this.numberOfDots = 4,
     this.size = 10,
@@ -22,10 +22,10 @@ class DSDotAnimationWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DSDotAnimationWidget> createState() => _DSDotAnimationWidgetState();
+  State<DSDotAnimation> createState() => _DSDotAnimationState();
 }
 
-class _DSDotAnimationWidgetState extends State<DSDotAnimationWidget>
+class _DSDotAnimationState extends State<DSDotAnimation>
     with TickerProviderStateMixin {
   List<AnimationController>? _animationControllers;
 
@@ -118,7 +118,7 @@ class DotAnimated extends StatelessWidget {
         super(key: key);
 
   final List<AnimationController>? _animationControllers;
-  final DSDotAnimationWidget widget;
+  final DSDotAnimation widget;
   final List<Animation<double>> _animations;
   final int index;
 
@@ -131,7 +131,7 @@ class DotAnimated extends StatelessWidget {
           padding: EdgeInsets.all(widget.innerPadding),
           child: Transform.translate(
             offset: Offset(0, _animations[index].value),
-            child: DSDotWidget(
+            child: DSDot(
               color: widget.color,
               size: widget.size,
             ),

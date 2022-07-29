@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DSDotWidget extends StatelessWidget {
+class DSDot extends StatelessWidget {
   final Color? color;
   final double? size;
 
   /// Set the dot size and color using the parameters [size] and [color]
-  const DSDotWidget({
+  const DSDot({
     Key? key,
     @required this.color,
     @required this.size,

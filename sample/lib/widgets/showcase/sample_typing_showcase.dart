@@ -8,10 +8,10 @@ class SampleTypingShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        DsTypingWidget(
+        DsTyping(
           align: DSAlign.left,
         ),
-        DsTypingWidget(
+        DsTyping(
           align: DSAlign.right,
         ),
       ],
