@@ -131,7 +131,7 @@ class DotAnimated extends StatelessWidget {
           padding: EdgeInsets.all(widget.innerPadding),
           child: Transform.translate(
             offset: Offset(0, _animations[index].value),
-            child: DotWidget(
+            child: DSDotWidget(
               color: widget.color,
               size: widget.size,
             ),
