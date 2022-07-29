@@ -21,7 +21,7 @@ class DsTypingWidget extends StatelessWidget {
             align: align,
             child: Container(
               transform: Matrix4.translationValues(0.0, 5.0, 0.0),
-              child: DsDotAnimationWidget(
+              child: DSDotAnimationWidget(
                 numberOfDots: 3,
                 animationTime: const Duration(
                   milliseconds: 300,
