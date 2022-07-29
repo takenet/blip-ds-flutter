@@ -22,10 +22,10 @@ class DSDotAnimationWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DSDotAnimationWidget> createState() => _DSDotAnimationWidget();
+  State<DSDotAnimationWidget> createState() => _DSDotAnimationWidgetState();
 }
 
-class _DSDotAnimationWidget extends State<DSDotAnimationWidget>
+class _DSDotAnimationWidgetState extends State<DSDotAnimationWidget>
     with TickerProviderStateMixin {
   List<AnimationController>? _animationControllers;
 
