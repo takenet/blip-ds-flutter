@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 
 import 'ds_dot.widget.dart';
 
+/// To define the stitch appearance use [size] and [color]
+/// Use [numberOfDots] to set the amount of dots and use [innerPadding] to set the spacing between them
+/// To change the animation speed use [animationTime]
 class DsDotAnimationWidget extends StatefulWidget {
-  final int numberOfDots;
+  final double size;
   final Color color;
-  final double radius;
+  final int numberOfDots;
   final double innerPadding;
-  final Duration animationDuration;
+  final Duration animationTime;
 
   const DsDotAnimationWidget({
     Key? key,
     this.numberOfDots = 4,
-    this.radius = 10,
+    this.size = 10,
     this.innerPadding = 2.5,
-    this.animationDuration = const Duration(milliseconds: 200),
+    this.animationTime = const Duration(milliseconds: 200),
     this.color = Colors.black,
   }) : super(key: key);
 
@@ -65,13 +68,14 @@ class _DsDotAnimationWidget extends State<DsDotAnimationWidget>
     );
   }
 
+  /// Controls the animation of the dots
   void _initAnimation() {
     _animationControllers = List.generate(
       widget.numberOfDots,
       (index) {
         return AnimationController(
           vsync: this,
-          duration: widget.animationDuration,
+          duration: widget.animationTime,
         );
       },
     ).toList();
@@ -101,6 +105,7 @@ class _DsDotAnimationWidget extends State<DsDotAnimationWidget>
   }
 }
 
+/// Animated dot to be included in the dot list
 class DotAnimated extends StatelessWidget {
   const DotAnimated({
     Key? key,
@@ -128,7 +133,7 @@ class DotAnimated extends StatelessWidget {
             offset: Offset(0, _animations[index].value),
             child: DotWidget(
               color: widget.color,
-              radius: widget.radius,
+              size: widget.size,
             ),
           ),
         );

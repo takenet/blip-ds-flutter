@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class DotWidget extends StatelessWidget {
   final Color? color;
-  final double? radius;
+  final double? size;
 
+  /// Set the dot size and color using the parameters [size] and [color]
   const DotWidget({
     Key? key,
     @required this.color,
-    @required this.radius,
+    @required this.size,
   }) : super(key: key);
 
   @override
@@ -17,8 +18,8 @@ class DotWidget extends StatelessWidget {
         shape: BoxShape.circle,
         color: color,
       ),
-      height: radius,
-      width: radius,
+      height: size,
+      width: size,
     );
   }
 }

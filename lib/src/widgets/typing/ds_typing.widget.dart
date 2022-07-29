@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
+/// Use [align] feft or right to position typing on screen
 class DsTypingWidget extends StatelessWidget {
   final DSAlign align;
   const DsTypingWidget({
@@ -22,7 +23,7 @@ class DsTypingWidget extends StatelessWidget {
               transform: Matrix4.translationValues(0.0, 5.0, 0.0),
               child: DsDotAnimationWidget(
                 numberOfDots: 3,
-                animationDuration: const Duration(
+                animationTime: const Duration(
                   milliseconds: 300,
                 ),
                 color: align == DSAlign.left

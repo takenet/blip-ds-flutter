@@ -50,4 +50,4 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
 
 /// Widgets / Typing
-export 'src/widgets/typing/typing.dart';
+export 'src/widgets/typing/typing_export.dart';
