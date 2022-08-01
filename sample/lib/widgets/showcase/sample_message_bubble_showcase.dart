@@ -26,6 +26,18 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSFileMessageBubble(
+              align: DSAlign.left,
+              filename: 'teste.pdf',
+              size: 10000,
+              url:
+                  'https://download.brother.com/welcome/doc100107/cv_mfc4620dw_epr_busr_leu359065.pdf'),
+          DSFileMessageBubble(
+              align: DSAlign.right,
+              filename: 'master.zip',
+              size: 500,
+              url:
+                  'https://github.com/takenet/blip-cards-vue-components/archive/refs/heads/master.zip'),
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.left,
