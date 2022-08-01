@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'ds_dot.widget.dart';
 
+/// Creates a list of animated dots for use in typing identification and other situations
+///
 /// To define the stitch appearance use [size] and [color]
 /// Use [numberOfDots] to set the amount of dots and use [innerPadding] to set the spacing between them
 /// To change the animation speed use [animationTime]
