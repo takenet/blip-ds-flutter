@@ -2,6 +2,7 @@
 
 * Add typing message bubble
 * Add animated dots
+
 ## 0.0.11
 
 * Add typography styles
