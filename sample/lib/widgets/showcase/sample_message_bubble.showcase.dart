@@ -48,6 +48,34 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.topRight,
+            ],
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+            ],
+            topMargin: 1,
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.bottomRight,
+            ],
+            topMargin: 1,
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
           ),
           DSAudioMessageBubble(
             align: DSAlign.left,
@@ -57,21 +85,24 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.right,
             uri: _sampleAudio,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: ElevatedButton(
-                  onPressed: () => _sampleText.value = _shorText,
-                  child: const Text('Texto Curto'),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: DSPrimaryButton(
+                    onPressed: () => _sampleText.value = _shorText,
+                    label: 'Texto Curto',
+                  ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () => _sampleText.value = _longText,
-                child: const Text('Texto Longo'),
-              ),
-            ],
+                DSPrimaryButton(
+                  onPressed: () => _sampleText.value = _longText,
+                  label: 'Texto Longo',
+                ),
+              ],
+            ),
           ),
         ],
       ),

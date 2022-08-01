@@ -104,7 +104,7 @@ class DSImageMessageBubble extends StatelessWidget {
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
-      contentPadding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -115,10 +115,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 showGeneralDialog(
                   context: context,
                   barrierDismissible: false,
-                  transitionDuration: const Duration(
-                    milliseconds:
-                        300, //TODO: Create a global constant to animations duration..
-                  ),
+                  transitionDuration: DSUtils.defaultAnimationDuration,
                   transitionBuilder: (_, animation, __, child) =>
                       _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => _buildPage(context),

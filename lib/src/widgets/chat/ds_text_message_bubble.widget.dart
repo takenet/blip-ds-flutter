@@ -7,12 +7,14 @@ class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final double topMargin;
 
   const DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
+    this.topMargin = 20,
   }) : super(key: key);
 
   @override
@@ -36,10 +38,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return DSMessageBubble(
       align: widget.align,
       borderRadius: widget.borderRadius,
-      child: DSAnimatedSize(
-        child: Obx(
-          () => _buildText(),
-        ),
+      topMargin: widget.topMargin,
+      child: Obx(
+        () => _buildText(),
       ),
     );
   }

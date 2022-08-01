@@ -31,8 +31,9 @@ class DSButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: !disable ? onPressed : null,
+      onPressed: !disable || !loading ? onPressed : null,
       style: OutlinedButton.styleFrom(
+        minimumSize: const Size(44, 44),
         primary: foregroundColor,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(

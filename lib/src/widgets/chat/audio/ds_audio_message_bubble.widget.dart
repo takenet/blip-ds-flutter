@@ -53,7 +53,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
-      contentPadding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       borderRadius: widget.borderRadius,
       align: widget.align,
       child: SizedBox(
