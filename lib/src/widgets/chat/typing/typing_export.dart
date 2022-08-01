@@ -1,2 +1,2 @@
-export 'ds_typing.widget.dart' show DsTyping;
+export 'ds_typing_message_bubble.widget.dart' show DSTypingMessageBubble;
 export 'ds_dot_animation.widget.dart' show DSDotAnimation;

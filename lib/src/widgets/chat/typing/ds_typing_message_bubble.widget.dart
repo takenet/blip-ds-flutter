@@ -2,9 +2,9 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 /// Use [align] left or right to position typing on screen
-class DsTyping extends StatelessWidget {
+class DSTypingMessageBubble extends StatelessWidget {
   final DSAlign align;
-  const DsTyping({
+  const DSTypingMessageBubble({
     Key? key,
     required this.align,
   }) : super(key: key);
