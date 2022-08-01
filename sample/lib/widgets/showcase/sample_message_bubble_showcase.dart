@@ -18,6 +18,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   final RxString _sampleText = RxString('');
   final String _sampleAudio =
       'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+  final String _sampleImage = 'https://picsum.photos/250?image=9';
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
@@ -38,6 +39,20 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               size: 500,
               url:
                   'https://github.com/takenet/blip-cards-vue-components/archive/refs/heads/master.zip'),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: '',
+            imageTitle: 'imageTitle.png',
+            imageText: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImage,
+            imageTitle: 'imageTitle.png',
+            imageText: 'My picture',
+            appBarText: 'Unknown User',
+          ),
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.left,
