@@ -9,7 +9,7 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_message_bubble.dart'
     show DSAudioMessageBubble;
-export 'src/widgets/chat/ds_image_message_bubble.dart'
+export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 
 /// Widgets / Texts
