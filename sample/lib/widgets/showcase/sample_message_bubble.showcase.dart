@@ -61,7 +61,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               DSBorderRadius.topLeft,
               DSBorderRadius.bottomLeft,
             ],
-            topMargin: 1,
+            groupWithPreviousMessage: true,
           ),
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
@@ -71,7 +71,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               DSBorderRadius.bottomLeft,
               DSBorderRadius.bottomRight,
             ],
-            topMargin: 1,
+            groupWithPreviousMessage: true,
           ),
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,

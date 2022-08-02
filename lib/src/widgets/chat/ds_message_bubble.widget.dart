@@ -9,7 +9,7 @@ class DSMessageBubble extends StatelessWidget {
   final Widget child;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
-  final double topMargin;
+  final bool groupWithPreviousMessage;
 
   const DSMessageBubble({
     Key? key,
@@ -20,7 +20,7 @@ class DSMessageBubble extends StatelessWidget {
       vertical: 10,
       horizontal: 14,
     ),
-    this.topMargin = 20,
+    this.groupWithPreviousMessage = false,
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -49,7 +49,8 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin: EdgeInsets.fromLTRB(16, topMargin, 16, 0),
+          margin:
+              EdgeInsets.fromLTRB(16, groupWithPreviousMessage ? 1 : 20, 16, 0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
