@@ -4,10 +4,10 @@ import 'package:blip_ds/src/themes/texts/utils/ds_font_weights.theme.dart';
 
 /// A Design System's [TextStyle] primarily used by small titles.
 class DSHeadlineSmallTextStyle extends DSTextStyle {
-  const DSHeadlineSmallTextStyle()
-      : super(
+  const DSHeadlineSmallTextStyle({
+    super.color = DSColors.neutralDarkCity,
+  }) : super(
           fontSize: 16,
           fontWeight: DSFontWeights.bold,
-          color: DSColors.neutralDarkCity,
         );
 }

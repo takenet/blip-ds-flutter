@@ -5,10 +5,13 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 ///
 /// Sets [DSHeadlineSmallTextStyle] as [style] default value.
 class DSHeadlineSmallText extends DSText {
-  const DSHeadlineSmallText({
+  DSHeadlineSmallText({
     required super.text,
     super.key,
+    super.color,
   }) : super(
-          style: const DSHeadlineSmallTextStyle(),
+          style: DSHeadlineSmallTextStyle(
+            color: color,
+          ),
         );
 }

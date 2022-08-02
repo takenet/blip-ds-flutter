@@ -9,6 +9,8 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_message_bubble.dart'
     show DSAudioMessageBubble;
+export 'src/widgets/chat/ds_image_message_bubble.dart'
+    show DSImageMessageBubble;
 
 /// Widgets / Texts
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;
@@ -20,6 +22,11 @@ export 'src/widgets/texts/ds_caption_text.widget.dart' show DSCaptionText;
 export 'src/widgets/texts/ds_caption_small_text.widget.dart'
     show DSCaptionSmallText;
 export 'src/widgets/texts/ds_button_text.widget.dart' show DSButtonText;
+
+/// Widgets / Utils
+export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
+    show DSCachedNetworkImageView;
+export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
