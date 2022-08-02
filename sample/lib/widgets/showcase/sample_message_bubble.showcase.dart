@@ -77,14 +77,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.right,
           ),
-          DSAudioMessageBubble(
-            align: DSAlign.left,
-            uri: _sampleAudio,
-          ),
-          DSAudioMessageBubble(
-            align: DSAlign.right,
-            uri: _sampleAudio,
-          ),
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Row(
@@ -103,6 +95,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          DSAudioMessageBubble(
+            align: DSAlign.left,
+            uri: _sampleAudio,
+          ),
+          DSAudioMessageBubble(
+            align: DSAlign.right,
+            uri: _sampleAudio,
           ),
         ],
       ),
