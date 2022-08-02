@@ -22,7 +22,7 @@ class DSTypingMessageBubble extends StatelessWidget {
           child: DSMessageBubble(
             align: align,
             child: Container(
-              transform: Matrix4.translationValues(0.0, 5.0, 0.0),
+              transform: Matrix4.translationValues(0.0, 3.0, 0.0),
               child: DSDotAnimation(
                 numberOfDots: 3,
                 animationTime: const Duration(

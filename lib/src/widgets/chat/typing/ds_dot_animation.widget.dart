@@ -93,11 +93,13 @@ class _DSDotAnimationState extends State<DSDotAnimation>
     for (int i = 0; i < widget.numberOfDots; i++) {
       _animationControllers![i].addStatusListener(
         (status) {
-          if (status == AnimationStatus.completed) {
-            _animationControllers![i].reverse();
+          if (status == AnimationStatus.forward) {
             if (i != widget.numberOfDots - 1) {
-              _animationControllers![i + 1].forward();
+              Future.delayed(const Duration(milliseconds: 120))
+                  .then((value) => _animationControllers![i + 1].forward());
             }
+          } else if (status == AnimationStatus.completed) {
+            _animationControllers![i].reverse();
           }
           if (i == widget.numberOfDots - 1 &&
               status == AnimationStatus.dismissed) {
