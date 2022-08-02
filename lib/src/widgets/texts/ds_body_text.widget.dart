@@ -1,10 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/themes/texts/styles/ds_body_text_style.theme.dart';
 import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 
-/// A Design System's [Text] primarily used by body texts, like messages and inputs.
+/// A Design System's [Text] primarily used by body texts like messages and inputs.
 ///
-/// Sets [DSBodyTextStyle] as [style] default value.
+/// Sets [DSBodyTextStyle] as [style] default value. This style's font variant is $fs-16-p1.
 class DSBodyText extends DSText {
+  /// Creates a Design System's [Text] with $fs-16-p1 font variant.
   DSBodyText({
     required super.text,
     super.key,

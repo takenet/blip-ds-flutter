@@ -2,6 +2,7 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/loading/ds_ring_loading.widget.dart';
 import 'package:flutter/material.dart';
 
+/// A container that has some default properties which should be extended by others Design System's [ButtonStyleButton].
 class DSButton extends StatelessWidget {
   final void Function()? onPressed;
   final Color backgroundColor;
@@ -15,6 +16,10 @@ class DSButton extends StatelessWidget {
 
   final List<Widget> _contentList = [];
 
+  /// Creates a Design System's [ButtonStyleButton].
+  ///
+  /// Set [disable] to deactivate this button's [onPressed] and change his style.
+  /// Set [loading] to override content with a loading animation. It also deactivates [onPressed].
   DSButton({
     required this.onPressed,
     required this.backgroundColor,

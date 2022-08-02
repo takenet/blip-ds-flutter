@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 /// A [TextTheme] used by Material Design to automatically apply our Design System's [TextStyle].
 class DSTextTheme extends TextTheme {
+  /// Creates a Design System's [TextTheme].
   const DSTextTheme()
       : super(
           headline1: const DSHeadlineLargeTextStyle(),
