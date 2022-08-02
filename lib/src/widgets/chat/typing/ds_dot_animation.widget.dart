@@ -7,20 +7,23 @@ import 'ds_dot.widget.dart';
 /// To define the stitch appearance use [size] and [color]
 /// Use [numberOfDots] to set the amount of dots and use [innerPadding] to set the spacing between them
 /// To change the animation speed use [animationTime]
+/// To set the dot ascent level use [upLevelAnimation]
 class DSDotAnimation extends StatefulWidget {
   final double size;
   final Color color;
   final int numberOfDots;
   final double innerPadding;
   final Duration animationTime;
+  final double upLevelAnimation;
 
   const DSDotAnimation({
     Key? key,
-    this.numberOfDots = 4,
+    this.numberOfDots = 3,
     this.size = 10,
     this.innerPadding = 2.5,
-    this.animationTime = const Duration(milliseconds: 200),
+    this.animationTime = const Duration(milliseconds: 160),
     this.color = Colors.black,
+    this.upLevelAnimation = -9,
   }) : super(key: key);
 
   @override
@@ -83,8 +86,8 @@ class _DSDotAnimationState extends State<DSDotAnimation>
     ).toList();
 
     for (int i = 0; i < widget.numberOfDots; i++) {
-      _animations.add(
-          Tween<double>(begin: 0, end: -20).animate(_animationControllers![i]));
+      _animations.add(Tween<double>(begin: 0, end: widget.upLevelAnimation)
+          .animate(_animationControllers![i]));
     }
 
     for (int i = 0; i < widget.numberOfDots; i++) {
