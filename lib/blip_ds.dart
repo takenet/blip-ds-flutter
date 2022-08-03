@@ -55,3 +55,6 @@ export 'src/themes/texts/styles/ds_button_text_style.theme.dart'
     show DSButtonTextStyle;
 export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
+
+/// Services
+export 'src/services/ds_dialog.service.dart' show DSDialog;

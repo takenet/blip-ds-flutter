@@ -39,6 +39,23 @@ class HomePage extends StatelessWidget {
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
+            //////////
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => DSDialog(
+                    title: 'Titulo',
+                    text: 'Texto do corpo',
+                    firstButtonText: 'First',
+                    secondButtonText: 'Second',
+                    firstButtonPressed: () {},
+                    context: context,
+                  ).warning(),
+                  child: const Text('System'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
