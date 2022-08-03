@@ -55,6 +55,7 @@ class DSFileMessageBubble extends StatelessWidget {
                 children: [
                   Image.asset(
                     controller.getAsset(filename),
+                    height: 42.0,
                     package: DSUtils.packageName,
                     errorBuilder: (_, __, ___) => Image.asset(
                       'assets/images/file-default.png',
