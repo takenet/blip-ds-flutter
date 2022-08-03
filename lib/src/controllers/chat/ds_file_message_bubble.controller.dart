@@ -25,7 +25,10 @@ class DSFileMessageBubbleController extends GetxController {
         'file-${extension.length > 3 ? extension.substring(0, 3) : extension}.png');
   }
 
-  void openFile(final String filename, final String url) async {
+  Future<void> openFile(
+    final String filename,
+    final String url,
+  ) async {
     final String directory = (await getTemporaryDirectory()).path;
     final String savedFilePath = path_utils.join(directory, filename);
 
@@ -50,7 +53,9 @@ class DSFileMessageBubbleController extends GetxController {
   }
 
   Future<dynamic> _downloadFile(
-      final String url, final String savedFilePath) async {
+    final String url,
+    final String savedFilePath,
+  ) async {
     isDownloading.value = true;
     try {
       return await Dio().download(url, savedFilePath);
@@ -62,7 +67,10 @@ class DSFileMessageBubbleController extends GetxController {
   }
 
   //TODO: Use the DS's widget when avalible and question the PD about it
-  void _showAlert(final String title, final String message) {
+  void _showAlert(
+    final String title,
+    final String message,
+  ) {
     Get.snackbar(title, message,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: DSColors.neutralLightSnow);
