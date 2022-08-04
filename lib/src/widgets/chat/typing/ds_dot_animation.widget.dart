@@ -86,8 +86,14 @@ class _DSDotAnimationState extends State<DSDotAnimation>
     ).toList();
 
     for (int i = 0; i < widget.numberDots; i++) {
-      _animations.add(Tween<double>(begin: 0, end: widget.upLevelAnimation)
-          .animate(_animationControllers![i]));
+      _animations.add(
+        Tween<double>(
+          begin: 0,
+          end: widget.upLevelAnimation,
+        ).animate(
+          _animationControllers![i],
+        ),
+      );
     }
 
     for (int i = 0; i < widget.numberDots; i++) {
@@ -95,8 +101,11 @@ class _DSDotAnimationState extends State<DSDotAnimation>
         (status) {
           if (status == AnimationStatus.forward) {
             if (i != widget.numberDots - 1) {
-              Future.delayed(const Duration(milliseconds: 120))
-                  .then((value) => _animationControllers![i + 1].forward());
+              Future.delayed(
+                const Duration(milliseconds: 120),
+              ).then(
+                (value) => _animationControllers![i + 1].forward(),
+              );
             }
           } else if (status == AnimationStatus.completed) {
             _animationControllers![i].reverse();
