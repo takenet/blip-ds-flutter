@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble_showcase.dart';
+import 'package:sample/widgets/showcase/sample_switch_showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style_showcase.dart';
 
 void main() {
@@ -36,6 +37,8 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
+            const SampleSwitchShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
