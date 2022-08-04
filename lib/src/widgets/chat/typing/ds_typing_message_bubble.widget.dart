@@ -24,7 +24,7 @@ class DSTypingMessageBubble extends StatelessWidget {
             child: Container(
               transform: Matrix4.translationValues(0.0, 3.0, 0.0),
               child: DSDotAnimation(
-                numberOfDots: 3,
+                numberDots: 3,
                 animationTime: const Duration(
                   milliseconds: 300,
                 ),
