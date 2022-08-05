@@ -18,12 +18,12 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           leftWidget ??
-              Icon(
-                Icons.block,
-                color: align == DSAlign.left
-                    ? DSColors.neutralDarkCity
-                    : DSColors.neutralLightSnow,
-                size: 18.0,
+              Image.asset(
+                align == DSAlign.left
+                    ? 'assets/images/block_neutral_dark_city.png'
+                    : 'assets/images/block_neutral_light_snow.png',
+                package: DSUtils.packageName,
+                width: 20.0,
               ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
