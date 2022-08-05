@@ -1,4 +1,3 @@
-import 'package:blip_ds/src/widgets/chat/typing/typing_export.dart';
 import 'package:flutter/material.dart';
 
 import 'ds_typing_dot.widget.dart';
