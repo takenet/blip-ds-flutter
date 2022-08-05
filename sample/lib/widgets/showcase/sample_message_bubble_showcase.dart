@@ -27,6 +27,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          const DSUnsupportedContentMessageBubble(
+            align: DSAlign.left,
+          ),
+          const DSUnsupportedContentMessageBubble(
+            align: DSAlign.right,
+          ),
           DSImageMessageBubble(
             align: DSAlign.right,
             url: '',
