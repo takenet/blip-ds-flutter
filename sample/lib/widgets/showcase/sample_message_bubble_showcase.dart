@@ -39,6 +39,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               size: 500,
               url:
                   'https://github.com/takenet/blip-cards-vue-components/archive/refs/heads/master.zip'),
+          const DSUnsupportedContentMessageBubble(
+            align: DSAlign.left,
+          ),
+          const DSUnsupportedContentMessageBubble(
+            align: DSAlign.right,
+          ),
           DSImageMessageBubble(
             align: DSAlign.right,
             url: '',
