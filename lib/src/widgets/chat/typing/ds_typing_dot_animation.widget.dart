@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 
 import 'ds_animated_dot.widget.dart';
 
-/// Creates a list of animated dots for use in typing identification and other situations
-///
-/// To define the stitch appearance use [size] and [color]
-/// Use [numberDots] to set the amount of dots and use [innerPadding] to set the spacing between them
-/// To change the animation speed use [animationTime]
-/// To set the dot ascent level use [upLevelAnimation]
-class DSDotAnimation extends StatefulWidget {
+class DSTypingDotAnimation extends StatefulWidget {
   final double size;
   final Color color;
   final int numberDots;
-  final double innerPadding;
+  final double padding;
   final Duration animationTime;
-  final double upLevelAnimation;
+  final double tweenEndAnimation;
 
-  const DSDotAnimation({
+  /// Creates a list of animated dots for use in typing identification and other situations
+  ///
+  /// To define the stitch appearance use [size] and [color]
+  /// Use [numberDots] to set the amount of dots and use [padding] to set the spacing between them
+  /// To change the animation speed use [animationTime]
+  /// To set the dot ascent level use [upLevelAnimation]
+  const DSTypingDotAnimation({
     Key? key,
     this.numberDots = 3,
-    this.size = 10,
-    this.innerPadding = 3,
-    this.animationTime = const Duration(milliseconds: 160),
+    this.size = 7,
+    this.padding = 3,
+    this.animationTime = const Duration(milliseconds: 100),
     required this.color,
-    this.upLevelAnimation = -12,
+    this.tweenEndAnimation = -3,
   }) : super(key: key);
 
   @override
-  State<DSDotAnimation> createState() => _DSDotAnimationState();
+  State<DSTypingDotAnimation> createState() => _DSTypingDotAnimationState();
 }
 
-class _DSDotAnimationState extends State<DSDotAnimation>
+class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
     with TickerProviderStateMixin {
   List<AnimationController>? _animationControllers;
 
@@ -83,8 +83,8 @@ class _DSDotAnimationState extends State<DSDotAnimation>
     for (int i = 0; i < widget.numberDots; i++) {
       _animations.add(
         Tween<double>(
-          begin: 0,
-          end: widget.upLevelAnimation,
+          begin: 4,
+          end: widget.tweenEndAnimation,
         ).animate(
           _animationControllers![i],
         ),

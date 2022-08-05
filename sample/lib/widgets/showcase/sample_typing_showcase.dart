@@ -14,11 +14,6 @@ class SampleTypingShowcase extends StatelessWidget {
         DSTypingAnimationMessageBubble(
           align: DSAlign.right,
         ),
-        DSDotAnimation(
-          color: Colors.red,
-          size: 15,
-          innerPadding: 10,
-        ),
       ],
     );
   }
