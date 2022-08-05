@@ -13,30 +13,20 @@ class DSTypingAnimationMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (align == DSAlign.right) const Spacer(),
-        SizedBox(
-          width: 150,
-          height: 65,
-          child: DSMessageBubble(
-            align: align,
-            child: Container(
-              transform: Matrix4.translationValues(0.0, 3.0, 0.0),
-              child: DSDotAnimation(
-                numberDots: 3,
-                animationTime: const Duration(
-                  milliseconds: 300,
-                ),
-                color: align == DSAlign.left
-                    ? DSColors.neutralDarkCity
-                    : DSColors.neutralLightSnow,
-              ),
-            ),
+    return DSMessageBubble(
+      align: align,
+      child: Container(
+        transform: Matrix4.translationValues(0.0, 3.0, 0.0),
+        child: DSDotAnimation(
+          numberDots: 3,
+          animationTime: const Duration(
+            milliseconds: 300,
           ),
+          color: align == DSAlign.left
+              ? DSColors.neutralDarkCity
+              : DSColors.neutralLightSnow,
         ),
-        if (align == DSAlign.left) const Spacer(),
-      ],
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:blip_ds/src/widgets/chat/typing/typing_export.dart';
 import 'package:flutter/material.dart';
 
-import 'ds_dot.widget.dart';
+import 'ds_typing_dot.widget.dart';
 
 /// Animated dot to be included in the dot list
 class DsAnimatedDot extends StatelessWidget {
@@ -29,7 +29,7 @@ class DsAnimatedDot extends StatelessWidget {
           padding: EdgeInsets.all(widget.innerPadding),
           child: Transform.translate(
             offset: Offset(0, _animations[index].value),
-            child: DSDot(
+            child: DSTypingDot(
               color: widget.color,
               size: widget.size,
             ),

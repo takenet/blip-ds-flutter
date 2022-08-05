@@ -19,11 +19,11 @@ class DSDotAnimation extends StatefulWidget {
   const DSDotAnimation({
     Key? key,
     this.numberDots = 3,
-    this.size = 7,
-    this.innerPadding = 2.5,
+    this.size = 10,
+    this.innerPadding = 3,
     this.animationTime = const Duration(milliseconds: 160),
     required this.color,
-    this.upLevelAnimation = -9,
+    this.upLevelAnimation = -12,
   }) : super(key: key);
 
   @override
@@ -52,24 +52,19 @@ class _DSDotAnimationState extends State<DSDotAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            widget.numberDots,
-            (index) {
-              return DsAnimatedDot(
-                animationControllers: _animationControllers,
-                widget: widget,
-                animations: _animations,
-                index: index,
-              );
-            },
-          ).toList(),
-        ),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        widget.numberDots,
+        (index) {
+          return DsAnimatedDot(
+            animationControllers: _animationControllers,
+            widget: widget,
+            animations: _animations,
+            index: index,
+          );
+        },
+      ).toList(),
     );
   }
 
