@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 /// Creates an animation showing that someone is typing something by responding to an interaction
 ///
 /// Use [align] left or right to position typing on screen
-class DSTypingMessageBubble extends StatelessWidget {
+class DSTypingAnimationMessageBubble extends StatelessWidget {
   final DSAlign align;
-  const DSTypingMessageBubble({
+  const DSTypingAnimationMessageBubble({
     Key? key,
     required this.align,
   }) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ds_dot.widget.dart';
+import 'ds_animated_dot.widget.dart';
 
 /// Creates a list of animated dots for use in typing identification and other situations
 ///
@@ -60,7 +60,7 @@ class _DSDotAnimationState extends State<DSDotAnimation>
           children: List.generate(
             widget.numberDots,
             (index) {
-              return DotAnimated(
+              return DsAnimatedDot(
                 animationControllers: _animationControllers,
                 widget: widget,
                 animations: _animations,
@@ -118,42 +118,5 @@ class _DSDotAnimationState extends State<DSDotAnimation>
       );
     }
     _animationControllers!.first.forward();
-  }
-}
-
-/// Animated dot to be included in the dot list
-class DotAnimated extends StatelessWidget {
-  const DotAnimated({
-    Key? key,
-    required List<AnimationController>? animationControllers,
-    required this.widget,
-    required List<Animation<double>> animations,
-    required this.index,
-  })  : _animationControllers = animationControllers,
-        _animations = animations,
-        super(key: key);
-
-  final List<AnimationController>? _animationControllers;
-  final DSDotAnimation widget;
-  final List<Animation<double>> _animations;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationControllers![index],
-      builder: (context, child) {
-        return Container(
-          padding: EdgeInsets.all(widget.innerPadding),
-          child: Transform.translate(
-            offset: Offset(0, _animations[index].value),
-            child: DSDot(
-              color: widget.color,
-              size: widget.size,
-            ),
-          ),
-        );
-      },
-    );
   }
 }
