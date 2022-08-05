@@ -30,7 +30,7 @@ class DSTypingAnimationMessageBubble extends StatelessWidget {
                 ),
                 color: align == DSAlign.left
                     ? DSColors.neutralDarkCity
-                    : DSColors.neutralMediumSilver,
+                    : DSColors.neutralLightSnow,
               ),
             ),
           ),
