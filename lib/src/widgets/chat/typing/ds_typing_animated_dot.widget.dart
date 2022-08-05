@@ -4,13 +4,13 @@ import 'ds_typing_dot.widget.dart';
 import 'ds_typing_dot_animation.widget.dart';
 
 /// Animated dot to be included in the dot list
-class DsAnimatedDot extends StatelessWidget {
+class DsTypingAnimatedDot extends StatelessWidget {
   final List<AnimationController>? _animationControllers;
   final DSTypingDotAnimation widget;
   final List<Animation<double>> _animations;
   final int index;
 
-  const DsAnimatedDot({
+  const DsTypingAnimatedDot({
     Key? key,
     required List<AnimationController>? animationControllers,
     required this.widget,

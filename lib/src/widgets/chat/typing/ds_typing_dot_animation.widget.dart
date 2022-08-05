@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ds_animated_dot.widget.dart';
+import 'ds_typing_animated_dot.widget.dart';
 
 class DSTypingDotAnimation extends StatefulWidget {
   final double size;
@@ -21,7 +21,7 @@ class DSTypingDotAnimation extends StatefulWidget {
     this.numberDots = 3,
     this.size = 7,
     this.padding = 3,
-    this.animationTime = const Duration(milliseconds: 100),
+    this.animationTime = const Duration(milliseconds: 300),
     required this.color,
     this.tweenEndAnimation = -3,
   }) : super(key: key);
@@ -57,7 +57,7 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
       children: List.generate(
         widget.numberDots,
         (index) {
-          return DsAnimatedDot(
+          return DsTypingAnimatedDot(
             animationControllers: _animationControllers,
             widget: widget,
             animations: _animations,
