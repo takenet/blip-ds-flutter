@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ds_typing_animated_dot.widget.dart';
+import 'ds_typing_dot.widget.dart';
 
 class DSTypingDotAnimation extends StatefulWidget {
   final double size;
@@ -15,7 +15,7 @@ class DSTypingDotAnimation extends StatefulWidget {
   /// To define the stitch appearance use [size] and [color]
   /// Use [numberDots] to set the amount of dots and use [padding] to set the spacing between them
   /// To change the animation speed use [animationTime]
-  /// To set the dot ascent level use [upLevelAnimation]
+  /// To set the dot ascent level use [tweenEndAnimation]
   const DSTypingDotAnimation({
     Key? key,
     this.numberDots = 3,
@@ -57,11 +57,20 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
       children: List.generate(
         widget.numberDots,
         (index) {
-          return DsTypingAnimatedDot(
-            animationControllers: _animationControllers,
-            widget: widget,
-            animations: _animations,
-            index: index,
+          return AnimatedBuilder(
+            animation: _animationControllers![index],
+            builder: (context, child) {
+              return Container(
+                padding: EdgeInsets.all(widget.padding),
+                child: Transform.translate(
+                  offset: Offset(0, _animations[index].value),
+                  child: DSTypingDot(
+                    color: widget.color,
+                    size: widget.size,
+                  ),
+                ),
+              );
+            },
           );
         },
       ).toList(),
