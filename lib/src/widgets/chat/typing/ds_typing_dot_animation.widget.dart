@@ -53,7 +53,7 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: List.generate(
         widget.numberDots,
         (index) {
