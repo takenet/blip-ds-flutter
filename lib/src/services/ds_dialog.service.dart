@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Docs 1..
@@ -41,6 +42,8 @@ class DSDialog {
               ? DSColors.primaryYellowsCorn
               : DSColors.extendRedsflower;
 
+      final String icon = 'assets/images/icon_alert_${describeEnum(type)}.png';
+
       return Container(
         height: 64.0,
         decoration: BoxDecoration(
@@ -57,7 +60,11 @@ class DSDialog {
           ),
           child: Row(
             children: [
-              Icon(Icons.access_alarm_rounded),
+              Image.asset(
+                icon,
+                package: DSUtils.packageName,
+                width: 28.0,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: DSHeadlineSmallText(text: title),
@@ -88,6 +95,7 @@ class DSDialog {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            //TODO: Uses DS's buttons
             TextButton(
               onPressed: firstButtonPressed,
               child: Text(firstButtonText),

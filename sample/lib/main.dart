@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                     secondButtonText: 'Second',
                     firstButtonPressed: () {},
                     context: context,
-                  ).error(),
+                  ).warning(),
                   child: const Text('System'),
                 ),
               ],
