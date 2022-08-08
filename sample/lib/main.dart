@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble_showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style_showcase.dart';
+import 'package:sample/widgets/showcase/sample_typing_showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -40,6 +41,8 @@ class HomePage extends StatelessWidget {
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleTypingShowcase()
           ],
         ),
       ),

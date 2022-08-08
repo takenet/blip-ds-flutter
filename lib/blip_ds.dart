@@ -59,3 +59,9 @@ export 'src/themes/texts/styles/ds_button_text_style.theme.dart'
     show DSButtonTextStyle;
 export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
+
+/// Widgets / Typing
+export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
+    show DSTypingAnimationMessageBubble;
+export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
+    show DSTypingDotAnimation;
