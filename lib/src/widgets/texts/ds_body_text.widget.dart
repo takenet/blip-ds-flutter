@@ -13,6 +13,7 @@ class DSBodyText extends DSText {
     super.color,
     super.overflow,
     super.decoration,
+    super.textAlign,
   }) : super(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,

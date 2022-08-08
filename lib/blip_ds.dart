@@ -11,8 +11,12 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
 /// Widgets / Chat / Audio
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
-export 'src/widgets/chat/ds_image_message_bubble.dart'
+export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
+    show DSFileMessageBubble;
+export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
+export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
+    show DSUnsupportedContentMessageBubble;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
@@ -68,3 +72,9 @@ export 'src/themes/texts/styles/ds_button_text_style.theme.dart'
     show DSButtonTextStyle;
 export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
+
+/// Widgets / Typing
+export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
+    show DSTypingAnimationMessageBubble;
+export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
+    show DSTypingDotAnimation;

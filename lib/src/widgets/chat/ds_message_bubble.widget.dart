@@ -17,8 +17,8 @@ class DSMessageBubble extends StatelessWidget {
     required this.child,
     this.borderRadius = const [DSBorderRadius.all],
     this.padding = const EdgeInsets.symmetric(
-      vertical: 10,
-      horizontal: 14,
+      vertical: 8,
+      horizontal: 16,
     ),
     this.groupWithPreviousMessage = false,
   }) : super(key: key);

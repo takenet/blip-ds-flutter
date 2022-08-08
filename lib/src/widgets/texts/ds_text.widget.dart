@@ -13,5 +13,9 @@ class DSText extends Text {
     Color color = DSColors.neutralDarkCity,
     TextOverflow? overflow = TextOverflow.ellipsis,
     TextDecoration? decoration,
-  }) : super(text);
+    TextAlign? textAlign,
+  }) : super(
+          text,
+          textAlign: textAlign,
+        );
 }
