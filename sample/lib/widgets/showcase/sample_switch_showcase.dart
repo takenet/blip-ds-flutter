@@ -21,7 +21,7 @@ class SampleSwitchShowcaseState extends State<SampleSwitchShowcase> {
         const SizedBox(height: 20),
         DsSwitchTile(
           value: switchValue,
-          switchScale: 1.5,
+          switchScale: 1.0,
           onChanged: (value) {
             setState(() {
               switchValue = value;
