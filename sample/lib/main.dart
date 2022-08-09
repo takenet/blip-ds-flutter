@@ -4,7 +4,7 @@ import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
-import 'package:sample/widgets/showcase/sample_typing_showcase.dart';
+import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
