@@ -56,4 +56,5 @@ export 'src/themes/texts/styles/ds_button_text_style.theme.dart'
 export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
 
-export 'src/widgets/switch/switch_export.dart';
+/// Widgets / SwitchTile
+export 'src/widgets/switch/ds_switch_tile.widget.dart' show DsSwitchTile;

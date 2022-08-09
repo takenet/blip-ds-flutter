@@ -37,11 +37,12 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            const SampleSwitchShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleSwitchShowcase(),
           ],
         ),
       ),
