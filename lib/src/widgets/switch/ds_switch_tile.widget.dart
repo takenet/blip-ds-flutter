@@ -2,10 +2,10 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Create a tile widget with a switch button
-///
-///It is mandatory to inform three parameters: [value], enabling or disabling the switch, [onChanged], the event that will be executed when changing the value, and [title], which is the title of the tile.
 class DsSwitchTile extends StatelessWidget {
+  /// Create a tile widget with a switch button
+  ///
+  ///It is mandatory to inform three parameters: [value], enabling or disabling the switch, [onChanged], the event that will be executed when changing the value, and [title], which is the title of the tile.
   const DsSwitchTile({
     Key? key,
     required this.value,
@@ -34,15 +34,16 @@ class DsSwitchTile extends StatelessWidget {
   /// Switch button and title line color when [value] is true.
   final Color? switchActiveColor;
 
-  /// Color value when switch is [value] is false.
+  /// Switch button color when [value] is false.
   final Color? switchInactiveColor;
 
-  /// Referring to properties of [ListTile]
-  /// Values directly mapped into the [ListTileSwitch].
+  /// Make it possible to use an image, icon, avatar or other widget together with the switch before the title.
   final Widget? leading;
 
+  /// Enables or disables the widget by changing the color of the switch.
   final bool isEnabled;
 
+  /// Change a padding tile content.
   final EdgeInsetsGeometry? contentPadding;
 
   @override
