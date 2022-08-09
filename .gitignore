@@ -10,8 +10,6 @@
 .svn/
 migrate_working_dir/
 
-.fvm/
-
 # IntelliJ related
 *.iml
 *.ipr
@@ -32,3 +30,4 @@ migrate_working_dir/
 build/
 .flutter-plugins
 .flutter-plugins-dependencies
+.fvm/

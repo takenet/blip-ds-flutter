@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/loading/ds_ring_loading.widget.dart';
 import 'package:flutter/material.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [ButtonStyleButton].
@@ -38,11 +37,14 @@ class DSButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: !disable || !loading ? onPressed : null,
       style: OutlinedButton.styleFrom(
-        minimumSize: const Size(44, 44),
+        minimumSize: const Size(
+          44.0,
+          44.0,
+        ),
         primary: foregroundColor,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         side: BorderSide(
           color: borderColor ?? backgroundColor,
@@ -111,7 +113,7 @@ class DSButton extends StatelessWidget {
       _contentList.insert(
         i,
         const Padding(
-          padding: EdgeInsets.only(right: 10),
+          padding: EdgeInsets.only(right: 10.0),
         ),
       );
     }

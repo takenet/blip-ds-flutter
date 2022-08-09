@@ -11,8 +11,8 @@ class DSRingLoading extends StatelessWidget {
   const DSRingLoading({
     Key? key,
     required this.color,
-    this.size = 20,
-    this.lineWidth = 2,
+    this.size = 20.0,
+    this.lineWidth = 2.0,
   }) : super(key: key);
 
   @override

@@ -21,6 +21,9 @@ export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
     show DSAnimatedSize;
+export 'src/widgets/animations/ds_fading_circle_loading.widget.dart'
+    show DSFadingCircleLoading;
+export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
 
 /// Widgets / Buttons
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;

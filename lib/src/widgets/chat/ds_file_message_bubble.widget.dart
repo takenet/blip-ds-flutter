@@ -1,6 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_file_message_bubble.controller.dart';
-import 'package:blip_ds/src/widgets/loading/ds_fading_circle_loading.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
