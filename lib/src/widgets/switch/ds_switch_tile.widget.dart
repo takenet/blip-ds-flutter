@@ -2,23 +2,21 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DsSwitchTile extends StatelessWidget {
+class DSSwitchTile extends StatelessWidget {
   /// Create a tile widget with a switch button
   ///
   ///It is mandatory to inform three parameters: [value], enabling or disabling the switch, [onChanged], the event that will be executed when changing the value, and [title], which is the title of the tile.
-  const DsSwitchTile({
+  const DSSwitchTile({
     Key? key,
     required this.value,
     required this.onChanged,
     required this.title,
-    this.switchScale = 1.0,
     this.switchActiveColor = DSColors.primaryNight,
     this.switchInactiveColor = DSColors.neutralMediumSilver,
     this.leading,
     this.isEnabled = true,
     this.contentPadding,
-  })  : assert(switchScale <= 1.5),
-        super(key: key);
+  }) : super(key: key);
 
   /// current state of the switch widget.
   final bool value;
@@ -27,9 +25,6 @@ class DsSwitchTile extends StatelessWidget {
   final ValueChanged<bool> onChanged;
 
   final Widget? title;
-
-  /// Indicates the size of the switch button that will be displayed.
-  final double switchScale;
 
   /// Switch button and title line color when [value] is true.
   final Color? switchActiveColor;
@@ -55,17 +50,11 @@ class DsSwitchTile extends StatelessWidget {
         onTap: () => onChanged(!value),
         leading: leading,
         title: title,
-        trailing: Builder(
-          builder: (_) => Transform.scale(
-            alignment: Alignment.center,
-            scale: switchScale,
-            child: CupertinoSwitch(
-              activeColor: isEnabled ? switchActiveColor : switchInactiveColor,
-              trackColor: switchInactiveColor,
-              value: value,
-              onChanged: onChanged,
-            ),
-          ),
+        trailing: DSCustomSwitch(
+          activeColor: isEnabled ? switchActiveColor : switchInactiveColor,
+          inactiveColor: switchInactiveColor,
+          value: value,
+          onChanged: onChanged,
         ),
         contentPadding: contentPadding,
         selected: value,
