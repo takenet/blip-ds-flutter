@@ -65,7 +65,7 @@ export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
     show DSTypingAnimationMessageBubble;
 export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
     show DSTypingDotAnimation;
-    
-/// Widgets / SwitchTile
-export 'src/widgets/switch/ds_switch_tile.widget.dart' show DsSwitchTile;    
 
+/// Widgets / SwitchTile
+export 'src/widgets/switch/ds_switch_tile.widget.dart' show DSSwitchTile;
+export 'src/widgets/switch/ds_custom_switch.widget.dart' show DSCustomSwitch;
