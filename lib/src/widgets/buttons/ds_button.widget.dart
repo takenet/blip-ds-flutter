@@ -10,15 +10,15 @@ class DSButton extends StatelessWidget {
   final Icon? leadingIcon;
   final String? label;
   final Icon? trailingIcon;
-  final bool disable;
-  final bool loading;
+  final bool isDisabled;
+  final bool isLoading;
 
   final List<Widget> _contentList = [];
 
   /// Creates a Design System's [ButtonStyleButton].
   ///
-  /// Set [disable] to deactivate this button's [onPressed] and change his style.
-  /// Set [loading] to override content with a loading animation. It also deactivates [onPressed].
+  /// Set [isDisabled] to deactivate this button's [onPressed] and change his style.
+  /// Set [isLoading] to override content with a loading animation. It also deactivates [onPressed].
   DSButton({
     required this.onPressed,
     required this.backgroundColor,
@@ -28,19 +28,26 @@ class DSButton extends StatelessWidget {
     this.label,
     this.trailingIcon,
     this.borderColor,
-    this.disable = false,
-    this.loading = false,
+    this.isDisabled = false,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    _setContentList();
+
     return OutlinedButton(
-      onPressed: !disable || !loading ? onPressed : null,
+      onPressed: !isDisabled && !isLoading ? onPressed : null,
       style: OutlinedButton.styleFrom(
+        padding: EdgeInsets.symmetric(
+          vertical: _isIconOnly() ? 8.0 : 10.0,
+          horizontal: _isIconOnly() ? 10.0 : 16.0,
+        ),
         minimumSize: const Size(
           44.0,
           44.0,
         ),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: foregroundColor,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
@@ -51,15 +58,18 @@ class DSButton extends StatelessWidget {
         ),
       ),
       child: DSAnimatedSize(
-        child: _buildChild(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: _contentList,
+        ),
       ),
     );
   }
 
-  Widget _buildChild() {
+  void _setContentList() {
     _contentList.clear();
 
-    if (loading) {
+    if (isLoading) {
       _addLoading();
     } else {
       _addLeadingIcon();
@@ -68,11 +78,6 @@ class DSButton extends StatelessWidget {
     }
 
     _insertPaddingBetweenElements();
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: _contentList,
-    );
   }
 
   void _addLoading() {
@@ -108,12 +113,18 @@ class DSButton extends StatelessWidget {
     }
   }
 
+  bool _isIconOnly() {
+    final bool hasIcon = (leadingIcon != null || trailingIcon != null);
+
+    return _contentList.length == 1 && hasIcon;
+  }
+
   void _insertPaddingBetweenElements() {
     for (int i = 1; i < _contentList.length; i += 2) {
       _contentList.insert(
         i,
         const Padding(
-          padding: EdgeInsets.only(right: 10.0),
+          padding: EdgeInsets.only(right: 6.0),
         ),
       );
     }

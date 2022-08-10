@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 /// A Design System's [ButtonStyleButton] primarily used by tertiary actions.
 ///
-/// Set [disable] to deactivate this button's [onPressed] and change his style.
-/// Set [loading] to override content with a loading animation. It also deactivates [onPressed].
+/// Set [isDisabled] to deactivate this button's [onPressed] and change his style.
+/// Set [isLoading] to override content with a loading animation. It also deactivates [onPressed].
 class DSTertiaryButton extends DSButton {
   /// Creates a Design System's [ButtonStyleButton] with tertiary style.
   DSTertiaryButton({
@@ -14,11 +14,11 @@ class DSTertiaryButton extends DSButton {
     super.leadingIcon,
     super.label,
     super.trailingIcon,
-    super.disable,
-    super.loading,
+    super.isDisabled,
+    super.isLoading,
   }) : super(
           backgroundColor: Colors.transparent,
-          foregroundColor: !disable
+          foregroundColor: !isDisabled
               ? DSColors.neutralDarkCity
               : DSColors.neutralMediumElephant,
         );

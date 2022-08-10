@@ -13,42 +13,48 @@ class SampleButtonShowcase extends StatelessWidget {
           label: 'Primary Button',
           leadingIcon: const Icon(
             Icons.info_outline,
-            size: 20,
+            size: 30,
           ),
           trailingIcon: const Icon(
             Icons.arrow_forward_ios_rounded,
             size: 15,
           ),
-          // disable: true,
-          // loading: true,
+          // isDisabled: true,
+          // isLoading: true,
         ),
-        DSSecondaryButton(
-          onPressed: () => {},
-          label: 'Secondary Button',
-          leadingIcon: const Icon(
-            Icons.info_outline,
-            size: 20,
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: DSSecondaryButton(
+            onPressed: () => {},
+            label: 'Secondary Button',
+            leadingIcon: const Icon(
+              Icons.info_outline,
+              size: 20,
+            ),
+            trailingIcon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 15,
+            ),
+            // isDisabled: true,
+            // isLoading: true,
           ),
-          trailingIcon: const Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 15,
-          ),
-          // disable: true,
-          // loading: true,
         ),
-        DSTertiaryButton(
-          onPressed: () => {},
-          label: 'Tertiary Button',
-          leadingIcon: const Icon(
-            Icons.info_outline,
-            size: 20,
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: DSTertiaryButton(
+            onPressed: () => {},
+            label: 'Tertiary Button',
+            leadingIcon: const Icon(
+              Icons.info_outline,
+              size: 20,
+            ),
+            trailingIcon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 15,
+            ),
+            // isDisabled: true,
+            // isLoading: true,
           ),
-          trailingIcon: const Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 15,
-          ),
-          // disable: true,
-          // loading: true,
         ),
       ],
     );

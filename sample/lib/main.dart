@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             const SampleButtonShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            const SampleTypingShowcase()
+            const SampleTypingShowcase(),
           ],
         ),
       ),
