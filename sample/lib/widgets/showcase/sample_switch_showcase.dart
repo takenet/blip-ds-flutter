@@ -19,18 +19,26 @@ class SampleSwitchShowcaseState extends State<SampleSwitchShowcase> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 20),
-        DsSwitchTile(
+        DSSwitchTile(
           value: switchValue,
-          switchScale: 1.0,
           onChanged: (value) {
             setState(() {
               switchValue = value;
             });
           },
           title: DSBodyText(
-            text: 'Cupertino Switch',
+            text: 'Cupertino Switch dfzgs dfgsd fgsdfg sdfg',
             overflow: TextOverflow.ellipsis,
           ),
+        ),
+        const SizedBox(height: 20),
+        DSCustomSwitch(
+          value: switchValue,
+          onChanged: (value) {
+            setState(() {
+              switchValue = value;
+            });
+          },
         ),
         const SizedBox(height: 20),
       ],
