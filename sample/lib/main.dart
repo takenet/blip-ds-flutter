@@ -1,9 +1,10 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:get/route_manager.dart';
-import 'package:sample/widgets/showcase/sample_message_bubble_showcase.dart';
-import 'package:sample/widgets/showcase/sample_text_style_showcase.dart';
-import 'package:sample/widgets/showcase/sample_typing_showcase.dart';
+import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
+import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
+import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -42,7 +43,9 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            const SampleTypingShowcase()
+            const SampleButtonShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleTypingShowcase(),
           ],
         ),
       ),

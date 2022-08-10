@@ -46,7 +46,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 preferredSize: const Size.fromHeight(80.0),
                 child: AnimatedOpacity(
                   opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 300),
+                  duration: DSUtils.defaultAnimationDuration,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -104,7 +104,7 @@ class DSImageMessageBubble extends StatelessWidget {
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
-      contentPadding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -115,10 +115,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 showGeneralDialog(
                   context: context,
                   barrierDismissible: false,
-                  transitionDuration: const Duration(
-                    milliseconds:
-                        300, //TODO: Create a global constant to animations duration..
-                  ),
+                  transitionDuration: DSUtils.defaultAnimationDuration,
                   transitionBuilder: (_, animation, __, child) =>
                       _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => _buildPage(context),
@@ -135,6 +132,7 @@ class DSImageMessageBubble extends StatelessWidget {
               ),
               errorWidget: (_, __, ___) {
                 _controller.setError();
+
                 return Image.asset(
                   'assets/images/file_image_broken.png',
                   package: DSUtils.packageName,

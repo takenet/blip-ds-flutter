@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [TextStyle].
 class DSTextStyle extends TextStyle {
+  /// Creates a Design System's [TextStyle].
   const DSTextStyle({
     super.fontSize,
     super.fontWeight,

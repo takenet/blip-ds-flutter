@@ -16,4 +16,5 @@ abstract class DSColors {
   static const Color extendRedsLipstick = Color(0xFFA01C2C);
 
   static const Color disabledText = Color(0xFF637798);
+  static const Color disabledBg = Color(0xFFE8F2FF);
 }

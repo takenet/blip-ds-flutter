@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
 import 'ds_typing_dot.widget.dart';
@@ -20,8 +21,8 @@ class DSTypingDotAnimation extends StatefulWidget {
     Key? key,
     this.numberDots = 3,
     this.size = 7,
-    this.padding = 3,
-    this.animationTime = const Duration(milliseconds: 300),
+    this.padding = 2,
+    this.animationTime = DSUtils.defaultAnimationDuration,
     required this.color,
     this.tweenEndAnimation = -3,
   }) : super(key: key);

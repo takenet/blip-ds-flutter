@@ -7,7 +7,9 @@ export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
-export 'src/widgets/chat/audio/ds_audio_message_bubble.dart'
+
+/// Widgets / Chat / Audio
+export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
@@ -15,6 +17,20 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
+
+/// Widgets / Animations
+export 'src/widgets/animations/ds_animated_size.widget.dart'
+    show DSAnimatedSize;
+export 'src/widgets/animations/ds_fading_circle_loading.widget.dart'
+    show DSFadingCircleLoading;
+export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
+
+/// Widgets / Buttons
+export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
+export 'src/widgets/buttons/ds_secondary_button.widget.dart'
+    show DSSecondaryButton;
+export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
+    show DSTertiaryButton;
 
 /// Widgets / Texts
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;
