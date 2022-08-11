@@ -1,12 +1,11 @@
 import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
-class DSPlayButtonWidget extends StatelessWidget {
+class DSPlayButton extends StatelessWidget {
   final DSPlayButtonIconColor icon;
   final VoidCallback onPressed;
 
-  const DSPlayButtonWidget(
-      {Key? key, required this.icon, required this.onPressed})
+  const DSPlayButton({Key? key, required this.icon, required this.onPressed})
       : super(key: key);
 
   @override

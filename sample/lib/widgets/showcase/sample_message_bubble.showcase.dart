@@ -66,6 +66,53 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
             align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.topRight,
+            ],
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+            ],
+            groupWithPreviousMessage: true,
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.bottomRight,
+            ],
+            groupWithPreviousMessage: true,
+          ),
+          DSTextMessageBubble(
+            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+            align: DSAlign.right,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: DSPrimaryButton(
+                    onPressed: () => _sampleText.value = _shorText,
+                    label: 'Texto Curto',
+                  ),
+                ),
+                DSPrimaryButton(
+                  onPressed: () => _sampleText.value = _longText,
+                  label: 'Texto Longo',
+                ),
+              ],
+            ),
           ),
           DSAudioMessageBubble(
             align: DSAlign.left,
@@ -74,22 +121,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSAudioMessageBubble(
             align: DSAlign.right,
             uri: _sampleAudio,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: ElevatedButton(
-                  onPressed: () => _sampleText.value = _shorText,
-                  child: const Text('Texto Curto'),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _sampleText.value = _longText,
-                child: const Text('Texto Longo'),
-              ),
-            ],
           ),
         ],
       ),

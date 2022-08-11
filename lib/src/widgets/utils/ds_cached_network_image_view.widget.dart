@@ -6,8 +6,17 @@ class DSCachedNetworkImageView extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
-  final Widget Function(BuildContext, String)? placeholder;
-  final Widget Function(BuildContext, String, dynamic)? errorWidget;
+
+  final Widget Function(
+    BuildContext context,
+    String url,
+  )? placeholder;
+
+  final Widget Function(
+    BuildContext context,
+    String url,
+    dynamic error,
+  )? errorWidget;
 
   const DSCachedNetworkImageView({
     Key? key,
@@ -21,13 +30,23 @@ class DSCachedNetworkImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
+    return SizedBox(
       width: width,
       height: height,
-      fit: fit,
-      imageUrl: url,
-      placeholder: placeholder,
-      errorWidget: errorWidget,
+      child: url.isEmpty
+          ? _buildError(context)
+          : CachedNetworkImage(
+              fit: fit,
+              imageUrl: url,
+              placeholder: placeholder,
+              errorWidget: errorWidget,
+            ),
     );
+  }
+
+  Widget _buildError(BuildContext context) {
+    return errorWidget != null
+        ? errorWidget!(context, url, null)
+        : const SizedBox();
   }
 }

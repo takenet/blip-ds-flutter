@@ -1,13 +1,13 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-class DSAudioSpeedButtonWidget extends StatelessWidget {
+class DSAudioSpeedButton extends StatelessWidget {
   final VoidCallback onTap;
   final Color borderColor;
   final Color color;
   final String text;
 
-  const DSAudioSpeedButtonWidget(
+  const DSAudioSpeedButton(
       {Key? key,
       required this.onTap,
       required this.color,

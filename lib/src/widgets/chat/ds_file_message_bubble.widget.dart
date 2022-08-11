@@ -1,6 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_file_message_bubble.controller.dart';
-import 'package:blip_ds/src/widgets/loading/ds_circle_loading.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -25,7 +24,7 @@ class DSFileMessageBubble extends StatelessWidget {
     return GestureDetector(
       onTap: () => controller.openFile(filename, url),
       child: DSMessageBubble(
-        contentPadding: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
         align: align,
         child: SizedBox(
           height: 80.0,
@@ -47,7 +46,7 @@ class DSFileMessageBubble extends StatelessWidget {
       color: DSColors.neutralLightSnow,
       child: Obx(
         () => controller.isDownloading.value
-            ? const DSCircleLoadingWidget(
+            ? const DSFadingCircleLoading(
                 color: DSColors.neutralDarkRooftop,
               )
             : Column(
