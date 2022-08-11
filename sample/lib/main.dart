@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble_showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style_showcase.dart';
 
@@ -39,23 +40,7 @@ class HomePage extends StatelessWidget {
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
-            //////////
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => DSDialog(
-                    title: 'Titulo',
-                    text: 'Texto do corpo',
-                    firstButtonText: 'First',
-                    secondButtonText: 'Second',
-                    firstButtonPressed: () {},
-                    context: context,
-                  ).warning(),
-                  child: const Text('System'),
-                ),
-              ],
-            ),
+            const SampleDialogShowcase(),
           ],
         ),
       ),

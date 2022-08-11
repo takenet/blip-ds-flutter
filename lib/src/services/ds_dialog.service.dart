@@ -3,7 +3,7 @@ import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// Docs 1..
+/// A Design System's [Dialog] used to display a dialog box.
 class DSDialog {
   final String title;
   final String text;
@@ -11,18 +11,17 @@ class DSDialog {
   final String? secondButtonText;
   final void Function() firstButtonPressed;
   final void Function()? secondButtonPressed;
-
   final BuildContext context;
 
-  /// Docs 2...
+  /// Creates a new Design System's [Dialog]
   DSDialog({
     required this.title,
     required this.text,
     required this.firstButtonText,
     required this.firstButtonPressed,
+    required this.context,
     this.secondButtonText,
     this.secondButtonPressed,
-    required this.context,
   });
 
   void _show(final DSDialogType type) {
@@ -77,9 +76,7 @@ class DSDialog {
 
     Widget buildBody() {
       return Padding(
-        padding: const EdgeInsets.all(
-          16.0,
-        ),
+        padding: const EdgeInsets.all(16.0),
         child: DSBodyText(
           text: text,
           overflow: TextOverflow.clip,
@@ -89,9 +86,7 @@ class DSDialog {
 
     Widget buildFooter() {
       return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -120,9 +115,7 @@ class DSDialog {
           constraints: const BoxConstraints(maxWidth: 400.0),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(15.0),
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(15.0)),
             boxShadow: [
               BoxShadow(
                 color: DSColors.neutralDarkEclipse.withOpacity(0.4),
@@ -145,17 +138,17 @@ class DSDialog {
     );
   }
 
-  /// Docs warning..
+  /// Shows a [DSDialogType.warning] dialog box type
   void warning() {
     _show(DSDialogType.warning);
   }
 
-  /// Docs system..
+  /// Shows a [DSDialogType.system] dialog box type
   void system() {
     _show(DSDialogType.system);
   }
 
-  /// Docs error..
+  /// Shows a [DSDialogType.error] dialog box type
   void error() {
     _show(DSDialogType.error);
   }
