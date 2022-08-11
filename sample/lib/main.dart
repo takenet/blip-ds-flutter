@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 
-import 'package:sample/widgets/showcase/sample_switch_showcase.dart';
+import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
