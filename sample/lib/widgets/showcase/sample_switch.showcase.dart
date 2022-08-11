@@ -32,7 +32,7 @@ class SampleSwitchShowcaseState extends State<SampleSwitchShowcase> {
           ),
         ),
         const SizedBox(height: 20),
-        DSCustomSwitch(
+        DSSwitch(
           value: switchValue,
           onChanged: (value) {
             setState(() {

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 @protected
 const Duration _animationDuration = Duration(milliseconds: 250);
 
-class DSCustomSwitch extends StatelessWidget {
+class DSSwitch extends StatelessWidget {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
   /// Set the active and inactive colors using the parameters [activeColor] and [inactiveColor], and use [value] to turn the switch on and off.
-  const DSCustomSwitch({
+  const DSSwitch({
     Key? key,
     required this.onChanged,
     required this.value,

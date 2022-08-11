@@ -50,7 +50,7 @@ class DSSwitchTile extends StatelessWidget {
         onTap: () => onChanged(!value),
         leading: leading,
         title: title,
-        trailing: DSCustomSwitch(
+        trailing: DSSwitch(
           activeColor: isEnabled ? switchActiveColor : switchInactiveColor,
           inactiveColor: switchInactiveColor,
           value: value,
