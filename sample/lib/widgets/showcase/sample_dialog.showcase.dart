@@ -9,33 +9,36 @@ class SampleDialogShowcase extends StatelessWidget {
     final dialog = DSDialog(
       title: 'title',
       text: 'text',
-      firstButtonText: 'First',
-      secondButtonText: 'Second',
-      firstButtonPressed: () => Navigator.of(context).pop(),
-      secondButtonPressed: () => Navigator.of(context).pop(),
+      firstButton: DSPrimaryButton(
+        onPressed: (() => Navigator.of(context).pop()),
+        label: 'firstButton',
+      ),
+      secondButton: DSSecondaryButton(
+        onPressed: (() => Navigator.of(context).pop()),
+        label: 'secondButton',
+      ),
       context: context,
     );
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        Flexible(
-          child: ElevatedButton(
-            onPressed: () => dialog.system(),
-            child: const Text('System dialog'),
-          ),
-        ),
-        Flexible(
-          child: ElevatedButton(
-            onPressed: () => dialog.error(),
-            child: const Text('Error dialog'),
-          ),
-        ),
-        Flexible(
-          child: ElevatedButton(
-            onPressed: () => dialog.warning(),
-            child: const Text('System warning'),
-          ),
+        DSBodyText(text: 'Dialogs'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DSPrimaryButton(
+              onPressed: () => dialog.system(),
+              label: 'System',
+            ),
+            DSPrimaryButton(
+              onPressed: () => dialog.error(),
+              label: 'Error',
+            ),
+            DSPrimaryButton(
+              onPressed: () => dialog.warning(),
+              label: 'Warning',
+            ),
+          ],
         ),
       ],
     );

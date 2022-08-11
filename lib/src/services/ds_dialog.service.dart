@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
+import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -7,21 +8,17 @@ import 'package:flutter/material.dart';
 class DSDialog {
   final String title;
   final String text;
-  final String firstButtonText;
-  final String? secondButtonText;
-  final void Function() firstButtonPressed;
-  final void Function()? secondButtonPressed;
+  final DSButton firstButton;
+  final DSButton? secondButton;
   final BuildContext context;
 
   /// Creates a new Design System's [Dialog]
   DSDialog({
     required this.title,
     required this.text,
-    required this.firstButtonText,
-    required this.firstButtonPressed,
     required this.context,
-    this.secondButtonText,
-    this.secondButtonPressed,
+    required this.firstButton,
+    this.secondButton,
   });
 
   void _show(final DSDialogType type) {
@@ -90,16 +87,17 @@ class DSDialog {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            //TODO: Uses DS's buttons
-            TextButton(
-              onPressed: firstButtonPressed,
-              child: Text(firstButtonText),
+            if (secondButton != null) Flexible(child: secondButton!),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 16.0,
+                  top: 8.0,
+                  bottom: 8.0,
+                ),
+                child: firstButton,
+              ),
             ),
-            if (secondButtonText != null)
-              TextButton(
-                onPressed: secondButtonPressed,
-                child: Text(secondButtonText!),
-              )
           ],
         ),
       );
