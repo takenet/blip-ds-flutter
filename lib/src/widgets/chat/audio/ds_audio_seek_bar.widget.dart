@@ -2,7 +2,7 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class DSAudioSeekBarWidget extends StatefulWidget {
+class DSAudioSeekBar extends StatefulWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
@@ -11,7 +11,7 @@ class DSAudioSeekBarWidget extends StatefulWidget {
   final VoidCallback? onChangeStart;
   final DSAlign align;
 
-  const DSAudioSeekBarWidget({
+  const DSAudioSeekBar({
     Key? key,
     required this.duration,
     required this.position,
@@ -23,10 +23,10 @@ class DSAudioSeekBarWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  DSAudioSeekBarWidgetState createState() => DSAudioSeekBarWidgetState();
+  DSAudioSeekBarState createState() => DSAudioSeekBarState();
 }
 
-class DSAudioSeekBarWidgetState extends State<DSAudioSeekBarWidget> {
+class DSAudioSeekBarState extends State<DSAudioSeekBar> {
   late SliderThemeData sliderThemeData = SliderTheme.of(context).copyWith(
     trackHeight: 2.0,
   );

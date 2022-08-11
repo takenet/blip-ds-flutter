@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DSPauseButtonWidget extends StatelessWidget {
+class DSPauseButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
 
-  const DSPauseButtonWidget(
-      {Key? key, required this.onPressed, required this.color})
+  const DSPauseButton({Key? key, required this.onPressed, required this.color})
       : super(key: key);
 
   @override

@@ -1,26 +1,29 @@
 import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
 import 'package:blip_ds/src/enums/ds_align.enum.dart';
 import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
+import 'package:blip_ds/src/widgets/animations/ds_animated_size.widget.dart';
 import 'package:flutter/material.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget child;
-  final EdgeInsets contentPadding;
   final List<DSBorderRadius> borderRadius;
+  final EdgeInsets padding;
+  final bool groupWithPreviousMessage;
 
   const DSMessageBubble({
     Key? key,
     required this.align,
     required this.child,
     this.borderRadius = const [DSBorderRadius.all],
-    this.contentPadding = const EdgeInsets.symmetric(
-      vertical: 10.0,
-      horizontal: 14.0,
+    this.padding = const EdgeInsets.symmetric(
+      vertical: 8,
+      horizontal: 16,
     ),
+    this.groupWithPreviousMessage = false,
   }) : super(key: key);
 
-  BorderRadius getBorderRadius() {
+  BorderRadius _getBorderRadius() {
     return borderRadius.contains(DSBorderRadius.all) || borderRadius.isEmpty
         ? const BorderRadius.all(
             Radius.circular(18.0),
@@ -41,30 +44,29 @@ class DSMessageBubble extends StatelessWidget {
           );
   }
 
-  Widget emptyWidget() {
-    return const Flexible(flex: 1, child: SizedBox());
-  }
-
-  Widget messageContainer() {
+  Widget _messageContainer() {
     return Flexible(
       flex: 5,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-        decoration: BoxDecoration(
-          borderRadius: getBorderRadius(),
-          color: align == DSAlign.right
-              ? DSColors.neutralDarkCity
-              : DSColors.neutralMediumSilver,
-        ),
-        padding: const EdgeInsets.all(1.0),
-        child: ClipRRect(
-          borderRadius: getBorderRadius(),
-          child: Container(
-            padding: contentPadding,
+      child: DSAnimatedSize(
+        child: Container(
+          margin:
+              EdgeInsets.fromLTRB(16, groupWithPreviousMessage ? 1 : 20, 16, 0),
+          decoration: BoxDecoration(
+            borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
                 ? DSColors.neutralDarkCity
-                : DSColors.neutralLightSnow,
-            child: child,
+                : DSColors.neutralMediumSilver,
+          ),
+          padding: const EdgeInsets.all(1.0),
+          child: ClipRRect(
+            borderRadius: _getBorderRadius(),
+            child: Container(
+              padding: padding,
+              color: align == DSAlign.right
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
+              child: child,
+            ),
           ),
         ),
       ),
@@ -76,9 +78,9 @@ class DSMessageBubble extends StatelessWidget {
     List<Widget> children = [];
 
     if (align == DSAlign.right) {
-      children.insertAll(0, [emptyWidget(), messageContainer()]);
+      children.insertAll(0, [const Spacer(), _messageContainer()]);
     } else {
-      children.insertAll(0, [messageContainer(), emptyWidget()]);
+      children.insertAll(0, [_messageContainer(), const Spacer()]);
     }
 
     return Row(

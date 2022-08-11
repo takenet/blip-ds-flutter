@@ -1,3 +1,11 @@
+## 0.0.12
+
+* Add button styles
+* Add unsupported content bubble
+* Add file message bubble
+* Add typing dots message bubble
+* Add animated dots
+
 ## 0.0.11
 
 * Add typography styles

@@ -19,4 +19,5 @@ abstract class DSColors {
   static const Color extendRedsflower = Color(0xFFFFA5A5);
 
   static const Color disabledText = Color(0xFF637798);
+  static const Color disabledBg = Color(0xFFE8F2FF);
 }

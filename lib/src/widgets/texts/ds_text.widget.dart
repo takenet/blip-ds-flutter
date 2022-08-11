@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [Text].
 class DSText extends Text {
+  /// Creates a Design System's [Text].
   const DSText({
     required String text,
     required super.style,
@@ -12,5 +13,9 @@ class DSText extends Text {
     Color color = DSColors.neutralDarkCity,
     TextOverflow? overflow = TextOverflow.ellipsis,
     TextDecoration? decoration,
-  }) : super(text);
+    TextAlign? textAlign,
+  }) : super(
+          text,
+          textAlign: textAlign,
+        );
 }
