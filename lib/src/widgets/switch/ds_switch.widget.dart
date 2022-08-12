@@ -50,7 +50,7 @@ class DSSwitch extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(25.0),
                 ),
-                color: _defineColor(),
+                color: _colorSwitchDefine(),
               ),
             ),
             AnimatedAlign(
@@ -81,7 +81,7 @@ class DSSwitch extends StatelessWidget {
     );
   }
 
-  Color _defineColor() {
+  Color _colorSwitchDefine() {
     switch (isActive) {
       case (true):
         return isEnabled ? activeColor : activeColor.withOpacity(0.5);
