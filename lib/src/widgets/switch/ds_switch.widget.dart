@@ -1,9 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-/// Animation duration for [DSSwitch].
-const Duration _animationDuration = Duration(milliseconds: 400);
-
 class DSSwitch extends StatelessWidget {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
@@ -29,6 +26,9 @@ class DSSwitch extends StatelessWidget {
 
   /// Color for background of the switch widget when [isActive] is true.
   final Color activeColor = DSColors.primaryNight;
+
+  /// Animation duration for [DSSwitch].
+  final Duration _animationDuration = const Duration(milliseconds: 400);
 
   @override
   Widget build(BuildContext context) {

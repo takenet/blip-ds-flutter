@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class DSSwitchTile extends StatelessWidget {
   /// Create a tile widget with a switch button
   ///
-  ///It is mandatory to inform three parameters: [isActive], enabling or disabling the switch, [onChanged], the event that will be executed when changing the value, and [title], which is the title of the tile.
+  /// It is mandatory to inform three parameters: [isActive], enabling or disabling the switch, [onChanged],
+  /// the event that will be executed when changing the value, and [title], which is the title of the tile.
   const DSSwitchTile({
     Key? key,
     required this.isActive,
