@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DSSwitchTile extends StatelessWidget {
@@ -12,11 +11,11 @@ class DSSwitchTile extends StatelessWidget {
     required this.onChanged,
     required this.title,
     this.leading,
-    this.isEnabled = false,
+    this.isEnabled = true,
     this.contentPadding,
   }) : super(key: key);
 
-  /// current state of the switch widget.
+  /// Current state of the switch widget.
   final bool isActive;
 
   /// Callback performed when changing status [isActive]

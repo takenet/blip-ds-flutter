@@ -2,12 +2,12 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 /// Animation duration for [DSSwitch].
-const Duration _animationDuration = Duration(milliseconds: 250);
+const Duration _animationDuration = Duration(milliseconds: 400);
 
 class DSSwitch extends StatelessWidget {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
-  /// Set the active and inactive colors using the parameters [activeColor] and [inactiveColor], and use [value] to turn the switch on and off.
+  /// Set the active and inactive colors using the parameters [activeColor] and [inactiveColor], and use [isActive] to turn the switch on and off.
   const DSSwitch({
     Key? key,
     required this.onChanged,
@@ -21,13 +21,13 @@ class DSSwitch extends StatelessWidget {
   /// Enables or disables the widget by changing the color of the switch.
   final bool isEnabled;
 
-  /// Referring to [value] true ou false.
+  /// Referring to [isActive] true ou false.
   final bool isActive;
 
-  /// Referring to [inactiveColor] for  [value] false,
+  /// Referring to [inactiveColor] for  [isActive] false,
   final Color inactiveColor = DSColors.neutralMediumSilver;
 
-  /// Color for background of the switch widget when [value] is true.
+  /// Color for background of the switch widget when [isActive] is true.
   final Color activeColor = DSColors.primaryNight;
 
   @override
@@ -61,7 +61,7 @@ class DSSwitch extends StatelessWidget {
               child: Container(
                 height: 24,
                 width: 24,
-                margin: const EdgeInsets.symmetric(horizontal: 6),
+                margin: const EdgeInsets.symmetric(horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
@@ -84,9 +84,9 @@ class DSSwitch extends StatelessWidget {
   Color _defineColor() {
     switch (isActive) {
       case (true):
-        return isEnabled ? activeColor : activeColor.withOpacity(0.4);
+        return isEnabled ? activeColor : activeColor.withOpacity(0.5);
       case (false):
-        return isEnabled ? inactiveColor : inactiveColor.withOpacity(0.4);
+        return isEnabled ? inactiveColor : inactiveColor.withOpacity(0.5);
       default:
         return activeColor;
     }
