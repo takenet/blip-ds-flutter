@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 class DSSwitch extends StatelessWidget {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
-  /// Set the active and inactive colors using the parameters [activeColor] and [inactiveColor], and use [isActive] to turn the switch on and off.
+  /// Set the active and inactive colors using the parameters [activeColor]
+  /// and [inactiveColor], and use [isActive] to turn the switch on and off.
   const DSSwitch({
     Key? key,
     required this.onChanged,
     required this.isActive,
-    this.isEnabled = true,
+    this.isDisabled = true,
   }) : super(key: key);
 
   /// Function callback to use when the [onChanged].
   final ValueChanged<bool> onChanged;
 
   /// Enables or disables the widget by changing the color of the switch.
-  final bool isEnabled;
+  final bool isDisabled;
 
   /// Referring to [isActive] true ou false.
   final bool isActive;
@@ -34,7 +35,7 @@ class DSSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (isEnabled) onChanged(!isActive);
+        if (isDisabled) onChanged(!isActive);
       },
       child: SizedBox(
         height: 32,
@@ -84,9 +85,9 @@ class DSSwitch extends StatelessWidget {
   Color _colorSwitchDefine() {
     switch (isActive) {
       case (true):
-        return isEnabled ? activeColor : activeColor.withOpacity(0.5);
+        return isDisabled ? activeColor : activeColor.withOpacity(0.5);
       case (false):
-        return isEnabled ? inactiveColor : inactiveColor.withOpacity(0.5);
+        return isDisabled ? inactiveColor : inactiveColor.withOpacity(0.5);
       default:
         return activeColor;
     }

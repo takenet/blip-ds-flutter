@@ -27,7 +27,7 @@ class SampleSwitchShowcase extends StatelessWidget {
         const SizedBox(height: 20),
         Obx(
           () => DSSwitchTile(
-            isEnabled: false,
+            isDisabled: false,
             isActive: controller.onSwitchTileDisabled.value,
             onChanged: (value) => controller.onSwitchTileDisabled,
             title: DSBodyText(

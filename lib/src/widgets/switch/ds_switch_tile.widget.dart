@@ -12,7 +12,7 @@ class DSSwitchTile extends StatelessWidget {
     required this.onChanged,
     required this.title,
     this.leading,
-    this.isEnabled = true,
+    this.isDisabled = true,
     this.contentPadding,
   }) : super(key: key);
 
@@ -29,7 +29,7 @@ class DSSwitchTile extends StatelessWidget {
   final Widget? leading;
 
   /// Enables or disables the widget switch by changing the color of the switch.
-  final bool isEnabled;
+  final bool isDisabled;
 
   /// Change a padding tile content.
   final EdgeInsetsGeometry? contentPadding;
@@ -43,13 +43,13 @@ class DSSwitchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      enabled: isEnabled,
+      enabled: isDisabled,
       onTap: () => onChanged(!isActive),
       leading: leading,
       title: title,
       trailing: DSSwitch(
         isActive: isActive,
-        isEnabled: isEnabled,
+        isDisabled: isDisabled,
         onChanged: onChanged,
       ),
       contentPadding: contentPadding,
