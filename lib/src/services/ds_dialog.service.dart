@@ -104,7 +104,7 @@ class DSDialog {
     }
 
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async => false,
       child: Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -112,7 +112,7 @@ class DSDialog {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: DSColors.neutralLightSnow,
             borderRadius: const BorderRadius.all(Radius.circular(15.0)),
             boxShadow: [
               BoxShadow(
