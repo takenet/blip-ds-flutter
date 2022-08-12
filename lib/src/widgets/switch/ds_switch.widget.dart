@@ -64,7 +64,7 @@ class DSSwitch extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: DSColors.neutralLightSnow,
                   boxShadow: [
                     BoxShadow(
                       color: inactiveColor,
