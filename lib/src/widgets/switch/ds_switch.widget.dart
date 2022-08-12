@@ -1,8 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-/// Animation duration for [CustomSwitch].
-@protected
+/// Animation duration for [DSSwitch].
 const Duration _animationDuration = Duration(milliseconds: 250);
 
 class DSSwitch extends StatelessWidget {
@@ -12,27 +11,31 @@ class DSSwitch extends StatelessWidget {
   const DSSwitch({
     Key? key,
     required this.onChanged,
-    required this.value,
-    this.inactiveColor = DSColors.neutralMediumSilver,
-    this.activeColor = DSColors.primaryNight,
+    required this.isActive,
+    this.isEnabled = true,
   }) : super(key: key);
 
   /// Function callback to use when the [onChanged].
   final ValueChanged<bool> onChanged;
 
+  /// Enables or disables the widget by changing the color of the switch.
+  final bool isEnabled;
+
   /// Referring to [value] true ou false.
-  final bool value;
+  final bool isActive;
 
   /// Referring to [inactiveColor] for  [value] false,
-  final Color? inactiveColor;
+  final Color inactiveColor = DSColors.neutralMediumSilver;
 
   /// Color for background of the switch widget when [value] is true.
-  final Color? activeColor;
+  final Color activeColor = DSColors.primaryNight;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onChanged(!value),
+      onTap: () {
+        if (isEnabled) onChanged(!isActive);
+      },
       child: SizedBox(
         height: 32,
         width: 56,
@@ -47,13 +50,14 @@ class DSSwitch extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(25.0),
                 ),
-                color: value ? activeColor : inactiveColor,
+                color: _defineColor(),
               ),
             ),
             AnimatedAlign(
               curve: Curves.ease,
               duration: _animationDuration,
-              alignment: !value ? Alignment.centerLeft : Alignment.centerRight,
+              alignment:
+                  !isActive ? Alignment.centerLeft : Alignment.centerRight,
               child: Container(
                 height: 24,
                 width: 24,
@@ -63,7 +67,7 @@ class DSSwitch extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: inactiveColor!,
+                      color: inactiveColor,
                       spreadRadius: 0.5,
                       blurRadius: 1,
                     )
@@ -75,5 +79,16 @@ class DSSwitch extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _defineColor() {
+    switch (isActive) {
+      case (true):
+        return isEnabled ? activeColor : activeColor.withOpacity(0.4);
+      case (false):
+        return isEnabled ? inactiveColor : inactiveColor.withOpacity(0.4);
+      default:
+        return activeColor;
+    }
   }
 }
