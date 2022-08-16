@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DSSwitchBase extends StatelessWidget {
+abstract class DSSwitchBase extends StatelessWidget {
   const DSSwitchBase({
     Key? key,
     required this.onChanged,
@@ -20,9 +20,4 @@ class DSSwitchBase extends StatelessWidget {
   /// Referring to [isActive] true or false, preventing from
   /// changing status and activating [onChanged].
   final bool isActive;
-
-  @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
 }
