@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 class DSSwitch extends DSSwitchBase {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
-  /// Set the active and inactive colors using the parameters [activeColor]
-  /// and [inactiveColor], and use [isActive] to turn the switch on and off.
   const DSSwitch({
     Key? key,
     required super.onChanged,
@@ -18,6 +16,12 @@ class DSSwitch extends DSSwitchBase {
 
   /// Animation duration for [DSSwitch] when activate or deactivate.
   final Duration _animationDuration = const Duration(milliseconds: 400);
+
+  /// Referring to [inactiveColor] for [isActive] false,
+  final Color _inactiveColor = DSColors.neutralMediumSilver;
+
+  /// Color for background of the switch widget when [isActive] is true.
+  final Color _activeColor = DSColors.primaryNight;
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +67,11 @@ class DSSwitch extends DSSwitchBase {
   Color _colorSwitchDefine() {
     switch (isActive) {
       case (true):
-        return isEnabled
-            ? super.activeColor
-            : super.activeColor.withOpacity(0.5);
+        return isEnabled ? _activeColor : DSColors.primaryLight;
       case (false):
-        return isEnabled
-            ? super.inactiveColor
-            : super.inactiveColor.withOpacity(0.5);
+        return isEnabled ? _inactiveColor : DSColors.neutralMediumWave;
       default:
-        return activeColor;
+        return _activeColor;
     }
   }
 }

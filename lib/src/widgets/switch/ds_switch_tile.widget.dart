@@ -39,7 +39,6 @@ class DSSwitchTile extends DSSwitchBase {
         isEnabled: isEnabled,
       ),
       contentPadding: contentPadding,
-      selected: isActive,
     );
   }
 }

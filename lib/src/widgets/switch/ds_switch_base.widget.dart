@@ -1,4 +1,3 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 class DSSwitchBase extends StatelessWidget {
@@ -21,12 +20,6 @@ class DSSwitchBase extends StatelessWidget {
   /// Referring to [isActive] true or false, preventing from
   /// changing status and activating [onChanged].
   final bool isActive;
-
-  /// Referring to [inactiveColor] for [isActive] false,
-  final Color inactiveColor = DSColors.neutralMediumSilver;
-
-  /// Color for background of the switch widget when [isActive] is true.
-  final Color activeColor = DSColors.primaryNight;
 
   @override
   Widget build(BuildContext context) {
