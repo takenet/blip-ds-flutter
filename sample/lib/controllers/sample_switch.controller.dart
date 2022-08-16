@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class SampleSwitchController extends GetxController {
   SampleSwitchController();
 
-  RxBool onSwitch = false.obs;
+  RxBool onSwitch = true.obs;
   RxBool onSwitchTile = true.obs;
   RxBool onSwitchTileDisabled = true.obs;
 

@@ -1,41 +1,29 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/widgets/switch/ds_switch_base.widget.dart';
 import 'package:flutter/material.dart';
 
-class DSSwitch extends StatelessWidget {
+class DSSwitch extends DSSwitchBase {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
   /// Set the active and inactive colors using the parameters [activeColor]
   /// and [inactiveColor], and use [isActive] to turn the switch on and off.
   const DSSwitch({
     Key? key,
-    required this.onChanged,
-    required this.isActive,
-    this.isDisabled = true,
-  }) : super(key: key);
+    required super.onChanged,
+    required super.isActive,
+    super.isEnabled = true,
+  }) : super(
+          key: key,
+        );
 
-  /// Function callback to use when the [onChanged].
-  final ValueChanged<bool> onChanged;
-
-  /// Enables or disables the widget by changing the color of the switch.
-  final bool isDisabled;
-
-  /// Referring to [isActive] true ou false.
-  final bool isActive;
-
-  /// Referring to [inactiveColor] for  [isActive] false,
-  final Color inactiveColor = DSColors.neutralMediumSilver;
-
-  /// Color for background of the switch widget when [isActive] is true.
-  final Color activeColor = DSColors.primaryNight;
-
-  /// Animation duration for [DSSwitch].
+  /// Animation duration for [DSSwitch] when activate or deactivate.
   final Duration _animationDuration = const Duration(milliseconds: 400);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (isDisabled) onChanged(!isActive);
+        if (isEnabled) onChanged(!isActive);
       },
       child: SizedBox(
         height: 32,
@@ -75,9 +63,13 @@ class DSSwitch extends StatelessWidget {
   Color _colorSwitchDefine() {
     switch (isActive) {
       case (true):
-        return isDisabled ? activeColor : activeColor.withOpacity(0.5);
+        return isEnabled
+            ? super.activeColor
+            : super.activeColor.withOpacity(0.5);
       case (false):
-        return isDisabled ? inactiveColor : inactiveColor.withOpacity(0.5);
+        return isEnabled
+            ? super.inactiveColor
+            : super.inactiveColor.withOpacity(0.5);
       default:
         return activeColor;
     }
