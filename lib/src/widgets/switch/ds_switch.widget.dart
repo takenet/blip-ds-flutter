@@ -43,13 +43,11 @@ class DSSwitch extends StatelessWidget {
         child: Stack(
           children: [
             AnimatedContainer(
-              height: 32,
-              width: 56,
               curve: Curves.ease,
               duration: _animationDuration,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(25.0),
+                  Radius.circular(16.0),
                 ),
                 color: _colorSwitchDefine(),
               ),
@@ -60,19 +58,11 @@ class DSSwitch extends StatelessWidget {
               alignment:
                   !isActive ? Alignment.centerLeft : Alignment.centerRight,
               child: Container(
-                height: 24,
                 width: 24,
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: DSColors.neutralLightSnow,
-                  boxShadow: [
-                    BoxShadow(
-                      color: inactiveColor,
-                      spreadRadius: 0.5,
-                      blurRadius: 1,
-                    )
-                  ],
                 ),
               ),
             ),
