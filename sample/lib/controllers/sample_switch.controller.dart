@@ -1,7 +1,7 @@
-import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 /// GetX Controller for holding Switch's current value
-class SampleSwitchController extends GetxController {
+class SampleSwitchController {
   SampleSwitchController();
 
   RxBool onSwitch = true.obs;
