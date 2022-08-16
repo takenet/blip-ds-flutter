@@ -77,7 +77,7 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
 
 /// Services
-export 'src/services/ds_dialog.service.dart' show DSDialog;
+export 'src/services/ds_dialog.service.dart' show DSDialogService;
 
 /// Widgets / Typing
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'

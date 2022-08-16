@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// A Design System's [Dialog] used to display a dialog box.
-class DSDialog {
+class DSDialogService {
   final String title;
   final String text;
   final DSButton firstButton;
@@ -13,7 +13,7 @@ class DSDialog {
   final BuildContext context;
 
   /// Creates a new Design System's [Dialog]
-  DSDialog({
+  DSDialogService({
     required this.title,
     required this.text,
     required this.context,

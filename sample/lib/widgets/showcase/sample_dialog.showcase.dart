@@ -6,7 +6,7 @@ class SampleDialogShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dialog = DSDialog(
+    final dialog = DSDialogService(
       title: 'title',
       text: 'text',
       firstButton: DSPrimaryButton(
