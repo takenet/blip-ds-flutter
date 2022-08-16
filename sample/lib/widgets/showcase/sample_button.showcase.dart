@@ -23,6 +23,24 @@ class SampleButtonShowcase extends StatelessWidget {
           // isLoading: true,
         ),
         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DSPrimaryButton(
+            onPressed: () => {},
+            isEnabled: false,
+            label: 'Primary Button disabled',
+            leadingIcon: const Icon(
+              Icons.info_outline,
+              size: 30,
+            ),
+            trailingIcon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 15,
+            ),
+            // isDisabled: true,
+            // isLoading: true,
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: DSSecondaryButton(
             onPressed: () => {},

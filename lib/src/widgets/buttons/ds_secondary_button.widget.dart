@@ -3,7 +3,7 @@ import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
 
 /// A Design System's [ButtonStyleButton] primarily used by secondary actions.
 ///
-/// Set [isDisabled] to deactivate this button's [onPressed] and change his style.
+/// Set [isEnabled] to activate/deactivate this button's [onPressed] and change his style.
 /// Set [isLoading] to override content with a loading animation. It also deactivates [onPressed].
 class DSSecondaryButton extends DSButton {
   /// Creates a Design System's [ButtonStyleButton] with secondary style.
@@ -13,14 +13,14 @@ class DSSecondaryButton extends DSButton {
     super.leadingIcon,
     super.label,
     super.trailingIcon,
-    super.isDisabled,
+    super.isEnabled,
     super.isLoading,
   }) : super(
           backgroundColor: DSColors.neutralLightSnow,
-          foregroundColor: !isDisabled
+          foregroundColor: isEnabled
               ? DSColors.primaryNight
               : DSColors.neutralMediumElephant,
-          borderColor: !isDisabled
+          borderColor: isEnabled
               ? DSColors.primaryNight
               : DSColors.neutralMediumElephant,
         );
