@@ -1,5 +1,9 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
+import 'package:sample/widgets/showcase/sample_button.showcase.dart';
+
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
@@ -51,6 +55,10 @@ class HomePage extends StatelessWidget {
             const SampleTypingShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleSwitchShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleDialogShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+
           ],
         ),
       ),
