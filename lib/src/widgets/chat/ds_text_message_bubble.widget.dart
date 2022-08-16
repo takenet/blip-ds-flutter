@@ -1,7 +1,10 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:linkify/linkify.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
@@ -50,14 +53,57 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         !controller.showFullText.value ? TextOverflow.ellipsis : null;
     final maxLines = !controller.showFullText.value ? 12 : null;
 
-    final textSpan = TextSpan(
-      text: widget.text,
-      style: DSBodyTextStyle(
-        color: widget.align == DSAlign.right
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralDarkCity,
-        overflow: overflow,
+    final elements = linkify(
+      widget.text,
+      linkifiers: const [
+        UrlLinkifier(),
+      ],
+      options: const LinkifyOptions(
+        looseUrl: true,
+        defaultToHttps: true,
       ),
+    );
+
+    final List<TextSpan> fullText = [];
+
+    for (var element in elements) {
+      if (element is TextElement) {
+        fullText.add(
+          TextSpan(
+            text: element.text,
+            style: DSBodyTextStyle(
+              color: widget.align == DSAlign.right
+                  ? DSColors.neutralLightSnow
+                  : DSColors.neutralDarkCity,
+              overflow: overflow,
+            ),
+          ),
+        );
+      } else {
+        final String url = (element as UrlElement).url;
+
+        fullText.add(
+          TextSpan(
+            text: url,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => launchUrlString(
+                    url,
+                    mode: LaunchMode.inAppWebView,
+                  ),
+            style: DSBodyTextStyle(
+              color: widget.align == DSAlign.right
+                  ? DSColors.primaryLight
+                  : DSColors.primaryNight,
+              decoration: TextDecoration.underline,
+              overflow: overflow,
+            ),
+          ),
+        );
+      }
+    }
+
+    final textSpan = TextSpan(
+      children: fullText,
     );
 
     final textPainter = TextPainter(
@@ -74,10 +120,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text.rich(
-              textSpan,
+            RichText(
+              text: textSpan,
               maxLines: textPainter.maxLines,
-              style: textSpan.style,
             ),
             if (textPainter.didExceedMaxLines) _buildShowMore(),
           ],

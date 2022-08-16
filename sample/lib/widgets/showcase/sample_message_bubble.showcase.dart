@@ -27,6 +27,20 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSLinkMessageBubble(
+            align: DSAlign.left,
+          ),
+          DSLinkMessageBubble(
+            align: DSAlign.right,
+          ),
+          DSTextMessageBubble(
+            text: 'https://pub.dev/packages/linkify',
+            align: DSAlign.left,
+          ),
+          DSTextMessageBubble(
+            text: 'antes https://pub.dev/packages/linkify depois google.com',
+            align: DSAlign.left,
+          ),
           DSFileMessageBubble(
               align: DSAlign.left,
               filename: 'teste.pdf',
@@ -56,7 +70,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.left,
             url: _sampleImage,
             imageTitle: 'imageTitle.png',
-            imageText: 'My picture',
+            imageText: _longText,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

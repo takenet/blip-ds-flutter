@@ -17,6 +17,8 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
+export 'src/widgets/chat/ds_link_message_bubble.widget.dart'
+    show DSLinkMessageBubble;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
