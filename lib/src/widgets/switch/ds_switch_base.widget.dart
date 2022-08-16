@@ -7,7 +7,6 @@ class DSSwitchBase extends StatelessWidget {
     required this.onChanged,
     required this.isActive,
     this.isEnabled = true,
-    inactiveColor,
   }) : super(
           key: key,
         );
