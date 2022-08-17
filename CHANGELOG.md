@@ -1,6 +1,7 @@
 ## 0.0.13
 
 * Add switch button
+* Add SwitchTile
 
 ## 0.0.12
 

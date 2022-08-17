@@ -41,7 +41,7 @@ class DSSwitch extends DSSwitchBase {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(16.0),
                 ),
-                color: _colorSwitchDefine(),
+                color: _getSwitchColor(),
               ),
             ),
             AnimatedAlign(
@@ -64,7 +64,7 @@ class DSSwitch extends DSSwitchBase {
     );
   }
 
-  Color _colorSwitchDefine() {
+  Color _getSwitchColor() {
     switch (isActive) {
       case (true):
         return isEnabled ? _activeColor : DSColors.primaryLight;
