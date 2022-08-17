@@ -12,6 +12,7 @@ abstract class DSColors {
   static const Color neutralDarkEclipse = Color(0xFF0A0F1A);
   static const Color neutralMediumElephant = Color(0xFF6E7B91);
   static const Color neutralMediumSilver = Color(0xFFB9CBD3);
+  static const Color neutralMediumWave = Color(0xFFD2DFE6);
   static const Color neutralLightBox = Color(0xFFE7EDF4);
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
