@@ -16,7 +16,7 @@ class SampleSwitchShowcase extends StatelessWidget {
         const SizedBox(height: 20),
         Obx(
           () => DSSwitchTile(
-            isActive: controller.onSwitchTile.value,
+            value: controller.onSwitchTile.value,
             onChanged: (value) => controller.toggleSwitchTile(),
             title: DSBodyText(
               text: 'Label switch',
@@ -28,7 +28,7 @@ class SampleSwitchShowcase extends StatelessWidget {
         Obx(
           () => DSSwitchTile(
             isEnabled: false,
-            isActive: controller.onSwitchTileDisabled.value,
+            value: controller.onSwitchTileDisabled.value,
             onChanged: (value) => controller.onSwitchTileDisabled,
             title: DSBodyText(
               text: 'Label switch',
@@ -40,7 +40,7 @@ class SampleSwitchShowcase extends StatelessWidget {
         Obx(
           () => DSSwitch(
             onChanged: (value) => controller.toggleSwitch(),
-            isActive: controller.onSwitch.value,
+            value: controller.onSwitch.value,
           ),
         ),
         const SizedBox(height: 20),

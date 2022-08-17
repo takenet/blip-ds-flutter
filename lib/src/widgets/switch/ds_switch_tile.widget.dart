@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 class DSSwitchTile extends DSSwitchBase {
   /// Create a tile widget with a switch button
   ///
-  /// It is mandatory to inform three parameters: [isActive], enabling or disabling the switch, [onChanged],
+  /// It is mandatory to inform three parameters: [value], enabling or disabling the switch, [onChanged],
   /// the event that will be executed when changing the value, and [title], which is the title of the tile.
   const DSSwitchTile({
     Key? key,
-    required super.isActive,
+    required super.value,
     required super.onChanged,
     super.isEnabled = true,
     required this.title,
@@ -30,11 +30,11 @@ class DSSwitchTile extends DSSwitchBase {
   Widget build(BuildContext context) {
     return ListTile(
       enabled: isEnabled,
-      onTap: () => onChanged(!isActive),
+      onTap: () => onChanged(!value),
       leading: leading,
       title: title,
       trailing: DSSwitch(
-        isActive: isActive,
+        value: value,
         onChanged: onChanged,
         isEnabled: isEnabled,
       ),

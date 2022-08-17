@@ -8,7 +8,7 @@ class DSSwitch extends DSSwitchBase {
   const DSSwitch({
     Key? key,
     required super.onChanged,
-    required super.isActive,
+    required super.value,
     super.isEnabled = true,
   }) : super(
           key: key,
@@ -27,7 +27,7 @@ class DSSwitch extends DSSwitchBase {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (isEnabled) onChanged(!isActive);
+        if (isEnabled) onChanged(!value);
       },
       child: SizedBox(
         height: 32,
@@ -47,8 +47,7 @@ class DSSwitch extends DSSwitchBase {
             AnimatedAlign(
               curve: Curves.ease,
               duration: _animationDuration,
-              alignment:
-                  !isActive ? Alignment.centerLeft : Alignment.centerRight,
+              alignment: !value ? Alignment.centerLeft : Alignment.centerRight,
               child: Container(
                 width: 24,
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -65,7 +64,7 @@ class DSSwitch extends DSSwitchBase {
   }
 
   Color _getSwitchColor() {
-    switch (isActive) {
+    switch (value) {
       case (true):
         return isEnabled ? _activeColor : DSColors.primaryLight;
       case (false):
