@@ -19,7 +19,7 @@ class SampleButtonShowcase extends StatelessWidget {
             Icons.arrow_forward_ios_rounded,
             size: 15,
           ),
-          // isEnabledd: true,
+          // isEnabled: true,
           // isLoading: true,
         ),
         Padding(
