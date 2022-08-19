@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class DSRadioTile<T> extends StatelessWidget {
   /// Create a tile widget with a radio button for grouped use
   ///
-
   ///The radio buttons will need to be grouped using the [groupValue] parameter,
   ///which will determine which value to capture in the group on each button determined by [value].
   ///
