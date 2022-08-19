@@ -88,3 +88,7 @@ export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
 /// Widgets / SwitchTile
 export 'src/widgets/switch/ds_switch_tile.widget.dart' show DSSwitchTile;
 export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
+
+/// Widgets / Radio
+export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
+export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
