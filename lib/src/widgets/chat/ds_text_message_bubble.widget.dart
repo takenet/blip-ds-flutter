@@ -46,8 +46,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       borderRadius: widget.borderRadius,
       groupWithPreviousMessage: widget.groupWithPreviousMessage,
       showMessageDetail: widget.showMessageDetail,
-      deliveryStatus: widget.deliveryStatus!,
-      date: widget.date!,
+      deliveryStatus: widget.deliveryStatus,
+      date: widget.date,
       child: Obx(
         () => _buildText(),
       ),
