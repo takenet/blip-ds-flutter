@@ -56,7 +56,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
 
       default:
         return DSCaptionSmallText(
-          text: 'Falha ao enviar mensagem',
+          text: 'Falha ao enviar mensagem.',
           color: DSColors.extendRedsDragon,
         );
     }
