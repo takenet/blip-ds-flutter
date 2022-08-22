@@ -2,6 +2,7 @@ library blip_ds;
 
 /// Utils
 export 'src/utils/ds_utils.util.dart' show DSUtils;
+export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 
 /// Widgets / Chat
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
@@ -17,8 +18,6 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
-export 'src/widgets/chat/ds_link_message_bubble.widget.dart'
-    show DSLinkMessageBubble;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'

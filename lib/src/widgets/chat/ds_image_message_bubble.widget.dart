@@ -145,7 +145,7 @@ class DSImageMessageBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DSCaptionSmallText(
+                DSCaptionText(
                   text: imageTitle,
                   color: align == DSAlign.right
                       ? DSColors.neutralLightSnow
@@ -155,7 +155,7 @@ class DSImageMessageBubble extends StatelessWidget {
                   const SizedBox(
                     height: 6.0,
                   ),
-                  DSCaptionText(
+                  DSBodyText(
                     text: imageText!,
                     color: align == DSAlign.right
                         ? DSColors.neutralLightSnow

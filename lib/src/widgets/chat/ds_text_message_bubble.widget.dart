@@ -1,9 +1,8 @@
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
@@ -41,6 +40,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return DSMessageBubble(
       align: widget.align,
       borderRadius: widget.borderRadius,
+      padding: EdgeInsets.zero,
       groupWithPreviousMessage: widget.groupWithPreviousMessage,
       child: Obx(
         () => _buildText(),
@@ -51,59 +51,18 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   Widget _buildText() {
     final overflow =
         !controller.showFullText.value ? TextOverflow.ellipsis : null;
+
     final maxLines = !controller.showFullText.value ? 12 : null;
 
-    final elements = linkify(
-      widget.text,
-      linkifiers: const [
-        UrlLinkifier(),
-      ],
-      options: const LinkifyOptions(
-        looseUrl: true,
-        defaultToHttps: true,
-      ),
-    );
-
-    final List<TextSpan> fullText = [];
-
-    for (var element in elements) {
-      if (element is TextElement) {
-        fullText.add(
-          TextSpan(
-            text: element.text,
-            style: DSBodyTextStyle(
-              color: widget.align == DSAlign.right
-                  ? DSColors.neutralLightSnow
-                  : DSColors.neutralDarkCity,
-              overflow: overflow,
-            ),
-          ),
-        );
-      } else {
-        final String url = (element as UrlElement).url;
-
-        fullText.add(
-          TextSpan(
-            text: url,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => launchUrlString(
-                    url,
-                    mode: LaunchMode.inAppWebView,
-                  ),
-            style: DSBodyTextStyle(
-              color: widget.align == DSAlign.right
-                  ? DSColors.primaryLight
-                  : DSColors.primaryNight,
-              decoration: TextDecoration.underline,
-              overflow: overflow,
-            ),
-          ),
-        );
-      }
-    }
+    final textColor = widget.align == DSAlign.right
+        ? DSColors.neutralLightSnow
+        : DSColors.neutralDarkCity;
 
     final textSpan = TextSpan(
-      children: fullText,
+      text: widget.text,
+      style: DSBodyTextStyle(
+        color: textColor,
+      ),
     );
 
     final textPainter = TextPainter(
@@ -117,14 +76,49 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       builder: (context, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
 
+        final String urlPreview = DSLinkify.getFirstUrlFromText(widget.text);
+
+        final padding = urlPreview.isNotEmpty
+            ? const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 8.0)
+            : const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              );
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(
-              text: textSpan,
-              maxLines: textPainter.maxLines,
+            if (urlPreview.isNotEmpty)
+              AnyLinkPreview(
+                link: urlPreview,
+                urlLaunchMode: LaunchMode.inAppWebView,
+                boxShadow: const [],
+                backgroundColor: Colors.transparent,
+                titleStyle: DSBodyTextStyle(
+                  color: textColor,
+                ),
+                bodyStyle: DSCaptionSmallTextStyle(
+                  color: textColor,
+                ),
+                bodyMaxLines: 3,
+              ),
+            Padding(
+              padding: padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DSBodyText.rich(
+                    textSpan: textSpan,
+                    linkColor: widget.align == DSAlign.right
+                        ? DSColors.primaryLight
+                        : DSColors.primaryNight,
+                    overflow: overflow,
+                    maxLines: textPainter.maxLines,
+                  ),
+                  if (textPainter.didExceedMaxLines) _buildShowMore(),
+                ],
+              ),
             ),
-            if (textPainter.didExceedMaxLines) _buildShowMore(),
           ],
         );
       },
