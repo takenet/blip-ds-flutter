@@ -5,6 +5,7 @@ import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 
 import 'package:get/route_manager.dart';
+import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
@@ -57,6 +58,7 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             const SampleDialogShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
+            SampleGroupCardShowcase()
           ],
         ),
       ),

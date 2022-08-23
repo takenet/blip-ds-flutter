@@ -49,8 +49,8 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin:
-              EdgeInsets.fromLTRB(16, groupWithPreviousMessage ? 1 : 20, 16, 0),
+          margin: EdgeInsets.fromLTRB(
+              16, groupWithPreviousMessage ? 3.0 : 20, 16, 0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
