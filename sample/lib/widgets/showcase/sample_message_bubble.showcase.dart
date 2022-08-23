@@ -71,6 +71,8 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               DSBorderRadius.bottomLeft,
               DSBorderRadius.topRight,
             ],
+            groupWithPreviousMessage: true,
+            showMessageDetail: false,
           ),
           DSTextMessageBubble(
             text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
@@ -80,21 +82,26 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               DSBorderRadius.bottomLeft,
             ],
             groupWithPreviousMessage: true,
+            showMessageDetail: false,
           ),
           DSTextMessageBubble(
-            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
-            align: DSAlign.right,
-            borderRadius: const [
-              DSBorderRadius.topLeft,
-              DSBorderRadius.bottomLeft,
-              DSBorderRadius.bottomRight,
-            ],
-            groupWithPreviousMessage: true,
-          ),
+              text:
+                  _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+              align: DSAlign.right,
+              borderRadius: const [
+                DSBorderRadius.topLeft,
+                DSBorderRadius.bottomLeft,
+                DSBorderRadius.bottomRight,
+              ],
+              groupWithPreviousMessage: true,
+              date: '1 de Abr de 2021 15:27',
+              deliveryStatus: DSDeliveryReportStatus.accepted),
           DSTextMessageBubble(
-            text: _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
-            align: DSAlign.right,
-          ),
+              text:
+                  _sampleText.value.isNotEmpty ? _sampleText.value : _shorText,
+              align: DSAlign.right,
+              date: '1 de Abr de 2021 15:28',
+              deliveryStatus: DSDeliveryReportStatus.consumed),
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Row(
