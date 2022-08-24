@@ -88,3 +88,8 @@ export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
 /// Widgets / SwitchTile
 export 'src/widgets/switch/ds_switch_tile.widget.dart' show DSSwitchTile;
 export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
+
+/// Widgets / Video
+export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
+    show DSVideoMessageBubble;
+export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;

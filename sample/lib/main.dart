@@ -10,6 +10,7 @@ import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
+import 'package:sample/widgets/showcase/sample_video.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -56,6 +57,8 @@ class HomePage extends StatelessWidget {
             const SampleSwitchShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleDialogShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleVideoShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
           ],
         ),
