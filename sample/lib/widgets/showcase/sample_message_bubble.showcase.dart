@@ -122,6 +122,28 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.right,
             uri: _sampleAudio,
           ),
+
+          ///
+          ///
+          DSVideoMessageBubble(
+            align: DSAlign.right,
+            url: '',
+            urlThumbnail: '',
+            videoTitle: 'imageTitle.png',
+            imageText: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+          DSVideoMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImage,
+            urlThumbnail: _sampleImage,
+            videoTitle: 'imageTitle.png',
+            imageText: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+
+          ///
+          ///
         ],
       ),
     );
