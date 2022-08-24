@@ -280,7 +280,7 @@ class _RadioPainter extends ToggleablePainter {
     if (isEnabled) {
       // Outer circle
       final Paint paint = Paint()
-        ..color = const Color.fromARGB(255, 0, 0, 0)
+        ..color = DSColors.neutralDarkCity
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0;
       canvas.drawCircle(center, _kOuterRadius, paint);
@@ -300,7 +300,7 @@ class _RadioPainter extends ToggleablePainter {
 
       // Outer circle Disabled
       final Paint paint = Paint()
-        ..color = DSColors.neutralDarkRooftop
+        ..color = DSColors.neutralMediumElephant
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0;
       canvas.drawCircle(center, _kOuterRadius, paint);
