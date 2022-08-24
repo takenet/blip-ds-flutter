@@ -100,10 +100,7 @@ class SampleRadioShowcase extends StatelessWidget {
   _radioTileString({int index = 0, bool isEnabled = true}) {
     return GetBuilder<SampleRadioController>(
       builder: (_) => DSRadioTile<String>(
-        title: DSBodyText(
-          text: _controller.optionsString[index],
-          overflow: TextOverflow.ellipsis,
-        ),
+        title: _controller.optionsString[index],
         value: _controller.optionsString[index],
         groupValue: isEnabled
             ? _controller.selectedRadioTile
