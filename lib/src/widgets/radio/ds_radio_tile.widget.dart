@@ -56,13 +56,10 @@ class DSRadioTile<T> extends StatelessWidget {
         groupValue: groupValue,
         onChanged: onChanged,
       ),
-      title: Text(
-        title!,
-        style: const TextStyle(
-          fontSize: 16,
-          color: DSColors.neutralDarkCity,
-          fontWeight: FontWeight.w400,
-        ),
+      title: DSBodyText(
+        text: title!,
+        fontWeight: FontWeight.w400,
+        color: DSColors.neutralDarkCity,
       ),
       contentPadding: contentPadding,
     );
