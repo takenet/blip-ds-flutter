@@ -1,6 +1,5 @@
 import 'dart:io';
 
-//import 'package:chewie_example/app/theme.dart';
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
@@ -11,9 +10,11 @@ class DSVideoPlayer extends StatefulWidget {
   const DSVideoPlayer({
     Key? key,
     this.appBarText = 'Chewie Demo',
+    required this.urlVideo,
   }) : super(key: key);
 
   final String appBarText;
+  final String urlVideo;
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +48,7 @@ class _DSVideoPlayerState extends State<DSVideoPlayer> {
   ];
 
   Future<void> initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(srcs[2]);
+    _videoPlayerController = VideoPlayerController.network(srcs[1]);
     await Future.wait([
       _videoPlayerController.initialize(),
     ]);

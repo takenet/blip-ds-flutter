@@ -20,6 +20,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
   final String _sampleImage = 'https://picsum.photos/250?image=9';
 
+  final List<String> _srcsVideo = [
+    "https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
+  ];
+
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
   @override
@@ -127,7 +133,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ///
           DSVideoMessageBubble(
             align: DSAlign.right,
-            url: '',
+            urlVideo: '',
             urlThumbnail: '',
             videoTitle: 'imageTitle.png',
             imageText: 'My picture',
@@ -135,7 +141,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
-            url: _sampleImage,
+            urlVideo: _srcsVideo[1],
             urlThumbnail: _sampleImage,
             videoTitle: 'imageTitle.png',
             imageText: 'My picture',

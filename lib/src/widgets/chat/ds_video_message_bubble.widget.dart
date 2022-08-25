@@ -9,7 +9,7 @@ import 'package:video_player/video_player.dart';
 
 class DSVideoMessageBubble extends StatelessWidget {
   final DSAlign align;
-  final String url;
+  final String urlVideo;
   final String urlThumbnail;
   final List<DSBorderRadius> borderRadius;
   final String videoTitle;
@@ -21,7 +21,7 @@ class DSVideoMessageBubble extends StatelessWidget {
   DSVideoMessageBubble({
     super.key,
     required this.align,
-    required this.url,
+    required this.urlVideo,
     required this.urlThumbnail,
     required this.videoTitle,
     required this.appBarText,
@@ -128,14 +128,16 @@ class DSVideoMessageBubble extends StatelessWidget {
                   transitionDuration: DSUtils.defaultAnimationDuration,
                   transitionBuilder: (_, animation, __, child) =>
                       _buildTransition(animation, child),
-                  pageBuilder: (context, _, __) => DSVideoPlayer(),
+                  pageBuilder: (context, _, __) => DSVideoPlayer(
+                    urlVideo: '',
+                  ),
                 );
               }
             },
             child: DSCachedNetworkImageView(
               width: 240.0,
               height: 240.0,
-              url: url,
+              url: urlThumbnail,
               placeholder: (_, __) => const Padding(
                 padding: EdgeInsets.all(80.0),
                 child: CircularProgressIndicator(),
