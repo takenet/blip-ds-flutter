@@ -264,7 +264,6 @@ class _RadioState<T> extends State<DSRadio<T>>
 }
 
 class _RadioPainter extends ToggleablePainter {
-  // Canvas size ratio adjustments to 60%
   final double _kOuterRadius = 12.0;
   final double _kInnerRadius = 6.0;
   final double _kBachgroundRadius = 11.0;

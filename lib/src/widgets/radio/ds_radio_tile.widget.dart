@@ -47,6 +47,8 @@ class DSRadioTile<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       enabled: isEnabled,
+      dense: true,
+      horizontalTitleGap: 4,
       onTap: () => onChanged!(value),
       leading: DSRadio(
         isEnabled: isEnabled,
