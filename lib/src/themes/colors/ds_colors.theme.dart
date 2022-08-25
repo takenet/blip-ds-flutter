@@ -7,6 +7,7 @@ abstract class DSColors {
   static const Color primaryGreensTrue = Color(0xFF21CC79);
 
   static const Color neutralDarkCity = Color(0xFF202C44);
+  static const Color neutralDarkDesk = Color(0xFF3A4A65);
   static const Color neutralDarkRooftop = Color(0xFF505F79);
   static const Color neutralMediumElephant = Color(0xFF6E7B91);
   static const Color neutralMediumSilver = Color(0xFFB9CBD3);

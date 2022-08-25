@@ -76,7 +76,7 @@ abstract class DSLinkify {
     return formattedText;
   }
 
-  static String getFirstUrlFromText(String text) {
+  static Uri getFirstUrlFromText(String text) {
     final List<LinkifyElement> elements = linkify(
       text,
       linkifiers: const [
@@ -95,6 +95,6 @@ abstract class DSLinkify {
       orElse: () => UrlElement(''),
     );
 
-    return (firstUrlElement as UrlElement).url;
+    return Uri.parse((firstUrlElement as UrlElement).url);
   }
 }

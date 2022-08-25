@@ -11,8 +11,30 @@ class DSCaptionText extends DSText {
     super.key,
     super.fontWeight,
     super.color,
+    super.linkColor,
     super.decoration,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
   }) : super(
+          style: DSCaptionTextStyle(
+            fontWeight: fontWeight,
+            color: color,
+            decoration: decoration,
+          ),
+        );
+
+  DSCaptionText.rich({
+    required super.textSpan,
+    super.key,
+    super.fontWeight,
+    super.color,
+    super.linkColor,
+    super.decoration,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
+  }) : super.rich(
           style: DSCaptionTextStyle(
             fontWeight: fontWeight,
             color: color,

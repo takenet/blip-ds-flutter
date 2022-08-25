@@ -1,9 +1,8 @@
-import 'package:any_link_preview/any_link_preview.dart';
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
+import 'package:blip_ds/src/widgets/chat/ds_url_preview.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
@@ -24,14 +23,18 @@ class DSTextMessageBubble extends StatefulWidget {
 }
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
-  final DSTextMessageBubbleController controller =
-      DSTextMessageBubbleController();
+  final _controller = DSTextMessageBubbleController();
+
+  final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
+    vertical: 8.0,
+    horizontal: 16.0,
+  );
 
   @override
   void didUpdateWidget(covariant DSTextMessageBubble oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.text != widget.text) {
-      controller.showFullText.value = false;
+      _controller.shouldShowFullText.value = false;
     }
   }
 
@@ -50,18 +53,18 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
   Widget _buildText() {
     final overflow =
-        !controller.showFullText.value ? TextOverflow.ellipsis : null;
+        !_controller.shouldShowFullText.value ? TextOverflow.ellipsis : null;
 
-    final maxLines = !controller.showFullText.value ? 12 : null;
+    final maxLines = !_controller.shouldShowFullText.value ? 12 : null;
 
-    final textColor = widget.align == DSAlign.right
+    final foregroundColor = widget.align == DSAlign.right
         ? DSColors.neutralLightSnow
         : DSColors.neutralDarkCity;
 
     final textSpan = TextSpan(
       text: widget.text,
       style: DSBodyTextStyle(
-        color: textColor,
+        color: foregroundColor,
       ),
     );
 
@@ -73,37 +76,21 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     );
 
     return LayoutBuilder(
-      builder: (context, constraints) {
+      builder: (_, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
-
-        final String urlPreview = DSLinkify.getFirstUrlFromText(widget.text);
-
-        final padding = urlPreview.isNotEmpty
-            ? const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 8.0)
-            : const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
-              );
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (urlPreview.isNotEmpty)
-              AnyLinkPreview(
-                link: urlPreview,
-                urlLaunchMode: LaunchMode.inAppWebView,
-                boxShadow: const [],
-                backgroundColor: Colors.transparent,
-                titleStyle: DSBodyTextStyle(
-                  color: textColor,
-                ),
-                bodyStyle: DSCaptionSmallTextStyle(
-                  color: textColor,
-                ),
-                bodyMaxLines: 3,
-              ),
+            DSUrlPreview(
+              url: DSLinkify.getFirstUrlFromText(widget.text),
+              foregroundColor: foregroundColor,
+              backgroundColor: widget.align == DSAlign.right
+                  ? DSColors.neutralDarkDesk
+                  : DSColors.neutralLightBox,
+            ),
             Padding(
-              padding: padding,
+              padding: _defaultBodyPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -127,9 +114,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
   Widget _buildShowMore() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10.0),
       child: GestureDetector(
-        onTap: controller.showMoreOnTap,
+        onTap: _controller.showMoreOnTap,
         child: DSBodyText(
           // TODO: Need localized translate.
           text: 'Mostrar mais',

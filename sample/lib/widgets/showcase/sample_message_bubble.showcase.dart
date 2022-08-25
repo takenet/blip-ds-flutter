@@ -28,50 +28,35 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           const DSTextMessageBubble(
-            text: 'https://www.take.net/',
+            text: 'Exemplo de preview completo: https://www.take.net/',
+            align: DSAlign.right,
+          ),
+          const DSTextMessageBubble(
+            text: 'Exemplo de preview completo: https://www.take.net/',
             align: DSAlign.left,
           ),
           const DSTextMessageBubble(
-            text: 'hts://w/',
-            align: DSAlign.left,
+            text: 'Exemplo de preview simples: https://www.google.com.br/',
+            align: DSAlign.right,
           ),
           const DSTextMessageBubble(
-            text: 'antes https://pub.dev/packages/linkify depois google.com',
+            text: 'Exemplo de URL inválido: https://www.google.c.br/',
             align: DSAlign.left,
           ),
           const DSTextMessageBubble(
             text:
-                'Ele acabou de ser enviado e deve chegar em até 5 dias úteis.',
+                'Exemplo de preview sem info: https://www.ledr.com/colours/cyan.htm',
+            align: DSAlign.right,
+          ),
+          const DSTextMessageBubble(
+            text:
+                'Lista de URLs:\n- https://www.take.net/\n- https://www.google.com.br/\n- https://pub.dev/packages/linkify',
             align: DSAlign.left,
           ),
-          DSBodyText(
-            text: 'https://pub.dev/packages/linkify',
-            shouldLinkify: false,
-          ),
-          DSBodyText.rich(
-            textSpan: const TextSpan(
-              text: 'teste sem cor ',
-              children: [
-                TextSpan(text: 'https://pub.dev/packages/linkify'),
-              ],
-            ),
-          ),
-          DSBodyText(
-            text: 'teste em vermelho',
-            color: Colors.red,
-          ),
-          DSBodyText.rich(
-            textSpan: const TextSpan(
-              text: 'teste sem cor ',
-              children: [
-                TextSpan(
-                  text: 'teste em vermelho',
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
+          const DSTextMessageBubble(
+            text:
+                'Texto antes do link https://pub.dev/packages/linkify e texto depois do link!',
+            align: DSAlign.right,
           ),
           DSFileMessageBubble(
               align: DSAlign.left,
@@ -96,6 +81,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: '',
             imageTitle: 'imageTitle.png',
             imageText: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImage,
+            imageTitle: 'imageTitle.png',
+            imageText: 'teste',
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(

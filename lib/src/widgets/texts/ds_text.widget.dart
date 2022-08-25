@@ -25,7 +25,7 @@ class DSText extends StatelessWidget {
     this.fontWeight = DSFontWeights.regular,
     this.color = DSColors.neutralDarkCity,
     this.linkColor = DSColors.primaryNight,
-    this.overflow,
+    this.overflow = TextOverflow.ellipsis,
     this.decoration,
     this.textAlign,
     this.maxLines,

@@ -23,8 +23,8 @@ dependencies:
   path: ^1.8.1
   cached_network_image: ^3.2.1
   pinch_zoom: ^1.0.0
-  any_link_preview: ^2.0.9
   linkify: ^4.1.0
+  simple_link_preview: ^1.0.2
 
 dev_dependencies:
   flutter_test:
