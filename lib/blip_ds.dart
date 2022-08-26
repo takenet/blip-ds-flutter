@@ -8,16 +8,17 @@ export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
-
-/// Widgets / Chat / Audio
-export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
-    show DSAudioMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
+export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
+
+/// Widgets / Chat / Audio
+export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
+    show DSAudioMessageBubble;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
