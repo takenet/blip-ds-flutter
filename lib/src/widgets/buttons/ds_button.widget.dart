@@ -10,14 +10,14 @@ class DSButton extends StatelessWidget {
   final Icon? leadingIcon;
   final String? label;
   final Icon? trailingIcon;
-  final bool isDisabled;
+  final bool isEnabled;
   final bool isLoading;
 
   final List<Widget> _contentList = [];
 
   /// Creates a Design System's [ButtonStyleButton].
   ///
-  /// Set [isDisabled] to deactivate this button's [onPressed] and change his style.
+  /// Set [isEnabled] to activate/deactivate this button's [onPressed] and change his style.
   /// Set [isLoading] to override content with a loading animation. It also deactivates [onPressed].
   DSButton({
     required this.onPressed,
@@ -28,7 +28,7 @@ class DSButton extends StatelessWidget {
     this.label,
     this.trailingIcon,
     this.borderColor,
-    this.isDisabled = false,
+    this.isEnabled = true,
     this.isLoading = false,
   });
 
@@ -37,7 +37,7 @@ class DSButton extends StatelessWidget {
     _setContentList();
 
     return OutlinedButton(
-      onPressed: !isDisabled && !isLoading ? onPressed : null,
+      onPressed: isEnabled && !isLoading ? onPressed : null,
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.symmetric(
           vertical: _isIconOnly() ? 8.0 : 10.0,
