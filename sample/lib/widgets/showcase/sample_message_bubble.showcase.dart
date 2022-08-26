@@ -28,8 +28,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           const DSTextMessageBubble(
-            text: 'Exemplo de preview completo: https://www.take.net/',
+            text:
+                'Exemplo de preview completo e borda "reta": https://www.take.net/',
             align: DSAlign.right,
+            borderRadius: [
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.topLeft,
+            ],
           ),
           const DSTextMessageBubble(
             text: 'Exemplo de preview completo: https://www.take.net/',

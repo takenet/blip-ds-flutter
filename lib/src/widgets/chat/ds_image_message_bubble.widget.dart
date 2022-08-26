@@ -130,14 +130,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 padding: EdgeInsets.all(80.0),
                 child: CircularProgressIndicator(),
               ),
-              errorWidget: (_, __, ___) {
-                _controller.setError();
-
-                return Image.asset(
-                  'assets/images/file_image_broken.png',
-                  package: DSUtils.packageName,
-                );
-              },
+              onError: _controller.setError,
             ),
           ),
           Padding(

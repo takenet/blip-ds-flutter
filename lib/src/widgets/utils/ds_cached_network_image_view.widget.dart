@@ -1,3 +1,4 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
+  final void Function()? onError;
 
   final Widget Function(
     BuildContext context,
@@ -26,6 +28,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.placeholder,
     this.errorWidget,
+    this.onError,
   }) : super(key: key);
 
   @override
@@ -39,14 +42,23 @@ class DSCachedNetworkImageView extends StatelessWidget {
               fit: fit,
               imageUrl: url,
               placeholder: placeholder,
-              errorWidget: errorWidget,
+              errorWidget: (context, _, __) => _buildError(context),
             ),
     );
   }
 
   Widget _buildError(BuildContext context) {
+    onError?.call();
+
     return errorWidget != null
         ? errorWidget!(context, url, null)
-        : const SizedBox();
+        : _defaultErrorWidget();
+  }
+
+  Widget _defaultErrorWidget() {
+    return Image.asset(
+      'assets/images/file_image_broken.png',
+      package: DSUtils.packageName,
+    );
   }
 }
