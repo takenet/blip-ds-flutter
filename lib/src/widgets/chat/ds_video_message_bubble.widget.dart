@@ -129,7 +129,7 @@ class DSVideoMessageBubble extends StatelessWidget {
                   transitionBuilder: (_, animation, __, child) =>
                       _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => DSVideoPlayer(
-                    urlVideo: '',
+                    urlVideo: urlVideo,
                   ),
                 );
               }

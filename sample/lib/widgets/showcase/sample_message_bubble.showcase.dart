@@ -21,6 +21,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   final String _sampleImage = 'https://picsum.photos/250?image=9';
 
   final List<String> _srcsVideo = [
+    "https://file-examples.com/wp-content/uploads/2018/04/file_example_MOV_1920_2_2MB.mov",
+    "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-avi-file.avi",
+    "https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/cesesp/audios/boletim-para-protecao-a-covid-19-no-campo-03.mpeg",
+    "https://ia800302.us.archive.org/8/items/RandomForumVimeoShow-FinalTestResultswidescreenTest/FinalTestResults.ogv",
+    "https://filesamples.com/samples/video/wmv/sample_960x400_ocean_with_audio.wmv",
+    "https://file-examples.com/storage/fe8bd9dfd063066d39cfd5a/2020/03/file_example_WEBM_480_900KB.webm",
     "https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4",
     "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
     "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
@@ -141,7 +147,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
-            urlVideo: _srcsVideo[1],
+            urlVideo: _srcsVideo[0],
             urlThumbnail: _sampleImage,
             videoTitle: 'imageTitle.png',
             imageText: 'My picture',

@@ -25,6 +25,7 @@ class DSVideoPlayer extends StatefulWidget {
 class _DSVideoPlayerState extends State<DSVideoPlayer> {
   //final TargetPlatform _platform = TargetPlatform.android;
   late VideoPlayerController _videoPlayerController;
+  //late VideoPlayerController _videoPlayerControllerLocal;
   ChewieController? _chewieController;
   int? bufferDelay;
 
@@ -37,6 +38,7 @@ class _DSVideoPlayerState extends State<DSVideoPlayer> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    //_videoPlayerControllerLocal.dispose();
     _chewieController?.dispose();
     super.dispose();
   }
@@ -48,9 +50,13 @@ class _DSVideoPlayerState extends State<DSVideoPlayer> {
   ];
 
   Future<void> initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(srcs[1]);
+    _videoPlayerController = VideoPlayerController.network(widget.urlVideo);
+    //_videoPlayerControllerLocal = VideoPlayerController.asset(
+    //    "assets/videos/file_example_MOV_1920_2_2MB.mov");
+    print(widget.urlVideo);
     await Future.wait([
       _videoPlayerController.initialize(),
+      //_videoPlayerControllerLocal.initialize(),
     ]);
     _createChewieController();
     setState(() {});
