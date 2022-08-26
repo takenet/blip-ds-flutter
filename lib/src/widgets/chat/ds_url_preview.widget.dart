@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// A Design System's clickable URL previewer that shows some metadata infos about the given [url].
 class DSUrlPreview extends StatelessWidget {
   final Uri url;
   final Color backgroundColor;
@@ -14,6 +15,7 @@ class DSUrlPreview extends StatelessWidget {
 
   final _controller = DSUrlPreviewController();
 
+  /// Creates a Design System's clickable URL previewer that shows some metadata infos about the given [url].
   DSUrlPreview({
     required this.url,
     required this.backgroundColor,

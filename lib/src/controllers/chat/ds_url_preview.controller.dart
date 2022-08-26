@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:simple_link_preview/simple_link_preview.dart';
 
+/// A Design System's controller related to [DSUrlPreview] widget.
 class DSUrlPreviewController extends GetxController {
   final isLoading = RxBool(false);
   final urlPreview = Rx<LinkPreview?>(null);
@@ -9,9 +10,7 @@ class DSUrlPreviewController extends GetxController {
   Future<void> getUrlPreview(Uri url) async {
     if (url.toString().isNotEmpty) {
       try {
-        final response = await Dio().headUri(url);
-
-        if (response.statusCode == 200) {
+        if (await _isValidUrl(url)) {
           isLoading.value = true;
 
           urlPreview.value = await SimpleLinkPreview.getPreview(url.toString());
@@ -24,5 +23,10 @@ class DSUrlPreviewController extends GetxController {
         isLoading.value = false;
       }
     }
+  }
+
+  Future<bool> _isValidUrl(Uri url) async {
+    final response = await Dio().headUri(url);
+    return response.statusCode == 200;
   }
 }

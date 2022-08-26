@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
+/// A Design System's extension that adds functionalities to [DSBorderRadius] enum.
 extension DSBorderRadiusExtension on DSBorderRadius {
   BorderRadius getCircularBorderRadius({
     required double maxRadius,
@@ -13,6 +14,7 @@ extension DSBorderRadiusExtension on DSBorderRadius {
   }
 }
 
+/// A Design System's extension that adds functionalities to a list of [DSBorderRadius] enums.
 extension DSBorderRadiusListExtension on List<DSBorderRadius> {
   BorderRadius getCircularBorderRadius({
     required double maxRadius,
