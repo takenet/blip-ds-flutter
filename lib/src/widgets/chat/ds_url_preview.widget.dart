@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
 import 'package:blip_ds/src/controllers/chat/ds_url_preview.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

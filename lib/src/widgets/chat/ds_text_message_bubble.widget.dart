@@ -1,6 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
-import 'package:blip_ds/src/widgets/chat/ds_url_preview.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

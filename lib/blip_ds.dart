@@ -56,6 +56,10 @@ export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
 
+/// Extensions
+export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'
+    show DSBorderRadiusExtension, DSBorderRadiusListExtension;
+
 /// Themes / Colors
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 
