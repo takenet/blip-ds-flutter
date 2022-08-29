@@ -7,7 +7,7 @@ class DSUrlPreviewController extends GetxController {
   final isLoading = RxBool(false);
   final urlPreview = Rx<LinkPreview?>(null);
 
-  Future<void> getUrlPreview(Uri url) async {
+  Future<void> getUrlPreview(final Uri url) async {
     if (url.toString().isNotEmpty) {
       try {
         if (await _isValidUrl(url)) {
@@ -25,7 +25,7 @@ class DSUrlPreviewController extends GetxController {
     }
   }
 
-  Future<bool> _isValidUrl(Uri url) async {
+  Future<bool> _isValidUrl(final Uri url) async {
     final response = await Dio().headUri(url);
     return response.statusCode == 200;
   }

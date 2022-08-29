@@ -49,13 +49,7 @@ class DSUrlPreview extends StatelessWidget {
                   ),
                   child: _controller.isLoading.value
                       ? _buildLoading()
-                      : _buildPreview(
-                          url: _controller.urlPreview.value!.url,
-                          imagePath: _controller.urlPreview.value?.image,
-                          title: _controller.urlPreview.value?.title,
-                          description:
-                              _controller.urlPreview.value?.description,
-                        ),
+                      : _buildPreview(),
                 ),
               ),
             ),
@@ -71,27 +65,22 @@ class DSUrlPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildPreview({
-    required String url,
-    String? imagePath,
-    String? title,
-    String? description,
-  }) {
+  Widget _buildPreview() {
     return GestureDetector(
       onTap: () => launchUrl(
-        Uri.parse(url),
+        Uri.parse(_controller.urlPreview.value!.url),
         mode: LaunchMode.inAppWebView,
       ).ignore(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (imagePath != null)
+          if (_controller.urlPreview.value?.image != null)
             _buildImage(
-              path: imagePath,
+              path: _controller.urlPreview.value!.image!,
             ),
           _buildBody(
-            title: title,
-            description: description,
+            title: _controller.urlPreview.value?.title,
+            description: _controller.urlPreview.value?.description,
           ),
         ],
       ),
