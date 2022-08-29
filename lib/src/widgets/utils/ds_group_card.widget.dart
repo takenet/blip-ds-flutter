@@ -3,11 +3,11 @@ import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
-/// A Design System widget used to display a grouped bubble list
+/// A Design System widget used to display a grouped [DSMessageBubble] list
 class DSGroupCard extends StatefulWidget {
-  final RxList<DSMessageItemModel> documents;
+  final List<DSMessageItemModel> documents;
   final Function compareMessages;
-  final RxBool isComposing;
+  final bool isComposing;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -90,7 +90,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
       );
     }
 
-    if (widget.isComposing.value) {
+    if (widget.isComposing) {
       _widgets.add(
         const DSTypingAnimationMessageBubble(
           align: DSAlign.left,
