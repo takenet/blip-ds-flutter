@@ -7,20 +7,12 @@ class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
-  final bool groupWithPreviousMessage;
-  final bool showMessageDetail;
-  final DSDeliveryReportStatus deliveryStatus;
-  final String date;
 
   const DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
-    this.groupWithPreviousMessage = false,
-    this.showMessageDetail = true,
-    this.deliveryStatus = DSDeliveryReportStatus.accepted,
-    this.date = '',
   }) : super(key: key);
 
   @override
@@ -44,10 +36,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return DSMessageBubble(
       align: widget.align,
       borderRadius: widget.borderRadius,
-      groupWithPreviousMessage: widget.groupWithPreviousMessage,
-      showMessageDetail: widget.showMessageDetail,
-      deliveryStatus: widget.deliveryStatus,
-      date: widget.date,
       child: Obx(
         () => _buildText(),
       ),
