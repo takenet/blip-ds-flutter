@@ -6,16 +6,22 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class DSVideoController extends GetxController {
+  DSVideoController({
+    this.urlVideo,
+  });
+
+  final String? urlVideo;
+
   late VideoPlayerController _videoPlayerController;
   ChewieController? chewieController;
   int? bufferDelay;
+
+  RxBool appBarVisible = true.obs;
 
   @override
   void onInit() async {
     initializePlayer();
     super.onInit();
-
-    print('DISPOSE AAAAAA');
   }
 
   @override
@@ -26,13 +32,12 @@ class DSVideoController extends GetxController {
   }
 
   Future<void> initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(
-        "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4");
+    _videoPlayerController = VideoPlayerController.network(urlVideo!);
     await Future.wait([
       _videoPlayerController.initialize(),
     ]);
     _createChewieController();
-    //setState(() {});
+    update();
   }
 
   void _createChewieController() {
@@ -42,13 +47,9 @@ class DSVideoController extends GetxController {
       looping: true,
       allowFullScreen: false,
       fullScreenByDefault: false,
-
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
-
       hideControlsTimer: const Duration(seconds: 10),
-
-      //showControls: false,
       materialProgressColors: ChewieProgressColors(
         playedColor: DSColors.neutralLightSnow,
         handleColor: DSColors.neutralLightSnow,
@@ -67,8 +68,8 @@ class DSVideoController extends GetxController {
   }
 
   void showAppBar() {
-    //appBarVisible.value
-    //    ? appBarVisible.value = false
-    //    : appBarVisible.value = true;
+    appBarVisible.value
+        ? appBarVisible.value = false
+        : appBarVisible.value = true;
   }
 }
