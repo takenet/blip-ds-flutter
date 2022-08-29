@@ -145,7 +145,7 @@ class DSVideoMessageBubble extends StatelessWidget {
               errorWidget: (_, __, ___) {
                 _controller.setError();
                 return Image.asset(
-                  'assets/images/file_image_broken.png',
+                  'assets/images/file_video_broken.png',
                   package: DSUtils.packageName,
                 );
               },
