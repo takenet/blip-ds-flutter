@@ -147,7 +147,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
-            urlVideo: _srcsVideo[0],
+            urlVideo: _srcsVideo[7],
             urlThumbnail: _sampleImage,
             videoTitle: 'imageTitle.png',
             imageText: 'My picture',
