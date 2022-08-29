@@ -134,7 +134,17 @@ class DSVideoMessageBubble extends StatelessWidget {
                 );
               }
             },
-            child: DSCachedNetworkImageView(
+            child: Image.asset(
+              width: 240,
+              height: 240,
+              urlThumbnail == ''
+                  ? 'assets/images/file_video_broken.png'
+                  : 'assets/images/thumbnail_video.png',
+              package: DSUtils.packageName,
+            ),
+
+/*
+                DSCachedNetworkImageView(
               width: 240.0,
               height: 240.0,
               url: urlThumbnail,
@@ -150,6 +160,7 @@ class DSVideoMessageBubble extends StatelessWidget {
                 );
               },
             ),
+            */
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
