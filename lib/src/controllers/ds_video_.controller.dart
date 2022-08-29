@@ -72,4 +72,10 @@ class DSVideoController extends GetxController {
         ? appBarVisible.value = false
         : appBarVisible.value = true;
   }
+
+  void pauseVideo() {
+    chewieController!.isPlaying
+        ? chewieController?.pause()
+        : chewieController?.play();
+  }
 }
