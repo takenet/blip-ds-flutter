@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:sample/controllers/sample_group_card.controller.dart';
 
 class SampleGroupCardShowcase extends StatelessWidget {

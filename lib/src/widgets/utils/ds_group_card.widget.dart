@@ -1,7 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 
 /// A Design System widget used to display a grouped [DSMessageBubble] list
 class DSGroupCard extends StatefulWidget {
@@ -26,14 +25,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        _buildWidgetsList(_getGroupCards());
+    _buildWidgetsList(_getGroupCards());
 
-        return Column(
-          children: _widgets,
-        );
-      },
+    return Column(
+      children: _widgets,
     );
   }
 
