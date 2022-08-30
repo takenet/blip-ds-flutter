@@ -32,12 +32,14 @@ class DSUrlPreview extends StatelessWidget {
     _controller.getUrlPreview(url);
 
     return Obx(
-      () => _controller.urlPreview.value?.url == null &&
-              !_controller.isLoading.value
-          ? const SizedBox()
-          : Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: DSAnimatedSize(
+      () => DSAnimatedSize(
+        child: _controller.urlPreview.value?.url == null &&
+                !_controller.isLoading.value
+            ? const SizedBox(
+                width: double.infinity,
+              )
+            : Padding(
+                padding: const EdgeInsets.all(4.0),
                 child: Container(
                   width: double.infinity,
                   clipBehavior: Clip.hardEdge,
@@ -52,7 +54,7 @@ class DSUrlPreview extends StatelessWidget {
                       : _buildPreview(),
                 ),
               ),
-            ),
+      ),
     );
   }
 
