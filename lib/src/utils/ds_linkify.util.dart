@@ -5,19 +5,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// An utility class that has methods related to likified texts.
 abstract class DSLinkify {
-  static List<InlineSpan> linkifyPlainText({
+  static List<InlineSpan> plainText({
     required String text,
     TextStyle? defaultStyle,
     Color? linkColor,
   }) {
-    return linkifyTextSpan(
+    return textSpan(
       textSpan: TextSpan(text: text),
       defaultStyle: defaultStyle,
       linkColor: linkColor,
     );
   }
 
-  static List<InlineSpan> linkifyTextSpan({
+  static List<InlineSpan> textSpan({
     required InlineSpan textSpan,
     TextStyle? defaultStyle,
     Color? linkColor,
