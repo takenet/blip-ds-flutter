@@ -5,7 +5,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-/// A material design radio button custom.
+/// A Design System radio button custom.
 ///
 /// Used to select between a number of mutually exclusive values. When one radio
 /// button in a group is selected, the other radio buttons in the group cease to
@@ -18,34 +18,9 @@ import 'package:flutter/material.dart';
 /// will respond to [onChanged] by calling [State.setState] to update the
 /// radio button's [groupValue].
 ///
-/// {@tool dartpad}
-/// Here is an example of Radio widgets wrapped in ListTiles, which is similar
-/// to what you could get with the RadioListTile widget.
 ///
-/// The currently selected character is passed into `groupValue`, which is
-/// maintained by the example's `State`. In this case, the first `Radio`
-/// will start off selected because `_character` is initialized to
-/// `SingingCharacter.lafayette`.
-///
-/// If the second radio button is pressed, the example's state is updated
-/// with `setState`, updating `_character` to `SingingCharacter.jefferson`.
-/// This causes the buttons to rebuild with the updated `groupValue`, and
-/// therefore the selection of the second button.
-///
-/// Requires one of its ancestors to be a [Material] widget.
-///
-/// ** See code in examples/api/lib/material/radio/radio.0.dart **
-/// {@end-tool}
-///
-/// See also:
-///
-///  * [RadioListTile], which combines this widget with a [ListTile] so that
-///    you can give the radio button a label.
-///  * [Slider], for selecting a value in a range.
-///  * [Checkbox] and [Switch], for toggling a particular value on or off.
-///  * <https://material.io/design/components/selection-controls.html#radio-buttons>
 class DSRadio<T> extends Radio<T> {
-  /// Creates a material design radio button.
+  /// Creates a Design System radio button.
   ///
   /// The radio button itself does not maintain any state. Instead, when the
   /// radio button is selected, the widget calls the [onChanged] callback. Most
@@ -266,7 +241,7 @@ class _RadioState<T> extends State<DSRadio<T>>
 class _RadioPainter extends ToggleablePainter {
   final double _kOuterRadius = 12.0;
   final double _kInnerRadius = 6.0;
-  final double _kBachgroundRadius = 11.0;
+  final double _kBackgroundRadius = 11.0;
 
   bool isEnabled = true;
 
@@ -304,7 +279,7 @@ class _RadioPainter extends ToggleablePainter {
         ..strokeWidth = 2.0;
       canvas.drawCircle(center, _kOuterRadius, paint);
 
-      canvas.drawCircle(center, _kBachgroundRadius, paintDisabled);
+      canvas.drawCircle(center, _kBackgroundRadius, paintDisabled);
 
       // Inner circle
       if (!position.isDismissed) {

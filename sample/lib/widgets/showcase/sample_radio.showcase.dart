@@ -104,7 +104,7 @@ class SampleRadioShowcase extends StatelessWidget {
         value: _controller.optionsString[index],
         groupValue: isEnabled
             ? _controller.selectedRadioTile
-            : _controller.selectedRadioDisabled,
+            : _controller.selectedRadioTileDisabled,
         isEnabled: isEnabled,
         onChanged: (value) {
           if (isEnabled) _controller.selectedRadioTile = value!;
