@@ -52,13 +52,13 @@ class DSText extends StatelessWidget {
 
     if (shouldLinkify) {
       if (text?.isNotEmpty ?? false) {
-        formattedText = DSLinkify.linkifyPlainText(
+        formattedText = DSLinkify.plainText(
           text: text!,
           defaultStyle: style,
           linkColor: linkColor,
         );
       } else if (textSpan != null) {
-        formattedText = DSLinkify.linkifyTextSpan(
+        formattedText = DSLinkify.textSpan(
           textSpan: textSpan!,
           defaultStyle: style,
           linkColor: linkColor,
