@@ -1,19 +1,14 @@
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 /// GetX Controller for holding Radios's current value
-class SampleRadioController extends GetxController {
+class SampleRadioController {
   final List<String> optionsString = ["Option 1", "Option 2"];
 
-  String selectedRadio = "Option 1";
-  String selectedRadioDisabled = "Option 1";
+  RxString selectedRadio = "Option 1".obs;
+  RxString selectedRadioDisabled = "Option 1".obs;
 
-  String selectedRadioTile = "Option 1";
-  String selectedRadioTileDisabled = "Option 1";
+  RxString selectedRadioTile = "Option 1".obs;
+  RxString selectedRadioTileDisabled = "Option 1".obs;
 
-  String selectedOption = "";
-
-  void onClickRadio(value) {
-    selectedOption = value;
-    update();
-  }
+  RxString selectedOption = "".obs;
 }

@@ -17,15 +17,14 @@ class SampleRadioShowcase extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
-          GetBuilder<SampleRadioController>(
-            builder: (_) => Row(
-              children: [
-                DSBodyText(
-                  text: "Opção selecionada: ${_controller.selectedOption}",
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
-            ),
+          Row(
+            children: [
+              Obx(() => DSBodyText(
+                    text:
+                        "Opção selecionada: ${_controller.selectedOption.value}",
+                    overflow: TextOverflow.ellipsis,
+                  )),
+            ],
           ),
           const SizedBox(height: 30),
           Row(
@@ -82,33 +81,37 @@ class SampleRadioShowcase extends StatelessWidget {
   }
 
   _radioString({int index = 0, bool isEnabled = true}) {
-    return GetBuilder<SampleRadioController>(
-      builder: (_) => DSRadio<String>(
+    return Obx(
+      () => DSRadio<String>(
         isEnabled: isEnabled,
         value: _controller.optionsString[index],
         groupValue: isEnabled
-            ? _controller.selectedRadio
-            : _controller.selectedRadioDisabled,
+            ? _controller.selectedRadio.value
+            : _controller.selectedRadioDisabled.value,
         onChanged: (value) {
-          if (isEnabled) _controller.selectedRadio = value!;
-          _controller.onClickRadio(value);
+          if (isEnabled) _controller.selectedRadio.value = value!;
+          _controller.selectedOption.value = value!;
+
+          //_controller.onClickRadio(v;
         },
       ),
     );
   }
 
   _radioTileString({int index = 0, bool isEnabled = true}) {
-    return GetBuilder<SampleRadioController>(
-      builder: (_) => DSRadioTile<String>(
+    return Obx(
+      () => DSRadioTile<String>(
         title: _controller.optionsString[index],
         value: _controller.optionsString[index],
         groupValue: isEnabled
-            ? _controller.selectedRadioTile
-            : _controller.selectedRadioTileDisabled,
+            ? _controller.selectedRadioTile.value
+            : _controller.selectedRadioTileDisabled.value,
         isEnabled: isEnabled,
         onChanged: (value) {
-          if (isEnabled) _controller.selectedRadioTile = value!;
-          _controller.onClickRadio(value);
+          if (isEnabled) _controller.selectedRadioTile.value = value = value!;
+          _controller.selectedOption.value = value!;
+
+          //_controller.onClickRadio(value);
         },
       ),
     );
