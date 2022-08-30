@@ -19,11 +19,13 @@ class SampleRadioShowcase extends StatelessWidget {
         children: [
           Row(
             children: [
-              Obx(() => DSBodyText(
-                    text:
-                        "Opção selecionada: ${_controller.selectedOption.value}",
-                    overflow: TextOverflow.ellipsis,
-                  )),
+              Obx(
+                () => DSBodyText(
+                  text:
+                      "Opção selecionada: ${_controller.selectedOption.value}",
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 30),
@@ -91,8 +93,6 @@ class SampleRadioShowcase extends StatelessWidget {
         onChanged: (value) {
           if (isEnabled) _controller.selectedRadio.value = value!;
           _controller.selectedOption.value = value!;
-
-          //_controller.onClickRadio(v;
         },
       ),
     );
@@ -110,8 +110,6 @@ class SampleRadioShowcase extends StatelessWidget {
         onChanged: (value) {
           if (isEnabled) _controller.selectedRadioTile.value = value = value!;
           _controller.selectedOption.value = value!;
-
-          //_controller.onClickRadio(value);
         },
       ),
     );
