@@ -1,4 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -40,13 +41,13 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
       group['msgs'].forEach(
         (DSMessageItemModel message) {
-          int length = group['msgs'].length;
+          final int length = group['msgs'].length;
 
           List<DSBorderRadius> borderRadius =
               _getBorderRadius(length, msgCount, group['align']);
 
           switch (message.type) {
-            case 'text/plain':
+            case DSMessageContentType.textPlain:
               _widgets.add(
                 DSTextMessageBubble(
                   text: message.content,
@@ -55,7 +56,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 ),
               );
               break;
-            case 'application/vnd.lime.media-link+json':
+            case DSMessageContentType.mediaLink:
               _buildMediaLink(message, borderRadius);
               break;
             default:
@@ -97,6 +98,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
   List<Map<String, dynamic>> _getGroupCards() {
     List<Map<String, dynamic>> groups = [];
 
+    if (widget.documents.isEmpty) {
+      return [];
+    }
+
     Map<String, dynamic> group = {
       "msgs": [widget.documents[0]],
       "align": widget.documents[0].align,
@@ -108,10 +113,9 @@ class _DSGroupCardState extends State<DSGroupCard> {
     for (int i = 1; i < widget.documents.length; i++) {
       DSMessageItemModel message = widget.documents[i];
 
-      final int position = group['msgs'].length - 1;
       List<DSMessageItemModel> groupMsgs = group['msgs'];
 
-      if (widget.compareMessages(message, groupMsgs[position])) {
+      if (widget.compareMessages(message, groupMsgs.last)) {
         group['msgs'].add(message);
         group['date'] = message.date;
         group['status'] = message.status;
@@ -176,10 +180,12 @@ class _DSGroupCardState extends State<DSGroupCard> {
     final DSAlign align,
   ) {
     List<DSBorderRadius> borderRadius = [];
+    final bool isFirstMessage = msgCount == 1;
+    final bool isLastMessage = msgCount == length;
 
     if (length == 1) {
       borderRadius = [DSBorderRadius.all];
-    } else if (msgCount == 1) {
+    } else if (isFirstMessage) {
       (align == DSAlign.right)
           ? borderRadius = [
               DSBorderRadius.topRight,
@@ -191,7 +197,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               DSBorderRadius.topLeft,
               DSBorderRadius.bottomRight
             ];
-    } else if (msgCount == length) {
+    } else if (isLastMessage) {
       (align == DSAlign.right)
           ? borderRadius = [
               DSBorderRadius.topLeft,
