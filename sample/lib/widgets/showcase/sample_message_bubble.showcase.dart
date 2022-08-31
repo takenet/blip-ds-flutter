@@ -27,6 +27,42 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          const DSTextMessageBubble(
+            text:
+                'Exemplo de preview completo e borda "reta": https://www.take.net/',
+            align: DSAlign.right,
+            borderRadius: [
+              DSBorderRadius.bottomLeft,
+              DSBorderRadius.topLeft,
+            ],
+          ),
+          const DSTextMessageBubble(
+            text: 'Exemplo de preview completo: https://www.take.net/',
+            align: DSAlign.left,
+          ),
+          const DSTextMessageBubble(
+            text: 'Exemplo de preview simples: https://www.google.com.br/',
+            align: DSAlign.right,
+          ),
+          const DSTextMessageBubble(
+            text: 'Exemplo de URL inválido: https://www.google.c.br/',
+            align: DSAlign.left,
+          ),
+          const DSTextMessageBubble(
+            text:
+                'Exemplo de preview sem info: https://www.ledr.com/colours/cyan.htm',
+            align: DSAlign.right,
+          ),
+          const DSTextMessageBubble(
+            text:
+                'Lista de URLs:\n- https://www.take.net/\n- https://www.google.com.br/\n- https://pub.dev/packages/linkify',
+            align: DSAlign.left,
+          ),
+          const DSTextMessageBubble(
+            text:
+                'Texto antes do link https://pub.dev/packages/linkify e texto depois do link!',
+            align: DSAlign.right,
+          ),
           DSFileMessageBubble(
               align: DSAlign.left,
               filename: 'teste.pdf',
@@ -56,7 +92,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.left,
             url: _sampleImage,
             imageTitle: 'imageTitle.png',
-            imageText: 'My picture',
+            imageText: 'teste',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImage,
+            imageTitle: 'imageTitle.png',
+            imageText: '\n\n$_sampleImage\n\n$_longText',
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

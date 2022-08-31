@@ -19,24 +19,10 @@ class DSMessageBubble extends StatelessWidget {
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
-    return borderRadius.contains(DSBorderRadius.all) || borderRadius.isEmpty
-        ? const BorderRadius.all(
-            Radius.circular(18.0),
-          )
-        : BorderRadius.only(
-            topLeft: borderRadius.contains(DSBorderRadius.topLeft)
-                ? const Radius.circular(18.0)
-                : const Radius.circular(2.0),
-            topRight: borderRadius.contains(DSBorderRadius.topRight)
-                ? const Radius.circular(18.0)
-                : const Radius.circular(2.0),
-            bottomLeft: borderRadius.contains(DSBorderRadius.bottomLeft)
-                ? const Radius.circular(18.0)
-                : const Radius.circular(2.0),
-            bottomRight: borderRadius.contains(DSBorderRadius.bottomRight)
-                ? const Radius.circular(18.0)
-                : const Radius.circular(2.0),
-          );
+    return borderRadius.getCircularBorderRadius(
+      maxRadius: 22.0,
+      minRadius: 2.0,
+    );
   }
 
   Widget _messageContainer() {

@@ -11,10 +11,33 @@ class DSBodyText extends DSText {
     super.key,
     super.fontWeight,
     super.color,
+    super.linkColor,
     super.overflow,
     super.decoration,
     super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
   }) : super(
+          style: DSBodyTextStyle(
+            fontWeight: fontWeight,
+            color: color,
+            overflow: overflow,
+            decoration: decoration,
+          ),
+        );
+
+  DSBodyText.rich({
+    required super.textSpan,
+    super.key,
+    super.fontWeight,
+    super.color,
+    super.linkColor,
+    super.overflow,
+    super.decoration,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
+  }) : super.rich(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
             color: color,
