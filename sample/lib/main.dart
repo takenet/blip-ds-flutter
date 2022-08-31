@@ -7,6 +7,7 @@ import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
+import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
 
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
@@ -57,6 +58,8 @@ class HomePage extends StatelessWidget {
             const SampleSwitchShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleDialogShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            SampleRadioShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             SampleGroupCardShowcase()
           ],
