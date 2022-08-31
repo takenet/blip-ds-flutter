@@ -23,6 +23,9 @@ dependencies:
   path: ^1.8.1
   cached_network_image: ^3.2.1
   pinch_zoom: ^1.0.0
+  flutter_svg: ^1.1.4
+  linkify: ^4.1.0
+  simple_link_preview: ^1.0.2
 
 dev_dependencies:
   flutter_test:
