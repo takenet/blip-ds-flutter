@@ -47,6 +47,7 @@ export 'src/widgets/texts/ds_button_text.widget.dart' show DSButtonText;
 export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
     show DSCachedNetworkImageView;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
+export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
