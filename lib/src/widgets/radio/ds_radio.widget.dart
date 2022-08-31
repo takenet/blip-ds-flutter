@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 /// will respond to [onChanged] by calling [State.setState] to update the
 /// radio button's [groupValue].
 ///
-///
+
 class DSRadio<T> extends Radio<T> {
   /// Creates a Design System radio button.
   ///
@@ -38,18 +38,6 @@ class DSRadio<T> extends Radio<T> {
     required super.value,
     required super.groupValue,
     required super.onChanged,
-    super.mouseCursor,
-    super.toggleable = false,
-    super.activeColor = DSColors.primaryNight,
-    super.fillColor,
-    super.focusColor,
-    super.hoverColor,
-    super.overlayColor,
-    super.splashRadius,
-    super.materialTapTargetSize,
-    super.visualDensity,
-    super.focusNode,
-    super.autofocus = false,
     this.isEnabled = true,
   }) : super(
           key: key,
@@ -59,6 +47,7 @@ class DSRadio<T> extends Radio<T> {
   final bool isEnabled;
 
   bool get _selected => value == groupValue;
+  final Color _activeColor = DSColors.primaryNight;
 
   @override
   State<DSRadio<T>> createState() => _RadioState<T>();
@@ -110,7 +99,7 @@ class _RadioState<T> extends State<DSRadio<T>>
         return null;
       }
       if (states.contains(MaterialState.selected)) {
-        return widget.activeColor;
+        return widget._activeColor;
       }
       return null;
     });
@@ -231,7 +220,7 @@ class _RadioState<T> extends State<DSRadio<T>>
           ..downPosition = downPosition
           ..isFocused = states.contains(MaterialState.focused)
           ..isHovered = states.contains(MaterialState.hovered)
-          ..activeColor = effectiveActiveColor
+          ..activeColor = widget._activeColor
           ..inactiveColor = effectiveInactiveColor,
       ),
     );
