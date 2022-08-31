@@ -10,7 +10,25 @@ class DSHeadlineSmallText extends DSText {
     required super.text,
     super.key,
     super.color,
+    super.linkColor,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
   }) : super(
+          style: DSHeadlineSmallTextStyle(
+            color: color,
+          ),
+        );
+
+  DSHeadlineSmallText.rich({
+    required super.textSpan,
+    super.key,
+    super.color,
+    super.linkColor,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
+  }) : super.rich(
           style: DSHeadlineSmallTextStyle(
             color: color,
           ),
