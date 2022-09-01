@@ -9,7 +9,22 @@ class DSHeadlineLargeText extends DSText {
   const DSHeadlineLargeText({
     required super.text,
     super.key,
+    super.linkColor,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
   }) : super(
+          style: const DSHeadlineLargeTextStyle(),
+        );
+
+  const DSHeadlineLargeText.rich({
+    required super.textSpan,
+    super.key,
+    super.linkColor,
+    super.textAlign,
+    super.maxLines,
+    super.shouldLinkify,
+  }) : super.rich(
           style: const DSHeadlineLargeTextStyle(),
         );
 }
