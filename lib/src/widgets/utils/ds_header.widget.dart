@@ -21,6 +21,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 1,
       backgroundColor: DSColors.neutralLightSnow,
       actions: actions,
       leadingWidth: 25.0,
