@@ -69,6 +69,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         ? DSColors.neutralLightSnow
         : DSColors.neutralDarkCity;
 
+    final url = DSLinkify.getFirstUrlFromText(widget.text);
+
     final textSpan = TextSpan(
       text: widget.text,
       style: DSBodyTextStyle(
@@ -90,14 +92,15 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DSUrlPreview(
-              url: DSLinkify.getFirstUrlFromText(widget.text),
-              foregroundColor: foregroundColor,
-              backgroundColor: widget.align == DSAlign.right
-                  ? DSColors.neutralDarkDesk
-                  : DSColors.neutralLightBox,
-              borderRadius: widget.borderRadius,
-            ),
+            if (url.toString().isNotEmpty)
+              DSUrlPreview(
+                url: url,
+                foregroundColor: foregroundColor,
+                backgroundColor: widget.align == DSAlign.right
+                    ? DSColors.neutralDarkDesk
+                    : DSColors.neutralLightBox,
+                borderRadius: widget.borderRadius,
+              ),
             Padding(
               padding: _defaultBodyPadding,
               child: Column(
