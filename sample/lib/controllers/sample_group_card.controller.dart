@@ -16,9 +16,9 @@ class SampleGroupCardController {
             {
               "date": doc["date"],
               "displayDate": doc["displayDate"],
-              "align": doc["align"] == "left" ? DSAlign.left : DSAlign.right,
+              "align": doc["align"],
               "type": doc["type"],
-              "status": DSDeliveryReportStatus.accepted,
+              "status": doc["status"],
               "content": doc["content"],
               "customerName": "User Name",
             },

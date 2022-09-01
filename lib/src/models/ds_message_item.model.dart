@@ -12,7 +12,7 @@ class DSMessageItemModel {
   DSAlign align;
 
   /// Allows set the status of message
-  DSDeliveryReportStatus? status;
+  DSDeliveryReportStatus status;
 
   /// The message type
   String type;
@@ -29,24 +29,22 @@ class DSMessageItemModel {
       required this.displayDate,
       required this.align,
       required this.type,
-      this.status,
+      required this.status,
       this.content,
       this.customerName});
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
     final messageItem = DSMessageItemModel(
-        date: json['date'],
-        displayDate: json['displayDate'],
-        align: json['align'],
-        type: json['type'],
-        content: json['content']);
+      date: json['date'],
+      displayDate: json['displayDate'],
+      align: json['align'] == "left" ? DSAlign.left : DSAlign.right,
+      type: json['type'],
+      content: json['content'],
+      status: DSDeliveryReportStatus.unknown.getValue(json['status']),
+    );
 
     if (json.containsKey('customerName')) {
       messageItem.customerName = json['customerName'];
-    }
-
-    if (json.containsKey('status')) {
-      messageItem.status = json['status'];
     }
 
     return messageItem;

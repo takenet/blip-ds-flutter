@@ -84,6 +84,14 @@
     "type": "text/plain",
     "status": "consumed"
 },{
+    "content": "até mais!",
+    "date": "2022-09-22T12:30:01.035Z",
+    "displayDate": "22 de Set de 2022 12:30",
+    "align": "right",
+    "type": "text/plain",
+    "status": "consumed"
+    
+},{
     "content": "ta por ai?",
     "date": "2022-08-22T12:33:18.899Z",
     "displayDate": "8 de Ago de 2022 12:33",
@@ -134,7 +142,7 @@
     "status": "consumed"
 },{
     "content": "ola",
-    "date": "22022-08-22T12:24:57.928Z",
+    "date": "2022-08-22T12:24:57.928Z",
     "displayDate": "8 de Ago de 2022 12:24",
     "align": "left",
     "type": "text/plain",

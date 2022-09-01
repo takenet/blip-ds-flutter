@@ -60,6 +60,8 @@ export 'src/enums/ds_delivery_report_status.enum.dart'
 /// Extensions
 export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'
     show DSBorderRadiusExtension, DSBorderRadiusListExtension;
+export 'package:blip_ds/src/extensions/ds_delivery_report_status.extension.dart'
+    show DSDeliveryReportStatusExtension;
 
 /// Themes / Colors
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;

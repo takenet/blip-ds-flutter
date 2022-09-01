@@ -22,13 +22,11 @@ class SampleGroupCardShowcase extends StatelessWidget {
                 documents: snapshot.data as List<DSMessageItemModel>,
                 compareMessages: (firstMsg, secondMsg) {
                   return (DateTime.parse(firstMsg.date)
-                                  .difference(DateTime.parse(secondMsg.date))
-                                  .inSeconds <=
-                              60 &&
-                          firstMsg.status == secondMsg.status &&
-                          firstMsg.align == secondMsg.align)
-                      ? true
-                      : false;
+                              .difference(DateTime.parse(secondMsg.date))
+                              .inSeconds <=
+                          60 &&
+                      firstMsg.status == secondMsg.status &&
+                      firstMsg.align == secondMsg.align);
                 },
               );
             } else {

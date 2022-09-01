@@ -8,6 +8,7 @@ class DSGroupCard extends StatefulWidget {
   final List<DSMessageItemModel> documents;
   final Function compareMessages;
   final bool isComposing;
+  final bool sortMessages;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -15,6 +16,7 @@ class DSGroupCard extends StatefulWidget {
     required this.documents,
     required this.compareMessages,
     required this.isComposing,
+    this.sortMessages = true,
   }) : super(key: key);
 
   @override
@@ -100,6 +102,14 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
     if (widget.documents.isEmpty) {
       return [];
+    }
+
+    if (widget.sortMessages) {
+      widget.documents.sort(
+        ((a, b) {
+          return a.date.compareTo(b.date);
+        }),
+      );
     }
 
     Map<String, dynamic> group = {
