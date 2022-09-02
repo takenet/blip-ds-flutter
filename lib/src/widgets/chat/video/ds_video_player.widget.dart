@@ -39,7 +39,7 @@ class DSVideoPlayer extends StatelessWidget {
                     children: [
                       IconButton(
                         padding: EdgeInsets.zero,
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => Get.back(),
                         icon: const Icon(
                           Icons.arrow_back_ios,
                           color: DSColors.neutralLightSnow,

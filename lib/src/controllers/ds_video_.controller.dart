@@ -21,6 +21,7 @@ class DSVideoController extends GetxController {
   @override
   void onInit() async {
     initializePlayer();
+    print('ÍNICIA');
     super.onInit();
   }
 
@@ -28,6 +29,7 @@ class DSVideoController extends GetxController {
   void onClose() {
     _videoPlayerController.dispose();
     chewieController?.dispose();
+    print('FECHA');
     super.onClose();
   }
 
