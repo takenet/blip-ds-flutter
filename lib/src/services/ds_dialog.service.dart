@@ -36,7 +36,7 @@ class DSDialogService {
           ? DSColors.primaryLight
           : type == DSDialogType.warning
               ? DSColors.primaryYellowsCorn
-              : DSColors.extendRedsflower;
+              : DSColors.extendRedsFlower;
 
       final String icon = 'assets/images/icon_alert_${describeEnum(type)}.png';
 

@@ -10,9 +10,25 @@ class DSButtonText extends DSText {
     required super.text,
     required super.color,
     super.key,
+    super.textAlign,
+    super.maxLines,
   }) : super(
           style: DSButtonTextStyle(
             color: color,
           ),
+          shouldLinkify: false,
+        );
+
+  DSButtonText.rich({
+    required super.textSpan,
+    required super.color,
+    super.key,
+    super.textAlign,
+    super.maxLines,
+  }) : super.rich(
+          style: DSButtonTextStyle(
+            color: color,
+          ),
+          shouldLinkify: false,
         );
 }
