@@ -49,6 +49,7 @@ export 'src/widgets/texts/ds_button_text.widget.dart' show DSButtonText;
 export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
     show DSCachedNetworkImageView;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
+export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
@@ -59,6 +60,8 @@ export 'src/enums/ds_delivery_report_status.enum.dart'
 /// Extensions
 export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'
     show DSBorderRadiusExtension, DSBorderRadiusListExtension;
+export 'package:blip_ds/src/extensions/ds_delivery_report_status.extension.dart'
+    show DSDeliveryReportStatusExtension;
 
 /// Themes / Colors
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
@@ -86,6 +89,9 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
 
 /// Services
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+
+/// Models
+export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
 
 /// Widgets / Typing
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
