@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 class DSTextMessageBubbleController extends GetxController {
-  final showFullText = RxBool(false);
+  final shouldShowFullText = RxBool(false);
 
   void showMoreOnTap() {
-    showFullText.value = true;
+    shouldShowFullText.value = true;
   }
 }

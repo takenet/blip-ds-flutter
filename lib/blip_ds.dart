@@ -2,21 +2,23 @@ library blip_ds;
 
 /// Utils
 export 'src/utils/ds_utils.util.dart' show DSUtils;
+export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 
 /// Widgets / Chat
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
-
-/// Widgets / Chat / Audio
-export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
-    show DSAudioMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
+export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
+
+/// Widgets / Chat / Audio
+export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
+    show DSAudioMessageBubble;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
@@ -51,6 +53,12 @@ export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
+export 'src/enums/ds_delivery_report_status.enum.dart'
+    show DSDeliveryReportStatus;
+
+/// Extensions
+export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'
+    show DSBorderRadiusExtension, DSBorderRadiusListExtension;
 
 /// Themes / Colors
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
@@ -88,6 +96,10 @@ export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
 /// Widgets / SwitchTile
 export 'src/widgets/switch/ds_switch_tile.widget.dart' show DSSwitchTile;
 export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
+
+/// Widgets / Radio
+export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
+export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
 
 /// Widgets / Video
 export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
