@@ -21,8 +21,12 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarOpacity: 0.1,
+      centerTitle: false,
+      automaticallyImplyLeading: false,
       elevation: 1,
       backgroundColor: DSColors.neutralLightSnow,
+      shadowColor: DSColors.neutralMediumWave,
       actions: actions,
       leadingWidth: 25.0,
       leading: _buildLeading(context),
@@ -70,7 +74,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
                     'assets/images/arrow_back.svg',
                     color: DSColors.neutralDarkRooftop,
                     package: DSUtils.packageName,
-                    height: 18.0,
+                    height: 16.0,
                   ),
                 ),
               )
