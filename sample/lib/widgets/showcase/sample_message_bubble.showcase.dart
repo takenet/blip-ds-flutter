@@ -21,15 +21,18 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   final String _sampleImage = 'https://picsum.photos/250?image=9';
 
   final List<String> _srcsVideo = [
-    "https://file-examples.com/wp-content/uploads/2018/04/file_example_MOV_1920_2_2MB.mov",
-    "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-avi-file.avi",
-    "https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/cesesp/audios/boletim-para-protecao-a-covid-19-no-campo-03.mpeg",
-    "https://ia800302.us.archive.org/8/items/RandomForumVimeoShow-FinalTestResultswidescreenTest/FinalTestResults.ogv",
+    "https://filesamples.com/samples/video/mov/sample_960x400_ocean_with_audio.mov",
+    "https://filesamples.com/samples/video/avi/sample_960x400_ocean_with_audio.avi",
+    "https://filesamples.com/samples/video/mpeg/sample_960x400_ocean_with_audio.mpeg",
+    "https://filesamples.com/samples/video/mpg/sample_960x400_ocean_with_audio.mpg",
+    "https://filesamples.com/samples/video/ogv/sample_960x400_ocean_with_audio.ogv",
+    "https://filesamples.com/samples/video/mkv/sample_960x400_ocean_with_audio.mkv",
     "https://filesamples.com/samples/video/wmv/sample_960x400_ocean_with_audio.wmv",
-    "https://file-examples.com/storage/fe8bd9dfd063066d39cfd5a/2020/03/file_example_WEBM_480_900KB.webm",
-    "https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4",
+    "https://filesamples.com/samples/video/webm/sample_960x400_ocean_with_audio.webm",
+    "https://filesamples.com/samples/video/3gp/sample_960x400_ocean_with_audio.3gp",
+    "https://filesamples.com/samples/video/mp4/sample_960x400_ocean_with_audio.mp4",
     "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
+    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4",
   ];
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
@@ -96,22 +99,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSImageMessageBubble(
             align: DSAlign.right,
             url: '',
-            imageTitle: 'imageTitle.png',
-            imageText: 'My picture',
+            title: 'Hello',
+            text: 'My picture',
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
             align: DSAlign.left,
             url: _sampleImage,
-            imageTitle: 'imageTitle.png',
-            imageText: 'teste',
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
-            align: DSAlign.left,
-            url: _sampleImage,
-            imageTitle: 'imageTitle.png',
-            imageText: '\n\n$_sampleImage\n\n$_longText',
+            text: 'My picture',
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(
@@ -180,16 +175,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ///
           DSVideoMessageBubble(
             align: DSAlign.right,
-            urlVideo: _srcsVideo[8],
-            videoTitle: 'imageTitle.png',
-            imageText: 'My picture',
+            url: _srcsVideo[11],
+            text: 'Olá Tudo bem?',
             appBarText: 'Unknown User',
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
-            urlVideo: _srcsVideo[7],
-            videoTitle: 'imageTitle.png',
-            imageText: 'My picture',
+            url: _srcsVideo[11],
+            text: 'Se liga nesse vídeo!!',
             appBarText: 'Unknown User',
           ),
 

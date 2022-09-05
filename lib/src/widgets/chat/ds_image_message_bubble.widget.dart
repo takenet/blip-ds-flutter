@@ -8,8 +8,8 @@ class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
   final String url;
   final List<DSBorderRadius> borderRadius;
-  final String imageTitle;
-  final String? imageText;
+  final String? title;
+  final String? text;
   final String appBarText;
 
   final DSImageMessageBubbleController _controller;
@@ -18,10 +18,10 @@ class DSImageMessageBubble extends StatelessWidget {
     super.key,
     required this.align,
     required this.url,
-    required this.imageTitle,
     required this.appBarText,
     this.borderRadius = const [DSBorderRadius.all],
-    this.imageText,
+    this.text,
+    this.title,
   }) : _controller = DSImageMessageBubbleController();
 
   Widget _buildTransition(Animation<double> animation, Widget? child) {
@@ -116,8 +116,7 @@ class DSImageMessageBubble extends StatelessWidget {
                   context: context,
                   barrierDismissible: false,
                   transitionDuration: DSUtils.defaultAnimationDuration,
-                  transitionBuilder: (_, animation, __, child) =>
-                      _buildTransition(animation, child),
+                  transitionBuilder: (_, animation, __, child) => _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => _buildPage(context),
                 );
               }
@@ -133,31 +132,29 @@ class DSImageMessageBubble extends StatelessWidget {
               onError: _controller.setError,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DSCaptionText(
-                  text: imageTitle,
-                  color: align == DSAlign.right
-                      ? DSColors.neutralLightSnow
-                      : DSColors.neutralDarkCity,
-                ),
-                if (imageText != null) ...[
-                  const SizedBox(
-                    height: 6.0,
-                  ),
-                  DSBodyText(
-                    text: imageText!,
-                    color: align == DSAlign.right
-                        ? DSColors.neutralLightSnow
-                        : DSColors.neutralDarkCity,
-                  ),
-                ]
-              ],
+          if ((title?.isNotEmpty ?? false) || (text?.isNotEmpty ?? false))
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (title?.isNotEmpty ?? false) ...[
+                    DSCaptionText(
+                      text: title,
+                      color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                    ),
+                    const SizedBox(
+                      height: 3.0,
+                    ),
+                  ],
+                  if (text?.isNotEmpty ?? false)
+                    DSBodyText(
+                      text: text,
+                      color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                    ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );

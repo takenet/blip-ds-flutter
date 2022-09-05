@@ -166,8 +166,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
           url: message.content['uri'],
           align: message.align,
           appBarText: message.customerName ?? '',
-          imageText: message.content['text'],
-          imageTitle: message.content['title'],
+          text: message.content['text'],
+          title: message.content['title'],
           borderRadius: borderRadius,
         ),
       );
