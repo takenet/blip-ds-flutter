@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
 
 class DSMessageBubble extends StatelessWidget {
@@ -7,10 +6,6 @@ class DSMessageBubble extends StatelessWidget {
   final Widget child;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
-  final bool groupWithPreviousMessage;
-  final bool showMessageDetail;
-  final DSDeliveryReportStatus deliveryStatus;
-  final String date;
 
   const DSMessageBubble({
     Key? key,
@@ -21,11 +16,6 @@ class DSMessageBubble extends StatelessWidget {
       vertical: 8.0,
       horizontal: 16.0,
     ),
-    this.groupWithPreviousMessage = false,
-    //TODO: showMessageDetail, deliveryStatus and date can be moved to the widget responsible to grouping de messages or other widget?
-    this.showMessageDetail = true,
-    this.deliveryStatus = DSDeliveryReportStatus.accepted,
-    this.date = '',
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -40,8 +30,7 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin:
-              EdgeInsets.fromLTRB(16, groupWithPreviousMessage ? 1 : 20, 16, 0),
+          margin: EdgeInsets.fromLTRB(16, 2.0, 16, 2.0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
@@ -82,13 +71,6 @@ class DSMessageBubble extends StatelessWidget {
               : MainAxisAlignment.start,
           children: children,
         ),
-        //TODO: this logic can be moved to the widget responsible to grouping the messages or other widget?
-        if (showMessageDetail)
-          DSMessageBubbleDetail(
-            align: align,
-            deliveryStatus: deliveryStatus,
-            date: date,
-          ),
       ],
     );
   }

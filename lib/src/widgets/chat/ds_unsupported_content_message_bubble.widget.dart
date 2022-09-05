@@ -5,14 +5,20 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
   final String? text;
+  final List<DSBorderRadius> borderRadius;
 
-  const DSUnsupportedContentMessageBubble(
-      {Key? key, required this.align, this.leftWidget, this.text})
-      : super(key: key);
+  const DSUnsupportedContentMessageBubble({
+    Key? key,
+    required this.align,
+    this.leftWidget,
+    this.text,
+    this.borderRadius = const [DSBorderRadius.all],
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
+      borderRadius: borderRadius,
       align: align,
       child: Row(
         mainAxisSize: MainAxisSize.min,
