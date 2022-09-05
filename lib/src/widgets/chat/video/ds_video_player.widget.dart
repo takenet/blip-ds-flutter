@@ -17,19 +17,19 @@ class DSVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return GestureDetector(
-      onTapDown: (_) {
-        controller.pauseVideo();
-        controller.showAppBar();
-      },
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: Colors.black,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: Container(
-            margin: EdgeInsets.only(top: Get.mediaQuery.padding.top),
+    return Container(
+      color: Colors.black,
+      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
+      child: GestureDetector(
+        onTapDown: (_) {
+          controller.pauseVideo();
+          controller.showAppBar();
+        },
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          backgroundColor: Colors.transparent,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(80.0),
             child: Obx(
               () => AnimatedOpacity(
                 opacity: controller.appBarVisible.value ? 1.0 : 0.0,
@@ -64,12 +64,7 @@ class DSVideoPlayer extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        body: SafeArea(
-          bottom: false,
-          left: false,
-          right: false,
-          child: Obx(
+          body: Obx(
             () => GestureDetector(
               child: Column(
                 children: <Widget>[
