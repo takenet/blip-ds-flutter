@@ -66,12 +66,7 @@ class DSVideoPlayer extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        body: SafeArea(
-          bottom: false,
-          left: false,
-          right: false,
-          child: Obx(
+          body: Obx(
             () => GestureDetector(
               child: Column(
                 children: <Widget>[
