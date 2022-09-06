@@ -20,7 +20,7 @@ class DSUserAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: backgroundColor,
-      child: DSHeadlineSmallText(
+      child: DSBodyText(
         text: RegExp(r'\b[A-a-Z-z]')
             .allMatches(text)
             .map((m) => m.group(0))

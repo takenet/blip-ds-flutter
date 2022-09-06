@@ -6,6 +6,8 @@ import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
+import 'package:sample/widgets/showcase/sample_header.showcase.dart';
+
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
 
@@ -40,13 +42,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blip Design System Showcase'),
+      appBar: const DSHeader(
+        title: 'Blip Design System Showcase',
       ),
       body: SafeArea(
         child: ListView(
           children: [
-            const Divider(color: DSColors.neutralDarkCity),
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),
@@ -61,7 +62,9 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             SampleRadioShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            SampleGroupCardShowcase()
+            SampleGroupCardShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleHeaderShowcase()
           ],
         ),
       ),
