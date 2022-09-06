@@ -22,6 +22,9 @@ class DSVideoPlayerController extends GetxController {
   ChewieController? chewieController;
   int? bufferDelay;
 
+  @override
+  bool isClosed = false;
+
   RxBool appBarVisible = true.obs;
   RxBool isLoading = true.obs;
 
@@ -35,6 +38,7 @@ class DSVideoPlayerController extends GetxController {
   void onClose() {
     _videoPlayerController?.dispose();
     chewieController?.dispose();
+    isClosed = true;
     super.onClose();
   }
 
@@ -42,59 +46,59 @@ class DSVideoPlayerController extends GetxController {
     final type = url.substring(url.lastIndexOf('.'));
     final fileName = '${DateTime.now().millisecondsSinceEpoch}$type';
 
-    try {
-      final result = await DsFileService.download(url, fileName);
+    final result = await DsFileService.download(url, fileName);
 
-      if (result?.isNotEmpty ?? false) {
-        _videoPlayerController = VideoPlayerController.file(File(result!));
+    if (result?.isNotEmpty ?? false) {
+      _videoPlayerController = VideoPlayerController.file(File(result!));
 
-        await Future.any(
-          [
-            Future<void>(() async {
-              final c = Completer<void>();
+      final c = Completer<void>();
 
-              _videoPlayerController!.initialize().then((_) => c.complete());
+      await Future<void>(() async {
+        _videoPlayerController!
+            .initialize()
+            .then((_) => c.complete())
+            .catchError((e) {
+          _screenError(fileName);
+        });
 
-              return c.future;
-            }),
-            Future(() {
-              final c = Completer<void>();
+        return c.future;
+      });
 
-              Future.delayed(const Duration(milliseconds: 6000), () {
-                return c.completeError('Timeout reached');
-              });
-
-              return c.future;
-            }),
-          ],
-        );
-
-        _createChewieController();
-
-        isLoading.value = false;
+      if (!c.isCompleted) {
+        _screenError(fileName);
+      } else {
+        if (!isClosed) _createChewieController();
       }
-    } catch (e) {
-      Navigator.of(Get.context!).pop();
 
-      final dialog = DSDialogService(
-        title: 'Erro ao reproduzir o vídeo',
-        text: 'Encontramos um erro ao reproduzir o vídeo. Você deseja tentar abrir o vídeo externamente?',
-        firstButton: DSPrimaryButton(
-          onPressed: () {
-            Navigator.of(Get.context!).pop();
-            DsFileService.open(fileName, url);
-          },
-          label: 'Sim',
-        ),
-        secondButton: DSSecondaryButton(
-          onPressed: (() => Navigator.of(Get.context!).pop()),
-          label: 'Não, obrigado',
-        ),
-        context: Get.context!,
-      );
-
-      dialog.error();
+      isLoading.value = false;
     }
+  }
+
+  _screenError(fileName) {
+    Navigator.of(Get.context!).pop();
+    Get.delete<DSVideoPlayerController>();
+    final dialog = _dialogErrorFile(fileName);
+    dialog.error();
+  }
+
+  DSDialogService _dialogErrorFile(String fileName) {
+    return DSDialogService(
+      title: 'Erro ao reproduzir o vídeo',
+      text:
+          'Encontramos um erro ao reproduzir o vídeo. Você deseja tentar abrir o vídeo externamente?',
+      firstButton: DSPrimaryButton(
+        onPressed: () {
+          Navigator.of(Get.context!).pop();
+          DsFileService.open(fileName, url);
+        },
+        label: 'Sim',
+      ),
+      secondButton: DSSecondaryButton(
+        onPressed: (() => Navigator.of(Get.context!).pop()),
+        label: 'Não, obrigado',
+      ),
+      context: Get.context!,
+    );
   }
 
   void _createChewieController() {
@@ -105,7 +109,8 @@ class DSVideoPlayerController extends GetxController {
       allowFullScreen: false,
       playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
       fullScreenByDefault: false,
-      progressIndicatorDelay: bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
+      progressIndicatorDelay:
+          bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
       materialProgressColors: ChewieProgressColors(
         playedColor: DSColors.neutralLightSnow,
         handleColor: DSColors.neutralLightSnow,
@@ -119,17 +124,15 @@ class DSVideoPlayerController extends GetxController {
     );
   }
 
-  void setError() {
-    //error.value = true;
-  }
-
   void showAppBar() {
     appBarVisible.value = !(chewieController?.isPlaying ?? false);
   }
 
   void pauseVideo() {
     if (chewieController != null) {
-      chewieController!.isPlaying ? chewieController?.pause() : chewieController?.play();
+      chewieController!.isPlaying
+          ? chewieController?.pause()
+          : chewieController?.play();
     }
   }
 }

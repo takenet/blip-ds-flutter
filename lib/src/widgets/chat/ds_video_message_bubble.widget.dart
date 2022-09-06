@@ -1,8 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_play_button_rounded.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DSVideoMessageBubble extends StatelessWidget {
   /// Aligns the card to the right or left according to the value assigned to [align] which can be [DSAlign.right] or [DSAlign.left].
@@ -65,13 +63,15 @@ class DSVideoMessageBubble extends StatelessWidget {
                     context: context,
                     barrierDismissible: false,
                     transitionDuration: DSUtils.defaultAnimationDuration,
-                    transitionBuilder: (_, animation, __, child) => _buildTransition(animation, child),
+                    transitionBuilder: (_, animation, __, child) =>
+                        _buildTransition(animation, child),
                     pageBuilder: (context, _, __) => DSVideoPlayer(
+                      appBarText: appBarText,
                       url: url,
                     ),
                   );
 
-                  Get.delete<DSVideoPlayerController>();
+                  //
                 },
               ),
             ),
@@ -81,7 +81,9 @@ class DSVideoMessageBubble extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: DSBodyText(
                 text: text!,
-                color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                color: align == DSAlign.right
+                    ? DSColors.neutralLightSnow
+                    : DSColors.neutralDarkCity,
               ),
             ),
         ],

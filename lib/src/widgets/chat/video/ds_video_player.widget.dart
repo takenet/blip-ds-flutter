@@ -10,14 +10,13 @@ class DSVideoPlayer extends StatelessWidget {
 
   DSVideoPlayer({
     Key? key,
-    this.appBarText = 'Chewie Demo',
+    required this.appBarText,
     required String url,
   })  : controller = Get.put(DSVideoPlayerController(url: url)),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTapDown: (_) {
         controller.pauseVideo();
@@ -40,7 +39,10 @@ class DSVideoPlayer extends StatelessWidget {
                     children: [
                       IconButton(
                         padding: EdgeInsets.zero,
-                        onPressed: () => Get.back(),
+                        onPressed: () {
+                          Get.delete<DSVideoPlayerController>();
+                          Get.back();
+                        },
                         icon: const Icon(
                           Icons.arrow_back_ios,
                           color: DSColors.neutralLightSnow,
@@ -79,14 +81,7 @@ class DSVideoPlayer extends StatelessWidget {
                           ? Chewie(
                               controller: controller.chewieController!,
                             )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                CircularProgressIndicator(),
-                                SizedBox(height: 20),
-                                Text('Loading'),
-                              ],
-                            ),
+                          : const CircularProgressIndicator(),
                     ),
                   ),
                   const SizedBox(height: 30),
