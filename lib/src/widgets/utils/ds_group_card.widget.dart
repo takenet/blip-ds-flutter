@@ -171,6 +171,16 @@ class _DSGroupCardState extends State<DSGroupCard> {
           borderRadius: borderRadius,
         ),
       );
+    } else if (contentType.contains('video')) {
+      _widgets.add(
+        DSVideoMessageBubble(
+          url: message.content['uri'],
+          align: message.align,
+          appBarText: message.customerName ?? '',
+          text: message.content['text'],
+          borderRadius: borderRadius,
+        ),
+      );
     } else {
       _widgets.add(
         DSFileMessageBubble(

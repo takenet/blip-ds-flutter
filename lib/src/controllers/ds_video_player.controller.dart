@@ -107,7 +107,7 @@ class DSVideoPlayerController extends GetxController {
       autoPlay: true,
       looping: true,
       allowFullScreen: false,
-      playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
+      playbackSpeeds: const [2.0, 0.5, 1.0, 1.5, 2.0],
       fullScreenByDefault: false,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
