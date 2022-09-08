@@ -23,26 +23,30 @@ class DSVideoPlayer extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
-        appBar: _appBar(),
         body: Obx(
-          () => Column(
-            children: <Widget>[
-              Expanded(
-                child: Center(
-                  child: !controller.isLoading.value
-                      ? GestureDetector(
-                          onTapDown: (_) {
-                            controller.pauseVideo();
-                            controller.showAppBar();
-                          },
-                          child: Chewie(
-                            controller: controller.chewieController!,
-                          ),
-                        )
-                      : const CircularProgressIndicator(),
-                ),
+          () => Stack(
+            children: [
+              Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Center(
+                      child: !controller.isLoading.value
+                          ? GestureDetector(
+                              onTapDown: (_) {
+                                controller.pauseVideo();
+                                controller.showAppBar();
+                              },
+                              child: Chewie(
+                                controller: controller.chewieController!,
+                              ),
+                            )
+                          : const CircularProgressIndicator(),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                ],
               ),
-              const SizedBox(height: 30),
+              _appBar(),
             ],
           ),
         ),
@@ -52,40 +56,38 @@ class DSVideoPlayer extends StatelessWidget {
 
   PreferredSize _appBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(80.0),
-      child: Obx(
-        () => AnimatedOpacity(
-          opacity: controller.appBarVisible.value ? 1.0 : 0.0,
-          duration: const Duration(milliseconds: 500),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                IconButton(
-                  padding: const EdgeInsets.all(12.0),
-                  onPressed: () {
-                    Get.delete<DSVideoPlayerController>();
-                    Navigator.of(Get.context!).pop();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
+      preferredSize: const Size.fromHeight(150.0),
+      child: AnimatedOpacity(
+        opacity: controller.appBarVisible.value ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 500),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              IconButton(
+                padding: const EdgeInsets.all(12.0),
+                onPressed: () {
+                  Get.delete<DSVideoPlayerController>();
+                  Navigator.of(Get.context!).pop();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: DSColors.neutralLightSnow,
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: DSUserAvatar(
+                    text: appBarText,
+                  ),
+                  title: DSHeadlineSmallText(
+                    text: appBarText,
                     color: DSColors.neutralLightSnow,
                   ),
                 ),
-                Expanded(
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: DSUserAvatar(
-                      text: appBarText,
-                    ),
-                    title: DSHeadlineSmallText(
-                      text: appBarText,
-                      color: DSColors.neutralLightSnow,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
