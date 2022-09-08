@@ -150,10 +150,10 @@
 },
 {
     "content": {
-        "previewType": "video/mp4",
+        "previewType": "video/wmv",
         "previewUri": "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4",
         "size": 500,
-        "text": "legenda",
+        "text": "Vídeo válido",
         "title": "Double check.png",
         "type": "video/mp4",
         "uri": "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
@@ -170,7 +170,7 @@
         "previewType": "video/mp4",
         "previewUri": "https://filesamples.com/samples/video/wmv/sample_960x400_ocean_with_audio.wmv",
         "size": 500,
-        "text": "legenda",
+        "text": "Vídeo inválido",
         "title": "Double check.png",
         "type": "video/mp4",
         "uri": "https://filesamples.com/samples/video/wmv/sample_960x400_ocean_with_audio.wmv"
