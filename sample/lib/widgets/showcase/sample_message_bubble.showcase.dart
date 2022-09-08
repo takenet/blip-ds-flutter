@@ -181,13 +181,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
-            url: _srcsVideo[8],
+            url: _srcsVideo[9],
             text: 'Se liga nesse vídeo!!',
             appBarText: 'Unknown User',
           ),
           DSVideoMessageBubble(
             align: DSAlign.right,
-            url: _srcsVideo[10],
+            url: _srcsVideo[11],
             text: 'Olá Tudo bem?',
             appBarText: 'Unknown User',
           ),
