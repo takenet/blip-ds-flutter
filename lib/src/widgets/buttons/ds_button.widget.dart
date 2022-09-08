@@ -48,7 +48,7 @@ class DSButton extends StatelessWidget {
           44.0,
         ),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        primary: foregroundColor,
+        foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

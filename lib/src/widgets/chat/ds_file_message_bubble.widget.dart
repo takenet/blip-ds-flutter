@@ -9,6 +9,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final int size;
   final String filename;
   final DSFileMessageBubbleController controller;
+  final List<DSBorderRadius> borderRadius;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -17,6 +18,7 @@ class DSFileMessageBubble extends StatelessWidget {
     required this.url,
     required this.size,
     required this.filename,
+    this.borderRadius = const [DSBorderRadius.all],
   }) : controller = DSFileMessageBubbleController();
 
   @override
@@ -24,6 +26,7 @@ class DSFileMessageBubble extends StatelessWidget {
     return GestureDetector(
       onTap: () => controller.openFile(filename, url),
       child: DSMessageBubble(
+        borderRadius: borderRadius,
         padding: EdgeInsets.zero,
         align: align,
         child: SizedBox(

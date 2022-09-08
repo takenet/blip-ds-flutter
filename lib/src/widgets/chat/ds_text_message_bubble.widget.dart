@@ -7,14 +7,12 @@ class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
-  final bool groupWithPreviousMessage;
 
   const DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
-    this.groupWithPreviousMessage = false,
   }) : super(key: key);
 
   @override
@@ -22,14 +20,18 @@ class DSTextMessageBubble extends StatefulWidget {
 }
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
-  final DSTextMessageBubbleController controller =
-      DSTextMessageBubbleController();
+  final _controller = DSTextMessageBubbleController();
+
+  final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
+    vertical: 8.0,
+    horizontal: 16.0,
+  );
 
   @override
   void didUpdateWidget(covariant DSTextMessageBubble oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.text != widget.text) {
-      controller.showFullText.value = false;
+      _controller.shouldShowFullText.value = false;
     }
   }
 
@@ -38,7 +40,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return DSMessageBubble(
       align: widget.align,
       borderRadius: widget.borderRadius,
-      groupWithPreviousMessage: widget.groupWithPreviousMessage,
+      padding: EdgeInsets.zero,
       child: Obx(
         () => _buildText(),
       ),
@@ -47,16 +49,20 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
   Widget _buildText() {
     final overflow =
-        !controller.showFullText.value ? TextOverflow.ellipsis : null;
-    final maxLines = !controller.showFullText.value ? 12 : null;
+        !_controller.shouldShowFullText.value ? TextOverflow.ellipsis : null;
+
+    final maxLines = !_controller.shouldShowFullText.value ? 12 : null;
+
+    final foregroundColor = widget.align == DSAlign.right
+        ? DSColors.neutralLightSnow
+        : DSColors.neutralDarkCity;
+
+    final url = DSLinkify.getFirstUrlFromText(widget.text);
 
     final textSpan = TextSpan(
       text: widget.text,
       style: DSBodyTextStyle(
-        color: widget.align == DSAlign.right
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralDarkCity,
-        overflow: overflow,
+        color: foregroundColor,
       ),
     );
 
@@ -68,18 +74,38 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     );
 
     return LayoutBuilder(
-      builder: (context, constraints) {
+      builder: (_, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text.rich(
-              textSpan,
-              maxLines: textPainter.maxLines,
-              style: textSpan.style,
+            if (url.toString().isNotEmpty)
+              DSUrlPreview(
+                url: url,
+                foregroundColor: foregroundColor,
+                backgroundColor: widget.align == DSAlign.right
+                    ? DSColors.neutralDarkDesk
+                    : DSColors.neutralLightBox,
+                borderRadius: widget.borderRadius,
+              ),
+            Padding(
+              padding: _defaultBodyPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DSBodyText.rich(
+                    textSpan: textSpan,
+                    linkColor: widget.align == DSAlign.right
+                        ? DSColors.primaryLight
+                        : DSColors.primaryNight,
+                    overflow: overflow,
+                    maxLines: textPainter.maxLines,
+                  ),
+                  if (textPainter.didExceedMaxLines) _buildShowMore(),
+                ],
+              ),
             ),
-            if (textPainter.didExceedMaxLines) _buildShowMore(),
           ],
         );
       },
@@ -88,9 +114,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
   Widget _buildShowMore() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10.0),
       child: GestureDetector(
-        onTap: controller.showMoreOnTap,
+        onTap: _controller.showMoreOnTap,
         child: DSBodyText(
           // TODO: Need localized translate.
           text: 'Mostrar mais',
