@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
@@ -102,64 +104,108 @@ class DSImageMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
+      limitedSize: true,
       align: align,
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              if (!_controller.error.value) {
-                _controller.appBarVisible.value = false;
-                showGeneralDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  transitionDuration: DSUtils.defaultAnimationDuration,
-                  transitionBuilder: (_, animation, __, child) =>
-                      _buildTransition(animation, child),
-                  pageBuilder: (context, _, __) => _buildPage(context),
-                );
-              }
-            },
-            child: DSCachedNetworkImageView(
-              width: 240.0,
-              height: 240.0,
-              url: url,
-              placeholder: (_, __) => const Padding(
-                padding: EdgeInsets.all(80.0),
-                child: CircularProgressIndicator(),
-              ),
-              onError: _controller.setError,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
+      child: FutureBuilder(
+        future: getImageInfo(url),
+        builder: (buildContext, snapshot) {
+          if (snapshot.hasData || snapshot.hasError) {
+            final ImageInfo? data =
+                snapshot.hasError ? null : snapshot.data as ImageInfo;
+
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DSCaptionText(
-                  text: imageTitle,
-                  color: align == DSAlign.right
-                      ? DSColors.neutralLightSnow
-                      : DSColors.neutralDarkCity,
+                GestureDetector(
+                  onTap: () {
+                    if (!_controller.error.value) {
+                      _controller.appBarVisible.value = false;
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        transitionDuration: DSUtils.defaultAnimationDuration,
+                        transitionBuilder: (_, animation, __, child) =>
+                            _buildTransition(animation, child),
+                        pageBuilder: (context, _, __) => _buildPage(context),
+                      );
+                    }
+                  },
+                  child: DSCachedNetworkImageView(
+                    width: snapshot.hasError
+                        ? DSUtils.bubbleMinSize
+                        : data!.image.width < DSUtils.bubbleMinSize
+                            ? DSUtils.bubbleMinSize
+                            : null,
+                    url: url,
+                    placeholder: (_, __) => const Padding(
+                      padding: EdgeInsets.all(80.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                    onError: _controller.setError,
+                  ),
                 ),
-                if (imageText != null) ...[
-                  const SizedBox(
-                    height: 6.0,
+                SizedBox(
+                  width: snapshot.hasError
+                      ? DSUtils.bubbleMinSize
+                      : data!.image.width < DSUtils.bubbleMinSize
+                          ? DSUtils.bubbleMinSize
+                          : null,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DSCaptionText(
+                          text: imageTitle,
+                          color: align == DSAlign.right
+                              ? DSColors.neutralLightSnow
+                              : DSColors.neutralDarkCity,
+                        ),
+                        if (imageText != null) ...[
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          DSBodyText(
+                            //TODO: remove this overflow to elipsis
+                            //overflow: TextOverflow.clip,
+                            text: imageText!,
+                            color: align == DSAlign.right
+                                ? DSColors.neutralLightSnow
+                                : DSColors.neutralDarkCity,
+                          ),
+                        ]
+                      ],
+                    ),
                   ),
-                  DSBodyText(
-                    text: imageText!,
-                    color: align == DSAlign.right
-                        ? DSColors.neutralLightSnow
-                        : DSColors.neutralDarkCity,
-                  ),
-                ]
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
+  }
+
+  Future<ImageInfo> getImageInfo(final String url) async {
+    final Image img = Image.network(url);
+
+    final completer = Completer<ImageInfo>();
+
+    final ImageStream imageStream =
+        img.image.resolve(const ImageConfiguration());
+
+    imageStream.addListener(
+      ImageStreamListener(
+        (ImageInfo i, bool _) {
+          completer.complete(i);
+        },
+        onError: (exception, stackTrace) => completer.completeError(exception),
+      ),
+    );
+
+    return completer.future;
   }
 }

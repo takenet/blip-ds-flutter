@@ -18,7 +18,18 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   final RxString _sampleText = RxString('');
   final String _sampleAudio =
       'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
-  final String _sampleImage = 'https://picsum.photos/250?image=9';
+
+  final Map<String, String> _sampleImages = {
+    "extraSmall": 'https://cdn-icons-png.flaticon.com/128/6913/6913220.png',
+    'small':
+        'https://media-exp1.licdn.com/dms/image/C4D0BAQFjHCo7bQdJzw/company-logo_200_200/0/1573068688534?e=2147483647&v=beta&t=WqHR7Fd2aliRvwBxxOUpK71IITtyI1TFsDpsaYi3xug',
+    'medium':
+        'https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg',
+    'large':
+        'https://images.pexels.com/photos/7147462/pexels-photo-7147462.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'extraLarge':
+        'https://img.freepik.com/premium-photo/astronaut-outer-open-space-planet-earth-stars-provide-background-erforming-space-planet-earth-sunrise-sunset-our-home-iss-elements-this-image-furnished-by-nasa_150455-16829.jpg?w=2000',
+  };
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
@@ -90,16 +101,37 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSImageMessageBubble(
             align: DSAlign.left,
-            url: _sampleImage,
+            url: _sampleImages['large']!,
             imageTitle: 'imageTitle.png',
-            imageText: 'teste',
+            imageText: '1260x750',
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
-            align: DSAlign.left,
-            url: _sampleImage,
-            imageTitle: 'imageTitle.png',
-            imageText: '\n\n$_sampleImage\n\n$_longText',
+            align: DSAlign.right,
+            url: _sampleImages['medium']!,
+            imageTitle: '512x512.png',
+            imageText: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['small']!,
+            imageTitle: '200x200.png',
+            imageText: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['extraLarge']!,
+            imageTitle: '2000x1330.png',
+            imageText: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['extraSmall']!,
+            imageTitle: '128x128.png',
+            imageText: _longText,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(
