@@ -27,10 +27,12 @@ class DSVideoPlayerController extends GetxController {
 
   RxBool appBarVisible = true.obs;
   RxBool isLoading = true.obs;
+  RxBool isPlayning = true.obs;
 
   @override
   void onInit() async {
     await initializePlayer();
+
     super.onInit();
   }
 
@@ -38,6 +40,7 @@ class DSVideoPlayerController extends GetxController {
   void onClose() {
     _videoPlayerController?.dispose();
     chewieController?.dispose();
+    _videoPlayerController?.removeListener(_showAppBar);
     isClosed = true;
     super.onClose();
   }
@@ -69,6 +72,8 @@ class DSVideoPlayerController extends GetxController {
       } else {
         if (!isClosed) _createChewieController();
       }
+
+      _videoPlayerController?.addListener(_showAppBar);
 
       isLoading.value = false;
     }
@@ -106,13 +111,17 @@ class DSVideoPlayerController extends GetxController {
       videoPlayerController: _videoPlayerController!,
       autoPlay: true,
       looping: true,
+      //showOptions: false,
+      zoomAndPan: true,
+      allowMuting: false,
       allowFullScreen: false,
-      playbackSpeeds: const [2.0, 0.5, 1.0, 1.5, 2.0],
+      playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
       fullScreenByDefault: false,
+      //useRootNavigator: false,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
       materialProgressColors: ChewieProgressColors(
-        playedColor: DSColors.neutralLightSnow,
+        playedColor: DSColors.neutralDarkCity,
         handleColor: DSColors.neutralLightSnow,
         backgroundColor: DSColors.neutralDarkCity,
         bufferedColor: DSColors.neutralMediumSilver,
@@ -121,18 +130,11 @@ class DSVideoPlayerController extends GetxController {
         color: Colors.black,
       ),
       autoInitialize: true,
+      maxScale: 2.5,
     );
   }
 
-  void showAppBar() {
-    appBarVisible.value = !(chewieController?.isPlaying ?? false);
-  }
-
-  void pauseVideo() {
-    if (chewieController != null) {
-      chewieController!.isPlaying
-          ? chewieController?.pause()
-          : chewieController?.play();
-    }
+  Future<void> _showAppBar() async {
+    appBarVisible.value = !(chewieController!.isPlaying);
   }
 }

@@ -19,37 +19,44 @@ class DSVideoPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: Colors.transparent,
-        body: Obx(
-          () => Stack(
-            children: [
-              Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Center(
-                      child: !controller.isLoading.value
-                          ? GestureDetector(
-                              onTapDown: (_) {
-                                controller.pauseVideo();
-                                controller.showAppBar();
-                              },
-                              child: Chewie(
-                                controller: controller.chewieController!,
-                              ),
-                            )
-                          : const CircularProgressIndicator(),
-                    ),
+      child: Obx(
+        () {
+          return SafeArea(
+            left: false,
+            right: true,
+            bottom: false,
+            child: Scaffold(
+              //appBar: _appBar(),
+              extendBodyBehindAppBar: true,
+              backgroundColor: Colors.transparent,
+              body: Stack(
+                children: [
+                  Column(
+                    children: <Widget>[
+                      //_appBar(),
+                      Expanded(
+                        child: Center(
+                          child: !controller.isLoading.value
+                              ? GestureDetector(
+                                  onTapDown: (TapDownDetails details) {
+                                    controller.chewieController!.togglePause();
+                                  },
+                                  child: Chewie(
+                                    controller: controller.chewieController!,
+                                  ),
+                                )
+                              : const CircularProgressIndicator(),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                    ],
                   ),
-                  const SizedBox(height: 30),
+                  _appBar(),
                 ],
               ),
-              _appBar(),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -63,28 +70,31 @@ class DSVideoPlayer extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(
-                padding: const EdgeInsets.all(12.0),
-                onPressed: () {
-                  Get.delete<DSVideoPlayerController>();
-                  Navigator.of(Get.context!).pop();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: DSColors.neutralLightSnow,
-                ),
-              ),
-              Expanded(
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: DSUserAvatar(
-                    text: appBarText,
-                  ),
-                  title: DSHeadlineSmallText(
-                    text: appBarText,
+              Container(
+                width: 25.0,
+                child: IconButton(
+                  padding: const EdgeInsets.all(12.0),
+                  onPressed: () {
+                    Get.delete<DSVideoPlayerController>();
+                    Navigator.of(Get.context!).pop();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
                     color: DSColors.neutralLightSnow,
                   ),
+                ),
+              ),
+              const SizedBox(width: 20.0),
+              DSUserAvatar(
+                text: appBarText,
+              ),
+              const SizedBox(width: 20.0),
+              Expanded(
+                child: DSHeadlineSmallText(
+                  text: appBarText,
+                  color: DSColors.neutralLightSnow,
                 ),
               ),
             ],
