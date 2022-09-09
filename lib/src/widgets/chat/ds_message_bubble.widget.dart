@@ -6,7 +6,9 @@ class DSMessageBubble extends StatelessWidget {
   final Widget child;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
-  final bool limitedSize;
+  final bool shouldUseDefaultSize;
+  final double defaultMaxSize;
+  final double defaultMinSize;
 
   const DSMessageBubble({
     Key? key,
@@ -17,7 +19,9 @@ class DSMessageBubble extends StatelessWidget {
       vertical: 8.0,
       horizontal: 16.0,
     ),
-    this.limitedSize = false,
+    this.shouldUseDefaultSize = false,
+    this.defaultMaxSize = DSUtils.bubbleMaxSize,
+    this.defaultMinSize = DSUtils.bubbleMinSize,
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -43,10 +47,10 @@ class DSMessageBubble extends StatelessWidget {
           child: ClipRRect(
             borderRadius: _getBorderRadius(),
             child: Container(
-              constraints: limitedSize
-                  ? const BoxConstraints(
-                      maxWidth: DSUtils.bubbleMaxSize,
-                      minWidth: DSUtils.bubbleMinSize,
+              constraints: shouldUseDefaultSize
+                  ? BoxConstraints(
+                      maxWidth: defaultMaxSize,
+                      minWidth: defaultMinSize,
                     )
                   : null,
               padding: padding,

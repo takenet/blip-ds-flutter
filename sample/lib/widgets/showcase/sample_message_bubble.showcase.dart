@@ -26,7 +26,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     'medium':
         'https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg',
     'large':
-        'https://images.pexels.com/photos/7147462/pexels-photo-7147462.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://i.postimg.cc/mrrPH9ww/Simulator-Screen-Shot-i-Phone-13-2022-09-09-at-10-50-37.png',
     'extraLarge':
         'https://img.freepik.com/premium-photo/astronaut-outer-open-space-planet-earth-stars-provide-background-erforming-space-planet-earth-sunrise-sunset-our-home-iss-elements-this-image-furnished-by-nasa_150455-16829.jpg?w=2000',
   };
@@ -100,13 +100,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
-            align: DSAlign.left,
-            url: _sampleImages['large']!,
-            imageTitle: 'imageTitle.png',
-            imageText: '1260x750',
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
             align: DSAlign.right,
             url: _sampleImages['medium']!,
             imageTitle: '512x512.png',
@@ -132,6 +125,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _sampleImages['extraSmall']!,
             imageTitle: '128x128.png',
             imageText: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['large']!,
+            imageTitle: '1170×2532.png',
+            imageText: 'Print',
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

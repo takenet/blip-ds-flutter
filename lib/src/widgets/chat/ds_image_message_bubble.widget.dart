@@ -104,7 +104,8 @@ class DSImageMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
-      limitedSize: true,
+      defaultMaxSize: 360.0,
+      shouldUseDefaultSize: true,
       align: align,
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
@@ -114,6 +115,12 @@ class DSImageMessageBubble extends StatelessWidget {
           if (snapshot.hasData || snapshot.hasError) {
             final ImageInfo? data =
                 snapshot.hasError ? null : snapshot.data as ImageInfo;
+
+            final width = snapshot.hasError
+                ? 240.0
+                : data!.image.width <= DSUtils.bubbleMinSize
+                    ? DSUtils.bubbleMinSize
+                    : data.image.width.toDouble();
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,26 +139,24 @@ class DSImageMessageBubble extends StatelessWidget {
                       );
                     }
                   },
-                  child: DSCachedNetworkImageView(
-                    width: snapshot.hasError
-                        ? DSUtils.bubbleMinSize
-                        : data!.image.width < DSUtils.bubbleMinSize
-                            ? DSUtils.bubbleMinSize
-                            : null,
-                    url: url,
-                    placeholder: (_, __) => const Padding(
-                      padding: EdgeInsets.all(80.0),
-                      child: CircularProgressIndicator(),
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxHeight: 480.0,
                     ),
-                    onError: _controller.setError,
+                    child: DSCachedNetworkImageView(
+                      fit: BoxFit.cover,
+                      width: width,
+                      url: url,
+                      placeholder: (_, __) => const Padding(
+                        padding: EdgeInsets.all(80.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                      onError: _controller.setError,
+                    ),
                   ),
                 ),
                 SizedBox(
-                  width: snapshot.hasError
-                      ? DSUtils.bubbleMinSize
-                      : data!.image.width < DSUtils.bubbleMinSize
-                          ? DSUtils.bubbleMinSize
-                          : null,
+                  width: width,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
@@ -168,14 +173,13 @@ class DSImageMessageBubble extends StatelessWidget {
                             height: 6.0,
                           ),
                           DSBodyText(
-                            //TODO: remove this overflow to elipsis
-                            //overflow: TextOverflow.clip,
+                            overflow: TextOverflow.clip,
                             text: imageText!,
                             color: align == DSAlign.right
                                 ? DSColors.neutralLightSnow
                                 : DSColors.neutralDarkCity,
                           ),
-                        ]
+                        ],
                       ],
                     ),
                   ),
