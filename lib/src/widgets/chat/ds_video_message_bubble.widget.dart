@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_play_button_rounded.widget.dart';
-import 'package:flutter/material.dart';
 
 class DSVideoMessageBubble extends StatelessWidget {
   /// Aligns the card to the right or left according to the value assigned to [align] which can be [DSAlign.right] or [DSAlign.left].
@@ -51,8 +52,8 @@ class DSVideoMessageBubble extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 240,
-            width: 240,
+            height: 240.0,
+            width: 240.0,
             color: DSColors.neutralDarkRooftop,
             child: Align(
               alignment: Alignment.center,
@@ -78,7 +79,10 @@ class DSVideoMessageBubble extends StatelessWidget {
           ),
           if (text?.isNotEmpty ?? false)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
               child: DSBodyText(
                 text: text!,
                 color: align == DSAlign.right

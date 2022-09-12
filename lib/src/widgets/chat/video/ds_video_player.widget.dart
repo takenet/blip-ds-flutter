@@ -12,8 +12,8 @@ class DSVideoPlayer extends StatelessWidget {
 
   /// Video player widget
 
-  ///In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
-  ///The [url] parameter contains the reference to be executed
+  /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
+  /// The [url] parameter contains the reference to be executed
   DSVideoPlayer({
     Key? key,
     required this.appBarText,
@@ -37,19 +37,19 @@ class DSVideoPlayer extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Center(
-                        child: !controller.isLoading.value
-                            ? GestureDetector(
+                        child: controller.isLoading.value
+                            ? const CircularProgressIndicator()
+                            : GestureDetector(
                                 onTapDown: (TapDownDetails details) {
                                   controller.chewieController!.togglePause();
                                 },
                                 child: Chewie(
                                   controller: controller.chewieController!,
                                 ),
-                              )
-                            : const CircularProgressIndicator(),
+                              ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 20.0),
                   ],
                 ),
                 _appBar(),

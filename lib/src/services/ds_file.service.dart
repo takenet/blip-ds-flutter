@@ -1,13 +1,15 @@
 import 'dart:io' as io;
-import 'package:blip_ds/blip_ds.dart';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:open_filex/open_filex.dart';
+import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:path/path.dart' as path_utils;
 
-abstract class DsFileService {
+import 'package:blip_ds/blip_ds.dart';
+
+abstract class DSFileService {
   static Future<void> open(
     final String fileName,
     final String url, {
@@ -39,7 +41,8 @@ abstract class DsFileService {
   }) async {
     if (onDownloadStateChange != null) onDownloadStateChange(true);
     try {
-      final savedFilePath = path_utils.join(path ?? (await getTemporaryDirectory()).path, fileName);
+      final savedFilePath = path_utils.join(
+          path ?? (await getTemporaryDirectory()).path, fileName);
 
       if (await io.File(savedFilePath).exists()) {
         return savedFilePath;
@@ -62,6 +65,8 @@ abstract class DsFileService {
     final String title,
     final String message,
   ) {
-    Get.snackbar(title, message, snackPosition: SnackPosition.BOTTOM, backgroundColor: DSColors.neutralLightSnow);
+    Get.snackbar(title, message,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: DSColors.neutralLightSnow);
   }
 }

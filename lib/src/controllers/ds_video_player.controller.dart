@@ -14,8 +14,8 @@ import 'package:blip_ds/src/widgets/buttons/ds_primary_button.widget.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_secondary_button.widget.dart';
 
 class DSVideoPlayerController extends GetxController {
-  ///Video controller. responsible for managing the state of the video widget, and all
-  ///the management of video controls.
+  /// Video controller. responsible for managing the state of the video widget, and all
+  /// the management of video controls.
   DSVideoPlayerController({
     required this.url,
   });
@@ -53,25 +53,25 @@ class DSVideoPlayerController extends GetxController {
     /// Download the video to be played
     final type = url.substring(url.lastIndexOf('.'));
     final fileName = '${DateTime.now().millisecondsSinceEpoch}$type';
-    final result = await DsFileService.download(url, fileName);
+    final result = await DSFileService.download(url, fileName);
 
     if (result?.isNotEmpty ?? false) {
       _videoPlayerController = VideoPlayerController.file(File(result!));
 
-      final c = Completer<void>();
+      final completer = Completer<void>();
 
       await Future<void>(() async {
         _videoPlayerController!
             .initialize()
-            .then((_) => c.complete())
+            .then((_) => completer.complete())
             .catchError((e) {
           _screenError(fileName);
         });
 
-        return c.future;
+        return completer.future;
       });
 
-      if (!c.isCompleted) {
+      if (!completer.isCompleted) {
         _screenError(fileName);
       } else {
         if (!isClosed) _createChewieController();
@@ -83,22 +83,22 @@ class DSVideoPlayerController extends GetxController {
     }
   }
 
-  _screenError(fileName) {
-    Navigator.of(Get.context!).pop();
+  void _screenError(final fileName) {
+    Get.back();
     Get.delete<DSVideoPlayerController>();
     final dialog = _dialogErrorFile(fileName);
     dialog.error();
   }
 
-  DSDialogService _dialogErrorFile(String fileName) {
+  DSDialogService _dialogErrorFile(final String fileName) {
     return DSDialogService(
       title: 'Erro ao reproduzir o vídeo',
       text:
           'Encontramos um erro ao reproduzir o vídeo. Você deseja tentar abrir o vídeo externamente?',
       firstButton: DSPrimaryButton(
         onPressed: () {
-          Navigator.of(Get.context!).pop();
-          DsFileService.open(fileName, url);
+          Get.back();
+          DSFileService.open(fileName, url);
         },
         label: 'Sim',
       ),
