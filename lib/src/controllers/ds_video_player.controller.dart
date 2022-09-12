@@ -1,21 +1,26 @@
 import 'dart:async';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import 'package:chewie/chewie.dart';
+import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
+
 import 'package:blip_ds/src/services/ds_dialog.service.dart';
 import 'package:blip_ds/src/services/ds_file.service.dart';
 import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_primary_button.widget.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_secondary_button.widget.dart';
-import 'package:flutter/material.dart';
-import 'package:chewie/chewie.dart';
-import 'package:get/get.dart';
-// ignore: depend_on_referenced_packages
-import 'package:video_player/video_player.dart';
 
 class DSVideoPlayerController extends GetxController {
+  ///Video controller. responsible for managing the state of the video widget, and all
+  ///the management of video controls.
   DSVideoPlayerController({
     required this.url,
   });
 
+  // External URL containing the video to be played
   final String url;
 
   VideoPlayerController? _videoPlayerController;
@@ -46,9 +51,9 @@ class DSVideoPlayerController extends GetxController {
   }
 
   Future<void> initializePlayer() async {
+    /// Download the video to be played
     final type = url.substring(url.lastIndexOf('.'));
     final fileName = '${DateTime.now().millisecondsSinceEpoch}$type';
-
     final result = await DsFileService.download(url, fileName);
 
     if (result?.isNotEmpty ?? false) {
@@ -111,13 +116,11 @@ class DSVideoPlayerController extends GetxController {
       videoPlayerController: _videoPlayerController!,
       autoPlay: true,
       looping: true,
-      //showOptions: false,
       zoomAndPan: true,
       allowMuting: false,
       allowFullScreen: false,
       playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
       fullScreenByDefault: false,
-      //useRootNavigator: false,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
       materialProgressColors: ChewieProgressColors(

@@ -7,9 +7,13 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
 
 class DSVideoPlayer extends StatelessWidget {
-  final String appBarText;
   final DSVideoPlayerController controller;
+  final String appBarText;
 
+  /// Video player widget
+
+  ///In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
+  ///The [url] parameter contains the reference to be executed
   DSVideoPlayer({
     Key? key,
     required this.appBarText,
@@ -31,7 +35,6 @@ class DSVideoPlayer extends StatelessWidget {
               children: [
                 Column(
                   children: <Widget>[
-                    //_appBar(),
                     Expanded(
                       child: Center(
                         child: !controller.isLoading.value

@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import 'package:blip_ds/blip_ds.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -30,7 +31,7 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin: EdgeInsets.fromLTRB(16, 2.0, 16, 2.0),
+          margin: const EdgeInsets.fromLTRB(16, 2.0, 16, 2.0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
