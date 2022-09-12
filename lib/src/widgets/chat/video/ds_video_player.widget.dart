@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:chewie/chewie.dart';
+import 'package:get/get.dart';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
-import 'package:chewie/chewie.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DSVideoPlayer extends StatelessWidget {
   final String appBarText;
@@ -19,41 +21,36 @@ class DSVideoPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
+      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
       child: Obx(
         () {
-          return SafeArea(
-            left: false,
-            right: true,
-            bottom: false,
-            child: Scaffold(
-              //appBar: _appBar(),
-              extendBodyBehindAppBar: true,
-              backgroundColor: Colors.transparent,
-              body: Stack(
-                children: [
-                  Column(
-                    children: <Widget>[
-                      //_appBar(),
-                      Expanded(
-                        child: Center(
-                          child: !controller.isLoading.value
-                              ? GestureDetector(
-                                  onTapDown: (TapDownDetails details) {
-                                    controller.chewieController!.togglePause();
-                                  },
-                                  child: Chewie(
-                                    controller: controller.chewieController!,
-                                  ),
-                                )
-                              : const CircularProgressIndicator(),
-                        ),
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            backgroundColor: Colors.transparent,
+            body: Stack(
+              children: [
+                Column(
+                  children: <Widget>[
+                    //_appBar(),
+                    Expanded(
+                      child: Center(
+                        child: !controller.isLoading.value
+                            ? GestureDetector(
+                                onTapDown: (TapDownDetails details) {
+                                  controller.chewieController!.togglePause();
+                                },
+                                child: Chewie(
+                                  controller: controller.chewieController!,
+                                ),
+                              )
+                            : const CircularProgressIndicator(),
                       ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
-                  _appBar(),
-                ],
-              ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+                _appBar(),
+              ],
             ),
           );
         },
@@ -72,7 +69,7 @@ class DSVideoPlayer extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: 25.0,
                 child: IconButton(
                   padding: const EdgeInsets.all(12.0),
