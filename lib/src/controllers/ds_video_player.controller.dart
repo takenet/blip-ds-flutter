@@ -32,7 +32,6 @@ class DSVideoPlayerController extends GetxController {
 
   RxBool appBarVisible = true.obs;
   RxBool isLoading = true.obs;
-  RxBool isPlayning = true.obs;
 
   @override
   void onInit() async {
