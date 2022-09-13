@@ -8,10 +8,12 @@ import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
 
 class DSVideoPlayer extends StatelessWidget {
   final DSVideoPlayerController controller;
+
+  /// Text to be displayed in the appBarr
   final String appBarText;
 
   /// Video player widget
-
+  ///
   /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
   /// The [url] parameter contains the reference to be executed
   DSVideoPlayer({

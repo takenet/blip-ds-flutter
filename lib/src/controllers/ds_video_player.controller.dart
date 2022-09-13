@@ -50,36 +50,38 @@ class DSVideoPlayerController extends GetxController {
   }
 
   Future<void> initializePlayer() async {
-    /// Download the video to be played
-    final type = url.substring(url.lastIndexOf('.'));
-    final fileName = '${DateTime.now().millisecondsSinceEpoch}$type';
-    final result = await DSFileService.download(url, fileName);
+    try {
+      final fileName = url.substring(url.lastIndexOf('/')).substring(1);
+      final result = await DSFileService.download(url, fileName);
+      if (result?.isNotEmpty ?? false) {
+        _videoPlayerController = VideoPlayerController.file(File(result!));
 
-    if (result?.isNotEmpty ?? false) {
-      _videoPlayerController = VideoPlayerController.file(File(result!));
+        final completer = Completer<void>();
 
-      final completer = Completer<void>();
+        await Future<void>(() async {
+          _videoPlayerController!
+              .initialize()
+              .then((_) => completer.complete())
+              .catchError((e) {
+            _screenError(fileName);
+          });
 
-      await Future<void>(() async {
-        _videoPlayerController!
-            .initialize()
-            .then((_) => completer.complete())
-            .catchError((e) {
-          _screenError(fileName);
+          return completer.future;
         });
 
-        return completer.future;
-      });
+        if (!completer.isCompleted) {
+          _screenError(fileName);
+        } else {
+          if (!isClosed) _createChewieController();
+        }
 
-      if (!completer.isCompleted) {
-        _screenError(fileName);
-      } else {
-        if (!isClosed) _createChewieController();
+        _videoPlayerController?.addListener(_showAppBar);
+
+        isLoading.value = false;
       }
-
-      _videoPlayerController?.addListener(_showAppBar);
-
+    } on Exception {
       isLoading.value = false;
+      Get.back();
     }
   }
 
