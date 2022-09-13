@@ -72,8 +72,6 @@ class DSVideoMessageBubble extends StatelessWidget {
                       url: url,
                     ),
                   );
-
-                  //
                 },
               ),
             ),

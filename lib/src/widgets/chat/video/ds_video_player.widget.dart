@@ -76,16 +76,13 @@ class DSVideoPlayer extends StatelessWidget {
                     width: 45.0,
                     child: IconButton(
                       padding: const EdgeInsets.all(12.0),
-                      onPressed: () {},
-                      icon: InkWell(
-                        onTap: () {
-                          Get.delete<DSVideoPlayerController>();
-                          Get.back();
-                        },
-                        child: const Icon(
-                          Icons.arrow_back_ios,
-                          color: DSColors.neutralLightSnow,
-                        ),
+                      onPressed: () {
+                        Get.delete<DSVideoPlayerController>();
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: DSColors.neutralLightSnow,
                       ),
                     ),
                   ),
