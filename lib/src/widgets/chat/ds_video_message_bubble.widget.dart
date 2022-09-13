@@ -5,6 +5,7 @@ import 'package:blip_ds/src/widgets/buttons/ds_play_button_rounded.widget.dart';
 
 class DSVideoMessageBubble extends StatelessWidget {
   /// Aligns the card to the right or left according to the value assigned to [align] which can be [DSAlign.right] or [DSAlign.left].
+  ///
   final DSAlign align;
 
   /// URL of the video that will be played when clicking on the card

@@ -26,12 +26,12 @@ class DSVideoPlayer extends StatelessWidget {
     return Container(
       color: Colors.black,
       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
-      child: Obx(
-        () {
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            backgroundColor: Colors.transparent,
-            body: Stack(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.transparent,
+        body: Obx(
+          () {
+            return Stack(
               children: [
                 Column(
                   children: <Widget>[
@@ -39,13 +39,8 @@ class DSVideoPlayer extends StatelessWidget {
                       child: Center(
                         child: controller.isLoading.value
                             ? const CircularProgressIndicator()
-                            : GestureDetector(
-                                onTapDown: (TapDownDetails details) {
-                                  controller.chewieController!.togglePause();
-                                },
-                                child: Chewie(
-                                  controller: controller.chewieController!,
-                                ),
+                            : Chewie(
+                                controller: controller.chewieController!,
                               ),
                       ),
                     ),
@@ -54,53 +49,61 @@ class DSVideoPlayer extends StatelessWidget {
                 ),
                 _appBar(),
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
-  PreferredSize _appBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(150.0),
-      child: AnimatedOpacity(
-        opacity: controller.appBarVisible.value ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 25.0,
-                child: IconButton(
-                  padding: const EdgeInsets.all(12.0),
-                  onPressed: () {
-                    Get.delete<DSVideoPlayerController>();
-                    Navigator.of(Get.context!).pop();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: DSColors.neutralLightSnow,
+  Widget _appBar() {
+    return Column(
+      children: [
+        const SizedBox(height: 20.0),
+        SizedBox(
+          height: 80.0,
+          child: AnimatedOpacity(
+            opacity: controller.appBarVisible.value ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 500),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 45.0,
+                    child: IconButton(
+                      padding: const EdgeInsets.all(12.0),
+                      onPressed: () {},
+                      icon: InkWell(
+                        onTap: () {
+                          Get.delete<DSVideoPlayerController>();
+                          Navigator.of(Get.context!).pop();
+                        },
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: DSColors.neutralLightSnow,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 0.0),
+                  DSUserAvatar(
+                    text: appBarText,
+                  ),
+                  const SizedBox(width: 20.0),
+                  Expanded(
+                    child: DSHeadlineSmallText(
+                      text: appBarText,
+                      color: DSColors.neutralLightSnow,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 20.0),
-              DSUserAvatar(
-                text: appBarText,
-              ),
-              const SizedBox(width: 20.0),
-              Expanded(
-                child: DSHeadlineSmallText(
-                  text: appBarText,
-                  color: DSColors.neutralLightSnow,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
