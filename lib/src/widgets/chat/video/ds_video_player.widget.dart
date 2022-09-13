@@ -80,7 +80,7 @@ class DSVideoPlayer extends StatelessWidget {
                       icon: InkWell(
                         onTap: () {
                           Get.delete<DSVideoPlayerController>();
-                          Navigator.of(Get.context!).pop();
+                          Get.back();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios,
