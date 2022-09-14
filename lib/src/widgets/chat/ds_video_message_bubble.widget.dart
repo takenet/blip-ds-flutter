@@ -11,6 +11,7 @@ class DSVideoMessageBubble extends StatelessWidget {
   /// URL of the video that will be played when clicking on the card
   final String url;
 
+  /// Border to adjust when widget is used in grouping
   final List<DSBorderRadius> borderRadius;
 
   /// Text associated with the video context to be shown below thumbnail.
@@ -58,7 +59,7 @@ class DSVideoMessageBubble extends StatelessWidget {
             color: DSColors.neutralDarkRooftop,
             child: Align(
               alignment: Alignment.center,
-              child: DSPlayButtonRounded(
+              child: DSRoundedPlayButton(
                 align: align,
                 onPressed: () async {
                   await showGeneralDialog(

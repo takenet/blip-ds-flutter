@@ -39,7 +39,7 @@ abstract class DSFileService {
     final String? path,
     final void Function(bool)? onDownloadStateChange,
   }) async {
-    if (onDownloadStateChange != null) onDownloadStateChange(true);
+    if (onDownloadStateChange != null) onDownloadStateChange.call(true);
     try {
       final savedFilePath = path_utils.join(
           path ?? (await getTemporaryDirectory()).path, fileName);
@@ -54,7 +54,7 @@ abstract class DSFileService {
     } catch (e) {
       _showAlert('Erro', 'Download indisponível');
     } finally {
-      if (onDownloadStateChange != null) onDownloadStateChange(false);
+      if (onDownloadStateChange != null) onDownloadStateChange.call(false);
     }
 
     return null;

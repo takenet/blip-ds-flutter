@@ -172,9 +172,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.right,
             uri: _sampleAudio,
           ),
-
-          ///
-          ///
           DSVideoMessageBubble(
             align: DSAlign.right,
             url: _srcsVideo[6],
@@ -193,9 +190,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: 'Olá Tudo bem?',
             appBarText: 'Unknown User',
           ),
-
-          ///
-          ///
         ],
       ),
     );
