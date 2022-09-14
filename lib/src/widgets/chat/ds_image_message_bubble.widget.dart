@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +23,98 @@ class DSImageMessageBubble extends StatelessWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.imageText,
   }) : _controller = DSImageMessageBubbleController();
+
+  @override
+  Widget build(BuildContext context) {
+    return DSMessageBubble(
+      defaultMaxSize: 360.0,
+      shouldUseDefaultSize: true,
+      align: align,
+      borderRadius: borderRadius,
+      padding: EdgeInsets.zero,
+      child: FutureBuilder(
+        future: _controller.getImageInfo(url),
+        builder: (buildContext, snapshot) {
+          if (snapshot.hasData || snapshot.hasError) {
+            final ImageInfo? data =
+                snapshot.hasError ? null : snapshot.data as ImageInfo;
+
+            final width = snapshot.hasError
+                ? 240.0
+                : data!.image.width <= DSUtils.bubbleMinSize
+                    ? DSUtils.bubbleMinSize
+                    : data.image.width.toDouble();
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (!_controller.error.value) {
+                      _controller.appBarVisible.value = false;
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        transitionDuration: DSUtils.defaultAnimationDuration,
+                        transitionBuilder: (_, animation, __, child) =>
+                            _buildTransition(animation, child),
+                        pageBuilder: (context, _, __) => _buildPage(context),
+                      );
+                    }
+                  },
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxHeight: DSUtils.bubbleMaxSize,
+                    ),
+                    child: DSCachedNetworkImageView(
+                      fit: BoxFit.cover,
+                      width: width,
+                      url: url,
+                      placeholder: (_, __) => const Padding(
+                        padding: EdgeInsets.all(80.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                      onError: _controller.setError,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DSCaptionText(
+                          text: imageTitle,
+                          color: align == DSAlign.right
+                              ? DSColors.neutralLightSnow
+                              : DSColors.neutralDarkCity,
+                        ),
+                        if (imageText != null) ...[
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          DSBodyText(
+                            overflow: TextOverflow.clip,
+                            text: imageText!,
+                            color: align == DSAlign.right
+                                ? DSColors.neutralLightSnow
+                                : DSColors.neutralDarkCity,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
+      ),
+    );
+  }
 
   Widget _buildTransition(Animation<double> animation, Widget? child) {
     return FadeTransition(
@@ -99,117 +189,5 @@ class DSImageMessageBubble extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DSMessageBubble(
-      defaultMaxSize: 360.0,
-      shouldUseDefaultSize: true,
-      align: align,
-      borderRadius: borderRadius,
-      padding: EdgeInsets.zero,
-      child: FutureBuilder(
-        future: getImageInfo(url),
-        builder: (buildContext, snapshot) {
-          if (snapshot.hasData || snapshot.hasError) {
-            final ImageInfo? data =
-                snapshot.hasError ? null : snapshot.data as ImageInfo;
-
-            final width = snapshot.hasError
-                ? 240.0
-                : data!.image.width <= DSUtils.bubbleMinSize
-                    ? DSUtils.bubbleMinSize
-                    : data.image.width.toDouble();
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (!_controller.error.value) {
-                      _controller.appBarVisible.value = false;
-                      showGeneralDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        transitionDuration: DSUtils.defaultAnimationDuration,
-                        transitionBuilder: (_, animation, __, child) =>
-                            _buildTransition(animation, child),
-                        pageBuilder: (context, _, __) => _buildPage(context),
-                      );
-                    }
-                  },
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: 480.0,
-                    ),
-                    child: DSCachedNetworkImageView(
-                      fit: BoxFit.cover,
-                      width: width,
-                      url: url,
-                      placeholder: (_, __) => const Padding(
-                        padding: EdgeInsets.all(80.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                      onError: _controller.setError,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: width,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DSCaptionText(
-                          text: imageTitle,
-                          color: align == DSAlign.right
-                              ? DSColors.neutralLightSnow
-                              : DSColors.neutralDarkCity,
-                        ),
-                        if (imageText != null) ...[
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                          DSBodyText(
-                            overflow: TextOverflow.clip,
-                            text: imageText!,
-                            color: align == DSAlign.right
-                                ? DSColors.neutralLightSnow
-                                : DSColors.neutralDarkCity,
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-          return const SizedBox();
-        },
-      ),
-    );
-  }
-
-  Future<ImageInfo> getImageInfo(final String url) async {
-    final Image img = Image.network(url);
-
-    final completer = Completer<ImageInfo>();
-
-    final ImageStream imageStream =
-        img.image.resolve(const ImageConfiguration());
-
-    imageStream.addListener(
-      ImageStreamListener(
-        (ImageInfo i, bool _) {
-          completer.complete(i);
-        },
-        onError: (exception, stackTrace) => completer.completeError(exception),
-      ),
-    );
-
-    return completer.future;
   }
 }
