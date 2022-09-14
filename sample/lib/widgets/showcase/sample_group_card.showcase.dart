@@ -18,6 +18,9 @@ class SampleGroupCardShowcase extends StatelessWidget {
           builder: (_, snapshot) {
             if (snapshot.hasData) {
               return DSGroupCard(
+                onSelected: (String text, dynamic payload) {
+                  print('Infos de callback: $text / $payload');
+                },
                 isComposing: false,
                 documents: snapshot.data as List<DSMessageItemModel>,
                 compareMessages: (firstMsg, secondMsg) {

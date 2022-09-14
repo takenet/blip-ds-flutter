@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 import 'package:flutter/material.dart';
 
 /// A Design System widget used to display a grouped [DSMessageBubble] list
@@ -9,6 +10,7 @@ class DSGroupCard extends StatefulWidget {
   final Function compareMessages;
   final bool isComposing;
   final bool sortMessages;
+  final Function? onSelected;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -17,6 +19,7 @@ class DSGroupCard extends StatefulWidget {
     required this.compareMessages,
     required this.isComposing,
     this.sortMessages = true,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -61,6 +64,32 @@ class _DSGroupCardState extends State<DSGroupCard> {
             case DSMessageContentType.mediaLink:
               _buildMediaLink(message, borderRadius);
               break;
+            case DSMessageContentType.select:
+              if (message.content['scope'] == 'immediate') {
+                //TODO: quick replay widget...
+
+                _widgets.add(
+                  DSQuickReply(
+                    align: message.align,
+                    content: message.content,
+                    onSelected: widget.onSelected,
+                  ),
+                );
+              } else {
+                _widgets.add(
+                  DSTextMessageBubble(
+                    align: message.align,
+                    text: message.content['text'],
+                    borderRadius: borderRadius,
+                    selectContent: message.content,
+                    showSelect: true,
+                    onSelected: widget.onSelected,
+                  ),
+                );
+              }
+
+              break;
+
             default:
               _widgets.add(
                 DSUnsupportedContentMessageBubble(

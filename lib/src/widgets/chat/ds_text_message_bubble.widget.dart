@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
+import 'package:blip_ds/src/widgets/chat/ds_select_menu.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,12 +8,18 @@ class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final dynamic selectContent;
+  final bool showSelect;
+  final Function? onSelected;
 
   const DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
+    this.selectContent,
+    this.showSelect = false,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -106,6 +113,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 ],
               ),
             ),
+            if (widget.showSelect)
+              DSSelectMenu(
+                align: widget.align,
+                content: widget.selectContent,
+                onSelected: widget.onSelected,
+              ),
           ],
         );
       },
