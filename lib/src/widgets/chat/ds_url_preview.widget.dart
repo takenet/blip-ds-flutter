@@ -110,13 +110,13 @@ class DSUrlPreview extends StatelessWidget {
         children: [
           if (title?.isNotEmpty ?? false)
             DSBodyText(
-              text: title,
+              title,
               color: foregroundColor,
               shouldLinkify: false,
             ),
           if (description?.isNotEmpty ?? false)
             DSCaptionSmallText(
-              text: description,
+              description,
               color: foregroundColor,
               maxLines: 3,
               shouldLinkify: false,

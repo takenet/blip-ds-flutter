@@ -6,16 +6,20 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final String? customerName;
+  final Uri? customerUri;
   final List<Widget>? actions;
   final Widget? leading;
+  final bool? canPop;
 
   const DSHeader({
     Key? key,
     required this.title,
     this.subtitle,
     this.customerName,
+    this.customerUri,
     this.actions,
     this.leading,
+    this.canPop,
   }) : super(key: key);
 
   @override
@@ -40,20 +44,21 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildTitle() {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: customerName != null
+      leading: customerName != null || customerUri != null
           ? DSUserAvatar(
-              text: customerName!,
+              text: customerName,
+              uri: customerUri,
               radius: 20.0,
               textColor: DSColors.neutralLightSnow,
             )
           : null,
       title: DSHeadlineSmallText(
+        title,
         color: DSColors.neutralDarkCity,
-        text: title,
       ),
       subtitle: subtitle != null
           ? DSCaptionText(
-              text: subtitle!,
+              subtitle!,
               color: DSColors.neutralDarkCity,
             )
           : null,
@@ -61,10 +66,8 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget? _buildLeading(BuildContext context) {
-    final bool canPop = Navigator.of(context).canPop();
-
     return leading ??
-        (canPop
+        (canPop ?? Navigator.of(context).canPop()
             ? IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.of(context).pop(),

@@ -114,7 +114,7 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
       left: align == DSAlign.left ? 22.0 : null,
       bottom: 10.0,
       child: DSCaptionText(
-        text: RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                 .firstMatch("$value")
                 ?.group(1) ??
             "$value",

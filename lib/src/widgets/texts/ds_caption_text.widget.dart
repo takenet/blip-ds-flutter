@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSCaptionTextStyle] as [style] default value.
 class DSCaptionText extends DSText {
   /// Creates a Design System's [Text] with $fs-14-p2 font variant.
-  DSCaptionText({
-    required super.text,
+  DSCaptionText(
+    super.text, {
     super.key,
     super.fontWeight,
     super.color,
@@ -24,8 +24,8 @@ class DSCaptionText extends DSText {
           ),
         );
 
-  DSCaptionText.rich({
-    required super.textSpan,
+  DSCaptionText.rich(
+    super.textSpan, {
     super.key,
     super.fontWeight,
     super.color,

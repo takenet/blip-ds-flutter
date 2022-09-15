@@ -63,7 +63,7 @@ class DSDialogService {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: DSHeadlineSmallText(text: title),
+                child: DSHeadlineSmallText(title),
               ),
             ],
           ),
@@ -75,7 +75,7 @@ class DSDialogService {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: DSBodyText(
-          text: text,
+          text,
           overflow: TextOverflow.clip,
         ),
       );

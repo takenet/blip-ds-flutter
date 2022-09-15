@@ -20,6 +20,10 @@ export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 
+/// Widgets / Chat / Form Fields
+export 'src/widgets/fields/ds_text_form_field.widget.dart'
+    show DSTextFormField;
+
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
     show DSAnimatedSize;
@@ -28,11 +32,18 @@ export 'src/widgets/animations/ds_fading_circle_loading.widget.dart'
 export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
 
 /// Widgets / Buttons
+export 'src/widgets/buttons/ds_button.widget.dart' show DSButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
 export 'src/widgets/buttons/ds_secondary_button.widget.dart'
     show DSSecondaryButton;
 export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
     show DSTertiaryButton;
+export 'src/widgets/buttons/ds_send_button.widget.dart'
+    show DSSendButton;
+export 'src/widgets/buttons/ds_icon_button.widget.dart'
+    show DSIconButton;
+export 'src/widgets/buttons/ds_attachment_button.widget.dart'
+    show DSAttachmentButton;
 
 /// Widgets / Texts
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;

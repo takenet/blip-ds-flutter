@@ -95,7 +95,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DSBodyText.rich(
-                    textSpan: textSpan,
+                    textSpan,
                     linkColor: widget.align == DSAlign.right
                         ? DSColors.primaryLight
                         : DSColors.primaryNight,
@@ -119,7 +119,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         onTap: _controller.showMoreOnTap,
         child: DSBodyText(
           // TODO: Need localized translate.
-          text: 'Mostrar mais',
+          'Mostrar mais',
           color: widget.align == DSAlign.right
               ? DSColors.primaryLight
               : DSColors.primaryNight,

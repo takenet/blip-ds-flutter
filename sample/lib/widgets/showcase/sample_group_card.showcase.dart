@@ -12,7 +12,7 @@ class SampleGroupCardShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DSBodyText(text: 'DS group card'),
+        DSBodyText('DS group card'),
         FutureBuilder(
           future: _controller.getMessages(),
           builder: (_, snapshot) {

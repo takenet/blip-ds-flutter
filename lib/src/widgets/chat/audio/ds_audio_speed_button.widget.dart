@@ -32,7 +32,7 @@ class DSAudioSpeedButton extends StatelessWidget {
           child: Align(
             alignment: Alignment.center,
             child: DSCaptionText(
-              text: text,
+              text,
               color: color,
               fontWeight: DSFontWeights.bold,
             ),

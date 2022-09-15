@@ -88,12 +88,12 @@ class DSFileMessageBubble extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DSBodyText(
-              text: filename,
+              filename,
               color: color,
               textAlign: TextAlign.center,
             ),
             DSCaptionSmallText(
-              text: controller.getFileSize(size),
+              controller.getFileSize(size),
               color: color,
             )
           ],

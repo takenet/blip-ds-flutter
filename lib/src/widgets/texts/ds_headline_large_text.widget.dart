@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSHeadlineLargeTextStyle] as [style] default value. This style's font variant is $fs-20-h2.
 class DSHeadlineLargeText extends DSText {
   /// Creates a Design System's [Text] with $fs-20-h2 font variant.
-  const DSHeadlineLargeText({
-    required super.text,
+  const DSHeadlineLargeText(
+    super.text, {
     super.key,
     super.linkColor,
     super.textAlign,
@@ -17,8 +17,8 @@ class DSHeadlineLargeText extends DSText {
           style: const DSHeadlineLargeTextStyle(),
         );
 
-  const DSHeadlineLargeText.rich({
-    required super.textSpan,
+  const DSHeadlineLargeText.rich(
+    super.textSpan, {
     super.key,
     super.linkColor,
     super.textAlign,

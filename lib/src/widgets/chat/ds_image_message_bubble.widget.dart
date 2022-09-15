@@ -8,7 +8,7 @@ class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
   final String url;
   final List<DSBorderRadius> borderRadius;
-  final String imageTitle;
+  final String? imageTitle;
   final String? imageText;
   final String appBarText;
 
@@ -18,7 +18,7 @@ class DSImageMessageBubble extends StatelessWidget {
     super.key,
     required this.align,
     required this.url,
-    required this.imageTitle,
+    this.imageTitle,
     required this.appBarText,
     this.borderRadius = const [DSBorderRadius.all],
     this.imageText,
@@ -66,7 +66,7 @@ class DSImageMessageBubble extends StatelessWidget {
                               text: appBarText,
                             ),
                             title: DSHeadlineSmallText(
-                              text: appBarText,
+                              appBarText,
                               color: DSColors.neutralLightSnow,
                             ),
                           ),
@@ -116,8 +116,7 @@ class DSImageMessageBubble extends StatelessWidget {
                   context: context,
                   barrierDismissible: false,
                   transitionDuration: DSUtils.defaultAnimationDuration,
-                  transitionBuilder: (_, animation, __, child) =>
-                      _buildTransition(animation, child),
+                  transitionBuilder: (_, animation, __, child) => _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => _buildPage(context),
                 );
               }
@@ -133,31 +132,30 @@ class DSImageMessageBubble extends StatelessWidget {
               onError: _controller.setError,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DSCaptionText(
-                  text: imageTitle,
-                  color: align == DSAlign.right
-                      ? DSColors.neutralLightSnow
-                      : DSColors.neutralDarkCity,
-                ),
-                if (imageText != null) ...[
-                  const SizedBox(
-                    height: 6.0,
-                  ),
-                  DSBodyText(
-                    text: imageText!,
-                    color: align == DSAlign.right
-                        ? DSColors.neutralLightSnow
-                        : DSColors.neutralDarkCity,
-                  ),
-                ]
-              ],
+          if ((imageTitle?.isNotEmpty ?? false) || (imageText?.isNotEmpty ?? false))
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (imageTitle?.isNotEmpty ?? false)
+                    DSCaptionText(
+                      imageTitle,
+                      color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                    ),
+                  if ((imageText?.isNotEmpty ?? false) && (imageTitle?.isNotEmpty ?? false)) ...[
+                    const SizedBox(
+                      height: 6.0,
+                    ),
+                    if (imageText?.isNotEmpty ?? false)
+                      DSBodyText(
+                        imageText!,
+                        color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                      ),
+                  ]
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );

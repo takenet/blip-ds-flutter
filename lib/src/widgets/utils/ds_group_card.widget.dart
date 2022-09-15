@@ -3,28 +3,43 @@ import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
 
-/// A Design System widget used to display a grouped [DSMessageBubble] list
-class DSGroupCard extends StatefulWidget {
-  final List<DSMessageItemModel> documents;
-  final Function compareMessages;
-  final bool isComposing;
-  final bool sortMessages;
+// Default compare message function
+// ignore: prefer_function_declarations_over_variables
+final _defaultCompareMessageFuntion = (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
+  //TODO: Quickreply  não deve agrupar com demais widgets
 
+  bool shouldGroupSelect = true;
+
+  if (firstMsg.type == 'application/vnd.lime.select+json' || secondMsg.type == 'application/vnd.lime.select+json') {
+    if (firstMsg.content is Map && firstMsg.content['scope'] == 'immediate' ||
+        secondMsg.content is Map && secondMsg.content['scope'] == 'immediate') {
+      shouldGroupSelect = false;
+    }
+  }
+
+  return (DateTime.parse(firstMsg.date).difference(DateTime.parse(secondMsg.date)).inSeconds <= 60 &&
+      firstMsg.status == secondMsg.status &&
+      firstMsg.align == secondMsg.align &&
+      shouldGroupSelect);
+};
+
+/// A Design System widget used to display a grouped [DSMessageBubble] list
+class DSGroupCard extends StatelessWidget {
   /// Creates a new Design System's [DSGroupCard] widget
-  const DSGroupCard({
+  DSGroupCard({
     Key? key,
     required this.documents,
-    required this.compareMessages,
     required this.isComposing,
     this.sortMessages = true,
-  }) : super(key: key);
+    bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
+  })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
+        super(key: key);
 
-  @override
-  State<DSGroupCard> createState() => _DSGroupCardState();
-}
-
-class _DSGroupCardState extends State<DSGroupCard> {
-  List<Widget> _widgets = [];
+  final List<DSMessageItemModel> documents;
+  final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
+  final bool isComposing;
+  final bool sortMessages;
+  final List<Widget> _widgets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +51,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
   }
 
   void _buildWidgetsList(final List<Map<String, dynamic>> groups) {
-    _widgets = [];
+    _widgets.clear();
 
     for (var group in groups) {
       int msgCount = 1;
@@ -45,8 +60,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
         (DSMessageItemModel message) {
           final int length = group['msgs'].length;
 
-          List<DSBorderRadius> borderRadius =
-              _getBorderRadius(length, msgCount, group['align']);
+          List<DSBorderRadius> borderRadius = _getBorderRadius(length, msgCount, group['align']);
 
           switch (message.type) {
             case DSMessageContentType.textPlain:
@@ -88,7 +102,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
       );
     }
 
-    if (widget.isComposing) {
+    if (isComposing) {
       _widgets.add(
         const DSTypingAnimationMessageBubble(
           align: DSAlign.left,
@@ -100,12 +114,12 @@ class _DSGroupCardState extends State<DSGroupCard> {
   List<Map<String, dynamic>> _getGroupCards() {
     List<Map<String, dynamic>> groups = [];
 
-    if (widget.documents.isEmpty) {
+    if (documents.isEmpty) {
       return [];
     }
 
-    if (widget.sortMessages) {
-      widget.documents.sort(
+    if (sortMessages) {
+      documents.sort(
         ((a, b) {
           return a.date.compareTo(b.date);
         }),
@@ -113,19 +127,19 @@ class _DSGroupCardState extends State<DSGroupCard> {
     }
 
     Map<String, dynamic> group = {
-      "msgs": [widget.documents[0]],
-      "align": widget.documents[0].align,
-      "date": widget.documents[0].date,
-      "displayDate": widget.documents[0].displayDate,
-      "status": widget.documents[0].status,
+      "msgs": [documents[0]],
+      "align": documents[0].align,
+      "date": documents[0].date,
+      "displayDate": documents[0].displayDate,
+      "status": documents[0].status,
     };
 
-    for (int i = 1; i < widget.documents.length; i++) {
-      DSMessageItemModel message = widget.documents[i];
+    for (int i = 1; i < documents.length; i++) {
+      DSMessageItemModel message = documents[i];
 
       List<DSMessageItemModel> groupMsgs = group['msgs'];
 
-      if (widget.compareMessages(message, groupMsgs.last)) {
+      if (compareMessages(message, groupMsgs.last)) {
         group['msgs'].add(message);
         group['date'] = message.date;
         group['status'] = message.status;
@@ -197,28 +211,12 @@ class _DSGroupCardState extends State<DSGroupCard> {
       borderRadius = [DSBorderRadius.all];
     } else if (isFirstMessage) {
       (align == DSAlign.right)
-          ? borderRadius = [
-              DSBorderRadius.topRight,
-              DSBorderRadius.topLeft,
-              DSBorderRadius.bottomLeft
-            ]
-          : borderRadius = [
-              DSBorderRadius.topRight,
-              DSBorderRadius.topLeft,
-              DSBorderRadius.bottomRight
-            ];
+          ? borderRadius = [DSBorderRadius.topRight, DSBorderRadius.topLeft, DSBorderRadius.bottomLeft]
+          : borderRadius = [DSBorderRadius.topRight, DSBorderRadius.topLeft, DSBorderRadius.bottomRight];
     } else if (isLastMessage) {
       (align == DSAlign.right)
-          ? borderRadius = [
-              DSBorderRadius.topLeft,
-              DSBorderRadius.bottomRight,
-              DSBorderRadius.bottomLeft
-            ]
-          : borderRadius = [
-              DSBorderRadius.topRight,
-              DSBorderRadius.bottomRight,
-              DSBorderRadius.bottomLeft
-            ];
+          ? borderRadius = [DSBorderRadius.topLeft, DSBorderRadius.bottomRight, DSBorderRadius.bottomLeft]
+          : borderRadius = [DSBorderRadius.topRight, DSBorderRadius.bottomRight, DSBorderRadius.bottomLeft];
     } else {
       (align == DSAlign.right)
           ? borderRadius = [

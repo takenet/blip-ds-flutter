@@ -34,7 +34,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
                 ),
               ],
               DSCaptionSmallText(
-                text: date,
+                date,
                 color: DSColors.neutralDarkCity,
               )
             ],

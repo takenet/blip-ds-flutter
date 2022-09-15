@@ -34,7 +34,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: DSBodyText(
-              text: text ?? 'Unsupported content',
+              text ?? 'Unsupported content',
               color: align == DSAlign.left
                   ? DSColors.neutralDarkCity
                   : DSColors.neutralLightSnow,

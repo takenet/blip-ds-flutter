@@ -9,29 +9,29 @@ class SampleTextStyleShowcase extends StatelessWidget {
     return Column(
       children: [
         const DSHeadlineLargeText(
-          text: 'Headline Large Text',
+          'Headline Large Text',
         ),
         DSHeadlineSmallText(
-          text: 'Headline Small Text',
+          'Headline Small Text',
         ),
         DSBodyText(
-          text: 'Body Text',
+          'Body Text',
           // color: DSColors.extendRedsLipstick,
           // decoration: TextDecoration.underline,
           // fontWeight: DSFontWeights.extraBold,
           // overflow: TextOverflow.fade,
         ),
         DSButtonText(
-          text: 'Button Text',
+          'Button Text',
           color: DSColors.neutralDarkCity,
         ),
         DSCaptionText(
-          text: 'Caption Large Text',
+          'Caption Large Text',
           // color: DSColors.extendRedsLipstick,
           // fontWeight: DSFontWeights.extraBold,
         ),
         DSCaptionSmallText(
-          text: 'Caption Small Text',
+          'Caption Small Text',
           // color: DSColors.extendRedsLipstick,
           // fontWeight: DSFontWeights.extraBold,
         ),

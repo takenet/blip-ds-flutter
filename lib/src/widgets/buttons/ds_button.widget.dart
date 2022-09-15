@@ -99,7 +99,7 @@ class DSButton extends StatelessWidget {
       _contentList.add(
         Flexible(
           child: DSButtonText(
-            text: label!,
+            label!,
             color: foregroundColor,
           ),
         ),
