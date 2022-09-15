@@ -28,25 +28,28 @@ class DSVideoPlayer extends StatelessWidget {
     return Container(
       color: Colors.black,
       padding: const EdgeInsets.only(bottom: 20.0),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Obx(
-          () {
-            return Stack(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: controller.isLoading.value
-                        ? const CircularProgressIndicator()
-                        : Chewie(
-                            controller: controller.chewieController!,
-                          ),
+      child: WillPopScope(
+        onWillPop: () => Get.delete<DSVideoPlayerController>(),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Obx(
+            () {
+              return Stack(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: controller.isLoading.value
+                          ? const CircularProgressIndicator()
+                          : Chewie(
+                              controller: controller.chewieController!,
+                            ),
+                    ),
                   ),
-                ),
-                _appBar(),
-              ],
-            );
-          },
+                  _appBar(),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
