@@ -11,6 +11,7 @@ class DSGroupCard extends StatefulWidget {
   final bool isComposing;
   final bool sortMessages;
   final Function? onSelected;
+  final bool hideOptions;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -20,6 +21,7 @@ class DSGroupCard extends StatefulWidget {
     required this.isComposing,
     this.sortMessages = true,
     this.onSelected,
+    this.hideOptions = false,
   }) : super(key: key);
 
   @override
@@ -65,31 +67,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
               _buildMediaLink(message, borderRadius);
               break;
             case DSMessageContentType.select:
-              if (message.content['scope'] == 'immediate') {
-                //TODO: quick replay widget...
-
-                _widgets.add(
-                  DSQuickReply(
-                    align: message.align,
-                    content: message.content,
-                    onSelected: widget.onSelected,
-                  ),
-                );
-              } else {
-                _widgets.add(
-                  DSTextMessageBubble(
-                    align: message.align,
-                    text: message.content['text'],
-                    borderRadius: borderRadius,
-                    selectContent: message.content,
-                    showSelect: true,
-                    onSelected: widget.onSelected,
-                  ),
-                );
-              }
-
+              _buildSelect(message, borderRadius);
               break;
-
             default:
               _widgets.add(
                 DSUnsupportedContentMessageBubble(
@@ -261,5 +240,29 @@ class _DSGroupCardState extends State<DSGroupCard> {
     }
 
     return borderRadius;
+  }
+
+  void _buildSelect(
+    final DSMessageItemModel message,
+    final List<DSBorderRadius> borderRadius,
+  ) {
+    message.content['scope'] == 'immediate'
+        ? _widgets.add(
+            DSQuickReply(
+                align: message.align,
+                content: message.content,
+                onSelected: widget.onSelected,
+                hideOptions: widget.hideOptions),
+          )
+        : _widgets.add(
+            DSTextMessageBubble(
+              align: message.align,
+              text: message.content['text'],
+              borderRadius: borderRadius,
+              selectContent: message.content,
+              showSelect: true,
+              onSelected: widget.onSelected,
+            ),
+          );
   }
 }

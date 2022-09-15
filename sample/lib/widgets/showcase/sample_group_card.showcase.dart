@@ -23,13 +23,27 @@ class SampleGroupCardShowcase extends StatelessWidget {
                 },
                 isComposing: false,
                 documents: snapshot.data as List<DSMessageItemModel>,
-                compareMessages: (firstMsg, secondMsg) {
+                compareMessages: (DSMessageItemModel firstMsg,
+                    DSMessageItemModel secondMsg) {
+                  bool shouldGroupSelect = true;
+
+                  if (firstMsg.type == 'application/vnd.lime.select+json' ||
+                      secondMsg.type == 'application/vnd.lime.select+json') {
+                    if (firstMsg.content is Map &&
+                            firstMsg.content['scope'] == 'immediate' ||
+                        secondMsg.content is Map &&
+                            secondMsg.content['scope'] == 'immediate') {
+                      shouldGroupSelect = false;
+                    }
+                  }
+
                   return (DateTime.parse(firstMsg.date)
                               .difference(DateTime.parse(secondMsg.date))
                               .inSeconds <=
                           60 &&
                       firstMsg.status == secondMsg.status &&
-                      firstMsg.align == secondMsg.align);
+                      firstMsg.align == secondMsg.align &&
+                      shouldGroupSelect);
                 },
               );
             } else {

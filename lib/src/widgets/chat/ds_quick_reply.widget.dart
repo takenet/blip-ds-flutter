@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 
 class DSQuickReply extends StatelessWidget {
   final DSAlign align;
-  final dynamic content;
+  final Map<String, dynamic> content;
   final Function? onSelected;
+  final bool hideOptions;
 
   const DSQuickReply({
     Key? key,
     required this.align,
-    this.content,
+    required this.content,
     this.onSelected,
+    this.hideOptions = false,
   }) : super(key: key);
 
   @override
@@ -25,28 +27,9 @@ class DSQuickReply extends StatelessWidget {
         DSTextMessageBubble(
           text: content['text'],
           align: align,
-          borderRadius: align == DSAlign.left
-              ? [
-                  DSBorderRadius.topLeft,
-                  DSBorderRadius.topRight,
-                  DSBorderRadius.bottomRight,
-                ]
-              : [
-                  DSBorderRadius.topLeft,
-                  DSBorderRadius.topRight,
-                  DSBorderRadius.bottomLeft,
-                ],
         ),
-        // Row(
-        //   mainAxisAlignment: align == DSAlign.right
-        //       ? MainAxisAlignment.end
-        //       : MainAxisAlignment.start,
-        //   children: align == DSAlign.right
-        //       ? [const Spacer(), _buildQuickReply()]
-        //       : [_buildQuickReply(), const Spacer()],
-        // )
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        Align(
+          alignment: Alignment.bottomLeft,
           child: _buildQuickReply(),
         )
       ],
@@ -54,6 +37,10 @@ class DSQuickReply extends StatelessWidget {
   }
 
   Widget _buildQuickReply() {
+    return hideOptions ? const SizedBox() : _buildItems();
+  }
+
+  Widget _buildItems() {
     List<DSBorderRadius> borderRadius = [];
     List<Widget> children = [];
 
@@ -65,18 +52,18 @@ class DSQuickReply extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (onSelected != null) {
-                var object = {};
+                Map<String, dynamic> payload = {};
 
                 if (option.containsKey('value')) {
                   String type = option['type'];
-                  object = {
+                  payload = {
                     "type": type,
                     "content": type.contains('json')
                         ? jsonDecode(option['value'])
                         : option['value']
                   };
                 } else {
-                  object = {
+                  payload = {
                     "type": 'text/plain',
                     "content": option.containsKey('order')
                         ? option['order'].toString()
@@ -84,49 +71,51 @@ class DSQuickReply extends StatelessWidget {
                   };
                 }
 
-                onSelected!(option['text'], object);
+                onSelected!(option['text'], payload);
               }
             },
-            child: Chip(
-              backgroundColor: DSColors.primaryLight,
-              label: DSBodyText(
-                text: option['text'],
-                fontWeight: DSFontWeights.semiBold,
+            child: Container(
+              constraints: const BoxConstraints(minWidth: 44.0),
+              margin: const EdgeInsets.all(2.0),
+              height: 44.0,
+              decoration: BoxDecoration(
+                color: DSColors.primaryLight,
+                borderRadius: borderRadius.getCircularBorderRadius(
+                  maxRadius: 22.0,
+                  minRadius: 2.0,
+                ),
               ),
-              autofocus: false,
-              clipBehavior: Clip.none,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: DSBodyText(
+                      text: option['text'],
+                      fontWeight: DSFontWeights.semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            // child: Container(
-            //   margin: const EdgeInsets.all(5.0),
-            //   height: 40.0,
-            //   decoration: BoxDecoration(
-            //     color: DSColors.primaryLight,
-            //     borderRadius: borderRadius.getCircularBorderRadius(
-            //       maxRadius: 22.0,
-            //       minRadius: 2.0,
-            //     ),
-            //   ),
-            //   child: Padding(
-            //     padding:
-            //         const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            //     child: DSBodyText(
-            //       text: option['text'],
-            //       fontWeight: DSFontWeights.semiBold,
-            //     ),
-            //   ),
-            // ),
           ),
         );
       },
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Wrap(
-        spacing: 10.0,
-        alignment:
-            align == DSAlign.left ? WrapAlignment.start : WrapAlignment.end,
-        children: children,
+      padding: const EdgeInsets.only(top: 8.0),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        scrollDirection: Axis.horizontal,
+        child: Wrap(
+          spacing: 8.0,
+          alignment: WrapAlignment.start,
+          children: children,
+        ),
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class DSSelectMenu extends StatelessWidget {
   final DSAlign align;
-  final dynamic content;
+  final Map<String, dynamic> content;
   final Function? onSelected;
 
   const DSSelectMenu({
@@ -17,19 +17,17 @@ class DSSelectMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [];
-
-    _buildSelectMenu(children);
-
     return Padding(
       padding: const EdgeInsets.only(top: 18.0),
       child: Column(
-        children: children,
+        children: _buildSelectMenu(),
       ),
     );
   }
 
-  _buildSelectMenu(final List<Widget> children) {
+  List<Widget> _buildSelectMenu() {
+    final List<Widget> children = [];
+
     int count = 0;
 
     content['options'].forEach(
@@ -40,18 +38,18 @@ class DSSelectMenu extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (onSelected != null) {
-                var object = {};
+                Map<String, dynamic> payload = {};
 
                 if (option.containsKey('value')) {
                   String type = option['type'];
-                  object = {
+                  payload = {
                     "type": type,
                     "content": type.contains('json')
                         ? jsonDecode(option['value'])
                         : option['value']
                   };
                 } else {
-                  object = {
+                  payload = {
                     "type": 'text/plain',
                     "content": option.containsKey('order')
                         ? option['order'].toString()
@@ -59,7 +57,7 @@ class DSSelectMenu extends StatelessWidget {
                   };
                 }
 
-                onSelected!(option['text'], object);
+                onSelected!(option['text'], payload);
               }
             },
             child: Container(
@@ -99,5 +97,7 @@ class DSSelectMenu extends StatelessWidget {
         }
       },
     );
+
+    return children;
   }
 }

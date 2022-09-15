@@ -2,7 +2,44 @@
    {
       "content":{
          "scope":"immediate",
-         "text":"Lorem ipsum is the most popular filler text in history. - QuickReplay",
+         "text":"Lorem ipsum is the most popular filler text in history.",
+         "options":[
+            {
+               "text":"Sim",
+               "type":"text/plain",
+               "value":"payload"
+            },
+            {
+               "text":"Não"
+            },
+            {
+               "text":"Talvez"
+            }
+         ]
+      },
+      "date":"2022-08-22T17:05:00.938Z",
+      "displayDate":"8 de Ago de 2022 17:05",
+      "align":"right",
+      "id":"fwd:fwd:c37b66a6-b60f-4bc0-af30-7c9b28874cba",
+      "metadata":{
+         "#messageEmitter":"Human",
+         "#messageKind":"Response",
+         "#uniqueId":"7762e5d6-032f-4007-92ef-e2e90c52598b",
+         "$claims":"Node=andrebot@msging.net/msging-application-builder-hosting-standard-6dfb4cdb4f-fxsx4;Identity=andrebot@msging.net;DomainRole=Member;AuthenticationScheme=Transport",
+         "$elapsedTimeToStorage":"00:00:00.0431445",
+         "$internalId":"7762e5d6-032f-4007-92ef-e2e90c52598b",
+         "$originator":"andrebot@msging.net",
+         "$originatorSessionRemoteNode":"builder.hosting@msging.net/#msging-application-builder-hosting-standard-6dfb4cdb4f-fxsx4",
+         "date_created":"1663006016315",
+         "uber-trace-id":"4cbf0cc1a52eb4b4%3A3d89aa908942bbf4%3Ae96ca5132dd591af%3A1"
+      },
+      "status":"consumed",
+      "type":"application/vnd.lime.select+json"
+   },
+   {
+      "content":{
+         "scope":"immediate",
+         "text":"Lorem ipsum is the most popular filler text in history.",
          "options":[
             {
                "text":"Sim",
@@ -38,34 +75,51 @@
    },
    {
       "content":{
+         "previewType":"image/png",
+         "previewUri":"https://picsum.photos/250?image=9",
+         "size":500,
+         "text":"legenda",
+         "title":"Double check.png",
+         "type":"image/png",
+         "uri":"https://picsum.photos/250?image=9"
+      },
+      "date":"2022-08-22T17:00:00.938Z",
+      "displayDate":"8 de Ago de 2022 17:00",
+      "align":"right",
+      "type":"application/vnd.lime.media-link+json",
+      "status":"consumed",
+      "customerName":"André Rossi"
+   },
+   {
+      "content":{
          "scope":"immediate",
-         "text":"Lorem ipsum is the most popular filler text in history. - QuickReplay",
+         "text":"Qual a resposta certa?",
          "options":[
             {
-               "text":"João"
+               "text":"Opção 1"
             },
             {
-               "text":"Pedro"
+               "text":"Opção 2"
             },
             {
-               "text":"Maria"
+               "text":"Opção 3"
             },
             {
-               "text":"Mario"
+               "text":"Opção 4"
             },
             {
-               "text":"Cleverino"
+               "text":"Opção 5"
             },
             {
-               "text":"Jucelino"
+               "text":"Opção 6"
             },
             {
-               "text":"Sebastião"
+               "text":"Opção 7"
             }
          ]
       },
-      "date":"2022-08-22T17:05:00.938Z",
-      "displayDate":"8 de Ago de 2022 17:05",
+      "date":"2022-08-22T17:00:00.938Z",
+      "displayDate":"8 de Ago de 2022 17:00",
       "align":"right",
       "id":"fwd:fwd:c37b66a6-b60f-4bc0-af30-7c9b28874cba",
       "metadata":{
@@ -85,7 +139,7 @@
    },
    {
       "content":{
-         "text":"titulo do select menu",
+         "text":"Você gostaria de um atendimento humano?",
          "options":[
             {
                "text":"Sim",
@@ -99,7 +153,7 @@
                "text":"Talvez"
             },
             {
-               "text":"Quem sabe",
+               "text":"Outro",
                "type":"json",
                "value":"{\"chave\": \"valor\"}"
             }
@@ -107,8 +161,7 @@
       },
       "date":"2022-08-22T17:00:00.938Z",
       "displayDate":"8 de Ago de 2022 17:00",
-      "direction":"received",
-      "align":"left",
+      "align":"right",
       "id":"fwd:fwd:6e2a9b6e-4fbd-4618-9d33-c6d21cb03e5e",
       "metadata":{
          "#messageEmitter":"Human",
@@ -135,8 +188,8 @@
          "type":"image/png",
          "uri":"https://picsum.photos/250?image=9"
       },
-      "date":"2022-08-22T16:21:01.938Z",
-      "displayDate":"8 de Ago de 2022 16:21",
+      "date":"2022-08-22T17:00:00.938Z",
+      "displayDate":"8 de Ago de 2022 17:00",
       "align":"right",
       "type":"application/vnd.lime.media-link+json",
       "status":"consumed",
