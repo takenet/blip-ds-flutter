@@ -117,11 +117,10 @@ class DSVideoPlayerController extends GetxController {
       videoPlayerController: _videoPlayerController!,
       autoPlay: true,
       looping: true,
-      zoomAndPan: true,
+      allowPlaybackSpeedChanging: true,
       allowMuting: false,
       allowFullScreen: false,
       playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
-      useRootNavigator: true,
       fullScreenByDefault: false,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
@@ -131,11 +130,7 @@ class DSVideoPlayerController extends GetxController {
         backgroundColor: DSColors.neutralDarkCity,
         bufferedColor: DSColors.neutralMediumSilver,
       ),
-      placeholder: Container(
-        color: Colors.black,
-      ),
       autoInitialize: true,
-      maxScale: 2.5,
     );
   }
 

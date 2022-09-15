@@ -27,27 +27,21 @@ class DSVideoPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: Scaffold(
-        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         body: Obx(
           () {
             return Stack(
               children: [
-                Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Center(
-                        child: controller.isLoading.value
-                            ? const CircularProgressIndicator()
-                            : Chewie(
-                                controller: controller.chewieController!,
-                              ),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-                  ],
+                Expanded(
+                  child: Center(
+                    child: controller.isLoading.value
+                        ? const CircularProgressIndicator()
+                        : Chewie(
+                            controller: controller.chewieController!,
+                          ),
+                  ),
                 ),
                 _appBar(),
               ],
@@ -59,50 +53,39 @@ class DSVideoPlayer extends StatelessWidget {
   }
 
   Widget _appBar() {
-    return Column(
-      children: [
-        const SizedBox(height: 20.0),
-        SizedBox(
-          height: 80.0,
-          child: AnimatedOpacity(
-            opacity: controller.appBarVisible.value ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 500),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 45.0,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(12.0),
-                      onPressed: () {
-                        Get.delete<DSVideoPlayerController>();
-                        Get.back();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: DSColors.neutralLightSnow,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 0.0),
-                  DSUserAvatar(
-                    text: appBarText,
-                  ),
-                  const SizedBox(width: 20.0),
-                  Expanded(
-                    child: DSHeadlineSmallText(
-                      text: appBarText,
-                      color: DSColors.neutralLightSnow,
-                    ),
-                  ),
-                ],
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 45.0,
+              child: IconButton(
+                padding: const EdgeInsets.all(12.0),
+                onPressed: () {
+                  Get.delete<DSVideoPlayerController>();
+                  Get.back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: DSColors.neutralLightSnow,
+                ),
               ),
             ),
-          ),
+            DSUserAvatar(
+              text: appBarText,
+            ),
+            const SizedBox(width: 20.0),
+            Expanded(
+              child: DSHeadlineSmallText(
+                text: appBarText,
+                color: DSColors.neutralLightSnow,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
