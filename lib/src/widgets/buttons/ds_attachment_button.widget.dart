@@ -5,6 +5,7 @@ class DSAttachmentButton extends DSIconButton {
   DSAttachmentButton({
     super.key,
     required super.onPressed,
+    super.isLoading,
   }) : super(
           icon: Image.asset(
             'assets/images/clip.png',
