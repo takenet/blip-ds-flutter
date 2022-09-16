@@ -27,10 +27,10 @@ class DSCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _resolverWidget();
+    return _resolveWidget();
   }
 
-  Widget _resolverWidget() {
+  Widget _resolveWidget() {
     switch (type) {
       case DSMessageContentType.textPlain:
         return DSTextMessageBubble(
