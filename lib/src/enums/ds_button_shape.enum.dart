@@ -1,0 +1,4 @@
+enum DSButtonShape {
+  rounded,
+  rectangular,
+}

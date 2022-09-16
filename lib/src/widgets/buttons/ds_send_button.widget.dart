@@ -1,24 +1,22 @@
-import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
 
-const size = 44.0;
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import 'ds_button.widget.dart';
 
-class DSSendButton extends SizedBox {
+const size = Size(44.0, 44.0);
+
+class DSSendButton extends DSButton {
   DSSendButton({
     super.key,
-    required void Function() onPressed,
+    super.onPressed,
+    super.backgroundColor = DSColors.primaryNight,
+    super.foregroundColor = DSColors.neutralLightSnow,
   }) : super(
-          height: size,
-          width: size,
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(12),
-              backgroundColor: DSColors.primaryNight,
-              foregroundColor: DSColors.primaryLight,
-            ),
-            child: Image.asset(
+          shape: DSButtonShape.rounded,
+          leadingIcon: const ImageIcon(
+            AssetImage(
               'assets/images/send_button.png',
               package: DSUtils.packageName,
             ),
