@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/models/ds_select_option.model.dart';
 import 'package:flutter/material.dart';
 
 class DSQuickReply extends StatelessWidget {
@@ -46,65 +45,62 @@ class DSQuickReply extends StatelessWidget {
 
     borderRadius = [];
 
-    content['options'].forEach(
-      (dynamic option) {
-        children.add(
-          GestureDetector(
-            onTap: () {
-              if (onSelected != null) {
-                Map<String, dynamic> payload = {};
+    List options = content['options']
+        .map((doc) => DSSelectOptionModel.fromJson(doc))
+        .toList();
 
-                if (option.containsKey('value')) {
-                  String type = option['type'];
-                  payload = {
-                    "type": type,
-                    "content": type.contains('json')
-                        ? jsonDecode(option['value'])
-                        : option['value']
-                  };
-                } else {
-                  payload = {
-                    "type": 'text/plain',
-                    "content": option.containsKey('order')
-                        ? option['order'].toString()
-                        : option['text']
-                  };
-                }
+    for (var option in options) {
+      children.add(
+        GestureDetector(
+          onTap: () {
+            if (onSelected != null) {
+              Map<String, dynamic> payload = {};
 
-                onSelected!(option['text'], payload);
+              if (option.value != null) {
+                String type = option.type!;
+                payload = {"type": type, "content": option.value};
+              } else {
+                payload = {
+                  "type": 'text/plain',
+                  "content": option.order != null
+                      ? option.order.toString()
+                      : option.text
+                };
               }
-            },
-            child: Container(
-              constraints: const BoxConstraints(minWidth: 44.0),
-              margin: const EdgeInsets.all(2.0),
-              height: 44.0,
-              decoration: BoxDecoration(
-                color: DSColors.primaryLight,
-                borderRadius: borderRadius.getCircularBorderRadius(
-                  maxRadius: 22.0,
-                  minRadius: 2.0,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: DSBodyText(
-                      text: option['text'],
-                      fontWeight: DSFontWeights.semiBold,
-                    ),
-                  ),
-                ],
+
+              onSelected!(option.text, payload);
+            }
+          },
+          child: Container(
+            constraints: const BoxConstraints(minWidth: 44.0),
+            margin: const EdgeInsets.all(2.0),
+            height: 44.0,
+            decoration: BoxDecoration(
+              color: DSColors.primaryLight,
+              borderRadius: borderRadius.getCircularBorderRadius(
+                maxRadius: 22.0,
+                minRadius: 2.0,
               ),
             ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: DSBodyText(
+                    text: option.text,
+                    fontWeight: DSFontWeights.semiBold,
+                  ),
+                ),
+              ],
+            ),
           ),
-        );
-      },
-    );
+        ),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),

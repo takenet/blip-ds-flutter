@@ -10,6 +10,7 @@
                "value":"payload"
             },
             {
+               "order": 1,
                "text":"Não"
             },
             {
@@ -96,7 +97,13 @@
          "text":"Qual a resposta certa?",
          "options":[
             {
-               "text":"Opção 1"
+               "text":"Opção 1",
+               "order": 3, 
+               "type": "application/json",
+               "value": {
+                   "key1": "value1",
+                   "key2": 2
+               }
             },
             {
                "text":"Opção 2"
@@ -147,15 +154,16 @@
                "value":"payload do sim"
             },
             {
-               "text":"Não"
+               "text":"Não",
+               "order":1
             },
             {
                "text":"Talvez"
             },
             {
                "text":"Outro",
-               "type":"json",
-               "value":"{\"chave\": \"valor\"}"
+               "type": "application/json",
+               "value":{"chave": "valor"}
             }
          ]
       },

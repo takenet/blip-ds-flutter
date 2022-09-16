@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/models/ds_select_option.model.dart';
 import 'package:flutter/material.dart';
 
 class DSSelectMenu extends StatelessWidget {
@@ -30,73 +29,70 @@ class DSSelectMenu extends StatelessWidget {
 
     int count = 0;
 
-    content['options'].forEach(
-      (dynamic option) {
-        count++;
+    List options = content['options']
+        .map((doc) => DSSelectOptionModel.fromJson(doc))
+        .toList();
 
-        children.add(
-          GestureDetector(
-            onTap: () {
-              if (onSelected != null) {
-                Map<String, dynamic> payload = {};
+    for (var option in options) {
+      count++;
 
-                if (option.containsKey('value')) {
-                  String type = option['type'];
-                  payload = {
-                    "type": type,
-                    "content": type.contains('json')
-                        ? jsonDecode(option['value'])
-                        : option['value']
-                  };
-                } else {
-                  payload = {
-                    "type": 'text/plain',
-                    "content": option.containsKey('order')
-                        ? option['order'].toString()
-                        : option['text']
-                  };
-                }
+      children.add(
+        GestureDetector(
+          onTap: () {
+            if (onSelected != null) {
+              Map<String, dynamic> payload = {};
 
-                onSelected!(option['text'], payload);
+              if (option.value != null) {
+                String type = option.type!;
+                payload = {"type": type, "content": option.value};
+              } else {
+                payload = {
+                  "type": 'text/plain',
+                  "content": option.order != null
+                      ? option.order.toString()
+                      : option.text
+                };
               }
-            },
-            child: Container(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DSHeadlineSmallText(
-                    text: option['text'],
-                    color: align == DSAlign.left
-                        ? DSColors.primaryNight
-                        : DSColors.primaryLight,
-                  ),
-                ],
-              ),
+
+              onSelected!(option.text, payload);
+            }
+          },
+          child: Container(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DSHeadlineSmallText(
+                  text: option.text,
+                  color: align == DSAlign.left
+                      ? DSColors.primaryNight
+                      : DSColors.primaryLight,
+                ),
+              ],
             ),
           ),
-        );
+        ),
+      );
 
-        if (count != content['options'].length) {
-          children.add(
-            Divider(
-              height: 30.0,
-              thickness: 1.0,
-              color: align == DSAlign.left
-                  ? DSColors.neutralMediumWave
-                  : DSColors.neutralDarkRooftop,
-            ),
-          );
-        } else {
-          children.add(
-            const SizedBox(
-              height: 12.0,
-            ),
-          );
-        }
-      },
-    );
+      if (count != content['options'].length) {
+        children.add(
+          Divider(
+            height: 30.0,
+            thickness: 1.0,
+            color: align == DSAlign.left
+                ? DSColors.neutralMediumWave
+                : DSColors.neutralDarkRooftop,
+          ),
+        );
+      } else {
+        children.add(
+          const SizedBox(
+            height: 12.0,
+          ),
+        );
+      }
+    }
 
     return children;
   }
