@@ -20,7 +20,18 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
   final RxString _sampleText = RxString('');
   final String _sampleAudio =
       'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
-  final String _sampleImage = 'https://picsum.photos/250?image=9';
+
+  final Map<String, String> _sampleImages = {
+    "extraSmall": 'https://cdn-icons-png.flaticon.com/128/6913/6913220.png',
+    'small':
+        'https://media-exp1.licdn.com/dms/image/C4D0BAQFjHCo7bQdJzw/company-logo_200_200/0/1573068688534?e=2147483647&v=beta&t=WqHR7Fd2aliRvwBxxOUpK71IITtyI1TFsDpsaYi3xug',
+    'medium':
+        'https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg',
+    'large':
+        'https://i.postimg.cc/mrrPH9ww/Simulator-Screen-Shot-i-Phone-13-2022-09-09-at-10-50-37.png',
+    'extraLarge':
+        'https://img.freepik.com/premium-photo/astronaut-outer-open-space-planet-earth-stars-provide-background-erforming-space-planet-earth-sunrise-sunset-our-home-iss-elements-this-image-furnished-by-nasa_150455-16829.jpg?w=2000',
+  };
 
   final List<String> _srcsVideo = [
     "https://filesamples.com/samples/video/mov/sample_960x400_ocean_with_audio.mov",
@@ -106,9 +117,10 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
-            align: DSAlign.left,
-            url: _sampleImage,
-            text: 'My picture',
+            align: DSAlign.right,
+            url: _sampleImages['extraLarge']!,
+            title: '2000x1330.png',
+            text: _longText,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

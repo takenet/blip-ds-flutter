@@ -1,14 +1,17 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
-import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:flutter/material.dart';
 
-/// A Design System widget used to display a grouped [DSMessageBubble] list
+import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
+import 'package:blip_ds/src/widgets/utils/ds_card.widget.dart';
+
+/// A Design System widget used to display a grouped [DSCard] list
 class DSGroupCard extends StatefulWidget {
   final List<DSMessageItemModel> documents;
   final Function compareMessages;
   final bool isComposing;
   final bool sortMessages;
+  final Function? onSelected;
+  final bool hideOptions;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -17,6 +20,8 @@ class DSGroupCard extends StatefulWidget {
     required this.compareMessages,
     required this.isComposing,
     this.sortMessages = true,
+    this.onSelected,
+    this.hideOptions = false,
   }) : super(key: key);
 
   @override
@@ -48,27 +53,16 @@ class _DSGroupCardState extends State<DSGroupCard> {
           List<DSBorderRadius> borderRadius =
               _getBorderRadius(length, msgCount, group['align']);
 
-          switch (message.type) {
-            case DSMessageContentType.textPlain:
-              _widgets.add(
-                DSTextMessageBubble(
-                  text: message.content,
-                  align: message.align,
-                  borderRadius: borderRadius,
-                ),
-              );
-              break;
-            case DSMessageContentType.mediaLink:
-              _buildMediaLink(message, borderRadius);
-              break;
-            default:
-              _widgets.add(
-                DSUnsupportedContentMessageBubble(
-                  align: message.align,
-                  borderRadius: borderRadius,
-                ),
-              );
-          }
+          _widgets.add(
+            DSCard(
+              type: message.type,
+              content: message.content,
+              align: message.align,
+              borderRadius: borderRadius,
+              hideOptions: widget.hideOptions,
+              onSelected: widget.onSelected,
+            ),
+          );
 
           if (msgCount == length) {
             _widgets.add(
