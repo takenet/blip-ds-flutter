@@ -61,6 +61,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               borderRadius: borderRadius,
               hideOptions: widget.hideOptions,
               onSelected: widget.onSelected,
+              customerName: message.customerName,
             ),
           );
 
@@ -138,54 +139,6 @@ class _DSGroupCardState extends State<DSGroupCard> {
     }
     groups.add(group);
     return groups;
-  }
-
-  void _buildMediaLink(
-    final DSMessageItemModel message,
-    final List<DSBorderRadius> borderRadius,
-  ) {
-    final String contentType = message.content['type'];
-
-    if (contentType.contains('audio')) {
-      _widgets.add(
-        DSAudioMessageBubble(
-          uri: message.content['uri'],
-          align: message.align,
-          borderRadius: borderRadius,
-        ),
-      );
-    } else if (contentType.contains('image')) {
-      _widgets.add(
-        DSImageMessageBubble(
-          url: message.content['uri'],
-          align: message.align,
-          appBarText: message.customerName ?? '',
-          text: message.content['text'],
-          title: message.content['title'],
-          borderRadius: borderRadius,
-        ),
-      );
-    } else if (contentType.contains('video')) {
-      _widgets.add(
-        DSVideoMessageBubble(
-          url: message.content['uri'],
-          align: message.align,
-          appBarText: message.customerName ?? '',
-          text: message.content['text'],
-          borderRadius: borderRadius,
-        ),
-      );
-    } else {
-      _widgets.add(
-        DSFileMessageBubble(
-          align: message.align,
-          url: message.content['uri'],
-          size: message.content['size'],
-          filename: message.content['title'],
-          borderRadius: borderRadius,
-        ),
-      );
-    }
   }
 
   List<DSBorderRadius> _getBorderRadius(

@@ -89,6 +89,14 @@ class DSCard extends StatelessWidget {
         title: content['title'],
         borderRadius: borderRadius,
       );
+    } else if (contentType.contains('video')) {
+      return DSVideoMessageBubble(
+        url: content['uri'],
+        align: align,
+        appBarText: customerName ?? '',
+        text: content['text'],
+        borderRadius: borderRadius,
+      );
     } else {
       return DSFileMessageBubble(
         align: align,
