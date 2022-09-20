@@ -45,7 +45,7 @@ class DSVideoPlayer extends StatelessWidget {
                             ),
                     ),
                   ),
-                  _appBar(),
+                  _appBar(context),
                 ],
               );
             },
@@ -55,9 +55,10 @@ class DSVideoPlayer extends StatelessWidget {
     );
   }
 
-  Widget _appBar() {
+  Widget _appBar(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: Container(
+        width: MediaQuery.of(context).size.width - 35.0,
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -65,7 +66,8 @@ class DSVideoPlayer extends StatelessWidget {
             SizedBox(
               width: 45.0,
               child: IconButton(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
+                splashRadius: 30.0,
                 onPressed: () {
                   Get.delete<DSVideoPlayerController>();
                   Get.back();
