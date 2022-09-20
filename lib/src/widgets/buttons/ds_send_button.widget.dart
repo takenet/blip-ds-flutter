@@ -5,8 +5,6 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 import 'ds_button.widget.dart';
 
-const size = Size(44.0, 44.0);
-
 class DSSendButton extends DSButton {
   DSSendButton({
     super.key,
@@ -16,6 +14,7 @@ class DSSendButton extends DSButton {
   }) : super(
           shape: DSButtonShape.rounded,
           leadingIcon: const ImageIcon(
+            size: 20,
             AssetImage(
               'assets/images/send_button.png',
               package: DSUtils.packageName,

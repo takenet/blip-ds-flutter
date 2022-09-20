@@ -1,8 +1,19 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import '../utils/ds_cached_network_image_view.widget.dart';
+import '../utils/ds_user_avatar.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -11,6 +22,8 @@ class DSImageMessageBubble extends StatelessWidget {
   final String? imageTitle;
   final String? imageText;
   final String appBarText;
+  final Uri? appBarPhotoUri;
+  final DSMessageBubbleStyle style;
 
   final DSImageMessageBubbleController _controller;
 
@@ -20,9 +33,12 @@ class DSImageMessageBubble extends StatelessWidget {
     required this.url,
     this.imageTitle,
     required this.appBarText,
+    this.appBarPhotoUri,
     this.borderRadius = const [DSBorderRadius.all],
     this.imageText,
-  }) : _controller = DSImageMessageBubbleController();
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        _controller = DSImageMessageBubbleController();
 
   Widget _buildTransition(Animation<double> animation, Widget? child) {
     return FadeTransition(
@@ -64,6 +80,7 @@ class DSImageMessageBubble extends StatelessWidget {
                             contentPadding: EdgeInsets.zero,
                             leading: DSUserAvatar(
                               text: appBarText,
+                              uri: appBarPhotoUri,
                             ),
                             title: DSHeadlineSmallText(
                               appBarText,
@@ -101,10 +118,19 @@ class DSImageMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = align == DSAlign.right
+        ? style.isSentBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow
+        : style.isReceivedBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow;
+
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
+      style: style,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -141,7 +167,7 @@ class DSImageMessageBubble extends StatelessWidget {
                   if (imageTitle?.isNotEmpty ?? false)
                     DSCaptionText(
                       imageTitle,
-                      color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                      color: color,
                     ),
                   if ((imageText?.isNotEmpty ?? false) && (imageTitle?.isNotEmpty ?? false)) ...[
                     const SizedBox(
@@ -150,7 +176,7 @@ class DSImageMessageBubble extends StatelessWidget {
                     if (imageText?.isNotEmpty ?? false)
                       DSBodyText(
                         imageText!,
-                        color: align == DSAlign.right ? DSColors.neutralLightSnow : DSColors.neutralDarkCity,
+                        color: color,
                       ),
                   ]
                 ],

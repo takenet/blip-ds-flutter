@@ -2,6 +2,8 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
 
+const maximumSize = Size(44.0, 44.0);
+
 /// A container that has some default properties which should be extended by others Design System's [ButtonStyleButton].
 class DSButton extends StatelessWidget {
   final void Function()? onPressed;
@@ -52,6 +54,7 @@ class DSButton extends StatelessWidget {
           44.0,
           44.0,
         ),
+        maximumSize: shape == DSButtonShape.rounded ? maximumSize : null,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,

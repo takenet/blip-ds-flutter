@@ -104,6 +104,8 @@ export 'src/services/ds_dialog.service.dart' show DSDialogService;
 
 /// Models
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
+export 'src/models/ds_message_bubble_style.model.dart' show DSMessageBubbleStyle;
+export 'src/models/ds_message_bubble_avatar_config.model.dart' show DSMessageBubbleAvatarConfig;
 
 /// Widgets / Typing
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'

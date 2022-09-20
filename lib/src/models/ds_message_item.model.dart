@@ -25,6 +25,9 @@ class DSMessageItemModel {
 
   /// Used to display a user name and avatar at an image preview in image bubble
   String? customerName;
+  
+  /// Used to display a user name and avatar at an image preview in image bubble
+  Uri? customerAvatar;
 
   /// Creates a new Design System's [DSMessageItemModel] model
   DSMessageItemModel({
@@ -36,6 +39,7 @@ class DSMessageItemModel {
     required this.status,
     this.content,
     this.customerName,
+    this.customerAvatar,
   });
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +55,10 @@ class DSMessageItemModel {
 
     if (json.containsKey('customerName')) {
       messageItem.customerName = json['customerName'];
+    }
+    
+    if (json.containsKey('customerAvatar')) {
+      messageItem.customerAvatar = json['customerAvatar'];
     }
 
     return messageItem;

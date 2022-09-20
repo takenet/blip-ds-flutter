@@ -1,25 +1,44 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_body_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
   final String? text;
   final List<DSBorderRadius> borderRadius;
+  final DSMessageBubbleStyle style;
 
-  const DSUnsupportedContentMessageBubble({
+  DSUnsupportedContentMessageBubble({
     Key? key,
     required this.align,
     this.leftWidget,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final color = align == DSAlign.right
+        ? style.isSentBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow
+        : style.isReceivedBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow;
+
     return DSMessageBubble(
       borderRadius: borderRadius,
       align: align,
+      style: style,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -35,9 +54,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: DSBodyText(
               text ?? 'Unsupported content',
-              color: align == DSAlign.left
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow,
+              color: color,
             ),
           ),
         ],

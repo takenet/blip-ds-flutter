@@ -1,19 +1,31 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../utils/ds_linkify.util.dart';
+import '../texts/ds_body_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
+import 'ds_url_preview.widget.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final DSMessageBubbleStyle style;
 
-  const DSTextMessageBubble({
+  DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   State<DSTextMessageBubble> createState() => _DSTextMessageBubbleState();
@@ -41,6 +53,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
+      style: widget.style,
       child: Obx(
         () => _buildText(),
       ),
@@ -54,8 +67,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     final maxLines = !_controller.shouldShowFullText.value ? 12 : null;
 
     final foregroundColor = widget.align == DSAlign.right
-        ? DSColors.neutralLightSnow
-        : DSColors.neutralDarkCity;
+        ? widget.style.isSentBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow
+        : widget.style.isReceivedBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow;
 
     final url = DSLinkify.getFirstUrlFromText(widget.text);
 

@@ -7,10 +7,13 @@ class DSAttachmentButton extends DSIconButton {
     required super.onPressed,
     super.isLoading,
   }) : super(
-          icon: Image.asset(
-            'assets/images/clip.png',
-            package: DSUtils.packageName,
-            height: 20,
+          icon: const ImageIcon(
+            size: 20,
+            color: DSColors.neutralDarkRooftop,
+            AssetImage(
+              'assets/images/clip.png',
+              package: DSUtils.packageName,
+            ),
           ),
         );
 }

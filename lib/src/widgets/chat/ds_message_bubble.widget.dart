@@ -1,11 +1,16 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../animations/ds_animated_size.widget.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget child;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
+  final DSMessageBubbleStyle style;
 
   const DSMessageBubble({
     Key? key,
@@ -16,6 +21,7 @@ class DSMessageBubble extends StatelessWidget {
       vertical: 8.0,
       horizontal: 16.0,
     ),
+    required this.style,
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -30,12 +36,11 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 2.0, 16, 2.0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
             color: align == DSAlign.right
-                ? DSColors.neutralDarkCity
-                : DSColors.neutralMediumSilver,
+                ? style.sentBorderColor
+                : style.receivedBorderColor,
           ),
           padding: const EdgeInsets.all(1.0),
           child: ClipRRect(
@@ -43,8 +48,8 @@ class DSMessageBubble extends StatelessWidget {
             child: Container(
               padding: padding,
               color: align == DSAlign.right
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow,
+                  ? style.sentBackgroundColor
+                  : style.receivedBackgroundColor,
               child: child,
             ),
           ),
@@ -55,21 +60,16 @@ class DSMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [];
-
-    if (align == DSAlign.right) {
-      children.insertAll(0, [const Spacer(), _messageContainer()]);
-    } else {
-      children.insertAll(0, [_messageContainer(), const Spacer()]);
-    }
+    final rightAlign = align == DSAlign.right;
+    List<Widget> children = [const Spacer(), _messageContainer()];
 
     return Column(
       children: [
         Row(
-          mainAxisAlignment: align == DSAlign.right
+          mainAxisAlignment: rightAlign
               ? MainAxisAlignment.end
               : MainAxisAlignment.start,
-          children: children,
+          children: rightAlign ? children : children.reversed.toList(),
         ),
       ],
     );

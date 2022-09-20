@@ -1,7 +1,16 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_file_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import '../animations/ds_fading_circle_loading.widget.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSFileMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -10,6 +19,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final String filename;
   final DSFileMessageBubbleController controller;
   final List<DSBorderRadius> borderRadius;
+  final DSMessageBubbleStyle style;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -19,7 +29,9 @@ class DSFileMessageBubble extends StatelessWidget {
     required this.size,
     required this.filename,
     this.borderRadius = const [DSBorderRadius.all],
-  }) : controller = DSFileMessageBubbleController();
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        controller = DSFileMessageBubbleController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +41,7 @@ class DSFileMessageBubble extends StatelessWidget {
         borderRadius: borderRadius,
         padding: EdgeInsets.zero,
         align: align,
+        style: style,
         child: SizedBox(
           height: 80.0,
           child: Row(
@@ -72,8 +85,12 @@ class DSFileMessageBubble extends StatelessWidget {
 
   Widget _buildText() {
     final color = align == DSAlign.right
-        ? DSColors.neutralLightSnow
-        : DSColors.neutralDarkCity;
+        ? style.isSentBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow
+        : style.isReceivedBackgroundLight
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow;
 
     return Flexible(
       child: Container(
