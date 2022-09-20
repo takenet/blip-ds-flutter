@@ -66,11 +66,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
     final maxLines = !_controller.shouldShowFullText.value ? 12 : null;
 
-    final foregroundColor = widget.align == DSAlign.right
-        ? widget.style.isSentBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow
-        : widget.style.isReceivedBackgroundLight
+    final foregroundColor =
+        widget.style.isLightBubbleBackground(widget.align)
             ? DSColors.neutralDarkCity
             : DSColors.neutralLightSnow;
 
@@ -101,9 +98,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
               DSUrlPreview(
                 url: url,
                 foregroundColor: foregroundColor,
-                backgroundColor: widget.align == DSAlign.right
-                    ? DSColors.neutralDarkDesk
-                    : DSColors.neutralLightBox,
+                backgroundColor: widget.style.isLightBubbleBackground(widget.align)
+                    ? DSColors.neutralLightBox
+                    : DSColors.neutralDarkDesk,
                 borderRadius: widget.borderRadius,
               ),
             Padding(
@@ -113,9 +110,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 children: [
                   DSBodyText.rich(
                     textSpan,
-                    linkColor: widget.align == DSAlign.right
-                        ? DSColors.primaryLight
-                        : DSColors.primaryNight,
+                    linkColor: widget.style.isLightBubbleBackground(widget.align)
+                        ? DSColors.primaryNight
+                        : DSColors.primaryLight,
                     overflow: overflow,
                     maxLines: textPainter.maxLines,
                   ),
@@ -137,9 +134,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         child: DSBodyText(
           // TODO: Need localized translate.
           'Mostrar mais',
-          color: widget.align == DSAlign.right
-              ? DSColors.primaryLight
-              : DSColors.primaryNight,
+          color: widget.style.isLightBubbleBackground(widget.align)
+              ? DSColors.primaryNight
+              : DSColors.primaryLight,
           decoration: TextDecoration.underline,
         ),
       ),

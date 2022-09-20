@@ -28,17 +28,30 @@ class DSUserAvatar extends StatelessWidget {
               backgroundColor: backgroundColor,
               backgroundImage: image,
             ),
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CircularProgressIndicator(value: downloadProgress.progress),
+            progressIndicatorBuilder: (context, url, downloadProgress) {
+              final size = radius * 2;
+
+              return SizedBox(
+                height: size,
+                width: size,
+                child: CircularProgressIndicator(value: downloadProgress.progress, strokeWidth: 1),
+              );
+            },
             errorWidget: (context, url, error) => const Icon(Icons.error),
           )
         : (text?.isNotEmpty ?? false)
             ? CircleAvatar(
                 radius: radius,
                 backgroundColor: backgroundColor,
-                child: DSBodyText(
-                  RegExp(r'\b[A-a-Z-z]').allMatches(text!).map((m) => m.group(0)).join().toUpperCase(),
-                  color: textColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: DSBodyText(
+                    RegExp(r'[A-Za-z]').allMatches(text!).map((m) => m.group(0)).join().toUpperCase(),
+                    color: textColor,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               )
             : CircleAvatar(

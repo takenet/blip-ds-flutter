@@ -118,13 +118,9 @@ class DSImageMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = align == DSAlign.right
-        ? style.isSentBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow
-        : style.isReceivedBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow;
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
       align: align,
@@ -142,7 +138,8 @@ class DSImageMessageBubble extends StatelessWidget {
                   context: context,
                   barrierDismissible: false,
                   transitionDuration: DSUtils.defaultAnimationDuration,
-                  transitionBuilder: (_, animation, __, child) => _buildTransition(animation, child),
+                  transitionBuilder: (_, animation, __, child) =>
+                      _buildTransition(animation, child),
                   pageBuilder: (context, _, __) => _buildPage(context),
                 );
               }
@@ -158,7 +155,8 @@ class DSImageMessageBubble extends StatelessWidget {
               onError: _controller.setError,
             ),
           ),
-          if ((imageTitle?.isNotEmpty ?? false) || (imageText?.isNotEmpty ?? false))
+          if ((imageTitle?.isNotEmpty ?? false) ||
+              (imageText?.isNotEmpty ?? false))
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -169,7 +167,8 @@ class DSImageMessageBubble extends StatelessWidget {
                       imageTitle,
                       color: color,
                     ),
-                  if ((imageText?.isNotEmpty ?? false) && (imageTitle?.isNotEmpty ?? false)) ...[
+                  if ((imageText?.isNotEmpty ?? false) &&
+                      (imageTitle?.isNotEmpty ?? false)) ...[
                     const SizedBox(
                       height: 6.0,
                     ),

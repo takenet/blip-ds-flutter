@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import '../enums/ds_align.enum.dart';
 import '../themes/colors/ds_colors.theme.dart';
 
 class DSMessageBubbleStyle {
@@ -22,4 +23,7 @@ DSMessageBubbleStyle({
   })  : isSentBackgroundLight = sentBackgroundColor.computeLuminance() > 0.5,
         isReceivedBackgroundLight = receivedBackgroundColor.computeLuminance() > 0.5,
         isPageBackgroundLight = pageBackgroundColor.computeLuminance() > 0.5;
+
+  bool isLightBubbleBackground(DSAlign align) =>
+      (align == DSAlign.right && isSentBackgroundLight) || isReceivedBackgroundLight;
 }

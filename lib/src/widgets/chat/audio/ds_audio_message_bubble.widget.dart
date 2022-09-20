@@ -76,20 +76,12 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
                 text:
                     "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
                 onTap: _controller.setAudioSpeed,
-                borderColor: widget.align == DSAlign.right
-                    ? widget.style.isSentBackgroundLight
-                        ? DSColors.neutralMediumSilver
-                        : DSColors.disabledText
-                    : widget.style.isReceivedBackgroundLight
-                        ? DSColors.neutralMediumSilver
-                        : DSColors.disabledText,
-                color: widget.align == DSAlign.right
-                    ? widget.style.isSentBackgroundLight
-                        ? DSColors.neutralDarkCity
-                        : DSColors.neutralLightSnow
-                    : widget.style.isReceivedBackgroundLight
-                        ? DSColors.neutralDarkCity
-                        : DSColors.neutralLightSnow,
+                borderColor: widget.style.isLightBubbleBackground(widget.align)
+                    ? DSColors.neutralMediumSilver
+                    : DSColors.disabledText,
+                color: widget.style.isLightBubbleBackground(widget.align)
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
               ),
             ),
           ],
@@ -111,13 +103,9 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
   }
 
   Widget _controlButtons() {
-    final color = widget.align == DSAlign.right
-        ? widget.style.isSentBackgroundLight
-            ? DSColors.neutralDarkRooftop
-            : DSColors.neutralLightSnow
-        : widget.style.isReceivedBackgroundLight
-            ? DSColors.neutralDarkRooftop
-            : DSColors.neutralLightSnow;
+    final color = widget.style.isLightBubbleBackground(widget.align)
+        ? DSColors.neutralDarkRooftop
+        : DSColors.neutralLightSnow;
 
     return StreamBuilder<PlayerState>(
       stream: _controller.player.playerStateStream,
@@ -137,13 +125,9 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
         } else if (playing != true) {
           return DSPlayButton(
             onPressed: _controller.player.play,
-            icon: widget.align == DSAlign.right
-                ? widget.style.isSentBackgroundLight
-                    ? DSPlayButtonIconColor.neutralLightSnow
-                    : DSPlayButtonIconColor.neutralDarkRooftop
-                : widget.style.isReceivedBackgroundLight
-                    ? DSPlayButtonIconColor.neutralLightSnow
-                    : DSPlayButtonIconColor.neutralDarkRooftop,
+            icon: widget.style.isLightBubbleBackground(widget.align)
+                ? DSPlayButtonIconColor.neutralLightSnow
+                : DSPlayButtonIconColor.neutralDarkRooftop,
           );
         } else if (processingState != ProcessingState.completed) {
           return DSPauseButton(

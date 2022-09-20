@@ -27,13 +27,9 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = align == DSAlign.right
-        ? style.isSentBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow
-        : style.isReceivedBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow;
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
       borderRadius: borderRadius,
@@ -43,12 +39,15 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           leftWidget ??
-              Image.asset(
-                align == DSAlign.left
-                    ? 'assets/images/block_neutral_dark_city.png'
-                    : 'assets/images/block_neutral_light_snow.png',
-                package: DSUtils.packageName,
-                width: 20.0,
+              ImageIcon(
+                const AssetImage(
+                  'assets/images/block_neutral_light_snow.png',
+                  package: DSUtils.packageName,
+                ),
+                color: style.isLightBubbleBackground(align)
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+                size: 20.0,
               ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),

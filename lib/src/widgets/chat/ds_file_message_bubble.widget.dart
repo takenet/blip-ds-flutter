@@ -84,13 +84,9 @@ class DSFileMessageBubble extends StatelessWidget {
   }
 
   Widget _buildText() {
-    final color = align == DSAlign.right
-        ? style.isSentBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow
-        : style.isReceivedBackgroundLight
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow;
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
 
     return Flexible(
       child: Container(
