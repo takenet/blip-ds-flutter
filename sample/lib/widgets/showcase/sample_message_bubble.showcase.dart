@@ -1,8 +1,10 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+
+import 'package:blip_ds/blip_ds.dart';
 
 class SampleMessageBubbleShowcase extends StatelessWidget {
   final String _shorText = lorem(
@@ -30,6 +32,21 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     'extraLarge':
         'https://img.freepik.com/premium-photo/astronaut-outer-open-space-planet-earth-stars-provide-background-erforming-space-planet-earth-sunrise-sunset-our-home-iss-elements-this-image-furnished-by-nasa_150455-16829.jpg?w=2000',
   };
+
+  final List<String> _srcsVideo = [
+    "https://filesamples.com/samples/video/mov/sample_960x400_ocean_with_audio.mov",
+    "https://filesamples.com/samples/video/avi/sample_960x400_ocean_with_audio.avi",
+    "https://filesamples.com/samples/video/mpeg/sample_960x400_ocean_with_audio.mpeg",
+    "https://filesamples.com/samples/video/mpg/sample_960x400_ocean_with_audio.mpg",
+    "https://filesamples.com/samples/video/ogv/sample_960x400_ocean_with_audio.ogv",
+    "https://filesamples.com/samples/video/mkv/sample_960x400_ocean_with_audio.mkv",
+    "https://filesamples.com/samples/video/wmv/sample_960x400_ocean_with_audio.wmv",
+    "https://filesamples.com/samples/video/webm/sample_960x400_ocean_with_audio.webm",
+    "https://filesamples.com/samples/video/3gp/sample_960x400_ocean_with_audio.3gp",
+    "https://filesamples.com/samples/video/mp4/sample_960x400_ocean_with_audio.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4",
+  ];
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
@@ -95,43 +112,15 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSImageMessageBubble(
             align: DSAlign.right,
             url: '',
-            imageTitle: 'imageTitle.png',
-            imageText: 'My picture',
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
-            align: DSAlign.right,
-            url: _sampleImages['medium']!,
-            imageTitle: '512x512.png',
-            imageText: _longText,
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
-            align: DSAlign.right,
-            url: _sampleImages['small']!,
-            imageTitle: '200x200.png',
-            imageText: _longText,
+            title: 'Hello',
+            text: 'My picture',
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
             align: DSAlign.right,
             url: _sampleImages['extraLarge']!,
-            imageTitle: '2000x1330.png',
-            imageText: _longText,
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
-            align: DSAlign.right,
-            url: _sampleImages['extraSmall']!,
-            imageTitle: '128x128.png',
-            imageText: _longText,
-            appBarText: 'Unknown User',
-          ),
-          DSImageMessageBubble(
-            align: DSAlign.right,
-            url: _sampleImages['large']!,
-            imageTitle: '1170×2532.png',
-            imageText: 'Print',
+            title: '2000x1330.png',
+            text: _longText,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(
@@ -194,6 +183,24 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSAudioMessageBubble(
             align: DSAlign.right,
             uri: _sampleAudio,
+          ),
+          DSVideoMessageBubble(
+            align: DSAlign.right,
+            url: _srcsVideo[6],
+            text: 'Olá Tudo bem?',
+            appBarText: 'Unknown User',
+          ),
+          DSVideoMessageBubble(
+            align: DSAlign.left,
+            url: _srcsVideo[9],
+            text: 'Se liga nesse vídeo!!',
+            appBarText: 'Unknown User',
+          ),
+          DSVideoMessageBubble(
+            align: DSAlign.right,
+            url: _srcsVideo[11],
+            text: 'Olá Tudo bem?',
+            appBarText: 'Unknown User',
           ),
         ],
       ),
