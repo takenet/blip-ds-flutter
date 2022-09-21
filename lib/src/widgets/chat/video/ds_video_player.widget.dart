@@ -36,14 +36,12 @@ class DSVideoPlayer extends StatelessWidget {
             () {
               return Stack(
                 children: [
-                  Expanded(
-                    child: Center(
-                      child: controller.isLoading.value
-                          ? const CircularProgressIndicator()
-                          : Chewie(
-                              controller: controller.chewieController!,
-                            ),
-                    ),
+                  Center(
+                    child: controller.isLoading.value
+                        ? const CircularProgressIndicator()
+                        : Chewie(
+                            controller: controller.chewieController!,
+                          ),
                   ),
                   _appBar(context),
                 ],
