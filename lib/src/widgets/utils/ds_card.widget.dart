@@ -1,4 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/models/ds_document_select.model.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class DSCard extends StatelessWidget {
   final String? customerName;
   final Function? onSelected;
   final bool hideOptions;
+  final Function? onOpenLink;
 
   /// Creates a new [DSCard] widget
   const DSCard({
@@ -23,6 +25,7 @@ class DSCard extends StatelessWidget {
     this.customerName,
     this.onSelected,
     required this.hideOptions,
+    this.onOpenLink,
   }) : super(key: key);
 
   @override
@@ -45,12 +48,32 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.select:
         return _buildSelect();
 
+      case DSMessageContentType.documentSelect:
+        return _buildDocumentSelect();
+
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
           borderRadius: borderRadius,
         );
     }
+  }
+
+  Widget _buildDocumentSelect() {
+    final documentSelectModel = DSDocumentSelectModel.fromJson(content);
+
+    return DSImageMessageBubble(
+      align: align,
+      url: documentSelectModel.header.mediaLink.uri,
+      imageTitle: documentSelectModel.header.mediaLink.title!,
+      imageText: documentSelectModel.header.mediaLink.text!,
+      appBarText: customerName ?? '',
+      //TODO: check if selectOptions is null/empty
+      selectOptions: documentSelectModel.options,
+      showSelect: true,
+      onSelected: onSelected,
+      onOpenLink: onOpenLink,
+    );
   }
 
   Widget _buildSelect() {

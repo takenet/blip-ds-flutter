@@ -11,6 +11,7 @@ class DSGroupCard extends StatefulWidget {
   final bool sortMessages;
   final Function? onSelected;
   final bool hideOptions;
+  final Function? onOpenLink;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({
@@ -21,6 +22,7 @@ class DSGroupCard extends StatefulWidget {
     this.sortMessages = true,
     this.onSelected,
     this.hideOptions = false,
+    this.onOpenLink,
   }) : super(key: key);
 
   @override
@@ -60,6 +62,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
               borderRadius: borderRadius,
               hideOptions: widget.hideOptions,
               onSelected: widget.onSelected,
+              customerName: message.customerName,
+              onOpenLink: widget.onOpenLink,
             ),
           );
 
