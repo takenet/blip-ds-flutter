@@ -1,6 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import 'ds_user_avatar.widget.dart';
 
 class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
