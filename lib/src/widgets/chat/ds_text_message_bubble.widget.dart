@@ -89,6 +89,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return LayoutBuilder(
       builder: (_, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
+        final defaultBubbleColors =
+            widget.style.isDefaultBubbleBackground(widget.align);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,8 +114,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                     textSpan,
                     linkColor:
                         widget.style.isLightBubbleBackground(widget.align)
-                            ? DSColors.neutralDarkCity
-                            : DSColors.neutralLightSnow,
+                            ? defaultBubbleColors
+                                ? DSColors.primaryNight
+                                : DSColors.neutralDarkCity
+                            : defaultBubbleColors
+                                ? DSColors.primaryLight
+                                : DSColors.neutralLightSnow,
                     overflow: overflow,
                     maxLines: textPainter.maxLines,
                   ),
@@ -128,6 +134,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   }
 
   Widget _buildShowMore() {
+    final defaultBubbleColors =
+        widget.style.isDefaultBubbleBackground(widget.align);
+
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: GestureDetector(
@@ -136,8 +145,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
           // TODO: Need localized translate.
           'Mostrar mais',
           color: widget.style.isLightBubbleBackground(widget.align)
-              ? DSColors.neutralDarkCity
-              : DSColors.neutralLightSnow,
+              ? defaultBubbleColors
+                  ? DSColors.primaryNight
+                  : DSColors.neutralDarkCity
+              : defaultBubbleColors
+                  ? DSColors.primaryLight
+                  : DSColors.neutralLightSnow,
           decoration: TextDecoration.underline,
         ),
       ),

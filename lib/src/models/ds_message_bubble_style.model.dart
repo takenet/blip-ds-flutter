@@ -14,16 +14,23 @@ class DSMessageBubbleStyle {
   final bool isReceivedBackgroundLight;
   final bool isPageBackgroundLight;
 
-DSMessageBubbleStyle({
+  DSMessageBubbleStyle({
     this.sentBorderColor = DSColors.neutralDarkCity,
     this.receivedBorderColor = DSColors.neutralMediumSilver,
     this.sentBackgroundColor = DSColors.neutralDarkCity,
     this.receivedBackgroundColor = DSColors.neutralLightSnow,
     this.pageBackgroundColor = DSColors.neutralLightBox,
   })  : isSentBackgroundLight = sentBackgroundColor.computeLuminance() > 0.5,
-        isReceivedBackgroundLight = receivedBackgroundColor.computeLuminance() > 0.5,
+        isReceivedBackgroundLight =
+            receivedBackgroundColor.computeLuminance() > 0.5,
         isPageBackgroundLight = pageBackgroundColor.computeLuminance() > 0.5;
 
   bool isLightBubbleBackground(DSAlign align) =>
-      (align == DSAlign.right && isSentBackgroundLight) || isReceivedBackgroundLight;
+      (align == DSAlign.right && isSentBackgroundLight) ||
+      isReceivedBackgroundLight;
+
+  bool isDefaultBubbleBackground(DSAlign align) =>
+      [DSColors.neutralDarkCity, DSColors.neutralLightSnow].any((color) =>
+          (align == DSAlign.right && sentBackgroundColor == color) ||
+          receivedBackgroundColor == color);
 }
