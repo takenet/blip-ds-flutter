@@ -38,18 +38,14 @@ class DSMessageBubble extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
-            color: align == DSAlign.right
-                ? style.sentBorderColor
-                : style.receivedBorderColor,
+            color: style.bubbleBorderColor(align),
           ),
           padding: const EdgeInsets.all(1.0),
           child: ClipRRect(
             borderRadius: _getBorderRadius(),
             child: Container(
               padding: padding,
-              color: align == DSAlign.right
-                  ? style.sentBackgroundColor
-                  : style.receivedBackgroundColor,
+              color: style.bubbleBackgroundColor(align),
               child: child,
             ),
           ),
@@ -66,9 +62,8 @@ class DSMessageBubble extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: rightAlign
-              ? MainAxisAlignment.end
-              : MainAxisAlignment.start,
+          mainAxisAlignment:
+              rightAlign ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: rightAlign ? children : children.reversed.toList(),
         ),
       ],

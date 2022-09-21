@@ -8,6 +8,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
   final DSAlign align;
   final DSDeliveryReportStatus deliveryStatus;
   final DSMessageBubbleStyle style;
+  final bool showMessageStatus;
 
   /// Creates a new Design System's [DSMessageBubbleDetail]
   const DSMessageBubbleDetail({
@@ -16,6 +17,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
     required this.align,
     required this.deliveryStatus,
     required this.style,
+    this.showMessageStatus = true,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 0),
           child: Row(
             children: [
-              if (align == DSAlign.right) ...[
+              if (showMessageStatus && align == DSAlign.right) ...[
                 DSDeliveryReportIcon(deliveryStatus: deliveryStatus),
                 const SizedBox(
                   width: 6.0,

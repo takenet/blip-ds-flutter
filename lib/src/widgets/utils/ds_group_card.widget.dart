@@ -43,6 +43,7 @@ class DSGroupCard extends StatelessWidget {
     required this.documents,
     required this.isComposing,
     this.sortMessages = true,
+    this.showMessageStatus = true,
     DSMessageBubbleStyle? style,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
@@ -54,6 +55,7 @@ class DSGroupCard extends StatelessWidget {
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
   final bool isComposing;
   final bool sortMessages;
+  final bool showMessageStatus;
   final List<Widget> _widgets = [];
   final DSMessageBubbleStyle style;
   final DSMessageBubbleAvatarConfig avatarConfig;
@@ -159,6 +161,7 @@ class DSGroupCard extends StatelessWidget {
                   align: group['align'],
                   deliveryStatus: group['status'],
                   date: group['displayDate'],
+                  showMessageStatus: showMessageStatus,
                   style: style,
                 ),
               ),

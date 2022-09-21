@@ -4,8 +4,6 @@ import '../enums/ds_align.enum.dart';
 import '../themes/colors/ds_colors.theme.dart';
 
 class DSMessageBubbleStyle {
-  final Color sentBorderColor;
-  final Color receivedBorderColor;
   final Color sentBackgroundColor;
   final Color receivedBackgroundColor;
   final Color pageBackgroundColor;
@@ -15,8 +13,6 @@ class DSMessageBubbleStyle {
   final bool isPageBackgroundLight;
 
   DSMessageBubbleStyle({
-    this.sentBorderColor = DSColors.neutralDarkCity,
-    this.receivedBorderColor = DSColors.neutralMediumSilver,
     this.sentBackgroundColor = DSColors.neutralDarkCity,
     this.receivedBackgroundColor = DSColors.neutralLightSnow,
     this.pageBackgroundColor = DSColors.neutralLightBox,
@@ -27,10 +23,20 @@ class DSMessageBubbleStyle {
 
   bool isLightBubbleBackground(DSAlign align) =>
       (align == DSAlign.right && isSentBackgroundLight) ||
-      isReceivedBackgroundLight;
+      (align == DSAlign.left && isReceivedBackgroundLight);
 
   bool isDefaultBubbleBackground(DSAlign align) =>
       [DSColors.neutralDarkCity, DSColors.neutralLightSnow].any((color) =>
           (align == DSAlign.right && sentBackgroundColor == color) ||
-          receivedBackgroundColor == color);
+          (align == DSAlign.left && receivedBackgroundColor == color));
+
+  Color bubbleBackgroundColor(DSAlign align) =>
+      align == DSAlign.right ? sentBackgroundColor : receivedBackgroundColor;
+
+  Color bubbleBorderColor(DSAlign align) =>
+      [DSColors.neutralLightSnow].any((color) =>
+              (align == DSAlign.right && sentBackgroundColor == color) ||
+              (align == DSAlign.left && receivedBackgroundColor == color))
+          ? DSColors.neutralMediumSilver
+          : bubbleBackgroundColor(align);
 }
