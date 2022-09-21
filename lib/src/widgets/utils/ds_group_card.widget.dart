@@ -17,19 +17,24 @@ import 'ds_user_avatar.widget.dart';
 
 // Default compare message function
 // ignore: prefer_function_declarations_over_variables
-final _defaultCompareMessageFuntion = (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
+final _defaultCompareMessageFuntion =
+    (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
   //TODO: Quickreply  não deve agrupar com demais widgets
 
   bool shouldGroupSelect = true;
 
-  if (firstMsg.type == 'application/vnd.lime.select+json' || secondMsg.type == 'application/vnd.lime.select+json') {
+  if (firstMsg.type == 'application/vnd.lime.select+json' ||
+      secondMsg.type == 'application/vnd.lime.select+json') {
     if (firstMsg.content is Map && firstMsg.content['scope'] == 'immediate' ||
         secondMsg.content is Map && secondMsg.content['scope'] == 'immediate') {
       shouldGroupSelect = false;
     }
   }
 
-  return (DateTime.parse(firstMsg.date).difference(DateTime.parse(secondMsg.date)).inSeconds <= 60 &&
+  return (DateTime.parse(firstMsg.date)
+              .difference(DateTime.parse(secondMsg.date))
+              .inSeconds <=
+          60 &&
       firstMsg.status == secondMsg.status &&
       firstMsg.align == secondMsg.align &&
       shouldGroupSelect);
@@ -102,12 +107,14 @@ class DSGroupCard extends StatelessWidget {
         (DSMessageItemModel message) {
           final int length = group['msgs'].length;
           Widget bubble;
-          List<DSBorderRadius> borderRadius = _getBorderRadius(length, msgCount, group['align']);
+          List<DSBorderRadius> borderRadius =
+              _getBorderRadius(length, msgCount, group['align']);
 
           switch (message.type) {
             case DSMessageContentType.textPlain:
+            case DSMessageContentType.sensitive:
               bubble = DSTextMessageBubble(
-                text: message.content,
+                text: message.content is String ? message.content : '**********',
                 align: message.align,
                 borderRadius: borderRadius,
                 style: style,
@@ -133,15 +140,22 @@ class DSGroupCard extends StatelessWidget {
             ),
           ];
 
-          if ((sentMessage && avatarConfig.showUserAvatar) || (!sentMessage && avatarConfig.showOwnerAvatar)) {
+          if ((sentMessage && avatarConfig.showUserAvatar) ||
+              (!sentMessage && avatarConfig.showOwnerAvatar)) {
             columns.add(
               lastMsg
                   ? Align(
-                      alignment: sentMessage ? Alignment.bottomRight : Alignment.bottomLeft,
+                      alignment: sentMessage
+                          ? Alignment.bottomRight
+                          : Alignment.bottomLeft,
                       child: DSUserAvatar(
                         radius: 12,
-                        uri: sentMessage ? avatarConfig.userAvatar : avatarConfig.ownerAvatar,
-                        text: sentMessage ? avatarConfig.userName : avatarConfig.ownerName,
+                        uri: sentMessage
+                            ? avatarConfig.userAvatar
+                            : avatarConfig.ownerAvatar,
+                        text: sentMessage
+                            ? avatarConfig.userName
+                            : avatarConfig.ownerName,
                       ),
                     )
                   : const SizedBox(),
@@ -167,7 +181,8 @@ class DSGroupCard extends StatelessWidget {
               ),
             ];
 
-            if ((sentMessage && avatarConfig.showUserAvatar) || (!sentMessage && avatarConfig.showOwnerAvatar)) {
+            if ((sentMessage && avatarConfig.showUserAvatar) ||
+                (!sentMessage && avatarConfig.showOwnerAvatar)) {
               columns.add(
                 const SizedBox(),
               );
@@ -320,12 +335,28 @@ class DSGroupCard extends StatelessWidget {
       borderRadius = [DSBorderRadius.all];
     } else if (isFirstMessage) {
       (align == DSAlign.right)
-          ? borderRadius = [DSBorderRadius.topRight, DSBorderRadius.topLeft, DSBorderRadius.bottomLeft]
-          : borderRadius = [DSBorderRadius.topRight, DSBorderRadius.topLeft, DSBorderRadius.bottomRight];
+          ? borderRadius = [
+              DSBorderRadius.topRight,
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomLeft
+            ]
+          : borderRadius = [
+              DSBorderRadius.topRight,
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomRight
+            ];
     } else if (isLastMessage) {
       (align == DSAlign.right)
-          ? borderRadius = [DSBorderRadius.topLeft, DSBorderRadius.bottomRight, DSBorderRadius.bottomLeft]
-          : borderRadius = [DSBorderRadius.topRight, DSBorderRadius.bottomRight, DSBorderRadius.bottomLeft];
+          ? borderRadius = [
+              DSBorderRadius.topLeft,
+              DSBorderRadius.bottomRight,
+              DSBorderRadius.bottomLeft
+            ]
+          : borderRadius = [
+              DSBorderRadius.topRight,
+              DSBorderRadius.bottomRight,
+              DSBorderRadius.bottomLeft
+            ];
     } else {
       (align == DSAlign.right)
           ? borderRadius = [
