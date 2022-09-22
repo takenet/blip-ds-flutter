@@ -17,6 +17,8 @@ abstract class DSColors {
   static const Color neutralLightBox = Color(0xFFE7EDF4);
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
+  static const Color illustrationBlueGenie = Color(0xFF80E3EB);
+  static const Color primaryGreensMint = Color(0xFF90E6BC);
   static const Color extendRedsLipstick = Color(0xFFA01C2C);
   static const Color extendRedsFlower = Color(0xFFFFA5A5);
   static const Color extendRedsDragon = Color(0xFF6A2026);
