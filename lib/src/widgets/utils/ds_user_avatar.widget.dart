@@ -44,9 +44,9 @@ class DSUserAvatar extends StatelessWidget {
                 radius: radius,
                 backgroundColor: backgroundColor,
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(2),
                   child: DSBodyText(
-                    RegExp(r'[A-Za-z]').allMatches(text!).map((m) => m.group(0)).join().toUpperCase(),
+                    RegExp(r'[A-Za-z]').allMatches(text!).map((m) => m.group(0)).join().toUpperCase().substring(0, 2),
                     color: textColor,
                     overflow: TextOverflow.clip,
                     maxLines: 1,

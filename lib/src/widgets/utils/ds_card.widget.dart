@@ -67,7 +67,7 @@ class DSCard extends StatelessWidget {
             content: content,
             onSelected: onSelected,
             hideOptions: hideOptions,
-            // style: style,
+            style: style,
           )
         : DSTextMessageBubble(
             align: align,

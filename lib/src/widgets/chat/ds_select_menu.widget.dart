@@ -4,6 +4,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_select_option.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_message_content_type.util.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 
 class DSSelectMenu extends StatelessWidget {
@@ -56,7 +57,7 @@ class DSSelectMenu extends StatelessWidget {
                 payload = {"type": type, "content": option.value};
               } else {
                 payload = {
-                  "type": 'text/plain',
+                  "type": DSMessageContentType.textPlain,
                   "content": option.order != null
                       ? option.order.toString()
                       : option.text
@@ -93,7 +94,7 @@ class DSSelectMenu extends StatelessWidget {
           Divider(
             height: 30.0,
             thickness: 1.0,
-            color: align == DSAlign.left
+            color: style.isLightBubbleBackground(align)
                 ? DSColors.neutralMediumWave
                 : DSColors.neutralDarkRooftop,
           ),

@@ -5,6 +5,7 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_message_item.model.dart';
+import '../../utils/ds_message_content_type.util.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/typing/ds_typing_message_bubble.widget.dart';
 import 'ds_card.widget.dart';
@@ -14,12 +15,10 @@ import 'ds_user_avatar.widget.dart';
 // ignore: prefer_function_declarations_over_variables
 final _defaultCompareMessageFuntion =
     (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
-  //TODO: Quickreply  não deve agrupar com demais widgets
-
   bool shouldGroupSelect = true;
 
-  if (firstMsg.type == 'application/vnd.lime.select+json' ||
-      secondMsg.type == 'application/vnd.lime.select+json') {
+  if (firstMsg.type == DSMessageContentType.select  ||
+      secondMsg.type == DSMessageContentType.select) {
     if (firstMsg.content is Map && firstMsg.content['scope'] == 'immediate' ||
         secondMsg.content is Map && secondMsg.content['scope'] == 'immediate') {
       shouldGroupSelect = false;
