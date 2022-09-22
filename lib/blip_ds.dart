@@ -90,6 +90,7 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
 
 /// Services
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_toast.service.dart' show DSToastService;
 
 /// Models
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
