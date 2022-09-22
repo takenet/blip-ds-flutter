@@ -31,3 +31,4 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/
+.vscode/settings.json
