@@ -509,7 +509,7 @@ void main() {
 
   group(
     'Play Button',
-    skip: true, // TODO: remove this skip when all errors are gone
+    skip: true, // TODO: golden test
     () {
       // TODO: package name error
       testWidgets(
