@@ -120,3 +120,8 @@ export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
 /// Widgets / Radio
 export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
 export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
+
+/// Widgets / Video
+export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
+    show DSVideoMessageBubble;
+export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;

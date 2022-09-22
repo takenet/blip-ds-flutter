@@ -1,5 +1,6 @@
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
@@ -19,8 +20,8 @@ class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
   final String url;
   final List<DSBorderRadius> borderRadius;
-  final String? imageTitle;
-  final String? imageText;
+  final String? title;
+  final String? text;
   final String appBarText;
   final Uri? appBarPhotoUri;
   final DSMessageBubbleStyle style;
@@ -31,14 +32,110 @@ class DSImageMessageBubble extends StatelessWidget {
     super.key,
     required this.align,
     required this.url,
-    this.imageTitle,
     required this.appBarText,
     this.appBarPhotoUri,
     this.borderRadius = const [DSBorderRadius.all],
-    this.imageText,
+    this.text,
+    this.title,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         _controller = DSImageMessageBubbleController();
+
+  @override
+  Widget build(BuildContext context) {
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
+
+    return DSMessageBubble(
+      defaultMaxSize: 360.0,
+      shouldUseDefaultSize: true,
+      align: align,
+      borderRadius: borderRadius,
+      padding: EdgeInsets.zero,
+      style: style,
+      child: FutureBuilder(
+        future: _controller.getImageInfo(url),
+        builder: (buildContext, snapshot) {
+          if (snapshot.hasData || snapshot.hasError) {
+            final ImageInfo? data =
+                snapshot.hasError ? null : snapshot.data as ImageInfo;
+
+            final width = snapshot.hasError
+                ? 240.0
+                : data!.image.width <= DSUtils.bubbleMinSize
+                    ? DSUtils.bubbleMinSize
+                    : data.image.width.toDouble();
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (!_controller.error.value) {
+                      _controller.appBarVisible.value = false;
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        transitionDuration: DSUtils.defaultAnimationDuration,
+                        transitionBuilder: (_, animation, __, child) =>
+                            _buildTransition(animation, child),
+                        pageBuilder: (context, _, __) => _buildPage(context),
+                      );
+                    }
+                  },
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxHeight: DSUtils.bubbleMaxSize,
+                    ),
+                    child: DSCachedNetworkImageView(
+                      fit: BoxFit.cover,
+                      width: width,
+                      url: url,
+                      placeholder: (_, __) => const Padding(
+                        padding: EdgeInsets.all(80.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                      onError: _controller.setError,
+                    ),
+                  ),
+                ),
+                if ((title?.isNotEmpty ?? false) || (text?.isNotEmpty ?? false))
+                  SizedBox(
+                    width: width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (title?.isNotEmpty ?? false)
+                            DSCaptionText(
+                              title!,
+                              color: color,
+                            ),
+                          if ((text?.isNotEmpty ?? false) &&
+                              (title?.isNotEmpty ?? false)) ...[
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                            if (text?.isNotEmpty ?? false)
+                              DSBodyText(
+                                text!,
+                                color: color,
+                              ),
+                          ]
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
+      ),
+    );
+  }
 
   Widget _buildTransition(Animation<double> animation, Widget? child) {
     return FadeTransition(
@@ -112,76 +209,6 @@ class DSImageMessageBubble extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final color = style.isLightBubbleBackground(align)
-        ? DSColors.neutralDarkCity
-        : DSColors.neutralLightSnow;
-
-    return DSMessageBubble(
-      align: align,
-      borderRadius: borderRadius,
-      padding: EdgeInsets.zero,
-      style: style,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              if (!_controller.error.value) {
-                _controller.appBarVisible.value = false;
-                showGeneralDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  transitionDuration: DSUtils.defaultAnimationDuration,
-                  transitionBuilder: (_, animation, __, child) =>
-                      _buildTransition(animation, child),
-                  pageBuilder: (context, _, __) => _buildPage(context),
-                );
-              }
-            },
-            child: DSCachedNetworkImageView(
-              width: 240.0,
-              height: 240.0,
-              url: url,
-              placeholder: (_, __) => const Padding(
-                padding: EdgeInsets.all(80.0),
-                child: CircularProgressIndicator(),
-              ),
-              onError: _controller.setError,
-            ),
-          ),
-          if ((imageTitle?.isNotEmpty ?? false) ||
-              (imageText?.isNotEmpty ?? false))
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (imageTitle?.isNotEmpty ?? false)
-                    DSCaptionText(
-                      imageTitle,
-                      color: color,
-                    ),
-                  if ((imageText?.isNotEmpty ?? false) &&
-                      (imageTitle?.isNotEmpty ?? false)) ...[
-                    const SizedBox(
-                      height: 6.0,
-                    ),
-                    if (imageText?.isNotEmpty ?? false)
-                      DSBodyText(
-                        imageText!,
-                        color: color,
-                      ),
-                  ]
-                ],
-              ),
-            ),
-        ],
       ),
     );
   }

@@ -1,18 +1,13 @@
-import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
-import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_message_item.model.dart';
-import '../chat/audio/ds_audio_message_bubble.widget.dart';
-import '../chat/ds_file_message_bubble.widget.dart';
-import '../chat/ds_image_message_bubble.widget.dart';
-import '../chat/ds_text_message_bubble.widget.dart';
-import '../chat/ds_unsupported_content_message_bubble.widget.dart';
+import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/typing/ds_typing_message_bubble.widget.dart';
+import 'ds_card.widget.dart';
 import 'ds_user_avatar.widget.dart';
 
 // Default compare message function
@@ -48,9 +43,11 @@ class DSGroupCard extends StatelessWidget {
     required this.documents,
     required this.isComposing,
     this.sortMessages = true,
+    this.onSelected,
+    this.hideOptions = false,
     this.showMessageStatus = true,
-    DSMessageBubbleStyle? style,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
+    DSMessageBubbleStyle? style,
     bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle(),
@@ -60,6 +57,8 @@ class DSGroupCard extends StatelessWidget {
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
   final bool isComposing;
   final bool sortMessages;
+  final Function? onSelected;
+  final bool hideOptions;
   final bool showMessageStatus;
   final List<Widget> _widgets = [];
   final DSMessageBubbleStyle style;
@@ -69,11 +68,8 @@ class DSGroupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     _buildWidgetsList(_getGroupCards());
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        children: _widgets,
-      ),
+    return Column(
+      children: _widgets,
     );
   }
 
@@ -106,30 +102,19 @@ class DSGroupCard extends StatelessWidget {
       group['msgs'].forEach(
         (DSMessageItemModel message) {
           final int length = group['msgs'].length;
-          Widget bubble;
           List<DSBorderRadius> borderRadius =
               _getBorderRadius(length, msgCount, group['align']);
 
-          switch (message.type) {
-            case DSMessageContentType.textPlain:
-            case DSMessageContentType.sensitive:
-              bubble = DSTextMessageBubble(
-                text: message.content is String ? message.content : '**********',
-                align: message.align,
-                borderRadius: borderRadius,
-                style: style,
-              );
-              break;
-            case DSMessageContentType.mediaLink:
-              bubble = _buildMediaLink(message, borderRadius);
-              break;
-            default:
-              bubble = DSUnsupportedContentMessageBubble(
-                align: message.align,
-                borderRadius: borderRadius,
-                style: style,
-              );
-          }
+          final bubble = DSCard(
+            type: message.type,
+            content: message.content,
+            align: message.align,
+            borderRadius: borderRadius,
+            hideOptions: hideOptions,
+            onSelected: onSelected,
+            customerName: message.customerName,
+            style: style,
+          );
 
           final lastMsg = msgCount == length;
 
@@ -284,42 +269,6 @@ class DSGroupCard extends StatelessWidget {
     }
     groups.add(group);
     return groups;
-  }
-
-  Widget _buildMediaLink(
-    final DSMessageItemModel message,
-    final List<DSBorderRadius> borderRadius,
-  ) {
-    final String contentType = message.content['type'];
-
-    if (contentType.contains('audio')) {
-      return DSAudioMessageBubble(
-        uri: message.content['uri'],
-        align: message.align,
-        borderRadius: borderRadius,
-        style: style,
-      );
-    } else if (contentType.contains('image')) {
-      return DSImageMessageBubble(
-        url: message.content['uri'],
-        align: message.align,
-        appBarText: message.customerName ?? '',
-        appBarPhotoUri: message.customerAvatar,
-        imageText: message.content['text'],
-        imageTitle: message.content['title'],
-        borderRadius: borderRadius,
-        style: style,
-      );
-    } else {
-      return DSFileMessageBubble(
-        align: message.align,
-        url: message.content['uri'],
-        size: message.content['size'],
-        filename: message.content['title'],
-        borderRadius: borderRadius,
-        style: style,
-      );
-    }
   }
 
   List<DSBorderRadius> _getBorderRadius(
