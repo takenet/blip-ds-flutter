@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/chat/ds_message_bubble_detail.widget.dart';
 import 'package:blip_ds/src/widgets/utils/ds_card.widget.dart';
-import 'package:flutter/material.dart';
 
 /// A Design System widget used to display a grouped [DSCard] list
 class DSGroupCard extends StatefulWidget {

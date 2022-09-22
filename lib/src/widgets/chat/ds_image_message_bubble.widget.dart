@@ -2,6 +2,7 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:blip_ds/src/widgets/chat/typing/ds_document_select.widget.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
@@ -9,8 +10,8 @@ class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
   final String url;
   final List<DSBorderRadius> borderRadius;
-  final String imageTitle;
-  final String? imageText;
+  final String? title;
+  final String? text;
   final String appBarText;
   final dynamic selectOptions;
   final bool showSelect;
@@ -23,10 +24,10 @@ class DSImageMessageBubble extends StatelessWidget {
     super.key,
     required this.align,
     required this.url,
-    required this.imageTitle,
     required this.appBarText,
     this.borderRadius = const [DSBorderRadius.all],
-    this.imageText,
+    this.text,
+    this.title,
     this.selectOptions,
     this.showSelect = false,
     this.onSelected,
@@ -95,18 +96,18 @@ class DSImageMessageBubble extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DSCaptionText(
-                          text: imageTitle,
+                          text: title,
                           color: align == DSAlign.right
                               ? DSColors.neutralLightSnow
                               : DSColors.neutralDarkCity,
                         ),
-                        if (imageText != null) ...[
+                        if (text != null) ...[
                           const SizedBox(
                             height: 6.0,
                           ),
                           DSBodyText(
                             overflow: TextOverflow.clip,
-                            text: imageText!,
+                            text: text!,
                             color: align == DSAlign.right
                                 ? DSColors.neutralLightSnow
                                 : DSColors.neutralDarkCity,

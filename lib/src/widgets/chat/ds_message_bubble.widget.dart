@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import 'package:blip_ds/blip_ds.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
