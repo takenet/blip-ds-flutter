@@ -4,7 +4,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../utils/ds_utils.util.dart';
+import '../../themes/icons/ds_icons.dart';
 import '../texts/ds_body_text.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
@@ -39,11 +39,8 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           leftWidget ??
-              ImageIcon(
-                const AssetImage(
-                  'assets/images/block_neutral_light_snow.png',
-                  package: DSUtils.packageName,
-                ),
+              Icon(
+                DSIcons.false_icon,
                 color: style.isLightBubbleBackground(align)
                     ? DSColors.neutralDarkCity
                     : DSColors.neutralLightSnow,
