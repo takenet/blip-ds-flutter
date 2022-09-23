@@ -125,3 +125,4 @@ export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
 export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
+export 'src/themes/icons/ds_icons.dart' show DSIcons;
