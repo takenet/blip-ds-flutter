@@ -10,7 +10,7 @@ import '../texts/ds_headline_small_text.widget.dart';
 class DSSelectMenu extends StatelessWidget {
   final DSAlign align;
   final Map<String, dynamic> content;
-  final Function? onSelected;
+  final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;
 
   DSSelectMenu({
@@ -63,7 +63,6 @@ class DSSelectMenu extends StatelessWidget {
                       : option.text
                 };
               }
-
               onSelected!(option.text, payload);
             }
           },
@@ -95,8 +94,12 @@ class DSSelectMenu extends StatelessWidget {
             height: 30.0,
             thickness: 1.0,
             color: style.isLightBubbleBackground(align)
-                ? DSColors.neutralMediumWave
-                : DSColors.neutralDarkRooftop,
+                ? defaultBubbleColors
+                    ? DSColors.neutralMediumWave
+                    : DSColors.neutralDarkCity
+                : defaultBubbleColors
+                    ? DSColors.neutralDarkRooftop
+                    : DSColors.neutralLightSnow,
           ),
         );
       } else {

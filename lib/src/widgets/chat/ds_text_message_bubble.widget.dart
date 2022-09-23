@@ -19,7 +19,7 @@ class DSTextMessageBubble extends StatefulWidget {
   final List<DSBorderRadius> borderRadius;
   final dynamic selectContent;
   final bool showSelect;
-  final Function? onSelected;
+  final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;
 
   DSTextMessageBubble({

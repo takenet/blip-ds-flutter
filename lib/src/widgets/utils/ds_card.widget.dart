@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
-import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -11,8 +10,7 @@ class DSCard extends StatelessWidget {
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final String? customerName;
-  final Function? onSelected;
-  final bool hideOptions;
+  final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;
 
   /// Creates a new [DSCard] widget
@@ -24,7 +22,6 @@ class DSCard extends StatelessWidget {
     required this.borderRadius,
     this.customerName,
     this.onSelected,
-    required this.hideOptions,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
@@ -62,11 +59,10 @@ class DSCard extends StatelessWidget {
 
   Widget _buildSelect() {
     return content['scope'] == 'immediate'
-        ? DSQuickReply(
+        ? DSTextMessageBubble(
             align: align,
-            content: content,
-            onSelected: onSelected,
-            hideOptions: hideOptions,
+            text: content['text'],
+            borderRadius: borderRadius,
             style: style,
           )
         : DSTextMessageBubble(

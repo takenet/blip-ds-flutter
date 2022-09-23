@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -17,7 +18,7 @@ final _defaultCompareMessageFuntion =
     (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
   bool shouldGroupSelect = true;
 
-  if (firstMsg.type == DSMessageContentType.select  ||
+  if (firstMsg.type == DSMessageContentType.select ||
       secondMsg.type == DSMessageContentType.select) {
     if (firstMsg.content is Map && firstMsg.content['scope'] == 'immediate' ||
         secondMsg.content is Map && secondMsg.content['scope'] == 'immediate') {
@@ -56,7 +57,7 @@ class DSGroupCard extends StatelessWidget {
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
   final bool isComposing;
   final bool sortMessages;
-  final Function? onSelected;
+  final void Function(String, Map<String, dynamic>)? onSelected;
   final bool hideOptions;
   final bool showMessageStatus;
   final List<Widget> _widgets = [];
@@ -97,6 +98,7 @@ class DSGroupCard extends StatelessWidget {
 
       final rows = <TableRow>[];
       final sentMessage = group['align'] == DSAlign.right;
+      DSMessageItemModel? lastMessageQuickReply;
 
       group['msgs'].forEach(
         (DSMessageItemModel message) {
@@ -109,17 +111,17 @@ class DSGroupCard extends StatelessWidget {
             content: message.content,
             align: message.align,
             borderRadius: borderRadius,
-            hideOptions: hideOptions,
             onSelected: onSelected,
             customerName: message.customerName,
             style: style,
           );
 
-          final lastMsg = msgCount == length;
+          final isLastMsg = msgCount == length;
 
           final columns = <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: lastMsg || length == 1 ? 0 : 3),
+              padding:
+                  EdgeInsets.only(bottom: isLastMsg || length == 1 ? 0 : 3),
               child: bubble,
             ),
           ];
@@ -127,7 +129,7 @@ class DSGroupCard extends StatelessWidget {
           if ((sentMessage && avatarConfig.showUserAvatar) ||
               (!sentMessage && avatarConfig.showOwnerAvatar)) {
             columns.add(
-              lastMsg
+              isLastMsg
                   ? Align(
                       alignment: sentMessage
                           ? Alignment.bottomRight
@@ -151,7 +153,7 @@ class DSGroupCard extends StatelessWidget {
             ),
           );
 
-          if (lastMsg) {
+          if (isLastMsg) {
             final columns = <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -179,17 +181,37 @@ class DSGroupCard extends StatelessWidget {
             );
           }
 
+          final hideOptions = documents.last != message;
+          if (!hideOptions &&
+              message.type == DSMessageContentType.select &&
+              message.content['scope'] == 'immediate') {
+            lastMessageQuickReply = message;
+          }
+
           msgCount++;
         },
       );
 
-      final table = Table(
-        columnWidths: sentMessage ? sentColumnWidths : receivedColumnWidths,
-        defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-        children: rows,
+      final table = Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Table(
+          columnWidths: sentMessage ? sentColumnWidths : receivedColumnWidths,
+          defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+          children: rows,
+        ),
       );
 
       _widgets.add(table);
+
+      if (lastMessageQuickReply != null) {
+        _widgets.add(
+          DSQuickReply(
+            align: lastMessageQuickReply!.align,
+            content: lastMessageQuickReply!.content,
+            onSelected: onSelected,
+          ),
+        );
+      }
     }
 
     if (isComposing) {
@@ -207,14 +229,17 @@ class DSGroupCard extends StatelessWidget {
         );
       }
 
-      final table = Table(
-        columnWidths: receivedColumnWidths,
-        defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-        children: [
-          TableRow(
-            children: columns,
-          )
-        ],
+      final table = Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Table(
+          columnWidths: receivedColumnWidths,
+          defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+          children: [
+            TableRow(
+              children: columns,
+            )
+          ],
+        ),
       );
 
       _widgets.add(table);

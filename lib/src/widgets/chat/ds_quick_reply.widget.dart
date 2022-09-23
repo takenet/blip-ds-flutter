@@ -2,53 +2,34 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
-import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_select_option.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../texts/ds_body_text.widget.dart';
-import 'ds_text_message_bubble.widget.dart';
 
 class DSQuickReply extends StatelessWidget {
   final DSAlign align;
   final Map<String, dynamic> content;
-  final Function? onSelected;
-  final bool hideOptions;
-  final DSMessageBubbleStyle style;
+  final void Function(String, Map<String, dynamic>)? onSelected;
 
-  DSQuickReply({
+  const DSQuickReply({
     Key? key,
     required this.align,
     required this.content,
     this.onSelected,
-    this.hideOptions = false,
-    DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: align == DSAlign.left
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.end,
-      children: [
-        DSTextMessageBubble(
-          text: content['text'],
-          align: align,
-          style: style,
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: _buildQuickReply(),
-        )
-      ],
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: _buildQuickReply(),
     );
   }
 
   Widget _buildQuickReply() {
-    return hideOptions ? const SizedBox() : _buildItems();
+    return _buildItems();
   }
 
   Widget _buildItems() {
@@ -117,7 +98,7 @@ class DSQuickReply extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         scrollDirection: Axis.horizontal,
         child: Wrap(
           spacing: 8.0,
