@@ -8,6 +8,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
@@ -154,39 +155,38 @@ class DSImageMessageBubble extends StatelessWidget {
         child: Obx(
           () {
             return Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.transparent,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(80.0),
                 child: AnimatedOpacity(
                   opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
                   duration: DSUtils.defaultAnimationDuration,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        splashRadius: 20.0,
+                        padding: EdgeInsets.zero,
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(
+                          DSIcons.arrow_left,
+                          color: DSColors.neutralLightSnow,
+                          size: 32.0,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: DSUserAvatar(
+                            text: appBarText,
+                            uri: appBarPhotoUri,
+                          ),
+                          title: DSHeadlineSmallText(
+                            appBarText,
                             color: DSColors.neutralLightSnow,
                           ),
                         ),
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: DSUserAvatar(
-                              text: appBarText,
-                              uri: appBarPhotoUri,
-                            ),
-                            title: DSHeadlineSmallText(
-                              appBarText,
-                              color: DSColors.neutralLightSnow,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
