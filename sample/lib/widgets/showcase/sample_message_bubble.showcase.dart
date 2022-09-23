@@ -117,6 +117,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
+            align: DSAlign.left,
+            url: '',
+            title: 'Hello',
+            text: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
             align: DSAlign.right,
             url: _sampleImages['extraLarge']!,
             title: '2000x1330.png',

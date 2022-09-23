@@ -98,6 +98,8 @@ class DSImageMessageBubble extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ),
                       onError: _controller.setError,
+                      align: align,
+                      style: style,
                     ),
                   ),
                 ),
@@ -202,6 +204,8 @@ class DSImageMessageBubble extends StatelessWidget {
                     child: DSCachedNetworkImageView(
                       url: url,
                       fit: BoxFit.contain,
+                      align: align,
+                      style: style,
                     ),
                   ),
                 ),

@@ -111,6 +111,8 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                         ? DSColors.neutralLightBox
                         : DSColors.neutralDarkDesk,
                 borderRadius: widget.borderRadius,
+                align: widget.align,
+                style: widget.style,
               ),
             Padding(
               padding: _defaultBodyPadding,
