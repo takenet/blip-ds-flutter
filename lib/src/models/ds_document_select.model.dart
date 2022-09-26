@@ -4,7 +4,7 @@ import 'package:blip_ds/src/widgets/chat/typing/ds_document_select.widget.dart';
 /// A Design System document select model used with [DSDocumentSelect], to display a options menu with image
 class DSDocumentSelectModel {
   DSDocumentSelectHeaderModel header;
-  List options;
+  List<DSDocumentSelectOption> options;
 
   DSDocumentSelectModel({
     required this.header,
@@ -12,12 +12,15 @@ class DSDocumentSelectModel {
   });
 
   factory DSDocumentSelectModel.fromJson(Map<String, dynamic> json) {
-    final documentSelectModel = DSDocumentSelectModel(
-      header: DSDocumentSelectHeaderModel.fromJson(json['header']),
-      options: json['options'],
-    );
+    final list = json['options'] as List;
 
-    return documentSelectModel;
+    List<DSDocumentSelectOption> options =
+        list.map((e) => DSDocumentSelectOption.fromJson(e)).toList();
+
+    return DSDocumentSelectModel(
+      header: DSDocumentSelectHeaderModel.fromJson(json['header']),
+      options: options,
+    );
   }
 }
 
@@ -38,4 +41,31 @@ class DSDocumentSelectHeaderModel {
 
     return header;
   }
+}
+
+class DSDocumentSelectOption {
+  DSDocumentSelectValue label;
+  DSDocumentSelectValue? value;
+
+  DSDocumentSelectOption({required this.label, this.value});
+
+  factory DSDocumentSelectOption.fromJson(Map<String, dynamic> json) {
+    return DSDocumentSelectOption(
+      label:
+          DSDocumentSelectValue(json['label']['type'], json['label']['value']),
+      value: json.containsKey('value')
+          ? DSDocumentSelectValue(json['value']['type'], json['value']['value'])
+          : null,
+    );
+  }
+}
+
+class DSDocumentSelectValue {
+  String type;
+  dynamic value;
+
+  DSDocumentSelectValue(
+    this.type,
+    this.value,
+  );
 }

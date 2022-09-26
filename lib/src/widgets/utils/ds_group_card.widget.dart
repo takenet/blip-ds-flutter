@@ -12,7 +12,7 @@ class DSGroupCard extends StatefulWidget {
   final bool sortMessages;
   final Function? onSelected;
   final bool hideOptions;
-  final Function? onOpenLink;
+  final void Function(Map<String, dynamic> payload)? onOpenLink;
 
   /// Creates a new Design System's [DSGroupCard] widget
   const DSGroupCard({

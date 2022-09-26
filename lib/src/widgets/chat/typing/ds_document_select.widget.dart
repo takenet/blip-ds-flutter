@@ -1,13 +1,14 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/models/ds_document_select.model.dart';
 
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:flutter/material.dart';
 
 class DSDocumentSelect extends StatelessWidget {
   final DSAlign align;
-  final List options;
+  final List<DSDocumentSelectOption> options;
   final Function? onSelected;
-  final Function? onOpenLink;
+  final void Function(Map<String, dynamic> payload)? onOpenLink;
 
   const DSDocumentSelect({
     Key? key,
@@ -28,7 +29,7 @@ class DSDocumentSelect extends StatelessWidget {
   }
 
   List<Widget> _buildSelectMenu() {
-    final List<Widget> children = [];
+    final children = <Widget>[];
 
     int count = 0;
 
@@ -38,31 +39,30 @@ class DSDocumentSelect extends StatelessWidget {
       children.add(
         GestureDetector(
           onTap: () {
-            if (option['label']['type'] == DSMessageContentType.webLink) {
+            if (option.label.type == DSMessageContentType.webLink) {
               if (onOpenLink != null) {
-                onOpenLink!(
+                onOpenLink?.call(
                   {
-                    "uri": option['label']['value']['uri'],
-                    "target": option['label']['value']['target'],
-                    "title": option['label']['value']['title'] ??
-                        option['label']['value']['text'],
+                    "uri": option.label.value['uri'],
+                    "target": option.label.value['target'],
+                    "title": option.label.value['title'] ??
+                        option.label.value['text'],
                   },
                 );
               }
             } else if (onSelected != null) {
               Map<String, dynamic> payload = {};
 
-              if (option['value'] != null) {
-                String type = option['value']['type'];
-                payload = {"type": type, "content": option['value']['value']};
-              } else {
+              if (option.value != null) {
                 payload = {
-                  "type": 'text/plain',
-                  "content": option['label']['value']
+                  "type": option.value!.type,
+                  "content": option.value!.value
                 };
+              } else {
+                payload = {"type": 'text/plain', "content": option.label.value};
               }
 
-              onSelected!(option['label']['value'], payload);
+              onSelected?.call(option.label.value, payload);
             }
           },
           child: Container(
@@ -72,9 +72,9 @@ class DSDocumentSelect extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DSHeadlineSmallText(
-                  text: option['label']['type'] == 'text/plain'
-                      ? option['label']['value']
-                      : option['label']['value']['text'],
+                  text: option.label.type == 'text/plain'
+                      ? option.label.value
+                      : option.label.value['text'],
                   color: align == DSAlign.left
                       ? DSColors.primaryNight
                       : DSColors.primaryLight,

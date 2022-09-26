@@ -14,7 +14,7 @@ class DSCard extends StatelessWidget {
   final String? customerName;
   final Function? onSelected;
   final bool hideOptions;
-  final Function? onOpenLink;
+  final void Function(Map<String, dynamic> payload)? onOpenLink;
 
   /// Creates a new [DSCard] widget
   const DSCard({
@@ -66,10 +66,9 @@ class DSCard extends StatelessWidget {
     return DSImageMessageBubble(
       align: align,
       url: documentSelectModel.header.mediaLink.uri,
-      imageTitle: documentSelectModel.header.mediaLink.title!,
-      imageText: documentSelectModel.header.mediaLink.text!,
+      title: documentSelectModel.header.mediaLink.title!,
+      text: documentSelectModel.header.mediaLink.text!,
       appBarText: customerName ?? '',
-      //TODO: check if selectOptions is null/empty
       selectOptions: documentSelectModel.options,
       showSelect: true,
       onSelected: onSelected,

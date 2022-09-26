@@ -1,5 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
+import 'package:blip_ds/src/models/ds_document_select.model.dart';
 import 'package:blip_ds/src/widgets/chat/typing/ds_document_select.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,10 @@ class DSImageMessageBubble extends StatelessWidget {
   final String? title;
   final String? text;
   final String appBarText;
-  final dynamic selectOptions;
+  final List<DSDocumentSelectOption>? selectOptions;
   final bool showSelect;
   final Function? onSelected;
-  final Function? onOpenLink;
+  final void Function(Map<String, dynamic> payload)? onOpenLink;
 
   final DSImageMessageBubbleController _controller;
 
@@ -62,6 +63,7 @@ class DSImageMessageBubble extends StatelessWidget {
                   onTap: () {
                     if (!_controller.error.value) {
                       _controller.appBarVisible.value = false;
+
                       showGeneralDialog(
                         context: context,
                         barrierDismissible: false,
@@ -120,7 +122,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 if (showSelect)
                   DSDocumentSelect(
                     align: align,
-                    options: selectOptions,
+                    options: selectOptions!,
                     onSelected: onSelected,
                     onOpenLink: onOpenLink,
                   ),
