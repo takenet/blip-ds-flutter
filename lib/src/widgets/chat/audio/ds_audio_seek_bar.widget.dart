@@ -52,7 +52,9 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
       child: SliderTheme(
         data: sliderThemeData.copyWith(
           thumbShape: HiddenThumbComponentShape(),
-          activeTrackColor: Colors.red, //TODO: Buffer's color
+          activeTrackColor: widget.style.isLightBubbleBackground(widget.align)
+              ? DSColors.neutralMediumWave
+              : DSColors.neutralMediumElephant,
           inactiveTrackColor: widget.style.isLightBubbleBackground(widget.align)
               ? DSColors.neutralDarkRooftop
               : DSColors.neutralLightBox,

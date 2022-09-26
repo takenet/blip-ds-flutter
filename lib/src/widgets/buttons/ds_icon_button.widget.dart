@@ -12,7 +12,7 @@ class DSIconButton extends InkWell {
     required Widget icon,
     bool isLoading = false,
   }) : super(
-          onTap: onPressed,
+          onTap: isLoading ? null : onPressed,
           child: SizedBox.fromSize(
             size: size,
             child: Center(
