@@ -8,16 +8,19 @@ class SampleToastShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final toast = DSToastService(
-      title: 'title',
-      text: 'text',
-      firstButton: DSPrimaryButton(
-        onPressed: (() => Navigator.of(context).pop()),
-        label: 'firstButton',
-      ),
-      secondButton: DSSecondaryButton(
-        onPressed: (() => Navigator.of(context).pop()),
-        label: 'secondButton',
-      ),
+      title: 'Título do toast',
+      text:
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+      context: context,
+    );
+
+    final toastAction = DSToastService(
+      title: 'Título do toast com action',
+      text:
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor esdfa sdfas dasgdrf dfsh sdfgh df',
+      actionType: DSActionType.button,
+      buttonText: 'Action',
+      onPressedButton: () => Navigator.pop(context),
       context: context,
     );
 
@@ -28,7 +31,7 @@ class SampleToastShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => toast.success(),
+              onPressed: () => toastAction.success(),
               label: 'Success',
             ),
             DSPrimaryButton(
