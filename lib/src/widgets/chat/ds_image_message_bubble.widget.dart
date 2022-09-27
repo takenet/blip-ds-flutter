@@ -14,7 +14,7 @@ class DSImageMessageBubble extends StatelessWidget {
   final String? title;
   final String? text;
   final String appBarText;
-  final List<DSDocumentSelectOption>? selectOptions;
+  final List<DSDocumentSelectOption> selectOptions;
   final bool showSelect;
   final Function? onSelected;
   final void Function(Map<String, dynamic> payload)? onOpenLink;
@@ -29,7 +29,7 @@ class DSImageMessageBubble extends StatelessWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.text,
     this.title,
-    this.selectOptions,
+    this.selectOptions = const [],
     this.showSelect = false,
     this.onSelected,
     this.onOpenLink,
@@ -122,7 +122,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 if (showSelect)
                   DSDocumentSelect(
                     align: align,
-                    options: selectOptions!,
+                    options: selectOptions,
                     onSelected: onSelected,
                     onOpenLink: onOpenLink,
                   ),
