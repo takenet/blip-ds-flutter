@@ -41,7 +41,8 @@ class DSSelectMenu extends StatelessWidget {
         .map((doc) => DSSelectOptionModel.fromJson(doc))
         .toList();
 
-    final defaultBubbleColors = style.isDefaultBubbleBackground(align);
+    final isDefaultBubbleColors = style.isDefaultBubbleBackground(align);
+    final isLightBubbleBackground = style.isLightBubbleBackground(align);
 
     for (var option in options) {
       count++;
@@ -74,11 +75,11 @@ class DSSelectMenu extends StatelessWidget {
               children: [
                 DSHeadlineSmallText(
                   option.text,
-                  color: style.isLightBubbleBackground(align)
-                      ? defaultBubbleColors
+                  color: isLightBubbleBackground
+                      ? isDefaultBubbleColors
                           ? DSColors.primaryNight
                           : DSColors.neutralDarkCity
-                      : defaultBubbleColors
+                      : isDefaultBubbleColors
                           ? DSColors.primaryLight
                           : DSColors.neutralLightSnow,
                 ),
@@ -93,11 +94,11 @@ class DSSelectMenu extends StatelessWidget {
           Divider(
             height: 30.0,
             thickness: 1.0,
-            color: style.isLightBubbleBackground(align)
-                ? defaultBubbleColors
+            color: isLightBubbleBackground
+                ? isDefaultBubbleColors
                     ? DSColors.neutralMediumWave
                     : DSColors.neutralDarkCity
-                : defaultBubbleColors
+                : isDefaultBubbleColors
                     ? DSColors.neutralDarkRooftop
                     : DSColors.neutralLightSnow,
           ),
