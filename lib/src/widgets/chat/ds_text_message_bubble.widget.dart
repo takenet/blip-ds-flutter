@@ -40,6 +40,15 @@ class DSTextMessageBubble extends StatefulWidget {
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   final _controller = DSTextMessageBubbleController();
+  late final bool _isDefaultBubbleColors;
+  late final bool _isLightBubbleBackground;
+
+  _DSTextMessageBubbleState() {
+    _isDefaultBubbleColors =
+        widget.style.isDefaultBubbleBackground(widget.align);
+    _isLightBubbleBackground =
+        widget.style.isLightBubbleBackground(widget.align);
+  }
 
   final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
     vertical: 8.0,
@@ -96,9 +105,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return LayoutBuilder(
       builder: (_, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
-        final defaultBubbleColors =
-            widget.style.isDefaultBubbleBackground(widget.align);
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -106,10 +112,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
               DSUrlPreview(
                 url: url,
                 foregroundColor: foregroundColor,
-                backgroundColor:
-                    widget.style.isLightBubbleBackground(widget.align)
-                        ? DSColors.neutralLightBox
-                        : DSColors.neutralDarkDesk,
+                backgroundColor: _isLightBubbleBackground
+                    ? DSColors.neutralLightBox
+                    : DSColors.neutralDarkDesk,
                 borderRadius: widget.borderRadius,
                 align: widget.align,
                 style: widget.style,
@@ -121,14 +126,13 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 children: [
                   DSBodyText.rich(
                     textSpan,
-                    linkColor:
-                        widget.style.isLightBubbleBackground(widget.align)
-                            ? defaultBubbleColors
-                                ? DSColors.primaryNight
-                                : DSColors.neutralDarkCity
-                            : defaultBubbleColors
-                                ? DSColors.primaryLight
-                                : DSColors.neutralLightSnow,
+                    linkColor: _isLightBubbleBackground
+                        ? _isDefaultBubbleColors
+                            ? DSColors.primaryNight
+                            : DSColors.neutralDarkCity
+                        : _isDefaultBubbleColors
+                            ? DSColors.primaryLight
+                            : DSColors.neutralLightSnow,
                     overflow: overflow,
                     maxLines: textPainter.maxLines,
                   ),
@@ -150,9 +154,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   }
 
   Widget _buildShowMore() {
-    final defaultBubbleColors =
-        widget.style.isDefaultBubbleBackground(widget.align);
-
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: GestureDetector(
@@ -160,11 +161,11 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         child: DSBodyText(
           // TODO: Need localized translate.
           'Mostrar mais',
-          color: widget.style.isLightBubbleBackground(widget.align)
-              ? defaultBubbleColors
+          color: _isLightBubbleBackground
+              ? _isDefaultBubbleColors
                   ? DSColors.primaryNight
                   : DSColors.neutralDarkCity
-              : defaultBubbleColors
+              : _isDefaultBubbleColors
                   ? DSColors.primaryLight
                   : DSColors.neutralLightSnow,
           decoration: TextDecoration.underline,

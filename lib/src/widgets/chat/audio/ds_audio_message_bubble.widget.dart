@@ -60,8 +60,10 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
 
   @override
   Widget build(BuildContext context) {
-    final defaultBubbleColors =
+    final isDefaultBubbleColors =
         widget.style.isDefaultBubbleBackground(widget.align);
+    final isLightBubbleBackground =
+        widget.style.isLightBubbleBackground(widget.align);
 
     return DSMessageBubble(
       padding: EdgeInsets.zero,
@@ -79,14 +81,14 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
                 text:
                     "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
                 onTap: _controller.setAudioSpeed,
-                borderColor: widget.style.isLightBubbleBackground(widget.align)
-                    ? defaultBubbleColors
+                borderColor: isLightBubbleBackground
+                    ? isDefaultBubbleColors
                         ? DSColors.neutralMediumSilver
                         : DSColors.neutralDarkCity
-                    : defaultBubbleColors
+                    : isDefaultBubbleColors
                         ? DSColors.disabledText
                         : DSColors.neutralLightSnow,
-                color: widget.style.isLightBubbleBackground(widget.align)
+                color: isLightBubbleBackground
                     ? DSColors.neutralDarkCity
                     : DSColors.neutralLightSnow,
               ),

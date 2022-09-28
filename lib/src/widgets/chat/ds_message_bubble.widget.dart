@@ -69,15 +69,15 @@ class DSMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rightAlign = align == DSAlign.right;
+    final isRightAlign = align == DSAlign.right;
     List<Widget> children = [const Spacer(), _messageContainer()];
 
     return Column(
       children: [
         Row(
           mainAxisAlignment:
-              rightAlign ? MainAxisAlignment.end : MainAxisAlignment.start,
-          children: rightAlign ? children : children.reversed.toList(),
+              isRightAlign ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: isRightAlign ? children : children.reversed.toList(),
         ),
       ],
     );

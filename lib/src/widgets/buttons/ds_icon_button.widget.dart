@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
 
-const size = Size(44, 44);
+const _kSize = Size(44.0, 44.0);
 
 class DSIconButton extends InkWell {
   DSIconButton({
@@ -14,7 +14,7 @@ class DSIconButton extends InkWell {
   }) : super(
           onTap: isLoading ? null : onPressed,
           child: SizedBox.fromSize(
-            size: size,
+            size: _kSize,
             child: Center(
               child: isLoading
                   ? const DSFadingCircleLoading(
