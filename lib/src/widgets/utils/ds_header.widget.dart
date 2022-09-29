@@ -14,6 +14,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Widget? leading;
   final bool? canPop;
+  final void Function()? onBackButtonPressed;
 
   const DSHeader({
     Key? key,
@@ -24,6 +25,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leading,
     this.canPop,
+    this.onBackButtonPressed,
   }) : super(key: key);
 
   @override
@@ -76,7 +78,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 splashRadius: 17,
                 padding: EdgeInsets.zero,
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: onBackButtonPressed ?? Navigator.of(context).pop,
                 iconSize: 28,
                 icon: const Icon(
                   DSIcons.arrow_left,
@@ -87,5 +89,5 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   bool _canPop(BuildContext context) =>
-      canPop ?? Navigator.of(context).canPop();
+      onBackButtonPressed != null || (canPop ?? Navigator.of(context).canPop());
 }

@@ -43,7 +43,10 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   late final bool _isDefaultBubbleColors;
   late final bool _isLightBubbleBackground;
 
-  _DSTextMessageBubbleState() {
+  @override
+  void initState() {
+    super.initState();
+
     _isDefaultBubbleColors =
         widget.style.isDefaultBubbleBackground(widget.align);
     _isLightBubbleBackground =
