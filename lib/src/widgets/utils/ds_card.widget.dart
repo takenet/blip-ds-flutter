@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
 import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
-import 'package:flutter/material.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -84,8 +85,16 @@ class DSCard extends StatelessWidget {
         url: content['uri'],
         align: align,
         appBarText: customerName ?? '',
-        imageText: content['text'],
-        imageTitle: content['title'],
+        text: content['text'],
+        title: content['title'],
+        borderRadius: borderRadius,
+      );
+    } else if (contentType.contains('video')) {
+      return DSVideoMessageBubble(
+        url: content['uri'],
+        align: align,
+        appBarText: customerName ?? '',
+        text: content['text'],
         borderRadius: borderRadius,
       );
     } else {

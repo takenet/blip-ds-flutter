@@ -1,3 +1,17 @@
+## 0.0.14
+
+* Added suport for Quick Reply and Select
+* Added suport for Video messages
+* Image message bubble size fixe
+
+## 0.0.13
+
+* Added delivery report & timestamp message widget
+* Added DSHeader 
+* Added DSGroupCard 
+* Added DSRadio and DSRadioTile
+* Added link preview to messages bubbles
+
 ## 0.0.12
 
 * Add button styles
