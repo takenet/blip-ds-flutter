@@ -55,6 +55,10 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSTextMessageBubble(
+            text: _longText,
+            align: DSAlign.right,
+          ),
           const DSTextMessageBubble(
             text:
                 'Exemplo de preview completo e borda "reta": https://www.take.net/',
@@ -110,7 +114,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.right,
           ),
           DSImageMessageBubble(
-            align: DSAlign.right,
+            align: DSAlign.left,
             url: '',
             title: 'Hello',
             text: 'My picture',
@@ -119,7 +123,24 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSImageMessageBubble(
             align: DSAlign.right,
             url: _sampleImages['extraLarge']!,
-            title: '2000x1330.png',
+            title: 'teste.png',
+            text: 'Nice picture',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImages['small']!,
+            text: 'https://www.take.net $_longText',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImages['medium']!,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['extraSmall']!,
             text: _longText,
             appBarText: 'Unknown User',
           ),

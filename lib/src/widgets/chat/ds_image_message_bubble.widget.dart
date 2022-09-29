@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
-
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
+import 'package:blip_ds/src/widgets/chat/ds_show_more_text.widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -47,69 +46,77 @@ class DSImageMessageBubble extends StatelessWidget {
                     ? DSUtils.bubbleMinSize
                     : data.image.width.toDouble();
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (!_controller.error.value) {
-                      _controller.appBarVisible.value = false;
-                      showGeneralDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        transitionDuration: DSUtils.defaultAnimationDuration,
-                        transitionBuilder: (_, animation, __, child) =>
-                            _buildTransition(animation, child),
-                        pageBuilder: (context, _, __) => _buildPage(context),
-                      );
-                    }
-                  },
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: DSUtils.bubbleMaxSize,
-                    ),
-                    child: DSCachedNetworkImageView(
-                      fit: BoxFit.cover,
-                      width: width,
-                      url: url,
-                      placeholder: (_, __) => const Padding(
-                        padding: EdgeInsets.all(80.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                      onError: _controller.setError,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: width,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DSCaptionText(
-                          text: title,
-                          color: align == DSAlign.right
-                              ? DSColors.neutralLightSnow
-                              : DSColors.neutralDarkCity,
+            return LayoutBuilder(
+              builder: (_, constraints) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (!_controller.error.value) {
+                          _controller.appBarVisible.value = false;
+
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            transitionDuration:
+                                DSUtils.defaultAnimationDuration,
+                            transitionBuilder: (_, animation, __, child) =>
+                                _buildTransition(animation, child),
+                            pageBuilder: (context, _, __) =>
+                                _buildPage(context),
+                          );
+                        }
+                      },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                          maxHeight: DSUtils.bubbleMaxSize,
                         ),
-                        if (text != null) ...[
-                          const SizedBox(
-                            height: 6.0,
+                        child: DSCachedNetworkImageView(
+                          fit: BoxFit.cover,
+                          width: width,
+                          url: url,
+                          placeholder: (_, __) => const Padding(
+                            padding: EdgeInsets.all(80.0),
+                            child: CircularProgressIndicator(),
                           ),
-                          DSBodyText(
-                            overflow: TextOverflow.clip,
-                            text: text!,
-                            color: align == DSAlign.right
-                                ? DSColors.neutralLightSnow
-                                : DSColors.neutralDarkCity,
-                          ),
-                        ],
-                      ],
+                          onError: _controller.setError,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                    SizedBox(
+                      width: width,
+                      child: Padding(
+                        padding: title != null || text != null
+                            ? const EdgeInsets.all(12.0)
+                            : EdgeInsets.zero,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (title != null)
+                              DSCaptionText(
+                                text: title,
+                                color: align == DSAlign.right
+                                    ? DSColors.neutralLightSnow
+                                    : DSColors.neutralDarkCity,
+                              ),
+                            if (text != null) ...[
+                              const SizedBox(
+                                height: 6.0,
+                              ),
+                              DSShowMoreText(
+                                align: align,
+                                text: text!,
+                                maxWidth: constraints.maxWidth,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
           }
           return const SizedBox();
@@ -118,7 +125,8 @@ class DSImageMessageBubble extends StatelessWidget {
     );
   }
 
-  Widget _buildTransition(Animation<double> animation, Widget? child) {
+  Widget _buildTransition(
+      final Animation<double> animation, final Widget? child) {
     return FadeTransition(
       opacity: animation,
       child: ScaleTransition(
@@ -128,7 +136,7 @@ class DSImageMessageBubble extends StatelessWidget {
     );
   }
 
-  Widget _buildPage(BuildContext context) {
+  Widget _buildPage(final BuildContext context) {
     return Container(
       color: Colors.black,
       child: SafeArea(
