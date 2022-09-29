@@ -29,11 +29,12 @@ class DSToastService {
   final Color titleColor = DSColors.neutralDarkCity;
   final Color textColor = DSColors.neutralDarkCity;
   final Color shadowColor = const Color(0xFF202C44).withOpacity(0.24);
-  int animationDuration = 200; // miliseconds
+  int animationDuration = 300; // miliseconds
 
-  Control controlAnimation = Control.play;
+  static Control? _controlAnimation = Control.stop;
 
   StateSetter? state;
+  static Timer? timeToastDuration;
 
   /// Creates a new Design System's [Dialog]
   DSToastService({
@@ -53,22 +54,24 @@ class DSToastService {
   void _show(final DSToastType type) async {
     _prepareToast(type);
 
-    if (toastTimer == null || !toastTimer!.isActive) {
-      _overlayEntry = createOverlayEntry(
-        context: context,
-        message: message,
-        animationDuration: animationDuration,
-        toastDuration: toastDuration,
-        icon: icon,
-        mainButton: mainButton,
-      );
+    //if (toastTimer == null || !toastTimer!.isActive) {
+    _overlayEntry = createOverlayEntry(
+      context: context,
+      message: message,
+      animationDuration: animationDuration,
+      toastDuration: toastDuration,
+      icon: icon,
+      mainButton: mainButton,
+    );
 
-      Overlay.of(context)!.insert(_overlayEntry!);
+    Overlay.of(context)!.insert(_overlayEntry!);
 
-      //Control.play;
-      //Control.playReverse;
+    _controlAnimation = Control.playFromStart;
 
-      /*
+    //Control.play;
+    //Control.playReverse;
+
+    /*
       toastTimer = Timer(
         Duration(
           milliseconds: (toastDuration * 1000) + (animationDuration * 2),
@@ -80,13 +83,15 @@ class DSToastService {
         },
       );
       */
-    }
+    //}
   }
 
   static close() {
     if (_overlayEntry != null) {
       _overlayEntry!.remove();
       _overlayEntry = null;
+      if (timeToastDuration!.isActive) timeToastDuration!.cancel();
+      //_controlAnimation = Control.stop;
     }
   }
 
@@ -107,9 +112,10 @@ class DSToastService {
           key: const Key('key'),
           onDismissed: (direction) {
             if (_overlayEntry != null) {
+              //_controlAnimation = Control.stop;
               close();
             }
-            Control.stop;
+            //Control.stop;
           },
           child: _animeCard(),
           //ToastAnimation(
@@ -249,7 +255,7 @@ class DSToastService {
             child: IconButton(
               onPressed: () {
                 state!(() {
-                  controlAnimation = Control.playReverse;
+                  _controlAnimation = Control.playReverse;
                 });
               },
               icon: const Icon(Icons.close),
@@ -258,7 +264,12 @@ class DSToastService {
         : Container(
             padding: const EdgeInsets.only(top: 10.0, right: 10.0),
             child: DSTertiaryButton(
-              onPressed: () => onPressedButton!(),
+              onPressed: () {
+                onPressedButton!();
+                state!(() {
+                  _controlAnimation = Control.playReverse;
+                });
+              },
               label: buttonText,
             ),
           );
@@ -271,25 +282,25 @@ class DSToastService {
 
   /// Shows a [DSDialogType.system] dialog box type
   void system() {
-    //close();
+    close();
     _show(DSToastType.system);
   }
 
   /// Shows a [DSDialogType.error] dialog box type
   void error() {
-    //close();
+    close();
     _show(DSToastType.error);
   }
 
   /// Shows a [DSDialogType.error] dialog box type
   void success() {
-    //close();
+    close();
     _show(DSToastType.success);
   }
 
   /// Shows a [DSDialogType.error] dialog box type
   void notification() {
-    //close();
+    close();
     _show(DSToastType.notification);
   }
 
@@ -301,8 +312,8 @@ class DSToastService {
         builder: (BuildContext context, StateSetter mystate) {
       state = mystate;
       return CustomAnimationBuilder<double>(
-        duration: const Duration(seconds: 1),
-        control: controlAnimation,
+        duration: Duration(milliseconds: animationDuration),
+        control: _controlAnimation!,
         tween: Tween(begin: inicio, end: fim),
         builder: (context, value, child) {
           return Transform.translate(
@@ -312,17 +323,32 @@ class DSToastService {
         },
         child: _cardToast(),
         onCompleted: () async {
-          //Control.playReverseFromEnd;
-          //await Future.delayed(const Duration(milliseconds: 3000));
-          print('TERMINOU');
-          //controlAnimation
+          if (toastDuration > 0) {
+            // futureDelay =
+            await Future.delayed(Duration(seconds: toastDuration));
+            timeToastDuration = Timer(Duration(seconds: toastDuration), () {});
 
-          if (controlAnimation == Control.playReverse) {
             state!(() {
-              controlAnimation == Control.stop;
-              //close();
+              if (_controlAnimation == Control.playFromStart) {
+                _controlAnimation = Control.playReverse;
+              }
             });
+          } else {
+            //state!(() {
+            if (_controlAnimation == Control.playReverse) {
+              _controlAnimation = Control.stop;
+              //close();
+            }
+            //});
           }
+          //state!(() {
+          //  if (_controlAnimation == Control.playFromStart) {
+          //    _controlAnimation = Control.playReverse;
+          //  } else if (_controlAnimation == Control.playReverse) {
+          //    _controlAnimation = Control.stop;
+          //    close();
+          //  }
+          //});
         },
       );
     });

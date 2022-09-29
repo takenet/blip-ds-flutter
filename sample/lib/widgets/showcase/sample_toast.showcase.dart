@@ -12,7 +12,7 @@ class SampleToastShowcase extends StatelessWidget {
       message:
           'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
       context: context,
-      toastDuration: 3,
+      toastDuration: 2,
     );
 
     final toastAction = DSToastService(
@@ -20,9 +20,17 @@ class SampleToastShowcase extends StatelessWidget {
       message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit,',
       actionType: DSActionType.button,
       buttonText: 'Action',
-      onPressedButton: () => DSToastService.close(),
+      onPressedButton: () => print('FECHOU'),
       context: context,
-      toastDuration: 10,
+      toastDuration: 2,
+    );
+
+    final toastFechar = DSToastService(
+      title: 'Título do toast',
+      message:
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+      context: context,
+      toastDuration: 0,
     );
 
     return Column(
@@ -57,6 +65,16 @@ class SampleToastShowcase extends StatelessWidget {
             DSPrimaryButton(
               onPressed: () => toast.warning(),
               label: 'Warning',
+            ),
+          ],
+        ),
+        const SizedBox(height: 20.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DSPrimaryButton(
+              onPressed: () => toastFechar.system(),
+              label: 'System fechar',
             ),
           ],
         ),
