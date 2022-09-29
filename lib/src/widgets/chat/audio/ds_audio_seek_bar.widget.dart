@@ -10,8 +10,9 @@ class DSAudioSeekBar extends StatefulWidget {
   final VoidCallback? onChangeEnd;
   final VoidCallback? onChangeStart;
   final DSAlign align;
+  final DSMessageBubbleStyle style;
 
-  const DSAudioSeekBar({
+  DSAudioSeekBar({
     Key? key,
     required this.duration,
     required this.position,
@@ -20,7 +21,9 @@ class DSAudioSeekBar extends StatefulWidget {
     this.onChangeEnd,
     this.onChangeStart,
     required this.align,
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   DSAudioSeekBarState createState() => DSAudioSeekBarState();
@@ -45,12 +48,14 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
 
   Widget _bufferSlider() {
     return Positioned.fill(
-      bottom: 12.0,
+      bottom: 8.0,
       child: SliderTheme(
         data: sliderThemeData.copyWith(
           thumbShape: HiddenThumbComponentShape(),
-          activeTrackColor: Colors.red, //TODO: Buffer's color
-          inactiveTrackColor: widget.align == DSAlign.right
+          activeTrackColor: widget.style.isLightBubbleBackground(widget.align)
+              ? DSColors.neutralMediumWave
+              : DSColors.neutralMediumElephant,
+          inactiveTrackColor: widget.style.isLightBubbleBackground(widget.align)
               ? DSColors.neutralDarkRooftop
               : DSColors.neutralLightBox,
         ),
@@ -69,16 +74,16 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
 
   Widget _slider() {
     return Positioned.fill(
-      bottom: 12.0,
+      bottom: 8.0,
       child: SliderTheme(
         data: sliderThemeData.copyWith(
           inactiveTrackColor: Colors.transparent,
-          thumbColor: widget.align == DSAlign.right
-              ? DSColors.neutralLightSnow
-              : DSColors.neutralDarkRooftop,
-          activeTrackColor: widget.align == DSAlign.right
-              ? DSColors.primaryLight
-              : DSColors.primaryNight,
+          thumbColor: widget.style.isLightBubbleBackground(widget.align)
+              ? DSColors.neutralDarkRooftop
+              : DSColors.neutralLightSnow,
+          activeTrackColor: widget.style.isLightBubbleBackground(widget.align)
+              ? DSColors.primaryNight
+              : DSColors.primaryLight,
           thumbShape: const RoundSliderThumbShape(
             enabledThumbRadius: 7.0,
           ),
@@ -110,17 +115,17 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
 
   Widget _audioLabel(final Duration value, final DSAlign align) {
     return Positioned(
-      right: align == DSAlign.right ? 22.0 : null,
-      left: align == DSAlign.left ? 22.0 : null,
-      bottom: 10.0,
+      right: align == DSAlign.right ? 23.0 : null,
+      left: align == DSAlign.left ? 24.0 : null,
+      bottom: 6.0,
       child: DSCaptionText(
-        text: RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                 .firstMatch("$value")
                 ?.group(1) ??
             "$value",
-        color: widget.align == DSAlign.right
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralDarkCity,
+        color: widget.style.isLightBubbleBackground(widget.align)
+            ? DSColors.neutralDarkCity
+            : DSColors.neutralLightSnow,
       ),
     );
   }

@@ -11,6 +11,8 @@ class DSUrlPreview extends StatelessWidget {
   final Color foregroundColor;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets bodyPadding;
+  final DSAlign align;
+  final DSMessageBubbleStyle style;
 
   final _controller = DSUrlPreviewController();
 
@@ -25,7 +27,9 @@ class DSUrlPreview extends StatelessWidget {
       vertical: 8.0,
       horizontal: 16.0,
     ),
-  });
+    required this.align,
+    DSMessageBubbleStyle? style,
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +100,8 @@ class DSUrlPreview extends StatelessWidget {
       url: path,
       height: 150.0,
       width: double.infinity,
+      align: align,
+      style: style,
     );
   }
 
@@ -110,13 +116,13 @@ class DSUrlPreview extends StatelessWidget {
         children: [
           if (title?.isNotEmpty ?? false)
             DSBodyText(
-              text: title,
+              title,
               color: foregroundColor,
               shouldLinkify: false,
             ),
           if (description?.isNotEmpty ?? false)
             DSCaptionSmallText(
-              text: description,
+              description,
               color: foregroundColor,
               maxLines: 3,
               shouldLinkify: false,

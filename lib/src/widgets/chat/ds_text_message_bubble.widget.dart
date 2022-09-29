@@ -1,8 +1,17 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/controllers/chat/ds_text_message_bubble.controller.dart';
 import 'package:blip_ds/src/widgets/chat/ds_select_menu.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../utils/ds_linkify.util.dart';
+import '../texts/ds_body_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
+import 'ds_url_preview.widget.dart';
 
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
@@ -10,9 +19,10 @@ class DSTextMessageBubble extends StatefulWidget {
   final List<DSBorderRadius> borderRadius;
   final dynamic selectContent;
   final bool showSelect;
-  final Function? onSelected;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final DSMessageBubbleStyle style;
 
-  const DSTextMessageBubble({
+  DSTextMessageBubble({
     Key? key,
     required this.text,
     required this.align,
@@ -20,7 +30,9 @@ class DSTextMessageBubble extends StatefulWidget {
     this.selectContent,
     this.showSelect = false,
     this.onSelected,
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   State<DSTextMessageBubble> createState() => _DSTextMessageBubbleState();
@@ -28,6 +40,15 @@ class DSTextMessageBubble extends StatefulWidget {
 
 class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   final _controller = DSTextMessageBubbleController();
+  late final bool _isDefaultBubbleColors;
+  late final bool _isLightBubbleBackground;
+
+  _DSTextMessageBubbleState() {
+    _isDefaultBubbleColors =
+        widget.style.isDefaultBubbleBackground(widget.align);
+    _isLightBubbleBackground =
+        widget.style.isLightBubbleBackground(widget.align);
+  }
 
   final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
     vertical: 8.0,
@@ -48,6 +69,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
+      style: widget.style,
       child: Obx(
         () => _buildText(),
       ),
@@ -60,9 +82,9 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
     final maxLines = !_controller.shouldShowFullText.value ? 12 : null;
 
-    final foregroundColor = widget.align == DSAlign.right
-        ? DSColors.neutralLightSnow
-        : DSColors.neutralDarkCity;
+    final foregroundColor = widget.style.isLightBubbleBackground(widget.align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
 
     final url = DSLinkify.getFirstUrlFromText(widget.text);
 
@@ -83,7 +105,6 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
     return LayoutBuilder(
       builder: (_, constraints) {
         textPainter.layout(maxWidth: constraints.maxWidth);
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -91,10 +112,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
               DSUrlPreview(
                 url: url,
                 foregroundColor: foregroundColor,
-                backgroundColor: widget.align == DSAlign.right
-                    ? DSColors.neutralDarkDesk
-                    : DSColors.neutralLightBox,
+                backgroundColor: _isLightBubbleBackground
+                    ? DSColors.neutralLightBox
+                    : DSColors.neutralDarkDesk,
                 borderRadius: widget.borderRadius,
+                align: widget.align,
+                style: widget.style,
               ),
             Padding(
               padding: _defaultBodyPadding,
@@ -102,10 +125,14 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DSBodyText.rich(
-                    textSpan: textSpan,
-                    linkColor: widget.align == DSAlign.right
-                        ? DSColors.primaryLight
-                        : DSColors.primaryNight,
+                    textSpan,
+                    linkColor: _isLightBubbleBackground
+                        ? _isDefaultBubbleColors
+                            ? DSColors.primaryNight
+                            : DSColors.neutralDarkCity
+                        : _isDefaultBubbleColors
+                            ? DSColors.primaryLight
+                            : DSColors.neutralLightSnow,
                     overflow: overflow,
                     maxLines: textPainter.maxLines,
                   ),
@@ -118,6 +145,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
                 align: widget.align,
                 content: widget.selectContent,
                 onSelected: widget.onSelected,
+                style: widget.style,
               ),
           ],
         );
@@ -132,10 +160,14 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
         onTap: _controller.showMoreOnTap,
         child: DSBodyText(
           // TODO: Need localized translate.
-          text: 'Mostrar mais',
-          color: widget.align == DSAlign.right
-              ? DSColors.primaryLight
-              : DSColors.primaryNight,
+          'Mostrar mais',
+          color: _isLightBubbleBackground
+              ? _isDefaultBubbleColors
+                  ? DSColors.primaryNight
+                  : DSColors.neutralDarkCity
+              : _isDefaultBubbleColors
+                  ? DSColors.primaryLight
+                  : DSColors.neutralLightSnow,
           decoration: TextDecoration.underline,
         ),
       ),

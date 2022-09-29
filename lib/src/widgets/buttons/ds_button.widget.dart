@@ -1,5 +1,8 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
+
+const _kMaximumSize = Size(44.0, 44.0);
 
 /// A container that has some default properties which should be extended by others Design System's [ButtonStyleButton].
 class DSButton extends StatelessWidget {
@@ -7,11 +10,12 @@ class DSButton extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
   final Color? borderColor;
-  final Icon? leadingIcon;
+  final Widget? leadingIcon;
   final String? label;
-  final Icon? trailingIcon;
+  final Widget? trailingIcon;
   final bool isEnabled;
   final bool isLoading;
+  final DSButtonShape shape;
 
   final List<Widget> _contentList = [];
 
@@ -30,6 +34,7 @@ class DSButton extends StatelessWidget {
     this.borderColor,
     this.isEnabled = true,
     this.isLoading = false,
+    this.shape = DSButtonShape.rectangular,
   });
 
   @override
@@ -39,20 +44,25 @@ class DSButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: isEnabled && !isLoading ? onPressed : null,
       style: OutlinedButton.styleFrom(
-        padding: EdgeInsets.symmetric(
-          vertical: _isIconOnly() ? 8.0 : 10.0,
-          horizontal: _isIconOnly() ? 10.0 : 16.0,
-        ),
+        padding: shape == DSButtonShape.rounded
+            ? const EdgeInsets.all(12.0)
+            : EdgeInsets.symmetric(
+                vertical: _isIconOnly() ? 8.0 : 10.0,
+                horizontal: _isIconOnly() ? 10.0 : 16.0,
+              ),
         minimumSize: const Size(
           44.0,
           44.0,
         ),
+        maximumSize: shape == DSButtonShape.rounded ? _kMaximumSize : null,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: shape == DSButtonShape.rounded
+            ? const CircleBorder()
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
         side: BorderSide(
           color: borderColor ?? backgroundColor,
         ),
@@ -99,7 +109,7 @@ class DSButton extends StatelessWidget {
       _contentList.add(
         Flexible(
           child: DSButtonText(
-            text: label!,
+            label!,
             color: foregroundColor,
           ),
         ),

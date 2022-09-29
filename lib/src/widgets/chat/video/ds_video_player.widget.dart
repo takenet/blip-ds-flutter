@@ -39,8 +39,11 @@ class DSVideoPlayer extends StatelessWidget {
                   Center(
                     child: controller.isLoading.value
                         ? const CircularProgressIndicator()
-                        : Chewie(
-                            controller: controller.chewieController!,
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Chewie(
+                              controller: controller.chewieController!,
+                            ),
                           ),
                   ),
                   _appBar(context),
@@ -55,39 +58,33 @@ class DSVideoPlayer extends StatelessWidget {
 
   Widget _appBar(BuildContext context) {
     return SafeArea(
-      child: Container(
-        width: MediaQuery.of(context).size.width - 35.0,
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 45.0,
-              child: IconButton(
-                padding: const EdgeInsets.all(8.0),
-                splashRadius: 30.0,
-                onPressed: () {
-                  Get.delete<DSVideoPlayerController>();
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: DSColors.neutralLightSnow,
-                ),
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          IconButton(
+            padding: EdgeInsets.zero,
+            splashRadius: 20.0,
+            onPressed: () {
+              Get.delete<DSVideoPlayerController>();
+              Get.back();
+            },
+            icon: const Icon(
+              DSIcons.arrow_left,
+              color: DSColors.neutralLightSnow,
+              size: 32.0,
             ),
-            DSUserAvatar(
-              text: appBarText,
+          ),
+          DSUserAvatar(
+            text: appBarText,
+          ),
+          const SizedBox(width: 20.0),
+          Expanded(
+            child: DSHeadlineSmallText(
+              appBarText,
+              color: DSColors.neutralLightSnow,
             ),
-            const SizedBox(width: 20.0),
-            Expanded(
-              child: DSHeadlineSmallText(
-                text: appBarText,
-                color: DSColors.neutralLightSnow,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

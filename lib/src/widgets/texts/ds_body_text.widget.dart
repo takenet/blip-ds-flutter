@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSBodyTextStyle] as [style] default value. This style's font variant is $fs-16-p1.
 class DSBodyText extends DSText {
   /// Creates a Design System's [Text] with $fs-16-p1 font variant.
-  DSBodyText({
-    required super.text,
+  DSBodyText(
+    super.text, {
     super.key,
     super.fontWeight,
     super.color,
@@ -26,8 +26,8 @@ class DSBodyText extends DSText {
           ),
         );
 
-  DSBodyText.rich({
-    required super.textSpan,
+  DSBodyText.rich(
+    super.textSpan, {
     super.key,
     super.fontWeight,
     super.color,

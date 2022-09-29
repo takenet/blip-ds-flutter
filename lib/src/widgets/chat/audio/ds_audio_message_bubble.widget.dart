@@ -1,4 +1,3 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_pause_button.widget.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_play_button.widget.dart';
 import 'package:blip_ds/src/widgets/chat/audio/ds_audio_seek_bar.widget.dart';
@@ -8,17 +7,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../../../enums/ds_align.enum.dart';
+import '../../../enums/ds_border_radius.enum.dart';
+import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../themes/colors/ds_colors.theme.dart';
+import '../../animations/ds_fading_circle_loading.widget.dart';
+import '../ds_message_bubble.widget.dart';
+
 class DSAudioMessageBubble extends StatefulWidget {
   final String uri;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final DSMessageBubbleStyle style;
 
-  const DSAudioMessageBubble({
+  DSAudioMessageBubble({
     Key? key,
     required this.uri,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   State<DSAudioMessageBubble> createState() => _DSAudioMessageBubbleState();
@@ -51,10 +60,16 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
 
   @override
   Widget build(BuildContext context) {
+    final isDefaultBubbleColors =
+        widget.style.isDefaultBubbleBackground(widget.align);
+    final isLightBubbleBackground =
+        widget.style.isLightBubbleBackground(widget.align);
+
     return DSMessageBubble(
       padding: EdgeInsets.zero,
       borderRadius: widget.borderRadius,
       align: widget.align,
+      style: widget.style,
       child: SizedBox(
         height: 62.0,
         child: Stack(
@@ -66,12 +81,16 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
                 text:
                     "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
                 onTap: _controller.setAudioSpeed,
-                borderColor: widget.align == DSAlign.right
-                    ? DSColors.disabledText
-                    : DSColors.neutralMediumSilver,
-                color: widget.align == DSAlign.right
-                    ? DSColors.neutralLightSnow
-                    : DSColors.neutralDarkCity,
+                borderColor: isLightBubbleBackground
+                    ? isDefaultBubbleColors
+                        ? DSColors.neutralMediumSilver
+                        : DSColors.neutralDarkCity
+                    : isDefaultBubbleColors
+                        ? DSColors.disabledText
+                        : DSColors.neutralLightSnow,
+                color: isLightBubbleBackground
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
               ),
             ),
           ],
@@ -93,6 +112,10 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
   }
 
   Widget _controlButtons() {
+    final color = widget.style.isLightBubbleBackground(widget.align)
+        ? DSColors.neutralDarkRooftop
+        : DSColors.neutralLightSnow;
+
     return StreamBuilder<PlayerState>(
       stream: _controller.player.playerStateStream,
       builder: (context, snapshot) {
@@ -105,24 +128,20 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
             left: 12.0,
             top: 14.0,
             child: DSFadingCircleLoading(
-              color: widget.align == DSAlign.left
-                  ? DSColors.neutralDarkRooftop
-                  : DSColors.neutralLightSnow,
+              color: color,
             ),
           );
         } else if (playing != true) {
           return DSPlayButton(
             onPressed: _controller.player.play,
-            icon: widget.align == DSAlign.left
+            icon: widget.style.isLightBubbleBackground(widget.align)
                 ? DSPlayButtonIconColor.neutralLightSnow
                 : DSPlayButtonIconColor.neutralDarkRooftop,
           );
         } else if (processingState != ProcessingState.completed) {
           return DSPauseButton(
             onPressed: _controller.player.pause,
-            color: widget.align == DSAlign.right
-                ? DSColors.neutralLightSnow
-                : DSColors.neutralDarkRooftop,
+            color: color,
           );
         } else {
           return const SizedBox();
@@ -148,6 +167,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
             onChanged: _controller.player.seek,
             onChangeStart: _controller.player.pause,
             align: widget.align,
+            style: widget.style,
           ),
         );
       },

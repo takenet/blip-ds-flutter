@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
-import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -11,11 +10,11 @@ class DSCard extends StatelessWidget {
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final String? customerName;
-  final Function? onSelected;
-  final bool hideOptions;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final DSMessageBubbleStyle style;
 
   /// Creates a new [DSCard] widget
-  const DSCard({
+  DSCard({
     Key? key,
     required this.type,
     required this.content,
@@ -23,8 +22,9 @@ class DSCard extends StatelessWidget {
     required this.borderRadius,
     this.customerName,
     this.onSelected,
-    required this.hideOptions,
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,12 @@ class DSCard extends StatelessWidget {
   Widget _resolveWidget() {
     switch (type) {
       case DSMessageContentType.textPlain:
+      case DSMessageContentType.sensitive:
         return DSTextMessageBubble(
-          text: content,
+          text: content is String ? content : '**********',
           align: align,
           borderRadius: borderRadius,
+          style: style,
         );
 
       case DSMessageContentType.mediaLink:
@@ -50,17 +52,19 @@ class DSCard extends StatelessWidget {
         return DSUnsupportedContentMessageBubble(
           align: align,
           borderRadius: borderRadius,
+          style: style,
         );
     }
   }
 
   Widget _buildSelect() {
     return content['scope'] == 'immediate'
-        ? DSQuickReply(
+        ? DSTextMessageBubble(
             align: align,
-            content: content,
-            onSelected: onSelected,
-            hideOptions: hideOptions)
+            text: content['text'],
+            borderRadius: borderRadius,
+            style: style,
+          )
         : DSTextMessageBubble(
             align: align,
             text: content['text'],
@@ -68,6 +72,7 @@ class DSCard extends StatelessWidget {
             selectContent: content,
             showSelect: true,
             onSelected: onSelected,
+            style: style,
           );
   }
 
@@ -79,6 +84,7 @@ class DSCard extends StatelessWidget {
         uri: content['uri'],
         align: align,
         borderRadius: borderRadius,
+        style: style,
       );
     } else if (contentType.contains('image')) {
       return DSImageMessageBubble(
@@ -88,6 +94,7 @@ class DSCard extends StatelessWidget {
         text: content['text'],
         title: content['title'],
         borderRadius: borderRadius,
+        style: style,
       );
     } else if (contentType.contains('video')) {
       return DSVideoMessageBubble(
@@ -96,6 +103,7 @@ class DSCard extends StatelessWidget {
         appBarText: customerName ?? '',
         text: content['text'],
         borderRadius: borderRadius,
+        style: style,
       );
     } else {
       return DSFileMessageBubble(
@@ -104,6 +112,7 @@ class DSCard extends StatelessWidget {
         size: content['size'],
         filename: content['title'],
         borderRadius: borderRadius,
+        style: style,
       );
     }
   }

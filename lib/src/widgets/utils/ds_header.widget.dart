@@ -1,59 +1,69 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import 'ds_user_avatar.widget.dart';
 
 class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final String? customerName;
+  final Uri? customerUri;
   final List<Widget>? actions;
   final Widget? leading;
+  final bool? canPop;
 
   const DSHeader({
     Key? key,
     required this.title,
     this.subtitle,
     this.customerName,
+    this.customerUri,
     this.actions,
     this.leading,
+    this.canPop,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarOpacity: 0.1,
       centerTitle: false,
       automaticallyImplyLeading: false,
       elevation: 1,
       backgroundColor: DSColors.neutralLightSnow,
       shadowColor: DSColors.neutralMediumWave,
       actions: actions,
-      leadingWidth: 25.0,
+      titleSpacing: 0,
+      leadingWidth: 40.0,
       leading: _buildLeading(context),
-      title: _buildTitle(),
+      title: _buildTitle(context),
     );
   }
 
   @override
   Size get preferredSize => const Size(double.infinity, 56.0);
 
-  Widget _buildTitle() {
+  Widget _buildTitle(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: customerName != null
+      contentPadding:
+          _canPop(context) ? EdgeInsets.zero : const EdgeInsets.only(left: 16),
+      leading: customerName != null || customerUri != null
           ? DSUserAvatar(
-              text: customerName!,
+              text: customerName,
+              uri: customerUri,
               radius: 20.0,
               textColor: DSColors.neutralLightSnow,
             )
           : null,
       title: DSHeadlineSmallText(
+        title,
         color: DSColors.neutralDarkCity,
-        text: title,
       ),
       subtitle: subtitle != null
           ? DSCaptionText(
-              text: subtitle!,
+              subtitle!,
               color: DSColors.neutralDarkCity,
             )
           : null,
@@ -61,23 +71,21 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget? _buildLeading(BuildContext context) {
-    final bool canPop = Navigator.of(context).canPop();
-
     return leading ??
-        (canPop
+        (_canPop(context)
             ? IconButton(
+                splashRadius: 17,
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.of(context).pop(),
-                icon: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: SvgPicture.asset(
-                    'assets/images/arrow_back.svg',
-                    color: DSColors.neutralDarkRooftop,
-                    package: DSUtils.packageName,
-                    height: 16.0,
-                  ),
+                iconSize: 28,
+                icon: const Icon(
+                  DSIcons.arrow_left,
+                  color: DSColors.neutralDarkRooftop,
                 ),
               )
             : null);
   }
+
+  bool _canPop(BuildContext context) =>
+      canPop ?? Navigator.of(context).canPop();
 }
