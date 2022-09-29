@@ -43,11 +43,14 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
   late final bool _isDefaultBubbleColors;
   late final bool _isLightBubbleBackground;
 
-  _DSTextMessageBubbleState() {
+  @override
+  void initState() {
     _isDefaultBubbleColors =
         widget.style.isDefaultBubbleBackground(widget.align);
     _isLightBubbleBackground =
         widget.style.isLightBubbleBackground(widget.align);
+
+    super.initState();
   }
 
   final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
