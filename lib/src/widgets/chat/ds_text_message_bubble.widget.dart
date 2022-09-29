@@ -45,12 +45,12 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
 
   @override
   void initState() {
+    super.initState();
+
     _isDefaultBubbleColors =
         widget.style.isDefaultBubbleBackground(widget.align);
     _isLightBubbleBackground =
         widget.style.isLightBubbleBackground(widget.align);
-
-    super.initState();
   }
 
   final EdgeInsets _defaultBodyPadding = const EdgeInsets.symmetric(
