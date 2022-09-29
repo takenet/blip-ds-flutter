@@ -10,14 +10,14 @@ class SampleToastShowcase extends StatelessWidget {
     final toast = DSToastService(
       title: 'Título do toast',
       message:
-          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. ',
       context: context,
       toastDuration: 3000,
     );
 
     final toastAction = DSToastService(
       title: 'Título do toast com action',
-      message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit,',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit.',
       actionType: DSActionType.button,
       buttonText: 'Action',
       onPressedButton: () => print('FECHOU'),
@@ -28,14 +28,14 @@ class SampleToastShowcase extends StatelessWidget {
     final toastPersistent = DSToastService(
       title: 'Título do toast',
       message:
-          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. Vivamus eget molestie urna. ',
       context: context,
       toastDuration: 0,
     );
 
     final toastNoTitle = DSToastService(
       message:
-          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. Vivamus eget molestie urna. ',
       context: context,
       positionOffset: 100.0,
       toastDuration: 3000,
