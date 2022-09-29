@@ -136,40 +136,37 @@ class DSToastService {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if (icon != null)
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: icon,
-                ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (title != null) DSHeadlineSmallText(text: title),
-                      SizedBox(
-                        child: DSBodyText(
-                          text: message,
-                          overflow: TextOverflow.visible,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (icon != null)
               Container(
                 alignment: Alignment.topLeft,
-                child: _setMainButton(),
+                child: icon,
               ),
-            ],
-          ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (title != null) DSHeadlineSmallText(text: title),
+                    SizedBox(
+                      child: DSBodyText(
+                        text: message,
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              child: _setMainButton(),
+            ),
+          ],
         ),
       ),
     );
