@@ -9,24 +9,26 @@ class SampleToastShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final toast = DSToastService(
       title: 'Título do toast',
-      text:
+      message:
           'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
       context: context,
+      toastDuration: 3,
     );
 
     final toastAction = DSToastService(
       title: 'Título do toast com action',
-      text:
-          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor esdfa sdfas dasgdrf dfsh sdfgh df',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit,',
       actionType: DSActionType.button,
       buttonText: 'Action',
-      onPressedButton: () => Navigator.pop(context),
+      onPressedButton: () => DSToastService.close(),
       context: context,
+      toastDuration: 10,
     );
 
     return Column(
       children: [
         DSBodyText(text: 'Toasts'),
+        const SizedBox(height: 20.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

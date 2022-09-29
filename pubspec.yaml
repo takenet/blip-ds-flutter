@@ -26,7 +26,8 @@ dependencies:
   flutter_svg: ^1.1.4
   linkify: ^4.1.0
   simple_link_preview: ^1.0.2
-  another_flushbar: ^1.12.29
+  simple_animations: ^5.0.0
+
 
 dev_dependencies:
   flutter_test:
