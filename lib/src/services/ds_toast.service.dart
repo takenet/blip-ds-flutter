@@ -179,48 +179,28 @@ class DSToastService {
         backgroundColor = DSColors.primaryGreensMint;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: SvgPicture.asset(
-            'assets/images/icon_success.svg',
-            package: DSUtils.packageName,
-            height: 24.0,
-            width: 24.0,
-          ),
+          child: _setIcon('svg', 'assets/images/icon_success.svg'),
         );
         break;
       case DSToastType.warning:
         backgroundColor = DSColors.primaryYellowsCorn;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: Image.asset(
-            'assets/images/icon_alert_warning.png',
-            width: 24.0,
-            height: 24.0,
-            package: DSUtils.packageName,
-          ),
+          child: _setIcon('img', 'assets/images/icon_alert_warning.png'),
         );
         break;
       case DSToastType.error:
         backgroundColor = DSColors.extendRedsFlower;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: Image.asset(
-            'assets/images/icon_alert_error.png',
-            width: 24.0,
-            height: 24.0,
-            package: DSUtils.packageName,
-          ),
+          child: _setIcon('img', 'assets/images/icon_alert_error.png'),
         );
         break;
       case DSToastType.system:
         backgroundColor = DSColors.illustrationBlueGenie;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: SvgPicture.asset(
-            'assets/images/icon_blip.svg',
-            package: DSUtils.packageName,
-            height: 24.0,
-            width: 24.0,
-          ),
+          child: _setIcon('svg', 'assets/images/icon_blip.svg'),
         );
         break;
       case DSToastType.notification:
@@ -317,6 +297,22 @@ class DSToastService {
         );
       },
     );
+  }
+
+  Widget _setIcon(final String type, final String image) {
+    return type == 'svg'
+        ? SvgPicture.asset(
+            image,
+            package: DSUtils.packageName,
+            height: 24.0,
+            width: 24.0,
+          )
+        : Image.asset(
+            image,
+            width: 24.0,
+            height: 24.0,
+            package: DSUtils.packageName,
+          );
   }
 
   void _close() {
