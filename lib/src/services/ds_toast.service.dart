@@ -8,35 +8,66 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/enums/ds_toast_type.enum.dart';
 
-/// A Design System's [Dialog] used to display a dialog box.
+/// A Design System's [DSToastService] used to display a toast.
 class DSToastService {
+  /// Use [context] to set the toast on the current screen
   final BuildContext context;
-  final String? title;
-  final String message;
-  final DSActionType actionType;
-  final String? buttonText;
-  final Function? onPressedButton;
-  final double? positionOffset;
-  final int toastDuration;
 
+  /// Use [title] to show title in toast
+  /// O parâmetro [title] é opcional. Caso não seja definido não será mostrado
+  final String? title;
+
+  /// Use [message] to show the message below the title in the toast
+  final String message;
+
+  /// Use [actionType] to define the type of tost which can be
+  /// [DSActionType.system],[DSActionType.notification],[DSActionType.success],
+  /// [DSActionType.error] or [DSActionType.warning].
+  final DSActionType actionType;
+
+  /// If you want to replace the close icon with a custom one, use the [buttonText]
+  /// parameter to define the name
+  final String? buttonText;
+
+  /// When using a custom button, it is possible to define a callback
+  /// function to perform some action. Use the [onPressedButton] parameter.
+  final Function? onPressedButton;
+
+  /// Use [positionOffset] to position the toast, moving up relative to the bottom of the screen.
+  final double? positionOffset;
+
+  /// Set a time value in milliseconds using the [toastDuration] parameter to
+  /// keep the toast on the screen without closing. If you set the value to 0, the toast
+  /// will not close automatically, depending on a manual action.
+  final int toastDuration; // miliseconds
+
+  /// Button widget to show
   Widget? mainButton;
+
+  /// Icon widget to show
   Widget? icon;
 
-  static Timer? toastTimer;
-  static OverlayEntry? _overlayEntry;
+  /// Overlay, where the toast will be overlayed
+  OverlayEntry? _overlayEntry;
 
-  late Color backgroundColor = Colors.white;
+  /// Color of elements in toast
+  Color? backgroundColor;
   final Color titleColor = DSColors.neutralDarkCity;
   final Color textColor = DSColors.neutralDarkCity;
-  final Color shadowColor = const Color(0xFF202C44).withOpacity(0.24);
-  int animationDuration = 300; // miliseconds
 
-  static Control? _controlAnimation = Control.stop;
+  /// Toast opening and closing animation duration
+  final int animationDuration = 300; // miliseconds
 
+  /// Animation scene controller
+  Control? _controlAnimation = Control.stop;
+
+  /// Toast state manager to be recreated when closing
   StateSetter? state;
-  static Timer? timeToastDuration;
 
-  /// Creates a new Design System's [Dialog]
+  /// Timer to keep toast on screen
+  Timer? _timeToastDuration;
+
+  /// Creates a new Design System's [DSToastService]
   DSToastService({
     this.title,
     required this.message,
@@ -54,7 +85,6 @@ class DSToastService {
   void _show(final DSToastType type) async {
     _prepareToast(type);
 
-    //if (toastTimer == null || !toastTimer!.isActive) {
     _overlayEntry = createOverlayEntry(
       context: context,
       message: message,
@@ -67,32 +97,6 @@ class DSToastService {
     Overlay.of(context)!.insert(_overlayEntry!);
 
     _controlAnimation = Control.playFromStart;
-
-    //Control.play;
-    //Control.playReverse;
-
-    /*
-      toastTimer = Timer(
-        Duration(
-          milliseconds: (toastDuration * 1000) + (animationDuration * 2),
-        ),
-        () {
-          if (_overlayEntry != null) {
-            _overlayEntry!.remove();
-          }
-        },
-      );
-      */
-    //}
-  }
-
-  static close() {
-    if (_overlayEntry != null) {
-      _overlayEntry!.remove();
-      _overlayEntry = null;
-      if (timeToastDuration!.isActive) timeToastDuration!.cancel();
-      //_controlAnimation = Control.stop;
-    }
   }
 
   OverlayEntry createOverlayEntry(
@@ -105,34 +109,28 @@ class DSToastService {
       String? title}) {
     return OverlayEntry(
       builder: (context) => Positioned(
-        bottom: 50.0,
+        bottom: 50.0 + positionOffset!,
         width: MediaQuery.of(context).size.width - 16.0,
-        left: 8,
+        left: 8.0,
         child: Dismissible(
           key: const Key('key'),
           onDismissed: (direction) {
             if (_overlayEntry != null) {
-              //_controlAnimation = Control.stop;
-              close();
+              _controlAnimation = Control.stop;
+              _close();
             }
-            //Control.stop;
           },
           child: _animeCard(),
-          //ToastAnimation(
-          //  animationDuration: animationDuration!,
-          //  toastDuration: toastDuration,
-          //  control: controlAnimation,
-          //  child: _cardToast(),
-          //),
         ),
       ),
     );
   }
 
+  /// Create the toast card
   Material _cardToast() {
     return Material(
       elevation: 10.0,
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(8.0),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -147,16 +145,15 @@ class DSToastService {
               if (icon != null)
                 Container(
                   alignment: Alignment.topLeft,
-                  //width: 60,
                   child: icon,
                 ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DSHeadlineSmallText(text: title),
+                      if (title != null) DSHeadlineSmallText(text: title),
                       SizedBox(
                         child: DSBodyText(
                           text: message,
@@ -178,6 +175,7 @@ class DSToastService {
     );
   }
 
+  /// Prepares the presentation of toast elements according to the type
   Future<void> _prepareToast(final DSToastType type) async {
     switch (type) {
       case DSToastType.success:
@@ -191,7 +189,6 @@ class DSToastService {
             width: 24.0,
           ),
         );
-        //_setMainButton();
         break;
       case DSToastType.warning:
         backgroundColor = DSColors.primaryYellowsCorn;
@@ -223,7 +220,6 @@ class DSToastService {
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
           child: SvgPicture.asset(
             'assets/images/icon_blip.svg',
-            //color: DSColors.neutralDarkRooftop,
             package: DSUtils.packageName,
             height: 24.0,
             width: 24.0,
@@ -248,6 +244,7 @@ class DSToastService {
     }
   }
 
+  /// Switches between exit button types
   Widget _setMainButton() {
     return actionType == DSActionType.icon
         ? Container(
@@ -255,6 +252,7 @@ class DSToastService {
             child: IconButton(
               onPressed: () {
                 state!(() {
+                  _stopTimer();
                   _controlAnimation = Control.playReverse;
                 });
               },
@@ -266,158 +264,105 @@ class DSToastService {
             child: DSTertiaryButton(
               onPressed: () {
                 onPressedButton!();
-                state!(() {
-                  _controlAnimation = Control.playReverse;
-                });
+                state!(
+                  () {
+                    _stopTimer();
+                    _controlAnimation = Control.playReverse;
+                  },
+                );
               },
               label: buttonText,
             ),
           );
   }
 
-  void warning() {
-    DSToastService.close();
-    _show(DSToastType.warning);
-  }
-
-  /// Shows a [DSDialogType.system] dialog box type
-  void system() {
-    close();
-    _show(DSToastType.system);
-  }
-
-  /// Shows a [DSDialogType.error] dialog box type
-  void error() {
-    close();
-    _show(DSToastType.error);
-  }
-
-  /// Shows a [DSDialogType.error] dialog box type
-  void success() {
-    close();
-    _show(DSToastType.success);
-  }
-
-  /// Shows a [DSDialogType.error] dialog box type
-  void notification() {
-    close();
-    _show(DSToastType.notification);
-  }
-
+  /// Create and manage the toast animation
   StatefulBuilder _animeCard() {
     double inicio = (MediaQuery.of(context).size.width) * -1.0;
     double fim = 0.0;
 
     return StatefulBuilder(
-        builder: (BuildContext context, StateSetter mystate) {
-      state = mystate;
-      return CustomAnimationBuilder<double>(
-        duration: Duration(milliseconds: animationDuration),
-        control: _controlAnimation!,
-        tween: Tween(begin: inicio, end: fim),
-        builder: (context, value, child) {
-          return Transform.translate(
-            offset: Offset(value, 0),
-            child: child,
-          );
-        },
-        child: _cardToast(),
-        onCompleted: () async {
-          if (toastDuration > 0) {
-            // futureDelay =
-            await Future.delayed(Duration(seconds: toastDuration));
-            timeToastDuration = Timer(Duration(seconds: toastDuration), () {});
-
-            state!(() {
-              if (_controlAnimation == Control.playFromStart) {
-                _controlAnimation = Control.playReverse;
+      builder: (BuildContext context, StateSetter mystate) {
+        state = mystate;
+        return CustomAnimationBuilder<double>(
+          duration: Duration(milliseconds: animationDuration),
+          control: _controlAnimation!,
+          tween: Tween(begin: inicio, end: fim),
+          builder: (context, value, child) {
+            return Transform.translate(
+              offset: Offset(value, 0.0),
+              child: child,
+            );
+          },
+          child: _cardToast(),
+          onCompleted: () async {
+            if (toastDuration == 0) {
+              if (_controlAnimation == Control.playReverse) {
+                _close();
               }
-            });
-          } else {
-            //state!(() {
-            if (_controlAnimation == Control.playReverse) {
-              _controlAnimation = Control.stop;
-              //close();
+            } else {
+              if (_controlAnimation == Control.playFromStart) {
+                _timeToastDuration = Timer(
+                  Duration(milliseconds: toastDuration),
+                  () {
+                    state!(
+                      () {
+                        _controlAnimation = Control.playReverse;
+                      },
+                    );
+                  },
+                );
+              } else {
+                _close();
+              }
             }
-            //});
-          }
-          //state!(() {
-          //  if (_controlAnimation == Control.playFromStart) {
-          //    _controlAnimation = Control.playReverse;
-          //  } else if (_controlAnimation == Control.playReverse) {
-          //    _controlAnimation = Control.stop;
-          //    close();
-          //  }
-          //});
-        },
-      );
-    });
-  }
-}
-
-class ToastAnimation extends StatelessWidget {
-  final Widget child;
-  final int toastDuration;
-  final int animationDuration;
-  final Control control;
-
-  const ToastAnimation({
-    super.key,
-    required this.child,
-    required this.toastDuration,
-    required this.animationDuration,
-    required this.control,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    double inicio = (MediaQuery.of(context).size.width) * -1.0;
-    double fim = 0.0;
-
-    //Control control = Control.play;
-/*
-    final tween = MovieTween()
-      ..tween(
-        'x',
-        Tween(begin: inicio, end: fim),
-        duration: const Duration(milliseconds: 200),
-      )
-          .thenTween(
-            'x',
-            Tween(begin: fim, end: fim),
-            duration: Duration(seconds: toastDuration),
-          )
-          .thenTween(
-            'x',
-            Tween(begin: fim, end: inicio),
-            duration: const Duration(milliseconds: 200),
-          );
-*/
-    return CustomAnimationBuilder<double>(
-        duration: const Duration(seconds: 1),
-        control: control,
-        tween: Tween(begin: inicio, end: fim),
-        builder: (context, value, child) {
-          return Transform.translate(
-            offset: Offset(value, 0),
-            child: child,
-          );
-        },
-        child: child);
-
-    /*
-    return PlayAnimationBuilder<Movie>(
-      tween: tween,
-      duration: tween.duration,
-      curve: Curves.easeInOutSine,
-      builder: (context, value, child) {
-        return Transform.translate(
-          offset: Offset(value.get('x'), 0.0),
-          child: child,
+          },
         );
       },
-      child: child,
     );
-    */
+  }
+
+  void _close() {
+    if (_overlayEntry != null) {
+      _stopTimer();
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  void _stopTimer() {
+    if (_timeToastDuration != null) {
+      _timeToastDuration!.cancel();
+      _timeToastDuration = null;
+    }
+  }
+
+  void warning() {
+    _close();
+    _show(DSToastType.warning);
+  }
+
+  /// Shows a [DSToastType.system] toast type
+  void system() {
+    _close();
+    _show(DSToastType.system);
+  }
+
+  /// Shows a [DSToastType.error] toast type
+  void error() {
+    _close();
+    _show(DSToastType.error);
+  }
+
+  /// Shows a [DSToastType.success] toast type
+  void success() {
+    _close();
+    _show(DSToastType.success);
+  }
+
+  /// Shows a [DSToastType.notification] toast type
+  void notification() {
+    _close();
+    _show(DSToastType.notification);
   }
 }

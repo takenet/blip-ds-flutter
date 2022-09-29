@@ -12,7 +12,7 @@ class SampleToastShowcase extends StatelessWidget {
       message:
           'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
       context: context,
-      toastDuration: 2,
+      toastDuration: 3000,
     );
 
     final toastAction = DSToastService(
@@ -22,15 +22,23 @@ class SampleToastShowcase extends StatelessWidget {
       buttonText: 'Action',
       onPressedButton: () => print('FECHOU'),
       context: context,
-      toastDuration: 2,
+      toastDuration: 2000,
     );
 
-    final toastFechar = DSToastService(
+    final toastPersistent = DSToastService(
       title: 'Título do toast',
       message:
           'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
       context: context,
       toastDuration: 0,
+    );
+
+    final toastNoTitle = DSToastService(
+      message:
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit sdfgs dfgs ddfgsdfg sdfg sdfgs df sdfg sdf asdfg asdfas dfasdf asdf asdf',
+      context: context,
+      positionOffset: 100.0,
+      toastDuration: 3000,
     );
 
     return Column(
@@ -73,8 +81,12 @@ class SampleToastShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => toastFechar.system(),
-              label: 'System fechar',
+              onPressed: () => toastPersistent.system(),
+              label: 'System persistent toast',
+            ),
+            DSPrimaryButton(
+              onPressed: () => toastNoTitle.system(),
+              label: 'No title',
             ),
           ],
         ),
