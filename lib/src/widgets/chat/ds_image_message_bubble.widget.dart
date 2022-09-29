@@ -1,6 +1,4 @@
-import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
@@ -10,12 +8,15 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
+import '../../models/ds_document_select.model.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
 import 'ds_message_bubble.widget.dart';
+import 'ds_document_select.widget.dart';
 
 class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -26,8 +27,11 @@ class DSImageMessageBubble extends StatelessWidget {
   final String appBarText;
   final Uri? appBarPhotoUri;
   final DSMessageBubbleStyle style;
-
   final DSImageMessageBubbleController _controller;
+  final List<DSDocumentSelectOption> selectOptions;
+  final bool showSelect;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
 
   DSImageMessageBubble({
     super.key,
@@ -39,6 +43,10 @@ class DSImageMessageBubble extends StatelessWidget {
     this.text,
     this.title,
     DSMessageBubbleStyle? style,
+    this.selectOptions = const [],
+    this.showSelect = false,
+    this.onSelected,
+    this.onOpenLink,
   })  : style = style ?? DSMessageBubbleStyle(),
         _controller = DSImageMessageBubbleController();
 
@@ -130,6 +138,13 @@ class DSImageMessageBubble extends StatelessWidget {
                         ],
                       ),
                     ),
+                  ),
+                if (showSelect)
+                  DSDocumentSelect(
+                    align: align,
+                    options: selectOptions,
+                    onSelected: onSelected,
+                    onOpenLink: onOpenLink,
                   ),
               ],
             );
