@@ -18,7 +18,7 @@ class SampleToastShowcase extends StatelessWidget {
     final toastAction = DSToastService(
       title: 'Título do toast com action',
       message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit.',
-      actionType: DSActionType.button,
+      actionType: DSToastActionType.button,
       buttonText: 'Action',
       onPressedButton: () => print('FECHOU'),
       context: context,

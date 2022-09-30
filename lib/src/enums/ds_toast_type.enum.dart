@@ -1,4 +1,4 @@
-/// A Design System's enum that can be used to set the dialog's type.
+/// A Design System enumeration that can be used to define the type of the toast.
 enum DSToastType {
   success,
   warning,

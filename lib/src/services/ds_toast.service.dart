@@ -23,7 +23,7 @@ class DSToastService {
   /// Use [actionType] to define the type of tost which can be
   /// [DSActionType.system],[DSActionType.notification],[DSActionType.success],
   /// [DSActionType.error] or [DSActionType.warning].
-  final DSActionType actionType;
+  final DSToastActionType actionType;
 
   /// If you want to replace the close icon with a custom one, use the [buttonText]
   /// parameter to define the name
@@ -72,13 +72,15 @@ class DSToastService {
     this.title,
     required this.message,
     required this.context,
-    this.actionType = DSActionType.icon,
+    this.actionType = DSToastActionType.icon,
     this.buttonText,
     this.onPressedButton,
     required this.toastDuration,
     this.positionOffset = 16.0,
-  })  : assert((actionType == DSActionType.button) ? buttonText != null : true),
-        assert((actionType == DSActionType.button)
+  })  : assert((actionType == DSToastActionType.button)
+            ? buttonText != null
+            : true),
+        assert((actionType == DSToastActionType.button)
             ? onPressedButton != null
             : true);
 
@@ -223,7 +225,7 @@ class DSToastService {
 
   /// Switches between exit button types
   Widget _setMainButton() {
-    return actionType == DSActionType.icon
+    return actionType == DSToastActionType.icon
         ? Container(
             padding: const EdgeInsets.only(top: 10.0, right: 10.0),
             child: IconButton(
