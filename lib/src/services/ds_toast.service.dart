@@ -14,15 +14,14 @@ class DSToastService {
   final BuildContext context;
 
   /// Use [title] to show title in toast
-  /// O parâmetro [title] é opcional. Caso não seja definido não será mostrado
+  /// The [title] parameter is optional. If not defined, it will not be shown.
   final String? title;
 
   /// Use [message] to show the message below the title in the toast
   final String message;
 
-  /// Use [actionType] to define the type of tost which can be
-  /// [DSActionType.system],[DSActionType.notification],[DSActionType.success],
-  /// [DSActionType.error] or [DSActionType.warning].
+  /// Use [actionType] to set the action type of the toast output resource
+  /// [DSActionType.icon] or [DSActionType.button].
   final DSToastActionType actionType;
 
   /// If you want to replace the close icon with a custom one, use the [buttonText]
@@ -84,7 +83,7 @@ class DSToastService {
             ? onPressedButton != null
             : true);
 
-  void _show(final DSToastType type) async {
+  void _show(final DSToastType type) {
     _prepareToast(type);
 
     _overlayEntry = createOverlayEntry(
@@ -175,7 +174,7 @@ class DSToastService {
   }
 
   /// Prepares the presentation of toast elements according to the type
-  Future<void> _prepareToast(final DSToastType type) async {
+  void _prepareToast(final DSToastType type) {
     switch (type) {
       case DSToastType.success:
         backgroundColor = DSColors.primaryGreensMint;
@@ -257,8 +256,8 @@ class DSToastService {
 
   /// Create and manage the toast animation
   StatefulBuilder _animeCard() {
-    double inicio = (MediaQuery.of(context).size.width) * -1.0;
-    double fim = 0.0;
+    double start = (MediaQuery.of(context).size.width) * -1.0;
+    double end = 0.0;
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter mystate) {
@@ -266,8 +265,8 @@ class DSToastService {
         return CustomAnimationBuilder<double>(
           duration: Duration(milliseconds: animationDuration),
           control: _controlAnimation!,
-          tween: Tween(begin: inicio, end: fim),
-          builder: (context, value, child) {
+          tween: Tween(begin: start, end: end),
+          builder: (_, value, child) {
             return Transform.translate(
               offset: Offset(value, 0.0),
               child: child,
