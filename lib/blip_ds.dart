@@ -57,7 +57,7 @@ export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
-export 'src/enums/ds_toast_Action_type.enum.dart' show DSToastActionType;
+export 'src/enums/ds_toast_action_type.enum.dart' show DSToastActionType;
 
 /// Extensions
 export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'

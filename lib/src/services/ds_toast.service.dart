@@ -331,6 +331,7 @@ class DSToastService {
     }
   }
 
+  /// Shows a [DSToastType.warning] toast type
   void warning() {
     _close();
     _show(DSToastType.warning);
