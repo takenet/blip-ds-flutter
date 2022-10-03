@@ -6,7 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/enums/ds_toast_type.enum.dart';
+
+import '../enums/ds_toast_type.enum.dart';
 
 /// A Design System's [DSToastService] used to display a toast.
 class DSToastService {
