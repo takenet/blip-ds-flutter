@@ -7,11 +7,13 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
+import '../../models/ds_document_select.model.dart';
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
-import '../../controllers/chat/ds_image_message_bubble.controller.dart';
+import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
 
@@ -142,6 +144,13 @@ class DSImageMessageBubble extends StatelessWidget {
                             ],
                           ),
                         ),
+                      ),
+                    if (showSelect)
+                      DSDocumentSelect(
+                        align: align,
+                        options: selectOptions,
+                        onSelected: onSelected,
+                        onOpenLink: onOpenLink,
                       ),
                   ],
                 );

@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 
+/// A Design System widget used to display a select menu with image.
 class DSDocumentSelect extends StatelessWidget {
+  /// Message bubble align
   final DSAlign align;
+
+  /// List of [DSDocumentSelectOption] to display the select menu options
   final List<DSDocumentSelectOption> options;
+
+  /// Function to execute when the options type is [DSMessageContentType.textPlain]
   final Function? onSelected;
+
+  /// Function to execute when the options type is [DSMessageContentType.webLink]
   final void Function(Map<String, dynamic> payload)? onOpenLink;
 
+  /// Creates a new Design System's [DSDocumentSelect]
   const DSDocumentSelect({
     Key? key,
     required this.align,
@@ -50,7 +59,7 @@ class DSDocumentSelect extends StatelessWidget {
                 );
               }
             } else if (onSelected != null) {
-              Map<String, dynamic> payload = {};
+              var payload = <String, dynamic>{};
 
               if (option.value != null) {
                 payload = {
