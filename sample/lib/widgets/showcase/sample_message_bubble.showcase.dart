@@ -56,6 +56,10 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSTextMessageBubble(
+            text: _longText,
+            align: DSAlign.left,
+          ),
+          DSTextMessageBubble(
             text:
                 'Exemplo de preview completo e borda "reta": https://www.take.net/',
             align: DSAlign.right,
@@ -128,6 +132,11 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _sampleImages['extraLarge']!,
             title: '2000x1330.png',
             text: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['large']!,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(
