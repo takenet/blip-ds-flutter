@@ -22,7 +22,7 @@ class DSInformationMessage extends StatelessWidget {
   /// [DSInformationMessageType.closedAttendant] or [DSInformationMessageType.closedCustomer]
   final DSInformationMessageType messageType;
 
-  final List<String> _message = [
+  final _message = <String>[
     'Chatbot {chatbotIdentity} encaminhou a conversa para atendimento',
     'Atendente {agentIdentity} encerrou o atendimento',
     'Cliente encerrou o atendimento',
@@ -68,6 +68,7 @@ class DSInformationMessage extends StatelessWidget {
     );
   }
 
+  /// Prepare messages with parameters to be displayed
   String _prepareMessage(final DSInformationMessageType type) {
     switch (type) {
       case DSInformationMessageType.forwardedTicket:
