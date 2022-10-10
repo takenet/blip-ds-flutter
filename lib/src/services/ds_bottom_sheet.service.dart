@@ -79,6 +79,7 @@ class DSBottomSheetService {
 
   void show() {
     showModalBottomSheet<void>(
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => _buildBottomSheet(),
     );
