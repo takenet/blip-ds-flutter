@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
-import '../../extensions/ds_golden_toolkit.extension.dart';
+import '../../extensions/ds_widget_tester.extension.dart';
 import 'ds_buttons_test.util.dart';
 
 void main() {
@@ -72,11 +72,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.enabledStandardButtonGoldenPath}/loading/ds_button_enabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -94,11 +92,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.disabledStandardButtonGoldenPath}/loading/ds_button_disabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -239,11 +235,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.enabledPrimaryButtonGoldenPath}/loading/ds_primary_button_enabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -261,11 +255,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.disabledPrimaryButtonGoldenPath}/loading/ds_primary_button_disabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -421,11 +413,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.enabledSecondaryButtonGoldenPath}/loading/ds_secondary_button_enabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -443,11 +433,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.disabledSecondaryButtonGoldenPath}/loading/ds_secondary_button_disabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -604,11 +592,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.enabledTertiaryButtonGoldenPath}/loading/ds_tertiary_button_enabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );
@@ -626,11 +612,9 @@ void main() {
 
           await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenStages(
-            tester,
+          await tester.screenMatchesGoldenSteps(
             '${DSButtonsTestUtils.disabledTertiaryButtonGoldenPath}/loading/ds_tertiary_button_disabled_loading',
-            pumpTotalDuration: DSUtils.defaultAnimationDuration,
-            stages: 3,
+            additionalSteps: 2,
           );
         },
       );

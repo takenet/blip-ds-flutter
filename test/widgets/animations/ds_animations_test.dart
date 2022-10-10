@@ -1,30 +1,32 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
+
+import '../../extensions/ds_widget_tester.extension.dart';
+import 'ds_animation_test.util.dart';
 
 void main() {
+  setUpAll(
+    () async => await loadAppFonts(),
+  );
+
   group(
     'Animated Size',
     () {
-      testWidgets(
-        'Animation should render the given child with the expected size',
+      testGoldens(
+        'Animated size should looks correct',
         (tester) async {
-          const double width = 10.0;
-          const double height = 10.0;
+          final builder = DSAnimationTestUtils.createAnimatedSizeScenarios();
 
-          await tester.pumpWidget(
-            _buildAnimatedSize(
-              width: width,
-              height: height,
-            ),
+          await tester.pumpWidgetBuilder(builder.build());
+
+          await tester.tap(find.byType(DSAnimatedSize));
+
+          await tester.screenMatchesGoldenSteps(
+            DSAnimationTestUtils.animatedSizeGoldenPath,
+            additionalSteps: 2,
+            pumpTotalDuration: const Duration(milliseconds: 60),
           );
-
-          expect(find.byType(DSAnimatedSize), findsOneWidget);
-
-          final initBox = tester.widget<SizedBox>(find.byType(SizedBox));
-
-          expect(initBox.width, width);
-          expect(initBox.height, height);
         },
       );
     },
@@ -33,61 +35,17 @@ void main() {
   group(
     'Ring Loading',
     () {
-      testWidgets(
-        'Ring loading should have the given color',
+      testGoldens(
+        'Ring loading should looks correct',
         (tester) async {
-          const Color redColor = DSColors.extendRedsLipstick;
+          final builder = DSAnimationTestUtils.createRingLoadingScenarios();
 
-          final DSRingLoading loading = _buildRingLoading(
-            color: redColor,
+          await tester.pumpWidgetBuilder(builder.build());
+
+          await tester.screenMatchesGoldenSteps(
+            DSAnimationTestUtils.ringLoadingGoldenPath,
+            additionalSteps: 2,
           );
-
-          await tester.pumpWidget(loading);
-
-          final Finder findLoading = find.byWidgetPredicate(
-            (widget) => widget is DSRingLoading && widget.color == redColor,
-          );
-
-          expect(findLoading, findsOneWidget);
-        },
-      );
-
-      testWidgets(
-        'Ring loading should have the given size',
-        (tester) async {
-          const double size = 10.0;
-
-          final DSRingLoading loading = _buildRingLoading(
-            size: size,
-          );
-
-          await tester.pumpWidget(loading);
-
-          final Finder findLoading = find.byWidgetPredicate(
-            (widget) => widget is DSRingLoading && widget.size == size,
-          );
-
-          expect(findLoading, findsOneWidget);
-        },
-      );
-
-      testWidgets(
-        'Ring loading should have the given line width',
-        (tester) async {
-          const double lineWidth = 5.0;
-
-          final DSRingLoading loading = _buildRingLoading(
-            lineWidth: lineWidth,
-          );
-
-          await tester.pumpWidget(loading);
-
-          final Finder findLoading = find.byWidgetPredicate(
-            (widget) =>
-                widget is DSRingLoading && widget.lineWidth == lineWidth,
-          );
-
-          expect(findLoading, findsOneWidget);
         },
       );
     },
@@ -96,88 +54,20 @@ void main() {
   group(
     'Fading Circle Loading',
     () {
-      testWidgets(
-        'Fading circle loading should have the given color',
+      testGoldens(
+        'Fading circle loading should looks correct',
         (tester) async {
-          const Color greenColor = DSColors.primaryGreensTrue;
+          final builder =
+              DSAnimationTestUtils.createFadingCircleLoadingScenarios();
 
-          final DSFadingCircleLoading loading = _buildFadingCircleLoading(
-            color: greenColor,
+          await tester.pumpWidgetBuilder(builder.build());
+
+          await tester.screenMatchesGoldenSteps(
+            DSAnimationTestUtils.fadingCircleLoadingGoldenPath,
+            additionalSteps: 2,
           );
-
-          await tester.pumpWidget(
-            _buildMaterialApp(loading),
-          );
-
-          final Finder findLoading = find.byWidgetPredicate(
-            (widget) =>
-                widget is DSFadingCircleLoading && widget.color == greenColor,
-          );
-
-          expect(findLoading, findsOneWidget);
-        },
-      );
-
-      testWidgets(
-        'Fading circle loading should have the given size',
-        (tester) async {
-          const double size = 10.0;
-
-          final DSFadingCircleLoading loading = _buildFadingCircleLoading(
-            size: size,
-          );
-
-          await tester.pumpWidget(
-            _buildMaterialApp(loading),
-          );
-
-          final Finder findLoading = find.byWidgetPredicate(
-            (widget) => widget is DSFadingCircleLoading && widget.size == size,
-          );
-
-          expect(findLoading, findsOneWidget);
         },
       );
     },
-  );
-}
-
-MaterialApp _buildMaterialApp(Widget child) {
-  return MaterialApp(
-    home: child,
-  );
-}
-
-DSAnimatedSize _buildAnimatedSize({
-  double? width,
-  double? height,
-}) {
-  return DSAnimatedSize(
-    child: SizedBox(
-      width: width,
-      height: height,
-    ),
-  );
-}
-
-DSRingLoading _buildRingLoading({
-  Color color = DSColors.primaryNight,
-  double size = 24.0,
-  double lineWidth = 2.0,
-}) {
-  return DSRingLoading(
-    color: color,
-    size: size,
-    lineWidth: lineWidth,
-  );
-}
-
-DSFadingCircleLoading _buildFadingCircleLoading({
-  Color color = DSColors.primaryNight,
-  double size = 24.0,
-}) {
-  return DSFadingCircleLoading(
-    color: color,
-    size: size,
   );
 }

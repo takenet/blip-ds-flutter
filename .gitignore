@@ -32,4 +32,4 @@ build/
 .flutter-plugins-dependencies
 .fvm/
 coverage/html
-test/*/failures
+test/**/failures
