@@ -18,7 +18,7 @@ void main() {
     'Standard Button',
     () {
       testGoldens(
-        'Standard button should looks correct when is enabled',
+        'Standard button should match golden image when is enabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSButton',
@@ -39,7 +39,7 @@ void main() {
       );
 
       testGoldens(
-        'Standard button should looks correct when is disabled',
+        'Standard button should match golden image when is disabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSButton',
@@ -60,7 +60,7 @@ void main() {
       );
 
       testGoldens(
-        'Standard button should looks correct when is enabled and loading',
+        'Standard button should match golden image when is enabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSButton',
@@ -80,7 +80,7 @@ void main() {
       );
 
       testGoldens(
-        'Standard button should looks correct when is disabled and loading',
+        'Standard button should match golden image when is disabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSButton',
@@ -181,7 +181,7 @@ void main() {
     'Primary Button',
     () {
       testGoldens(
-        'Primary button should looks correct when is enabled',
+        'Primary button should match golden image when is enabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSPrimaryButton',
@@ -202,7 +202,7 @@ void main() {
       );
 
       testGoldens(
-        'Primary button should looks correct when is disabled',
+        'Primary button should match golden image when is disabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSPrimaryButton',
@@ -223,7 +223,7 @@ void main() {
       );
 
       testGoldens(
-        'Primary button should looks correct when is enabled and loading',
+        'Primary button should match golden image when is enabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSPrimaryButton',
@@ -243,7 +243,7 @@ void main() {
       );
 
       testGoldens(
-        'Primary button should looks correct when is disabled and loading',
+        'Primary button should match golden image when is disabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSPrimaryButton',
@@ -359,7 +359,7 @@ void main() {
     'Secondary Button',
     () {
       testGoldens(
-        'Secondary button should looks correct when is enabled',
+        'Secondary button should match golden image when is enabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSSecondaryButton',
@@ -380,7 +380,7 @@ void main() {
       );
 
       testGoldens(
-        'Secondary button should looks correct when is disabled',
+        'Secondary button should match golden image when is disabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSSecondaryButton',
@@ -401,7 +401,7 @@ void main() {
       );
 
       testGoldens(
-        'Secondary button should looks correct when is enabled and loading',
+        'Secondary button should match golden image when is enabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSSecondaryButton',
@@ -421,7 +421,7 @@ void main() {
       );
 
       testGoldens(
-        'Secondary button should looks correct when is disabled and loading',
+        'Secondary button should match golden image when is disabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSSecondaryButton',
@@ -538,7 +538,7 @@ void main() {
     'Tertiary Button',
     () {
       testGoldens(
-        'Tertiary button should looks correct when is enabled',
+        'Tertiary button should match golden image when is enabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSTertiaryButton',
@@ -559,7 +559,7 @@ void main() {
       );
 
       testGoldens(
-        'Tertiary button should looks correct when is disabled',
+        'Tertiary button should match golden image when is disabled',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSTertiaryButton',
@@ -580,7 +580,7 @@ void main() {
       );
 
       testGoldens(
-        'Tertiary button should looks correct when is enabled and loading',
+        'Tertiary button should match golden image when is enabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSTertiaryButton',
@@ -600,7 +600,7 @@ void main() {
       );
 
       testGoldens(
-        'Tertiary button should looks correct when is disabled and loading',
+        'Tertiary button should match golden image when is disabled and loading',
         (tester) async {
           final builder = DSButtonsTestUtils.createButtonScenarios(
             'DSTertiaryButton',
@@ -717,7 +717,7 @@ void main() {
     'Play Button',
     () {
       testGoldens(
-        'Play button should looks correct',
+        'Play button should match golden image',
         (tester) async {
           final builder = DSButtonsTestUtils.createPlayButtonScenarios();
 
@@ -758,7 +758,7 @@ void main() {
     'Pause Button',
     () {
       testGoldens(
-        'Pause button should looks correct',
+        'Pause button should match golden image',
         (tester) async {
           final builder = DSButtonsTestUtils.createPauseButtonScenarios();
 

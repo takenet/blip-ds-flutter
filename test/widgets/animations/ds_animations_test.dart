@@ -14,7 +14,7 @@ void main() {
     'Animated Size',
     () {
       testGoldens(
-        'Animated size should looks correct',
+        'Animated size should match golden image',
         (tester) async {
           final builder = DSAnimationTestUtils.createAnimatedSizeScenarios();
 
@@ -36,7 +36,7 @@ void main() {
     'Ring Loading',
     () {
       testGoldens(
-        'Ring loading should looks correct',
+        'Ring loading should match golden image',
         (tester) async {
           final builder = DSAnimationTestUtils.createRingLoadingScenarios();
 
@@ -55,7 +55,7 @@ void main() {
     'Fading Circle Loading',
     () {
       testGoldens(
-        'Fading circle loading should looks correct',
+        'Fading circle loading should match golden image',
         (tester) async {
           final builder =
               DSAnimationTestUtils.createFadingCircleLoadingScenarios();
