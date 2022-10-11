@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_pause_button.widget.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_play_button.widget.dart';
 import 'package:flutter/material.dart';

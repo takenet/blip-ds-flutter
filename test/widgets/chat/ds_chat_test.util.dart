@@ -1,10 +1,5 @@
-import 'package:blip_ds/src/enums/ds_align.enum.dart';
-import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
 import 'package:blip_ds/src/enums/ds_delivery_report_status.enum.dart';
 import 'package:blip_ds/src/widgets/chat/ds_delivery_report_icon.widget.dart';
-import 'package:blip_ds/src/widgets/chat/ds_file_message_bubble.widget.dart';
-import 'package:blip_ds/src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart';
-import 'package:flutter/material.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 class DSChatTestUtils {
