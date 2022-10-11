@@ -31,15 +31,8 @@ void main() {
       testWidgets(
         'Delivery report failed message should be displayed when status is failed or unknown',
         (tester) async {
-          final messages = Column(
-            children: [
-              DSChatTestUtils.buildDeliveryReportIcon(
-                deliveryStatus: DSDeliveryReportStatus.failed,
-              ),
-              DSChatTestUtils.buildDeliveryReportIcon(
-                deliveryStatus: DSDeliveryReportStatus.unknown,
-              ),
-            ],
+          final messages = DSChatTestUtils.buildDeliveryReportIcon(
+            deliveryStatus: DSDeliveryReportStatus.failed,
           );
 
           await tester.pumpWidgetBuilder(messages);
@@ -49,7 +42,7 @@ void main() {
             findRichText: true,
           );
 
-          expect(findMessage, findsNWidgets(2));
+          expect(findMessage, findsOneWidget);
         },
       );
     },
