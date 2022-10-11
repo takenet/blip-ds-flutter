@@ -12,6 +12,7 @@ class DSTextFormField extends StatelessWidget {
     this.maxLines,
     this.textCapitalization = TextCapitalization.sentences,
     this.showEmojiButton = false,
+    this.obscureText = false,
   });
 
   final TextEditingController controller;
@@ -21,6 +22,7 @@ class DSTextFormField extends StatelessWidget {
   final int? maxLines;
   final TextCapitalization textCapitalization;
   final bool showEmojiButton;
+  final bool obscureText;
 
   final hasFocus = false.obs;
   final _scrollController = ScrollController();
@@ -38,7 +40,9 @@ class DSTextFormField extends StatelessWidget {
               ),
               border: Border.all(
                 width: 1,
-                color: hasFocus.value ? DSColors.primaryMain : DSColors.neutralMediumSilver,
+                color: hasFocus.value
+                    ? DSColors.primaryMain
+                    : DSColors.neutralMediumSilver,
               ),
             ),
             child: Scrollbar(
@@ -56,6 +60,7 @@ class DSTextFormField extends StatelessWidget {
                       child: TextFormField(
                         controller: controller,
                         scrollController: _scrollController,
+                        obscureText: obscureText,
                         style: const DSBodyTextStyle(),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
@@ -65,14 +70,15 @@ class DSTextFormField extends StatelessWidget {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           hintText: hint,
-                          hintStyle: const DSBodyTextStyle(color: DSColors.neutralMediumElephant),
+                          hintStyle: const DSBodyTextStyle(
+                              color: DSColors.neutralMediumElephant),
                           isDense: true,
                         ),
                         cursorColor: DSColors.primaryMain,
                         cursorHeight: 20.0,
                         textCapitalization: textCapitalization,
                         textInputAction: textInputAction,
-                        maxLines: maxLines,
+                        maxLines: obscureText ? 1 : maxLines,
                         onChanged: onChanged,
                       ),
                     ),
