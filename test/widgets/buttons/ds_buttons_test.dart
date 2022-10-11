@@ -9,10 +9,6 @@ import '../../extensions/ds_widget_tester.extension.dart';
 import 'ds_buttons_test.util.dart';
 
 void main() {
-  setUpAll(
-    () async => await loadAppFonts(),
-  );
-
   group(
     'Standard Button',
     () {
