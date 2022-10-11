@@ -14,7 +14,8 @@ class DSToastService {
   /// Use [context] to set the toast on the current screen
   final BuildContext context;
 
-  /// Use [title] to show title in toast
+  /// Use [title] to show title in toast.
+  ///
   /// The [title] parameter is optional. If not defined, it will not be shown.
   final String? title;
 
@@ -101,21 +102,22 @@ class DSToastService {
     _controlAnimation = Control.playFromStart;
   }
 
-  OverlayEntry createOverlayEntry(
-      {required BuildContext context,
-      required String message,
-      int? animationDuration,
-      required int toastDuration,
-      Widget? icon,
-      Widget? mainButton,
-      String? title}) {
+  OverlayEntry createOverlayEntry({
+    required BuildContext context,
+    required String message,
+    int? animationDuration,
+    required int toastDuration,
+    Widget? icon,
+    Widget? mainButton,
+    String? title,
+  }) {
     return OverlayEntry(
       builder: (context) => Positioned(
         bottom: 50.0 + positionOffset!,
         width: MediaQuery.of(context).size.width - 16.0,
         left: 8.0,
         child: Dismissible(
-          key: const Key('key'),
+          key: const Key('ds-toast-key'),
           onDismissed: (direction) {
             if (_overlayEntry != null) {
               _controlAnimation = Control.stop;
@@ -154,11 +156,9 @@ class DSToastService {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (title != null) DSHeadlineSmallText(text: title),
-                    SizedBox(
-                      child: DSBodyText(
-                        text: message,
-                        overflow: TextOverflow.visible,
-                      ),
+                    DSBodyText(
+                      text: message,
+                      overflow: TextOverflow.visible,
                     ),
                   ],
                 ),
