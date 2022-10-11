@@ -18,8 +18,8 @@ class DSText extends StatelessWidget {
   final bool shouldLinkify;
 
   /// Creates a Design System's [Text].
-  const DSText({
-    required this.text,
+  const DSText(
+    this.text, {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
@@ -32,8 +32,8 @@ class DSText extends StatelessWidget {
     this.shouldLinkify = true,
   }) : textSpan = null;
 
-  const DSText.rich({
-    required this.textSpan,
+  const DSText.rich(
+    this.textSpan, {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,

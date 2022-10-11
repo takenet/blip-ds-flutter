@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSButtonTextStyle] as [style] default value. This style's font variant is $fs-16-p1.
 class DSButtonText extends DSText {
   /// Creates a Design System's [Text] with $fs-16-p1 font variant.
-  DSButtonText({
-    required super.text,
+  DSButtonText(
+    super.text, {
     required super.color,
     super.key,
     super.textAlign,
@@ -19,8 +19,8 @@ class DSButtonText extends DSText {
           shouldLinkify: false,
         );
 
-  DSButtonText.rich({
-    required super.textSpan,
+  DSButtonText.rich(
+    super.textSpan, {
     required super.color,
     super.key,
     super.textAlign,

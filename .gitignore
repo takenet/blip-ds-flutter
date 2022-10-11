@@ -33,3 +33,4 @@ build/
 .fvm/
 coverage/html
 test/**/failures
+.vscode/settings.json

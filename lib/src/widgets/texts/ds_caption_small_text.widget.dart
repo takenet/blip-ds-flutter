@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSCaptionSmallTextStyle] as [style] default value. This style's font variant is $fs-12-p3.
 class DSCaptionSmallText extends DSText {
   /// Creates a Design System's [Text] with $fs-12-p3 font variant.
-  DSCaptionSmallText({
-    required super.text,
+  DSCaptionSmallText(
+    super.text, {
     super.key,
     super.fontWeight,
     super.color,
@@ -22,8 +22,8 @@ class DSCaptionSmallText extends DSText {
           ),
         );
 
-  DSCaptionSmallText.rich({
-    required super.textSpan,
+  DSCaptionSmallText.rich(
+    super.textSpan, {
     super.key,
     super.fontWeight,
     super.color,

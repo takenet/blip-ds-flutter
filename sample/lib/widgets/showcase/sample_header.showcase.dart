@@ -11,9 +11,10 @@ class SampleHeaderShowcase extends StatelessWidget {
         DSHeader(
           title: 'Blip Design System ',
           subtitle: 'Showcase',
+          canPop: true,
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: DSPrimaryButton(onPressed: null, label: 'Teste'),
             )
           ],

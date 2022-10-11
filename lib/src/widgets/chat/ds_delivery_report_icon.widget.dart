@@ -21,10 +21,10 @@ class DSDeliveryReportIcon extends StatelessWidget {
     const String path = 'assets/images';
 
     switch (deliveryStatus) {
-      case DSDeliveryReportStatus.accepted:
-        return _getIcon(
-          '$path/check.svg',
-          DSColors.neutralMediumElephant,
+      case DSDeliveryReportStatus.failed:
+        return DSCaptionSmallText(
+          'Falha ao enviar mensagem.',
+          color: DSColors.extendRedsDragon,
         );
 
       case DSDeliveryReportStatus.received:
@@ -55,9 +55,9 @@ class DSDeliveryReportIcon extends StatelessWidget {
         );
 
       default:
-        return DSCaptionSmallText(
-          text: 'Falha ao enviar mensagem.',
-          color: DSColors.extendRedsDragon,
+        return _getIcon(
+          '$path/check.svg',
+          DSColors.neutralMediumElephant,
         );
     }
   }
