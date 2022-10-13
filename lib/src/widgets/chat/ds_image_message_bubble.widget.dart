@@ -1,21 +1,21 @@
-import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
-
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
-import '../texts/ds_body_text.widget.dart';
+import '../../models/ds_document_select.model.dart';
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
+import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
+import 'ds_show_more_text.widget.dart';
 
 class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -26,8 +26,11 @@ class DSImageMessageBubble extends StatelessWidget {
   final String appBarText;
   final Uri? appBarPhotoUri;
   final DSMessageBubbleStyle style;
-
   final DSImageMessageBubbleController _controller;
+  final List<DSDocumentSelectOption> selectOptions;
+  final bool showSelect;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
 
   DSImageMessageBubble({
     super.key,
@@ -39,6 +42,10 @@ class DSImageMessageBubble extends StatelessWidget {
     this.text,
     this.title,
     DSMessageBubbleStyle? style,
+    this.selectOptions = const [],
+    this.showSelect = false,
+    this.onSelected,
+    this.onOpenLink,
   })  : style = style ?? DSMessageBubbleStyle(),
         _controller = DSImageMessageBubbleController();
 
@@ -68,70 +75,86 @@ class DSImageMessageBubble extends StatelessWidget {
                     ? DSUtils.bubbleMinSize
                     : data.image.width.toDouble();
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (!_controller.error.value) {
-                      _controller.appBarVisible.value = false;
-                      showGeneralDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        transitionDuration: DSUtils.defaultAnimationDuration,
-                        transitionBuilder: (_, animation, __, child) =>
-                            _buildTransition(animation, child),
-                        pageBuilder: (context, _, __) => _buildPage(context),
-                      );
-                    }
-                  },
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: DSUtils.bubbleMaxSize,
-                    ),
-                    child: DSCachedNetworkImageView(
-                      fit: BoxFit.cover,
-                      width: width,
-                      url: url,
-                      placeholder: (_, __) => const Padding(
-                        padding: EdgeInsets.all(80.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                      onError: _controller.setError,
-                      align: align,
-                      style: style,
-                    ),
-                  ),
-                ),
-                if ((title?.isNotEmpty ?? false) || (text?.isNotEmpty ?? false))
-                  SizedBox(
-                    width: width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (title?.isNotEmpty ?? false)
-                            DSCaptionText(
-                              title!,
-                              color: color,
-                            ),
-                          if ((text?.isNotEmpty ?? false) &&
-                              (title?.isNotEmpty ?? false)) ...[
-                            const SizedBox(
-                              height: 6.0,
-                            ),
-                            if (text?.isNotEmpty ?? false)
-                              DSBodyText(
-                                text!,
-                                color: color,
-                              ),
-                          ]
-                        ],
+            return LayoutBuilder(
+              builder: (_, constraints) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (!_controller.error.value) {
+                          _controller.appBarVisible.value = false;
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            transitionDuration:
+                                DSUtils.defaultAnimationDuration,
+                            transitionBuilder: (_, animation, __, child) =>
+                                _buildTransition(animation, child),
+                            pageBuilder: (context, _, __) =>
+                                _buildPage(context),
+                          );
+                        }
+                      },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                          maxHeight: DSUtils.bubbleMaxSize,
+                        ),
+                        child: DSCachedNetworkImageView(
+                          fit: BoxFit.cover,
+                          width: width,
+                          url: url,
+                          placeholder: (_, __) => const Padding(
+                            padding: EdgeInsets.all(80.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                          onError: _controller.setError,
+                          align: align,
+                          style: style,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                    if ((title?.isNotEmpty ?? false) ||
+                        (text?.isNotEmpty ?? false))
+                      SizedBox(
+                        width: width,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (title?.isNotEmpty ?? false)
+                                DSCaptionText(
+                                  title!,
+                                  color: color,
+                                ),
+                              if ((text?.isNotEmpty ?? false) &&
+                                  (title?.isNotEmpty ?? false)) ...[
+                                const SizedBox(
+                                  height: 6.0,
+                                ),
+                                if (text?.isNotEmpty ?? false)
+                                  DSShowMoreText(
+                                    text: text!,
+                                    maxWidth: constraints.maxWidth,
+                                    align: align,
+                                    style: style,
+                                  )
+                              ]
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (showSelect)
+                      DSDocumentSelect(
+                        align: align,
+                        options: selectOptions,
+                        onSelected: onSelected,
+                        onOpenLink: onOpenLink,
+                      ),
+                  ],
+                );
+              },
             );
           }
           return const SizedBox();

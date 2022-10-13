@@ -6,11 +6,11 @@ import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
 import 'package:sample/widgets/showcase/sample_header.showcase.dart';
-
 import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
+import 'package:sample/widgets/showcase/sample_ticket_message.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
 import 'package:blip_ds/blip_ds.dart';
@@ -67,6 +67,8 @@ class HomePage extends StatelessWidget {
             const SampleHeaderShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleBottomSheethowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleTicketMessage(),
           ],
         ),
       ),

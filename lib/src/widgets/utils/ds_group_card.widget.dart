@@ -44,6 +44,7 @@ class DSGroupCard extends StatelessWidget {
     required this.isComposing,
     this.sortMessages = true,
     this.onSelected,
+    this.onOpenLink,
     this.hideOptions = false,
     this.showMessageStatus = true,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
@@ -58,6 +59,7 @@ class DSGroupCard extends StatelessWidget {
   final bool isComposing;
   final bool sortMessages;
   final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
   final bool showMessageStatus;
   final List<Widget> _widgets = [];
@@ -114,6 +116,7 @@ class DSGroupCard extends StatelessWidget {
             onSelected: onSelected,
             customerName: message.customerName,
             style: style,
+            onOpenLink: onOpenLink,
           );
 
           final isLastMsg = msgCount == length;
