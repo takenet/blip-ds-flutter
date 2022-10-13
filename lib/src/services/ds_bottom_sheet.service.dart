@@ -11,7 +11,13 @@ class DSBottomSheetService {
   });
 
   Widget _buildBottomSheet({ScrollController? controller}) {
+    final window = WidgetsBinding.instance.window;
+    final padding = MediaQueryData.fromWindow(window).padding.bottom + 36;
+
     return Container(
+      margin: EdgeInsets.only(
+        top: MediaQueryData.fromWindow(window).padding.top + 10,
+      ),
       decoration: const BoxDecoration(
         color: DSColors.neutralLightSnow,
         borderRadius: BorderRadius.only(
@@ -43,17 +49,28 @@ class DSBottomSheetService {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(
+                top: 18.0,
+              ),
               child: controller != null
-                  ? ListView(
+                  ? SingleChildScrollView(
                       controller: controller,
-                      children: [child],
+                      child: _buildChild(padding),
                     )
-                  : child,
-            )
+                  : _buildChild(padding),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildChild(double padding) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: padding,
+      ),
+      child: child,
     );
   }
 
@@ -68,7 +85,7 @@ class DSBottomSheetService {
       builder: (_) {
         return DraggableScrollableSheet(
           expand: false,
-          maxChildSize: 0.95,
+          maxChildSize: 1,
           minChildSize: minSize,
           initialChildSize: initSize,
           builder: (_, controller) => _buildBottomSheet(controller: controller),

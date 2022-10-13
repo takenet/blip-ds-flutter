@@ -36,7 +36,7 @@ class SampleBottomSheethowcase extends StatelessWidget {
       context: context,
       child: body(
           lorem(
-            words: 200,
+            words: 300,
             paragraphs: 1,
           ),
           context),
