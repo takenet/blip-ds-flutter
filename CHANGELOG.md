@@ -1,3 +1,9 @@
+## 0.0.15
+
+* Added suport for ticket type bubble
+* Added suport for image select menu
+* Improved show more options in text e image bubble
+
 ## 0.0.14
 
 * Added suport for Quick Reply and Select
