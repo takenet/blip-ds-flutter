@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
-import '../../models/ds_document_select.model.dart';
-import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
+
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -31,22 +34,24 @@ class DSImageMessageBubble extends StatelessWidget {
   final bool showSelect;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
+  final bool hasSpacer;
 
-  DSImageMessageBubble({
-    super.key,
-    required this.align,
-    required this.url,
-    required this.appBarText,
-    this.appBarPhotoUri,
-    this.borderRadius = const [DSBorderRadius.all],
-    this.text,
-    this.title,
-    DSMessageBubbleStyle? style,
-    this.selectOptions = const [],
-    this.showSelect = false,
-    this.onSelected,
-    this.onOpenLink,
-  })  : style = style ?? DSMessageBubbleStyle(),
+  DSImageMessageBubble(
+      {super.key,
+      required this.align,
+      required this.url,
+      required this.appBarText,
+      this.appBarPhotoUri,
+      this.borderRadius = const [DSBorderRadius.all],
+      this.text,
+      this.title,
+      DSMessageBubbleStyle? style,
+      this.selectOptions = const [],
+      this.showSelect = false,
+      this.onSelected,
+      this.onOpenLink,
+      this.hasSpacer = true})
+      : style = style ?? DSMessageBubbleStyle(),
         _controller = DSImageMessageBubbleController();
 
   @override
@@ -59,6 +64,7 @@ class DSImageMessageBubble extends StatelessWidget {
       defaultMaxSize: 360.0,
       shouldUseDefaultSize: true,
       align: align,
+      hasSpacer: hasSpacer,
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
       style: style,

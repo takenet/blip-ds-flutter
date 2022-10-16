@@ -21,8 +21,7 @@ export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 
 /// Widgets / Chat / Form Fields
-export 'src/widgets/fields/ds_text_form_field.widget.dart'
-    show DSTextFormField;
+export 'src/widgets/fields/ds_text_form_field.widget.dart' show DSTextFormField;
 
 /// Widgets / Animations
 export 'src/widgets/animations/ds_animated_size.widget.dart'
@@ -38,10 +37,8 @@ export 'src/widgets/buttons/ds_secondary_button.widget.dart'
     show DSSecondaryButton;
 export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
     show DSTertiaryButton;
-export 'src/widgets/buttons/ds_send_button.widget.dart'
-    show DSSendButton;
-export 'src/widgets/buttons/ds_icon_button.widget.dart'
-    show DSIconButton;
+export 'src/widgets/buttons/ds_send_button.widget.dart' show DSSendButton;
+export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_attachment_button.widget.dart'
     show DSAttachmentButton;
 
@@ -104,8 +101,10 @@ export 'src/services/ds_dialog.service.dart' show DSDialogService;
 
 /// Models
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
-export 'src/models/ds_message_bubble_style.model.dart' show DSMessageBubbleStyle;
-export 'src/models/ds_message_bubble_avatar_config.model.dart' show DSMessageBubbleAvatarConfig;
+export 'src/models/ds_message_bubble_style.model.dart'
+    show DSMessageBubbleStyle;
+export 'src/models/ds_message_bubble_avatar_config.model.dart'
+    show DSMessageBubbleAvatarConfig;
 
 /// Widgets / Typing
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
@@ -126,3 +125,6 @@ export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
+
+/// Widgets / Carrousel
+export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
