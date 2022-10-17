@@ -99,6 +99,7 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
 
 /// Services
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 
 /// Models
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
