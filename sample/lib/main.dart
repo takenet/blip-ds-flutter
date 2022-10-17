@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/route_manager.dart';
+import 'package:sample/widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
@@ -64,6 +65,8 @@ class HomePage extends StatelessWidget {
             SampleGroupCardShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleHeaderShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleBottomSheethowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTicketMessage(),
           ],
