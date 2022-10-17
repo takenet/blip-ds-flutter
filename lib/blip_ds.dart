@@ -65,6 +65,7 @@ export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
+export 'src/enums/ds_ticket_message_type.enum.dart' show DSTicketMessageType;
 
 /// Extensions
 export 'package:blip_ds/src/extensions/ds_border_radius.extension.dart'
@@ -128,3 +129,7 @@ export 'src/themes/icons/ds_icons.dart' show DSIcons;
 
 /// Widgets / Carrousel
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
+
+/// Widgets / Information message
+export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
+    show DSTicketMessage;
