@@ -218,8 +218,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: 'Olá Tudo bem?',
             appBarText: 'Unknown User',
           ),
-          const DSCarrousel(
+          DSCarrousel(
             align: DSAlign.right,
+            onOpenLink: (dynamic payload) {
+              print('Infos de callback: / $payload');
+            },
+            onSelected: (String text, dynamic payload) {
+              print('Infos de callback: $text / $payload');
+            },
             //content: [],
             //onSelected: [],
           ),

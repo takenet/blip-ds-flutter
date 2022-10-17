@@ -8,11 +8,15 @@ import '../../../blip_ds.dart';
 class DSCarrousel extends StatelessWidget {
   final DSAlign align;
   final Map<String, dynamic>? content;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
 
   const DSCarrousel({
     Key? key,
     required this.align,
     this.content,
+    this.onSelected,
+    this.onOpenLink,
   }) : super(key: key);
 
   @override
@@ -61,8 +65,8 @@ class DSCarrousel extends StatelessWidget {
             selectOptions: listOptions,
             showSelect: true,
             hasSpacer: false,
-            //onSelected: onSelected,
-            //onOpenLink: onOpenLink,
+            onSelected: onSelected,
+            onOpenLink: onOpenLink,
           ),
         ),
       );
