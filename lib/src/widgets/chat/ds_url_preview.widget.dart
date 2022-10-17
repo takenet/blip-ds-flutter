@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// A Design System's clickable URL previewer that shows some metadata infos about the given [url].
-class DSUrlPreview extends StatelessWidget {
+class DSUrlPreview extends StatefulWidget {
   final Uri url;
   final Color backgroundColor;
   final Color foregroundColor;
@@ -13,8 +13,6 @@ class DSUrlPreview extends StatelessWidget {
   final EdgeInsets bodyPadding;
   final DSAlign align;
   final DSMessageBubbleStyle style;
-
-  final _controller = DSUrlPreviewController();
 
   /// Creates a Design System's clickable URL previewer that shows some metadata infos about the given [url].
   DSUrlPreview({
@@ -32,8 +30,22 @@ class DSUrlPreview extends StatelessWidget {
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
+  State<StatefulWidget> createState() => _DSUrlPreviewState();
+}
+
+class _DSUrlPreviewState extends State<DSUrlPreview>
+    with AutomaticKeepAliveClientMixin {
+  late final DSUrlPreviewController _controller;
+
+  @override
+  initState() {
+    _controller = DSUrlPreviewController(widget.url);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _controller.getUrlPreview(url);
+    super.build(context);
 
     return Obx(
       () => DSAnimatedSize(
@@ -48,10 +60,10 @@ class DSUrlPreview extends StatelessWidget {
                   width: double.infinity,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius: borderRadius.getCircularBorderRadius(
+                    borderRadius: widget.borderRadius.getCircularBorderRadius(
                       maxRadius: 18.0,
                     ),
-                    color: backgroundColor,
+                    color: widget.backgroundColor,
                   ),
                   child: _controller.isLoading.value
                       ? _buildLoading()
@@ -66,7 +78,7 @@ class DSUrlPreview extends StatelessWidget {
     return SizedBox(
       height: 56.0,
       child: DSRingLoading(
-        color: foregroundColor,
+        color: widget.foregroundColor,
       ),
     );
   }
@@ -100,8 +112,8 @@ class DSUrlPreview extends StatelessWidget {
       url: path,
       height: 150.0,
       width: double.infinity,
-      align: align,
-      style: style,
+      align: widget.align,
+      style: widget.style,
     );
   }
 
@@ -110,20 +122,20 @@ class DSUrlPreview extends StatelessWidget {
     String? description,
   }) {
     return Padding(
-      padding: bodyPadding,
+      padding: widget.bodyPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (title?.isNotEmpty ?? false)
             DSBodyText(
               title,
-              color: foregroundColor,
+              color: widget.foregroundColor,
               shouldLinkify: false,
             ),
           if (description?.isNotEmpty ?? false)
             DSCaptionSmallText(
               description,
-              color: foregroundColor,
+              color: widget.foregroundColor,
               maxLines: 3,
               shouldLinkify: false,
             ),
@@ -131,4 +143,7 @@ class DSUrlPreview extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

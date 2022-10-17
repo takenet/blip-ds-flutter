@@ -17,18 +17,7 @@ import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
-class DSImageMessageBubble extends StatelessWidget {
-  final DSAlign align;
-  final String url;
-  final List<DSBorderRadius> borderRadius;
-  final String? title;
-  final String? text;
-  final String appBarText;
-  final Uri? appBarPhotoUri;
-  final DSMessageBubbleStyle style;
-
-  final DSImageMessageBubbleController _controller;
-
+class DSImageMessageBubble extends StatefulWidget {
   DSImageMessageBubble({
     super.key,
     required this.align,
@@ -42,21 +31,40 @@ class DSImageMessageBubble extends StatelessWidget {
   })  : style = style ?? DSMessageBubbleStyle(),
         _controller = DSImageMessageBubbleController();
 
+  final DSAlign align;
+  final String url;
+  final List<DSBorderRadius> borderRadius;
+  final String? title;
+  final String? text;
+  final String appBarText;
+  final Uri? appBarPhotoUri;
+  final DSMessageBubbleStyle style;
+
+  final DSImageMessageBubbleController _controller;
+
+  @override
+  State<StatefulWidget> createState() => _DSImageMessageBubbleState();
+}
+
+class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    final color = style.isLightBubbleBackground(align)
+    super.build(context);
+
+    final color = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
       defaultMaxSize: 360.0,
       shouldUseDefaultSize: true,
-      align: align,
-      borderRadius: borderRadius,
+      align: widget.align,
+      borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
-      style: style,
+      style: widget.style,
       child: FutureBuilder(
-        future: _controller.getImageInfo(url),
+        future: widget._controller.getImageInfo(widget.url),
         builder: (buildContext, snapshot) {
           if (snapshot.hasData || snapshot.hasError) {
             final ImageInfo? data =
@@ -73,8 +81,8 @@ class DSImageMessageBubble extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (!_controller.error.value) {
-                      _controller.appBarVisible.value = false;
+                    if (!widget._controller.error.value) {
+                      widget._controller.appBarVisible.value = false;
                       showGeneralDialog(
                         context: context,
                         barrierDismissible: false,
@@ -92,18 +100,19 @@ class DSImageMessageBubble extends StatelessWidget {
                     child: DSCachedNetworkImageView(
                       fit: BoxFit.cover,
                       width: width,
-                      url: url,
+                      url: widget.url,
                       placeholder: (_, __) => const Padding(
                         padding: EdgeInsets.all(80.0),
                         child: CircularProgressIndicator(),
                       ),
-                      onError: _controller.setError,
-                      align: align,
-                      style: style,
+                      onError: widget._controller.setError,
+                      align: widget.align,
+                      style: widget.style,
                     ),
                   ),
                 ),
-                if ((title?.isNotEmpty ?? false) || (text?.isNotEmpty ?? false))
+                if ((widget.title?.isNotEmpty ?? false) ||
+                    (widget.text?.isNotEmpty ?? false))
                   SizedBox(
                     width: width,
                     child: Padding(
@@ -111,19 +120,19 @@ class DSImageMessageBubble extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (title?.isNotEmpty ?? false)
+                          if (widget.title?.isNotEmpty ?? false)
                             DSCaptionText(
-                              title!,
+                              widget.title!,
                               color: color,
                             ),
-                          if ((text?.isNotEmpty ?? false) &&
-                              (title?.isNotEmpty ?? false)) ...[
+                          if ((widget.text?.isNotEmpty ?? false) &&
+                              (widget.title?.isNotEmpty ?? false)) ...[
                             const SizedBox(
                               height: 6.0,
                             ),
-                            if (text?.isNotEmpty ?? false)
+                            if (widget.text?.isNotEmpty ?? false)
                               DSBodyText(
-                                text!,
+                                widget.text!,
                                 color: color,
                               ),
                           ]
@@ -161,7 +170,7 @@ class DSImageMessageBubble extends StatelessWidget {
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(80.0),
                 child: AnimatedOpacity(
-                  opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
+                  opacity: widget._controller.appBarVisible.value ? 1.0 : 0.0,
                   duration: DSUtils.defaultAnimationDuration,
                   child: Row(
                     children: [
@@ -179,11 +188,11 @@ class DSImageMessageBubble extends StatelessWidget {
                         child: ListTile(
                           contentPadding: EdgeInsets.zero,
                           leading: DSUserAvatar(
-                            text: appBarText,
-                            uri: appBarPhotoUri,
+                            text: widget.appBarText,
+                            uri: widget.appBarPhotoUri,
                           ),
                           title: DSHeadlineSmallText(
-                            appBarText,
+                            widget.appBarText,
                             color: DSColors.neutralLightSnow,
                           ),
                         ),
@@ -193,7 +202,7 @@ class DSImageMessageBubble extends StatelessWidget {
                 ),
               ),
               body: GestureDetector(
-                onTap: () => _controller.showAppBar(),
+                onTap: () => widget._controller.showAppBar(),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -202,10 +211,10 @@ class DSImageMessageBubble extends StatelessWidget {
                   child: PinchZoom(
                     resetDuration: const Duration(milliseconds: 100),
                     child: DSCachedNetworkImageView(
-                      url: url,
+                      url: widget.url,
                       fit: BoxFit.contain,
-                      align: align,
-                      style: style,
+                      align: widget.align,
+                      style: widget.style,
                     ),
                   ),
                 ),
@@ -216,4 +225,7 @@ class DSImageMessageBubble extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
