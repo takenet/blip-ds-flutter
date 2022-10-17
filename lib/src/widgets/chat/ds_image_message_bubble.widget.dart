@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
-
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/chat/ds_image_message_bubble.controller.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
+import '../../models/ds_document_select.model.dart';
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import '../utils/ds_cached_network_image_view.widget.dart';
+import '../utils/ds_user_avatar.widget.dart';
+import 'ds_document_select.widget.dart';
+import 'ds_message_bubble.widget.dart';
+import 'ds_show_more_text.widget.dart';
 
 class DSImageMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -13,27 +24,44 @@ class DSImageMessageBubble extends StatelessWidget {
   final String? title;
   final String? text;
   final String appBarText;
-
+  final Uri? appBarPhotoUri;
+  final DSMessageBubbleStyle style;
   final DSImageMessageBubbleController _controller;
+  final List<DSDocumentSelectOption> selectOptions;
+  final bool showSelect;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
 
   DSImageMessageBubble({
     super.key,
     required this.align,
     required this.url,
     required this.appBarText,
+    this.appBarPhotoUri,
     this.borderRadius = const [DSBorderRadius.all],
     this.text,
     this.title,
-  }) : _controller = DSImageMessageBubbleController();
+    DSMessageBubbleStyle? style,
+    this.selectOptions = const [],
+    this.showSelect = false,
+    this.onSelected,
+    this.onOpenLink,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        _controller = DSImageMessageBubbleController();
 
   @override
   Widget build(BuildContext context) {
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
+
     return DSMessageBubble(
       defaultMaxSize: 360.0,
       shouldUseDefaultSize: true,
       align: align,
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
+      style: style,
       child: FutureBuilder(
         future: _controller.getImageInfo(url),
         builder: (buildContext, snapshot) {
@@ -47,69 +75,86 @@ class DSImageMessageBubble extends StatelessWidget {
                     ? DSUtils.bubbleMinSize
                     : data.image.width.toDouble();
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (!_controller.error.value) {
-                      _controller.appBarVisible.value = false;
-                      showGeneralDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        transitionDuration: DSUtils.defaultAnimationDuration,
-                        transitionBuilder: (_, animation, __, child) =>
-                            _buildTransition(animation, child),
-                        pageBuilder: (context, _, __) => _buildPage(context),
-                      );
-                    }
-                  },
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: DSUtils.bubbleMaxSize,
-                    ),
-                    child: DSCachedNetworkImageView(
-                      fit: BoxFit.cover,
-                      width: width,
-                      url: url,
-                      placeholder: (_, __) => const Padding(
-                        padding: EdgeInsets.all(80.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                      onError: _controller.setError,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: width,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DSCaptionText(
-                          text: title,
-                          color: align == DSAlign.right
-                              ? DSColors.neutralLightSnow
-                              : DSColors.neutralDarkCity,
+            return LayoutBuilder(
+              builder: (_, constraints) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (!_controller.error.value) {
+                          _controller.appBarVisible.value = false;
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            transitionDuration:
+                                DSUtils.defaultAnimationDuration,
+                            transitionBuilder: (_, animation, __, child) =>
+                                _buildTransition(animation, child),
+                            pageBuilder: (context, _, __) =>
+                                _buildPage(context),
+                          );
+                        }
+                      },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                          maxHeight: DSUtils.bubbleMaxSize,
                         ),
-                        if (text != null) ...[
-                          const SizedBox(
-                            height: 6.0,
+                        child: DSCachedNetworkImageView(
+                          fit: BoxFit.cover,
+                          width: width,
+                          url: url,
+                          placeholder: (_, __) => const Padding(
+                            padding: EdgeInsets.all(80.0),
+                            child: CircularProgressIndicator(),
                           ),
-                          DSBodyText(
-                            overflow: TextOverflow.clip,
-                            text: text!,
-                            color: align == DSAlign.right
-                                ? DSColors.neutralLightSnow
-                                : DSColors.neutralDarkCity,
-                          ),
-                        ],
-                      ],
+                          onError: _controller.setError,
+                          align: align,
+                          style: style,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                    if ((title?.isNotEmpty ?? false) ||
+                        (text?.isNotEmpty ?? false))
+                      SizedBox(
+                        width: width,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (title?.isNotEmpty ?? false)
+                                DSCaptionText(
+                                  title!,
+                                  color: color,
+                                ),
+                              if ((text?.isNotEmpty ?? false) &&
+                                  (title?.isNotEmpty ?? false)) ...[
+                                const SizedBox(
+                                  height: 6.0,
+                                ),
+                                if (text?.isNotEmpty ?? false)
+                                  DSShowMoreText(
+                                    text: text!,
+                                    maxWidth: constraints.maxWidth,
+                                    align: align,
+                                    style: style,
+                                  )
+                              ]
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (showSelect)
+                      DSDocumentSelect(
+                        align: align,
+                        options: selectOptions,
+                        onSelected: onSelected,
+                        onOpenLink: onOpenLink,
+                      ),
+                  ],
+                );
+              },
             );
           }
           return const SizedBox();
@@ -135,38 +180,38 @@ class DSImageMessageBubble extends StatelessWidget {
         child: Obx(
           () {
             return Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.transparent,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(80.0),
                 child: AnimatedOpacity(
                   opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
                   duration: DSUtils.defaultAnimationDuration,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        splashRadius: 20.0,
+                        padding: EdgeInsets.zero,
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(
+                          DSIcons.arrow_left,
+                          color: DSColors.neutralLightSnow,
+                          size: 32.0,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: DSUserAvatar(
+                            text: appBarText,
+                            uri: appBarPhotoUri,
+                          ),
+                          title: DSHeadlineSmallText(
+                            appBarText,
                             color: DSColors.neutralLightSnow,
                           ),
                         ),
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: DSUserAvatar(
-                              text: appBarText,
-                            ),
-                            title: DSHeadlineSmallText(
-                              text: appBarText,
-                              color: DSColors.neutralLightSnow,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -182,6 +227,8 @@ class DSImageMessageBubble extends StatelessWidget {
                     child: DSCachedNetworkImageView(
                       url: url,
                       fit: BoxFit.contain,
+                      align: align,
+                      style: style,
                     ),
                   ),
                 ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:blip_ds/blip_ds.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../utils/ds_utils.util.dart';
+import '../animations/ds_animated_size.widget.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -10,6 +14,7 @@ class DSMessageBubble extends StatelessWidget {
   final bool shouldUseDefaultSize;
   final double defaultMaxSize;
   final double defaultMinSize;
+  final DSMessageBubbleStyle style;
 
   const DSMessageBubble({
     Key? key,
@@ -23,6 +28,7 @@ class DSMessageBubble extends StatelessWidget {
     this.shouldUseDefaultSize = false,
     this.defaultMaxSize = DSUtils.bubbleMaxSize,
     this.defaultMinSize = DSUtils.bubbleMinSize,
+    required this.style,
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -37,14 +43,11 @@ class DSMessageBubble extends StatelessWidget {
       flex: 5,
       child: DSAnimatedSize(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
+          padding: const EdgeInsets.all(1.0),
           decoration: BoxDecoration(
             borderRadius: _getBorderRadius(),
-            color: align == DSAlign.right
-                ? DSColors.neutralDarkCity
-                : DSColors.neutralMediumSilver,
+            color: style.bubbleBorderColor(align),
           ),
-          padding: const EdgeInsets.all(1.0),
           child: ClipRRect(
             borderRadius: _getBorderRadius(),
             child: Container(
@@ -55,9 +58,7 @@ class DSMessageBubble extends StatelessWidget {
                     )
                   : null,
               padding: padding,
-              color: align == DSAlign.right
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow,
+              color: style.bubbleBackgroundColor(align),
               child: child,
             ),
           ),
@@ -68,21 +69,15 @@ class DSMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [];
-
-    if (align == DSAlign.right) {
-      children.insertAll(0, [const Spacer(), _messageContainer()]);
-    } else {
-      children.insertAll(0, [_messageContainer(), const Spacer()]);
-    }
+    final isRightAlign = align == DSAlign.right;
+    List<Widget> children = [const Spacer(), _messageContainer()];
 
     return Column(
       children: [
         Row(
-          mainAxisAlignment: align == DSAlign.right
-              ? MainAxisAlignment.end
-              : MainAxisAlignment.start,
-          children: children,
+          mainAxisAlignment:
+              isRightAlign ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: isRightAlign ? children : children.reversed.toList(),
         ),
       ],
     );

@@ -2,6 +2,9 @@ import 'package:blip_ds/blip_ds.dart';
 
 /// A Design System message model used with [DSGroupCard] to display grouped bubble
 class DSMessageItemModel {
+  /// Identifier of message
+  String? id;
+
   /// Date formated as isodate (Ex: 2020-01-06T13:55:46.834Z)
   String date;
 
@@ -22,19 +25,26 @@ class DSMessageItemModel {
 
   /// Used to display a user name and avatar at an image preview in image bubble
   String? customerName;
+  
+  /// Used to display a user name and avatar at an image preview in image bubble
+  Uri? customerAvatar;
 
   /// Creates a new Design System's [DSMessageItemModel] model
-  DSMessageItemModel(
-      {required this.date,
-      required this.displayDate,
-      required this.align,
-      required this.type,
-      required this.status,
-      this.content,
-      this.customerName});
+  DSMessageItemModel({
+    this.id,
+    required this.date,
+    required this.displayDate,
+    required this.align,
+    required this.type,
+    required this.status,
+    this.content,
+    this.customerName,
+    this.customerAvatar,
+  });
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
     final messageItem = DSMessageItemModel(
+      id: json['id'],
       date: json['date'],
       displayDate: json['displayDate'],
       align: json['align'] == "left" ? DSAlign.left : DSAlign.right,
@@ -45,6 +55,10 @@ class DSMessageItemModel {
 
     if (json.containsKey('customerName')) {
       messageItem.customerName = json['customerName'];
+    }
+    
+    if (json.containsKey('customerAvatar')) {
+      messageItem.customerAvatar = json['customerAvatar'];
     }
 
     return messageItem;

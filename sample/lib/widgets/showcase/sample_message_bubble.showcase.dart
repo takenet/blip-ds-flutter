@@ -55,38 +55,42 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
+            text: _longText,
+            align: DSAlign.left,
+          ),
+          DSTextMessageBubble(
             text:
                 'Exemplo de preview completo e borda "reta": https://www.take.net/',
             align: DSAlign.right,
-            borderRadius: [
+            borderRadius: const [
               DSBorderRadius.bottomLeft,
               DSBorderRadius.topLeft,
             ],
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text: 'Exemplo de preview completo: https://www.take.net/',
             align: DSAlign.left,
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text: 'Exemplo de preview simples: https://www.google.com.br/',
             align: DSAlign.right,
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text: 'Exemplo de URL inválido: https://www.google.c.br/',
             align: DSAlign.left,
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text:
                 'Exemplo de preview sem info: https://www.ledr.com/colours/cyan.htm',
             align: DSAlign.right,
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text:
                 'Lista de URLs:\n- https://www.take.net/\n- https://www.google.com.br/\n- https://pub.dev/packages/linkify',
             align: DSAlign.left,
           ),
-          const DSTextMessageBubble(
+          DSTextMessageBubble(
             text:
                 'Texto antes do link https://pub.dev/packages/linkify e texto depois do link!',
             align: DSAlign.right,
@@ -103,10 +107,10 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               size: 500,
               url:
                   'https://github.com/takenet/blip-cards-vue-components/archive/refs/heads/master.zip'),
-          const DSUnsupportedContentMessageBubble(
+          DSUnsupportedContentMessageBubble(
             align: DSAlign.left,
           ),
-          const DSUnsupportedContentMessageBubble(
+          DSUnsupportedContentMessageBubble(
             align: DSAlign.right,
           ),
           DSImageMessageBubble(
@@ -117,10 +121,22 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             appBarText: 'Unknown User',
           ),
           DSImageMessageBubble(
+            align: DSAlign.left,
+            url: '',
+            title: 'Hello',
+            text: 'My picture',
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
             align: DSAlign.right,
             url: _sampleImages['extraLarge']!,
             title: '2000x1330.png',
             text: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['large']!,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

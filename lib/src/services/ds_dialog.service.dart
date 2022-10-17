@@ -1,8 +1,12 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../themes/colors/ds_colors.theme.dart';
+import '../utils/ds_utils.util.dart';
+import '../widgets/texts/ds_body_text.widget.dart';
+import '../widgets/texts/ds_headline_small_text.widget.dart';
 
 /// A Design System's [Dialog] used to display a dialog box.
 class DSDialogService {
@@ -63,7 +67,7 @@ class DSDialogService {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: DSHeadlineSmallText(text: title),
+                child: DSHeadlineSmallText(title),
               ),
             ],
           ),
@@ -75,7 +79,7 @@ class DSDialogService {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: DSBodyText(
-          text: text,
+          text,
           overflow: TextOverflow.clip,
         ),
       );

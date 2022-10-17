@@ -21,8 +21,7 @@ class SampleRadioShowcase extends StatelessWidget {
             children: [
               Obx(
                 () => DSBodyText(
-                  text:
-                      "Opção selecionada: ${_controller.selectedOption.value}",
+                  "Opção selecionada: ${_controller.selectedOption.value}",
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

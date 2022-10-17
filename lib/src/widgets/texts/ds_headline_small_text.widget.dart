@@ -6,8 +6,8 @@ import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
 /// Sets [DSHeadlineSmallTextStyle] as [style] default value. This style's font variant is $fs-16-p1.
 class DSHeadlineSmallText extends DSText {
   /// Creates a Design System's [Text] with $fs-16-p1 font variant.
-  DSHeadlineSmallText({
-    required super.text,
+  DSHeadlineSmallText(
+    super.text, {
     super.key,
     super.color,
     super.linkColor,
@@ -20,8 +20,8 @@ class DSHeadlineSmallText extends DSText {
           ),
         );
 
-  DSHeadlineSmallText.rich({
-    required super.textSpan,
+  DSHeadlineSmallText.rich(
+    super.textSpan, {
     super.key,
     super.color,
     super.linkColor,

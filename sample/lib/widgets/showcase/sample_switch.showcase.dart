@@ -19,7 +19,7 @@ class SampleSwitchShowcase extends StatelessWidget {
             value: controller.onSwitchTile.value,
             onChanged: (value) => controller.toggleSwitchTile(),
             title: DSBodyText(
-              text: 'Label switch',
+              'Label switch',
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -31,7 +31,7 @@ class SampleSwitchShowcase extends StatelessWidget {
             value: controller.onSwitchTileDisabled.value,
             onChanged: (value) => controller.onSwitchTileDisabled,
             title: DSBodyText(
-              text: 'Label switch',
+              'Label switch',
               overflow: TextOverflow.ellipsis,
             ),
           ),

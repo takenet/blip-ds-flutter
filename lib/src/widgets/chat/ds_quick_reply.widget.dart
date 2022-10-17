@@ -1,42 +1,35 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/models/ds_select_option.model.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_select_option.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../../utils/ds_message_content_type.util.dart';
+import '../texts/ds_body_text.widget.dart';
 
 class DSQuickReply extends StatelessWidget {
   final DSAlign align;
   final Map<String, dynamic> content;
-  final Function? onSelected;
-  final bool hideOptions;
+  final void Function(String, Map<String, dynamic>)? onSelected;
 
   const DSQuickReply({
     Key? key,
     required this.align,
     required this.content,
     this.onSelected,
-    this.hideOptions = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: align == DSAlign.left
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.end,
-      children: [
-        DSTextMessageBubble(
-          text: content['text'],
-          align: align,
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: _buildQuickReply(),
-        )
-      ],
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: _buildQuickReply(),
     );
   }
 
   Widget _buildQuickReply() {
-    return hideOptions ? const SizedBox() : _buildItems();
+    return _buildItems();
   }
 
   Widget _buildItems() {
@@ -61,7 +54,7 @@ class DSQuickReply extends StatelessWidget {
                 payload = {"type": type, "content": option.value};
               } else {
                 payload = {
-                  "type": 'text/plain',
+                  "type": DSMessageContentType.textPlain,
                   "content": option.order != null
                       ? option.order.toString()
                       : option.text
@@ -91,7 +84,7 @@ class DSQuickReply extends StatelessWidget {
                     vertical: 8.0,
                   ),
                   child: DSBodyText(
-                    text: option.text,
+                    option.text,
                     fontWeight: DSFontWeights.semiBold,
                   ),
                 ),
@@ -105,7 +98,7 @@ class DSQuickReply extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         scrollDirection: Axis.horizontal,
         child: Wrap(
           spacing: 8.0,
