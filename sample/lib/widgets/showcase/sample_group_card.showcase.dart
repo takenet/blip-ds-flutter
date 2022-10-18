@@ -18,6 +18,7 @@ class SampleGroupCardShowcase extends StatelessWidget {
           builder: (_, snapshot) {
             if (snapshot.hasData) {
               return DSGroupCard(
+                shrinkWrap: true,
                 onSelected: (String text, dynamic payload) {
                   print('Infos de callback: $text / $payload');
                 },

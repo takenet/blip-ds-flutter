@@ -89,7 +89,8 @@
       "align": "right",
       "type": "application/vnd.lime.media-link+json",
       "status": "consumed",
-      "customerName": "André Rossi"
+      "customerName": "André Rossi",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbb"
    },
    {
       "content": {
@@ -203,7 +204,8 @@
       "align": "right",
       "type": "application/vnd.lime.media-link+json",
       "status": "consumed",
-      "customerName": "André Rossi"
+      "customerName": "André Rossi",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbc"
    },
    {
       "content": {
@@ -219,7 +221,8 @@
       "displayDate": "8 de Ago de 2022 16:20",
       "align": "right",
       "type": "application/vnd.lime.media-link+json",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbd"
    },
    {
       "content": {
@@ -235,7 +238,8 @@
       "displayDate": "8 de Ago de 2022 16:19",
       "align": "right",
       "type": "application/vnd.lime.media-link+json",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbe"
    },
    {
       "content": "vou mandar audio",
@@ -243,7 +247,8 @@
       "displayDate": "8 de Ago de 2022 12:35",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb1"
    },
    {
       "content": "pode me ajudar?",
@@ -251,7 +256,8 @@
       "displayDate": "8 de Ago de 2022 12:35",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb2"
    },
    {
       "content": "estou com problema no login",
@@ -259,7 +265,8 @@
       "displayDate": "8 de Ago de 2022 12:34",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb3"
    },
    {
       "content": "sim",
@@ -267,7 +274,8 @@
       "displayDate": "8 de Ago de 2022 12:34",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb4"
    },
    {
       "content": "olá",
@@ -275,7 +283,8 @@
       "displayDate": "8 de Ago de 2022 12:34",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb5"
    },
    {
       "content": "até mais!",
@@ -283,7 +292,8 @@
       "displayDate": "22 de Set de 2022 12:30",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb6"
    },
    {
       "content": "ta por ai?",
@@ -291,7 +301,8 @@
       "displayDate": "8 de Ago de 2022 12:33",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb7"
    },
    {
       "content": "precisa de ajuda?",
@@ -299,7 +310,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb8"
    },
    {
       "content": "tudo bem?",
@@ -307,7 +319,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cb9"
    },
    {
       "content": "oi",
@@ -315,7 +328,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbf"
    },
    {
       "content": "1",
@@ -323,7 +337,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874ccd"
    },
    {
       "content": "1 - falar com humano",
@@ -331,7 +346,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cdd"
    },
    {
       "content": "Olá! Tester 22-08-22 09:24:51!\nSeja bem-vindo(a)!",
@@ -339,7 +355,8 @@
       "displayDate": "8 de Ago de 2022 12:25",
       "align": "right",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874ced"
    },
    {
       "content": "ola",
@@ -347,7 +364,8 @@
       "displayDate": "8 de Ago de 2022 12:24",
       "align": "left",
       "type": "text/plain",
-      "status": "consumed"
+      "status": "consumed",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cfd"
    },
    {
       "content": {
@@ -364,7 +382,8 @@
       "align": "right",
       "type": "application/vnd.lime.media-link+json",
       "status": "consumed",
-      "customerName": "André Rossi"
+      "customerName": "André Rossi",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874dbd"
    },
    {
       "content": {
@@ -381,6 +400,7 @@
       "align": "left",
       "type": "application/vnd.lime.media-link+json",
       "status": "consumed",
-      "customerName": "André Rossi"
+      "customerName": "André Rossi",
+      "id": "c37b66a6-b60f-4bc0-af30-7c9b28874fbd"
    }
 ]

@@ -45,6 +45,7 @@ class DSGroupCard extends StatefulWidget {
     this.showMessageStatus = true,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     this.onInfinitScroll,
+    this.shrinkWrap = false,
     DSMessageBubbleStyle? style,
     bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
@@ -60,6 +61,7 @@ class DSGroupCard extends StatefulWidget {
   final DSMessageBubbleStyle style;
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
+  final bool shrinkWrap;
 
   @override
   State<StatefulWidget> createState() => _DSGroupCardState();
@@ -103,6 +105,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           controller: scrollController,
           reverse: true,
+          shrinkWrap: widget.shrinkWrap,
           itemCount: widgets.length,
           itemBuilder: (_, int index) {
             return widgets[index];
