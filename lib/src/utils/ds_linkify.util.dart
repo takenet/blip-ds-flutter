@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 /// An utility class that has methods related to likified texts.
 abstract class DSLinkify {
@@ -28,13 +29,17 @@ abstract class DSLinkify {
       (child) {
         final String? spanText = (child as TextSpan).text;
         final TextStyle? spanStyle = (child.style ?? defaultStyle);
+        final TextStyle? linkStyle = spanStyle?.copyWith(
+                      color: linkColor,
+                      decoration: TextDecoration.underline,
+                    );
 
         if (spanText?.isNotEmpty ?? false) {
           final List<LinkifyElement> elements = linkify(
             spanText!,
-            linkifiers: const [
-              UrlLinkifier(),
-            ],
+            // linkifiers: const [
+            //   UrlLinkifier(),
+            // ],
           );
 
           for (var element in elements) {
@@ -45,31 +50,29 @@ abstract class DSLinkify {
                   style: spanStyle,
                 ),
               );
-            } else {
-              final Uri? url = Uri.tryParse(
-                (element as UrlElement).url,
-              );
+            } else 
+            {
+              final url = 
+                element is UrlElement ? element.url :
+               (element as EmailElement).url;
 
               if (url != null) {
                 formattedText.add(
                   TextSpan(
                     text: url.toString(),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => launchUrl(
-                            url,
-                            mode: LaunchMode.inAppWebView,
+                      ..onTap = () => launchUrlString(
+                            url, 
+                            mode: LaunchMode.externalApplication,
                           ),
-                    style: spanStyle?.copyWith(
-                      color: linkColor,
-                      decoration: TextDecoration.underline,
+                    style: linkStyle,
                     ),
-                  ),
                 );
               }
             }
+            
           }
         }
-
         return true;
       },
     );
