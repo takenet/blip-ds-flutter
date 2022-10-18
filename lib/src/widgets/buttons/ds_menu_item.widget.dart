@@ -34,6 +34,7 @@ class DSMenuItem extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 57.0,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           border: showBorder
               ? Border(
@@ -53,15 +54,18 @@ class DSMenuItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DSHeadlineSmallText(
-              text,
-              color: isLightBubbleBackground
-                  ? isDefaultBubbleColors
-                      ? DSColors.primaryNight
-                      : DSColors.neutralDarkCity
-                  : isDefaultBubbleColors
-                      ? DSColors.primaryLight
-                      : DSColors.neutralLightSnow,
+            Flexible(
+              child: DSHeadlineSmallText(
+                text,
+                textAlign: TextAlign.center,
+                color: isLightBubbleBackground
+                    ? isDefaultBubbleColors
+                        ? DSColors.primaryNight
+                        : DSColors.neutralDarkCity
+                    : isDefaultBubbleColors
+                        ? DSColors.primaryLight
+                        : DSColors.neutralLightSnow,
+              ),
             ),
           ],
         ),
