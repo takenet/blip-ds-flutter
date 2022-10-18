@@ -226,8 +226,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             onSelected: (String text, dynamic payload) {
               print('Infos de callback: $text / $payload');
             },
-            //content: [],
-            //onSelected: [],
           ),
         ],
       ),

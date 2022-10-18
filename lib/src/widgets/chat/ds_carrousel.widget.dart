@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 
 import 'package:blip_ds/src/models/ds_document_select.model.dart';
 
 import '../../../blip_ds.dart';
+import '../utils/ds_card.widget.dart';
 
 class DSCarrousel extends StatelessWidget {
   final DSAlign align;
@@ -35,7 +37,8 @@ class DSCarrousel extends StatelessWidget {
     var children = <Widget>[];
     var typeCollection = '';
 
-    var content = selectJson['content'] as Map;
+    // var content = selectJson['content'] as Map;
+    var content = container['content'] as Map;
 
     (content['itemType'].contains('collection'))
         ? typeCollection = 'select'
@@ -44,46 +47,72 @@ class DSCarrousel extends StatelessWidget {
     List items = content['items'];
 
     for (var item in items) {
-      Map<String, dynamic>? header = item["header"];
-      List options = item["options"];
+      ///
+      if (typeCollection == 'select') {
+        Map<String, dynamic>? header = item["header"];
+        List options = item["options"];
 
-      var listOptions = <DSDocumentSelectOption>[];
+        var listOptions = <DSDocumentSelectOption>[];
 
-      for (var option in options) {
-        listOptions.add(DSDocumentSelectOption.fromJson(option));
+        for (var option in options) {
+          listOptions.add(DSDocumentSelectOption.fromJson(option));
+        }
+
+        children.add(
+          SizedBox(
+            width: DSUtils.bubbleMinSize,
+            child: DSImageMessageBubble(
+              align: align,
+              url: header!["value"]["uri"],
+              title: header["value"]["title"],
+              text: header["value"]["text"],
+              appBarText: header["value"]["title"],
+              selectOptions: listOptions,
+              showSelect: true,
+              hasSpacer: false,
+              onSelected: onSelected,
+              onOpenLink: onOpenLink,
+            ),
+          ),
+        );
+      } else {
+        content = item['value'] as Map;
+
+        children.add(
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: DSCard(
+              type: item['type'],
+              content: content,
+              align: align,
+              borderRadius: const [DSBorderRadius.all],
+              customerName: 'Jhon Doe',
+              onSelected: onSelected,
+              onOpenLink: onOpenLink,
+            ),
+          ),
+        );
       }
+    }
 
-      children.add(
-        SizedBox(
-          width: DSUtils.bubbleMinSize,
-          child: DSImageMessageBubble(
-            align: align,
-            url: header!["value"]["uri"],
-            title: header["value"]["title"],
-            text: header["value"]["text"],
-            appBarText: header["value"]["title"],
-            selectOptions: listOptions,
-            showSelect: true,
-            hasSpacer: false,
-            onSelected: onSelected,
-            onOpenLink: onOpenLink,
+    if (typeCollection == 'select') {
+      return Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          scrollDirection: Axis.horizontal,
+          child: Wrap(
+            spacing: 16.00,
+            alignment: WrapAlignment.start,
+            children: children,
           ),
         ),
       );
+    } else {
+      return Column(
+        children: children,
+      );
     }
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        scrollDirection: Axis.horizontal,
-        child: Wrap(
-          spacing: 16.00,
-          alignment: WrapAlignment.start,
-          children: children,
-        ),
-      ),
-    );
   }
 }
 
@@ -204,7 +233,7 @@ const selectJson = {
   }
 };
 
-const container = {
+const containerJson = {
   "id": "5",
   "to": "553199990000@0mn.io",
   "type": "application/vnd.lime.collection+json",
@@ -217,7 +246,7 @@ const container = {
           "text": "Welcome to our store!",
           "type": "image/jpeg",
           "uri":
-              "http://www.petshoplovers.com/wp-content/uploads/2014/03/CUIDADOS-B%C3%81SICOS-PARA-CRIAR-COELHOS.jpg"
+              "http://2.bp.blogspot.com/-pATX0YgNSFs/VP-82AQKcuI/AAAAAAAALSU/Vet9e7Qsjjw/s1600/Cat-hd-wallpapers.jpg"
         }
       },
       {
