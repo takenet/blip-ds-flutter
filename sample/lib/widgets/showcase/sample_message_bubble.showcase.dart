@@ -56,6 +56,32 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSTextMessageBubble(
+            text: _longText,
+            align: DSAlign.left,
+          ),
+          DSTextMessageBubble(
+            align: DSAlign.left,
+            text: 'Testando ',
+            selectContent: const {
+              "text": "Você gostaria de um atendimento humano?",
+              "options": [
+                {
+                  "text": "Sim",
+                  "type": "text/plain",
+                  "value": "payload do sim"
+                },
+                {"text": "Não", "order": 1},
+                {"text": "Talvez"},
+                {
+                  "text": "Outro",
+                  "type": "application/json",
+                  "value": {"chave": "valor"}
+                }
+              ]
+            },
+            showSelect: true,
+          ),
+          DSTextMessageBubble(
             text:
                 'Exemplo de preview completo e borda "reta": https://www.take.net/',
             align: DSAlign.right,
@@ -128,6 +154,11 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _sampleImages['extraLarge']!,
             title: '2000x1330.png',
             text: _longText,
+            appBarText: 'Unknown User',
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.right,
+            url: _sampleImages['large']!,
             appBarText: 'Unknown User',
           ),
           DSTextMessageBubble(

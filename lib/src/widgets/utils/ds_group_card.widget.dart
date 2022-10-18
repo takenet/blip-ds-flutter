@@ -41,6 +41,7 @@ class DSGroupCard extends StatefulWidget {
     required this.isComposing,
     this.sortMessages = true,
     this.onSelected,
+    this.onOpenLink,
     this.hideOptions = false,
     this.showMessageStatus = true,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
@@ -56,6 +57,7 @@ class DSGroupCard extends StatefulWidget {
   final bool isComposing;
   final bool sortMessages;
   final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
   final bool showMessageStatus;
   final DSMessageBubbleStyle style;
@@ -241,6 +243,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             onSelected: widget.onSelected,
             customerName: message.customerName,
             style: widget.style,
+            onOpenLink: widget.onOpenLink,
           );
 
           final isLastMsg = msgCount == length;
@@ -312,7 +315,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
           items.insert(
             0,
             Padding(
-              key: ValueKey<String>(message.id!),
+              key: ValueKey<String>(message.id ?? DateTime.now().toIso8601String()),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Table(
                 columnWidths:

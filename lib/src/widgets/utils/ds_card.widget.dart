@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
+import '../../models/ds_document_select.model.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -11,6 +11,7 @@ class DSCard extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final String? customerName;
   final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
   final DSMessageBubbleStyle style;
 
   /// Creates a new [DSCard] widget
@@ -22,6 +23,7 @@ class DSCard extends StatelessWidget {
     required this.borderRadius,
     this.customerName,
     this.onSelected,
+    this.onOpenLink,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
@@ -48,6 +50,9 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.select:
         return _buildSelect();
 
+      case DSMessageContentType.documentSelect:
+        return _buildDocumentSelect();
+
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
@@ -55,6 +60,23 @@ class DSCard extends StatelessWidget {
           style: style,
         );
     }
+  }
+
+  Widget _buildDocumentSelect() {
+    final documentSelectModel = DSDocumentSelectModel.fromJson(content);
+
+    return DSImageMessageBubble(
+      align: align,
+      url: documentSelectModel.header.mediaLink.uri,
+      title: documentSelectModel.header.mediaLink.title!,
+      text: documentSelectModel.header.mediaLink.text!,
+      appBarText: customerName ?? '',
+      selectOptions: documentSelectModel.options,
+      style: style,
+      showSelect: true,
+      onSelected: onSelected,
+      onOpenLink: onOpenLink,
+    );
   }
 
   Widget _buildSelect() {
