@@ -37,8 +37,8 @@ class DSCarrousel extends StatelessWidget {
     var children = <Widget>[];
     var typeCollection = '';
 
-    // var content = selectJson['content'] as Map;
-    var content = container['content'] as Map;
+    //var content = selectJson['content'] as Map;
+    var content = containerJson['content'] as Map;
 
     (content['itemType'].contains('collection'))
         ? typeCollection = 'select'
