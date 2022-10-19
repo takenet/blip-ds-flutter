@@ -181,28 +181,28 @@ class DSToastService {
         backgroundColor = DSColors.primaryGreensMint;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('svg', 'assets/images/icon_success.svg'),
+          child: _setIcon('assets/images/icon_like.svg'),
         );
         break;
       case DSToastType.warning:
         backgroundColor = DSColors.primaryYellowsCorn;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('img', 'assets/images/icon_alert_warning.png'),
+          child: _setIcon('assets/images/icon_warning.svg'),
         );
         break;
       case DSToastType.error:
         backgroundColor = DSColors.extendRedsFlower;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('img', 'assets/images/icon_alert_error.png'),
+          child: _setIcon('assets/images/icon_error.svg'),
         );
         break;
       case DSToastType.system:
         backgroundColor = DSColors.illustrationBlueGenie;
         icon = Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('svg', 'assets/images/icon_blip.svg'),
+          child: _setIcon('assets/images/icon_message.svg'),
         );
         break;
       case DSToastType.notification:
@@ -301,20 +301,13 @@ class DSToastService {
     );
   }
 
-  Widget _setIcon(final String type, final String image) {
-    return type == 'svg'
-        ? SvgPicture.asset(
-            image,
-            package: DSUtils.packageName,
-            height: 24.0,
-            width: 24.0,
-          )
-        : Image.asset(
-            image,
-            width: 24.0,
-            height: 24.0,
-            package: DSUtils.packageName,
-          );
+  Widget _setIcon(final String image) {
+    return SvgPicture.asset(
+      image,
+      package: DSUtils.packageName,
+      height: 24.0,
+      width: 24.0,
+    );
   }
 
   void _close() {
