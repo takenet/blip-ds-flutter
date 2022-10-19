@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 /// An utility class that has methods related to likified texts.
 abstract class DSLinkify {
@@ -37,9 +36,6 @@ abstract class DSLinkify {
         if (spanText?.isNotEmpty ?? false) {
           final List<LinkifyElement> elements = linkify(
             spanText!,
-            // linkifiers: const [
-            //   UrlLinkifier(),
-            // ],
           );
 
           for (var element in elements) {
@@ -51,23 +47,35 @@ abstract class DSLinkify {
                 ),
               );
             } else {
-              final url = element is UrlElement
-                  ? element.url
-                  : (element as EmailElement).url;
+              late final Uri? url;
+              late final String text;
 
-              if (url != null) {
-                formattedText.add(
-                  TextSpan(
-                    text: url.toString(),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => launchUrlString(
-                            url,
-                            mode: LaunchMode.externalApplication,
-                          ),
-                    style: linkStyle,
-                  ),
-                );
+              if (element is UrlElement) {
+                text = element.url;
+                url = Uri.tryParse(element.url);
+              } else if (element is EmailElement) {
+                text = element.emailAddress;
+                url = Uri.tryParse(element.url);
               }
+
+              formattedText.add(
+                TextSpan(
+                  text: text,
+                  style: linkStyle,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      if (await canLaunchUrl(url!)) {
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      } else {
+                        throw 'Não abriu a url';
+                        //TODO: toast
+                      }
+                    },
+                ),
+              );
             }
           }
         }
