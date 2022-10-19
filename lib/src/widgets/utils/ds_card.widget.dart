@@ -72,6 +72,7 @@ class DSCard extends StatelessWidget {
       text: documentSelectModel.header.mediaLink.text!,
       appBarText: customerName ?? '',
       selectOptions: documentSelectModel.options,
+      borderRadius: borderRadius,
       style: style,
       showSelect: true,
       onSelected: onSelected,
