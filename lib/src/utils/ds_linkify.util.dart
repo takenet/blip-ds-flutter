@@ -64,12 +64,16 @@ abstract class DSLinkify {
                   style: linkStyle,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
-                      if (await canLaunchUrl(url!)) {
-                        await launchUrl(
+                      bool hasLaunched = false;
+
+                      if (url != null) {
+                        hasLaunched = await launchUrl(
                           url,
                           mode: LaunchMode.externalApplication,
                         );
-                      } else {
+                      }
+
+                      if (!hasLaunched) {
                         throw 'Não abriu a url';
                         //TODO: toast
                       }
