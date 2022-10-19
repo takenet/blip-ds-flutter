@@ -1,18 +1,26 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/models/ds_select_option.model.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_select_option.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_message_content_type.util.dart';
+import '../texts/ds_headline_small_text.widget.dart';
 
 class DSSelectMenu extends StatelessWidget {
   final DSAlign align;
   final Map<String, dynamic> content;
-  final Function? onSelected;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final DSMessageBubbleStyle style;
 
-  const DSSelectMenu({
+  DSSelectMenu({
     Key? key,
     required this.align,
     required this.content,
     this.onSelected,
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,9 @@ class DSSelectMenu extends StatelessWidget {
         .map((doc) => DSSelectOptionModel.fromJson(doc))
         .toList();
 
+    final isDefaultBubbleColors = style.isDefaultBubbleBackground(align);
+    final isLightBubbleBackground = style.isLightBubbleBackground(align);
+
     for (var option in options) {
       count++;
 
@@ -47,13 +58,12 @@ class DSSelectMenu extends StatelessWidget {
                 payload = {"type": type, "content": option.value};
               } else {
                 payload = {
-                  "type": 'text/plain',
+                  "type": DSMessageContentType.textPlain,
                   "content": option.order != null
                       ? option.order.toString()
                       : option.text
                 };
               }
-
               onSelected!(option.text, payload);
             }
           },
@@ -64,10 +74,14 @@ class DSSelectMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DSHeadlineSmallText(
-                  text: option.text,
-                  color: align == DSAlign.left
-                      ? DSColors.primaryNight
-                      : DSColors.primaryLight,
+                  option.text,
+                  color: isLightBubbleBackground
+                      ? isDefaultBubbleColors
+                          ? DSColors.primaryNight
+                          : DSColors.neutralDarkCity
+                      : isDefaultBubbleColors
+                          ? DSColors.primaryLight
+                          : DSColors.neutralLightSnow,
                 ),
               ],
             ),
@@ -80,9 +94,13 @@ class DSSelectMenu extends StatelessWidget {
           Divider(
             height: 30.0,
             thickness: 1.0,
-            color: align == DSAlign.left
-                ? DSColors.neutralMediumWave
-                : DSColors.neutralDarkRooftop,
+            color: isLightBubbleBackground
+                ? isDefaultBubbleColors
+                    ? DSColors.neutralMediumWave
+                    : DSColors.neutralDarkCity
+                : isDefaultBubbleColors
+                    ? DSColors.neutralDarkRooftop
+                    : DSColors.neutralLightSnow,
           ),
         );
       } else {

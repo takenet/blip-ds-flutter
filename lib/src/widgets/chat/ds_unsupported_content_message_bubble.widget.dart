@@ -1,43 +1,56 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../texts/ds_body_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
   final String? text;
   final List<DSBorderRadius> borderRadius;
+  final DSMessageBubbleStyle style;
 
-  const DSUnsupportedContentMessageBubble({
+  DSUnsupportedContentMessageBubble({
     Key? key,
     required this.align,
     this.leftWidget,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final color = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
+
     return DSMessageBubble(
       borderRadius: borderRadius,
       align: align,
+      style: style,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           leftWidget ??
-              Image.asset(
-                align == DSAlign.left
-                    ? 'assets/images/block_neutral_dark_city.png'
-                    : 'assets/images/block_neutral_light_snow.png',
-                package: DSUtils.packageName,
-                width: 20.0,
+              Icon(
+                DSIcons.false_icon,
+                color: style.isLightBubbleBackground(align)
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+                size: 20.0,
               ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: DSBodyText(
-              text: text ?? 'Unsupported content',
-              color: align == DSAlign.left
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow,
+              text ?? 'Unsupported content',
+              color: color,
             ),
           ),
         ],

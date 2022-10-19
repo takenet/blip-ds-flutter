@@ -7,7 +7,7 @@ class SampleTypingShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         DSTypingAnimationMessageBubble(
           align: DSAlign.left,
         ),

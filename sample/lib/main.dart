@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/route_manager.dart';
+import 'package:sample/widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
 import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
@@ -9,6 +10,7 @@ import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
 import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
+import 'package:sample/widgets/showcase/sample_ticket_message.showcase.dart';
 import 'package:sample/widgets/showcase/sample_toast.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
@@ -65,7 +67,11 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             SampleGroupCardShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            const SampleHeaderShowcase()
+            const SampleHeaderShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleBottomSheethowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleTicketMessage(),
           ],
         ),
       ),

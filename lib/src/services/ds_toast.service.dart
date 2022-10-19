@@ -155,9 +155,9 @@ class DSToastService {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (title != null) DSHeadlineSmallText(text: title),
+                    if (title != null) DSHeadlineSmallText(title),
                     DSBodyText(
-                      text: message,
+                      message,
                       overflow: TextOverflow.visible,
                     ),
                   ],

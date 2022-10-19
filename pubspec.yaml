@@ -1,6 +1,6 @@
 name: blip_ds
 description: Blip Design System for Flutter.
-version: 0.0.14
+version: 0.0.15
 homepage: https://github.com/takenet/blip-ds-flutter#readme
 repository: https://github.com/takenet/blip-ds-flutter
 
@@ -50,3 +50,6 @@ flutter:
           weight: 700
         - asset: assets/fonts/NunitoSans-ExtraBold.ttf
           weight: 800
+    - family: DSIcons
+      fonts:
+        - asset: assets/fonts/DSIcons.ttf

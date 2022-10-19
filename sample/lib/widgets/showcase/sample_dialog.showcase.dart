@@ -22,7 +22,7 @@ class SampleDialogShowcase extends StatelessWidget {
 
     return Column(
       children: [
-        DSBodyText(text: 'Dialogs'),
+        DSBodyText('Dialogs'),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

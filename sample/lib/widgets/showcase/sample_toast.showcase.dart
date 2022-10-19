@@ -43,7 +43,7 @@ class SampleToastShowcase extends StatelessWidget {
 
     return Column(
       children: [
-        DSBodyText(text: 'Toasts'),
+        DSBodyText('Toasts'),
         const SizedBox(height: 20.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

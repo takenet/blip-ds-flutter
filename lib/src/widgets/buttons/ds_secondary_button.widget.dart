@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
 
 /// A Design System's [ButtonStyleButton] primarily used by secondary actions.
 ///

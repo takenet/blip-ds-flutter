@@ -8,6 +8,8 @@ class DSCachedNetworkImageView extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
   final void Function()? onError;
+  final DSAlign align;
+  final DSMessageBubbleStyle style;
 
   final Widget Function(
     BuildContext context,
@@ -20,7 +22,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
     dynamic error,
   )? errorWidget;
 
-  const DSCachedNetworkImageView({
+  DSCachedNetworkImageView({
     Key? key,
     required this.url,
     this.width,
@@ -29,7 +31,10 @@ class DSCachedNetworkImageView extends StatelessWidget {
     this.placeholder,
     this.errorWidget,
     this.onError,
-  }) : super(key: key);
+    required this.align,
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +61,15 @@ class DSCachedNetworkImageView extends StatelessWidget {
   }
 
   Widget _defaultErrorWidget() {
-    return Image.asset(
-      'assets/images/file_image_broken.png',
-      package: DSUtils.packageName,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 80),
+      child: Icon(
+        DSIcons.file_image_broken,
+        color: style.isLightBubbleBackground(align)
+            ? DSColors.neutralMediumElephant
+            : DSColors.neutralMediumCloud,
+        size: 75,
+      ),
     );
   }
 }

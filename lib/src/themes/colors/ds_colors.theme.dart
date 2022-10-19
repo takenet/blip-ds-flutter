@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// All [Color] constants that are used by this Design System.
 abstract class DSColors {
+  static const Color primaryMain = Color(0xFF3F7DE8);
   static const Color primaryNight = Color(0xFF0747A6);
   static const Color primaryLight = Color(0xFFB3D4FF);
   static const Color primaryGreensTrue = Color(0xFF21CC79);
