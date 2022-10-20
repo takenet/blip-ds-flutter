@@ -67,6 +67,7 @@ const selectJson = {
               "type": "application/vnd.lime.web-link+json",
               "value": {
                 "title": "Link",
+                "text": "Weblink",
                 "uri": "https://server.com/first/link1"
               }
             }

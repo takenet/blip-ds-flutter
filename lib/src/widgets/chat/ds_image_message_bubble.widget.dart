@@ -30,7 +30,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.text,
     this.title,
-    this.hasSpacer,
+    this.hasSpacer = true,
     DSMessageBubbleStyle? style,
     this.selectOptions = const [],
     this.showSelect = false,
@@ -42,7 +42,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final String url;
   final List<DSBorderRadius> borderRadius;
   final String? title;
-  final bool? hasSpacer;
+  final bool hasSpacer;
   final String? text;
   final String appBarText;
   final Uri? appBarPhotoUri;
@@ -81,6 +81,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
+      hasSpacer: widget.hasSpacer,
       style: widget.style,
       child: FutureBuilder(
         future: _controller.getImageInfo(widget.url),
