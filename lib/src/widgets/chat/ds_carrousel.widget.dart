@@ -87,7 +87,7 @@ class DSCarrousel extends StatelessWidget {
               content: contentContainer,
               align: align,
               borderRadius: const [DSBorderRadius.all],
-              customerName: 'Jhon Doe',
+              customerName: contentContainer['text'],
               onSelected: onSelected,
               onOpenLink: onOpenLink,
             ),
