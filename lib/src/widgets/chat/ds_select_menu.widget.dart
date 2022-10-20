@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_select_option.model.dart';
-import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_message_content_type.util.dart';
-import '../texts/ds_headline_small_text.widget.dart';
+import '../buttons/ds_menu_item.widget.dart';
 
 class DSSelectMenu extends StatelessWidget {
   final DSAlign align;
@@ -41,15 +40,15 @@ class DSSelectMenu extends StatelessWidget {
         .map((doc) => DSSelectOptionModel.fromJson(doc))
         .toList();
 
-    final isDefaultBubbleColors = style.isDefaultBubbleBackground(align);
-    final isLightBubbleBackground = style.isLightBubbleBackground(align);
-
-    for (var option in options) {
+    for (final option in options) {
       count++;
 
       children.add(
-        GestureDetector(
-          onTap: () {
+        DSMenuItem(
+          text: option.text,
+          align: align,
+          showBorder: count != content['options'].length,
+          onPressed: () {
             if (onSelected != null) {
               Map<String, dynamic> payload = {};
 
@@ -67,49 +66,9 @@ class DSSelectMenu extends StatelessWidget {
               onSelected!(option.text, payload);
             }
           },
-          child: Container(
-            color: Colors.transparent,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DSHeadlineSmallText(
-                  option.text,
-                  color: isLightBubbleBackground
-                      ? isDefaultBubbleColors
-                          ? DSColors.primaryNight
-                          : DSColors.neutralDarkCity
-                      : isDefaultBubbleColors
-                          ? DSColors.primaryLight
-                          : DSColors.neutralLightSnow,
-                ),
-              ],
-            ),
-          ),
+          style: style,
         ),
       );
-
-      if (count != content['options'].length) {
-        children.add(
-          Divider(
-            height: 30.0,
-            thickness: 1.0,
-            color: isLightBubbleBackground
-                ? isDefaultBubbleColors
-                    ? DSColors.neutralMediumWave
-                    : DSColors.neutralDarkCity
-                : isDefaultBubbleColors
-                    ? DSColors.neutralDarkRooftop
-                    : DSColors.neutralLightSnow,
-          ),
-        );
-      } else {
-        children.add(
-          const SizedBox(
-            height: 12.0,
-          ),
-        );
-      }
     }
 
     return children;

@@ -60,6 +60,28 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.left,
           ),
           DSTextMessageBubble(
+            align: DSAlign.left,
+            text: 'Testando ',
+            selectContent: const {
+              "text": "Você gostaria de um atendimento humano?",
+              "options": [
+                {
+                  "text": "Sim",
+                  "type": "text/plain",
+                  "value": "payload do sim"
+                },
+                {"text": "Não", "order": 1},
+                {"text": "Talvez"},
+                {
+                  "text": "Outro",
+                  "type": "application/json",
+                  "value": {"chave": "valor"}
+                }
+              ]
+            },
+            showSelect: true,
+          ),
+          DSTextMessageBubble(
             text:
                 'Exemplo de preview completo e borda "reta": https://www.take.net/',
             align: DSAlign.right,
