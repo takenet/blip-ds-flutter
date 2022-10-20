@@ -64,7 +64,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80),
       child: Icon(
-        DSIcons.file_image_broken,
+        DSIcons.file_image_broken_outline,
         color: style.isLightBubbleBackground(align)
             ? DSColors.neutralMediumElephant
             : DSColors.neutralMediumCloud,

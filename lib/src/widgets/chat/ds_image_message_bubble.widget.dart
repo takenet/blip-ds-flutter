@@ -209,7 +209,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                         padding: EdgeInsets.zero,
                         onPressed: () => Navigator.of(context).pop(),
                         icon: const Icon(
-                          DSIcons.arrow_left,
+                          DSIcons.arrow_left_outline,
                           color: DSColors.neutralLightSnow,
                           size: 32.0,
                         ),

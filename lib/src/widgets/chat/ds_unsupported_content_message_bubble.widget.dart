@@ -40,7 +40,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
         children: [
           leftWidget ??
               Icon(
-                DSIcons.false_icon,
+                DSIcons.false_outline,
                 color: style.isLightBubbleBackground(align)
                     ? DSColors.neutralDarkCity
                     : DSColors.neutralLightSnow,

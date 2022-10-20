@@ -81,7 +81,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onBackButtonPressed ?? Navigator.of(context).pop,
                 iconSize: 28,
                 icon: const Icon(
-                  DSIcons.arrow_left,
+                  DSIcons.arrow_left_outline,
                   color: DSColors.neutralDarkRooftop,
                 ),
               )
