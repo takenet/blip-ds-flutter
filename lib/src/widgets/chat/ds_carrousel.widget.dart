@@ -38,7 +38,7 @@ class DSCarrousel extends StatelessWidget {
   Widget _buildCollection() {
     var children = <Widget>[];
     String typeCollection;
-    List items;
+    var items = [];
 
     var contentSelect = content['content'];
 
