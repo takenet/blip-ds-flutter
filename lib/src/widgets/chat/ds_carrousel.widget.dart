@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
 import 'package:blip_ds/src/models/ds_document_select.model.dart';
@@ -7,47 +5,51 @@ import 'package:blip_ds/src/models/ds_document_select.model.dart';
 import '../../../blip_ds.dart';
 import '../utils/ds_card.widget.dart';
 
+/// A Design System widget used to display multiple cards.
+///
+///The widget receives a json passed by the [content] parameter and displays the information
+///in two ways according to the [itemType] parameter contained in the header.
+///
+///If the [itemType] contains the select parameter, the content is displayed in carousel mode, and if it
+///contains the container parameter, it is displayed in a vertical line.
 class DSCarrousel extends StatelessWidget {
+  /// Sets the card's alignment on the screen.
   final DSAlign align;
-  final Map<String, dynamic>? content;
+
+  /// Widget content containing card parameters
+  final Map<String, dynamic> content;
+
+  /// Selection return callbacks in menus
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
 
   const DSCarrousel({
     Key? key,
     required this.align,
-    this.content,
+    required this.content,
     this.onSelected,
     this.onOpenLink,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: _buildQuickReply(),
-    );
+    return _buildCollection();
   }
 
-  Widget _buildQuickReply() {
-    return _buildItems();
-  }
-
-  Widget _buildItems() {
+  Widget _buildCollection() {
     var children = <Widget>[];
-    var typeCollection = '';
+    String typeCollection;
+    List items;
 
-    //var content = selectJson['content'] as Map;
-    var content = containerJson['content'] as Map;
+    var contentSelect = content['content'];
 
-    (content['itemType'].contains('collection'))
+    (contentSelect['itemType'].contains('select'))
         ? typeCollection = 'select'
         : typeCollection = 'container';
 
-    List items = content['items'];
+    items = contentSelect['items'];
 
     for (var item in items) {
-      ///
       if (typeCollection == 'select') {
         Map<String, dynamic>? header = item["header"];
         List options = item["options"];
@@ -76,14 +78,14 @@ class DSCarrousel extends StatelessWidget {
           ),
         );
       } else {
-        content = item['value'] as Map;
+        var contentContainer = item['value'];
 
         children.add(
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: DSCard(
               type: item['type'],
-              content: content,
+              content: contentContainer,
               align: align,
               borderRadius: const [DSBorderRadius.all],
               customerName: 'Jhon Doe',
@@ -115,150 +117,3 @@ class DSCarrousel extends StatelessWidget {
     }
   }
 }
-
-const selectJson = {
-  "id": "5",
-  "to": "1042221589186385@messenger.gw.msging.net",
-  "type": "application/vnd.lime.collection+json",
-  "content": {
-    "itemType": "application/vnd.lime.document-select+json",
-    "items": [
-      {
-        "header": {
-          "type": "application/vnd.lime.media-link+json",
-          "value": {
-            "title": "Title",
-            "text": "This is a first item",
-            "type": "image/jpeg",
-            "uri":
-                "http://www.isharearena.com/wp-content/uploads/2012/12/wallpaper-281049.jpg"
-          }
-        },
-        "options": [
-          {
-            "label": {
-              "type": "application/vnd.lime.web-link+json",
-              "value": {
-                "title": "Link",
-                "uri": "https://server.com/first/link1"
-              }
-            }
-          },
-          {
-            "label": {"type": "text/plain", "value": "Text 1"},
-            "value": {
-              "type": "application/json",
-              "value": {"key1": "value1", "key2": 2}
-            }
-          }
-        ]
-      },
-      {
-        "header": {
-          "type": "application/vnd.lime.media-link+json",
-          "value": {
-            "title": "Title 2",
-            "text": "This is another item",
-            "type": "image/jpeg",
-            "uri":
-                "http://www.freedigitalphotos.net/images/img/homepage/87357.jpg"
-          }
-        },
-        "options": [
-          {
-            "label": {
-              "type": "application/vnd.lime.web-link+json",
-              "value": {
-                "title": "Second link",
-                "text": "Weblink",
-                "uri": "https://server.com/second/link2"
-              }
-            }
-          },
-          {
-            "label": {"type": "text/plain", "value": "Second text"},
-            "value": {
-              "type": "application/json",
-              "value": {"key3": "value3", "key4": 4}
-            }
-          },
-          {
-            "label": {"type": "text/plain", "value": "More one text"},
-            "value": {
-              "type": "application/json",
-              "value": {"key5": "value5", "key6": "6"}
-            }
-          }
-        ]
-      },
-      {
-        "header": {
-          "type": "application/vnd.lime.media-link+json",
-          "value": {
-            "title": "Title 3",
-            "text": "This is another item",
-            "type": "image/jpeg",
-            "uri":
-                "http://www.freedigitalphotos.net/images/img/homepage/87357.jpg"
-          }
-        },
-        "options": [
-          {
-            "label": {
-              "type": "application/vnd.lime.web-link+json",
-              "value": {
-                "title": "Second link",
-                "text": "Weblink",
-                "uri": "https://server.com/second/link2"
-              }
-            }
-          },
-          {
-            "label": {"type": "text/plain", "value": "Second text"},
-            "value": {
-              "type": "application/json",
-              "value": {"key3": "value3", "key4": 4}
-            }
-          },
-          {
-            "label": {"type": "text/plain", "value": "More one text"},
-            "value": {
-              "type": "application/json",
-              "value": {"key5": "value5", "key6": "6"}
-            }
-          }
-        ]
-      }
-    ]
-  }
-};
-
-const containerJson = {
-  "id": "5",
-  "to": "553199990000@0mn.io",
-  "type": "application/vnd.lime.collection+json",
-  "content": {
-    "itemType": "application/vnd.lime.container+json",
-    "items": [
-      {
-        "type": "application/vnd.lime.media-link+json",
-        "value": {
-          "text": "Welcome to our store!",
-          "type": "image/jpeg",
-          "uri":
-              "http://2.bp.blogspot.com/-pATX0YgNSFs/VP-82AQKcuI/AAAAAAAALSU/Vet9e7Qsjjw/s1600/Cat-hd-wallpapers.jpg"
-        }
-      },
-      {
-        "type": "application/vnd.lime.select+json",
-        "value": {
-          "text": "Choose what you need",
-          "options": [
-            {"order": 1, "text": "See our stock"},
-            {"order": 2, "text": "Follow an order"}
-          ]
-        }
-      }
-    ]
-  }
-};
