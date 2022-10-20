@@ -31,4 +31,6 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/
+coverage/html
+test/**/failures
 .vscode/settings.json
