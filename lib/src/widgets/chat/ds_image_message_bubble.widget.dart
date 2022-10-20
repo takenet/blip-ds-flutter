@@ -135,18 +135,17 @@ class DSImageMessageBubble extends StatelessWidget {
                                   color: color,
                                 ),
                               if ((text?.isNotEmpty ?? false) &&
-                                  (title?.isNotEmpty ?? false)) ...[
+                                  (title?.isNotEmpty ?? false))
                                 const SizedBox(
                                   height: 6.0,
                                 ),
-                                if (text?.isNotEmpty ?? false)
-                                  DSShowMoreText(
-                                    text: text!,
-                                    maxWidth: constraints.maxWidth,
-                                    align: align,
-                                    style: style,
-                                  )
-                              ]
+                              if (text?.isNotEmpty ?? false)
+                                DSShowMoreText(
+                                  text: text!,
+                                  maxWidth: constraints.maxWidth,
+                                  align: align,
+                                  style: style,
+                                )
                             ],
                           ),
                         ),
