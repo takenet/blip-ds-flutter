@@ -7,11 +7,10 @@ import '../utils/ds_card.widget.dart';
 
 /// A Design System widget used to display multiple cards.
 ///
-///The widget receives a json passed by the [content] parameter and displays the information
-///in two ways according to the [itemType] parameter contained in the header.
-///
-///If the [itemType] contains the select parameter, the content is displayed in carousel mode, and if it
-///contains the container parameter, it is displayed in a vertical line.
+/// The widget receives a json passed by the [content] parameter and displays the information
+/// in two ways according to the [itemType] parameter contained in the header.
+/// If the [itemType] contains the select parameter, the content is displayed in carousel mode, and if it
+/// contains the container parameter, it is displayed in a vertical line.
 class DSCarrousel extends StatelessWidget {
   /// Sets the card's alignment on the screen.
   final DSAlign align;
