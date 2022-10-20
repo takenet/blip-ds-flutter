@@ -14,6 +14,7 @@ class SampleGroupCardController {
         .map(
           (doc) => DSMessageItemModel.fromJson(
             {
+              "id": doc["id"],
               "date": doc["date"],
               "displayDate": doc["displayDate"],
               "align": doc["align"],
