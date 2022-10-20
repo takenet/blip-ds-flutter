@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:blip_ds/src/models/ds_document_select.model.dart';
-
 import '../../../blip_ds.dart';
+import '../../models/ds_document_select.model.dart';
 import '../utils/ds_card.widget.dart';
 
 /// A Design System widget used to display multiple cards.
@@ -15,7 +14,7 @@ class DSCarrousel extends StatelessWidget {
   /// Sets the card's alignment on the screen.
   final DSAlign align;
 
-  /// Widget content containing card parameters
+  /// Json that defines the widget type and content
   final Map<String, dynamic> content;
 
   /// Selection return callbacks in menus
@@ -37,7 +36,7 @@ class DSCarrousel extends StatelessWidget {
 
   Widget _buildCollection() {
     var children = <Widget>[];
-    String typeCollection;
+    var typeCollection = '';
     var items = [];
 
     var contentSelect = content['content'];
@@ -96,23 +95,21 @@ class DSCarrousel extends StatelessWidget {
       }
     }
 
-    if (typeCollection == 'select') {
-      return Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          scrollDirection: Axis.horizontal,
-          child: Wrap(
-            spacing: 16.00,
-            alignment: WrapAlignment.start,
+    return typeCollection == 'select'
+        ? Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              scrollDirection: Axis.horizontal,
+              child: Wrap(
+                spacing: 16.00,
+                alignment: WrapAlignment.start,
+                children: children,
+              ),
+            ),
+          )
+        : Column(
             children: children,
-          ),
-        ),
-      );
-    } else {
-      return Column(
-        children: children,
-      );
-    }
+          );
   }
 }
