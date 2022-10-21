@@ -83,7 +83,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           ),
           DSTextMessageBubble(
             text:
-                'Exemplo de preview completo e borda "reta": https://www.take.net/',
+                'Exemplo de preview completo e borda "reta": https://www.take.net/ paollalira@outlook.com',
             align: DSAlign.right,
             borderRadius: const [
               DSBorderRadius.bottomLeft,
