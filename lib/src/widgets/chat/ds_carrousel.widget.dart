@@ -17,6 +17,9 @@ class DSCarrousel extends StatelessWidget {
   /// Json that defines the widget type and content
   final Map<String, dynamic> content;
 
+  /// TODO: add border radius description
+  final List<DSBorderRadius> borderRadius;
+
   /// Selection return callbacks in menus
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
@@ -25,6 +28,7 @@ class DSCarrousel extends StatelessWidget {
     Key? key,
     required this.align,
     required this.content,
+    required this.borderRadius,
     this.onSelected,
     this.onOpenLink,
   }) : super(key: key);
@@ -39,7 +43,7 @@ class DSCarrousel extends StatelessWidget {
     var typeCollection = '';
     var items = [];
 
-    var contentSelect = content['content'];
+    var contentSelect = content;
 
     (contentSelect['itemType'].contains('select'))
         ? typeCollection = 'select'
@@ -76,7 +80,23 @@ class DSCarrousel extends StatelessWidget {
           ),
         );
       } else {
-        var contentContainer = item['value'];
+        final contentContainer = item['value'];
+        final index = items.indexOf(item);
+        final radius = [DSBorderRadius.topLeft, DSBorderRadius.bottomLeft];
+
+        if (index == 0 &&
+            borderRadius.any((element) => [
+                  DSBorderRadius.topRight,
+                  DSBorderRadius.all
+                ].any((border) => element == border))) {
+          radius.add(DSBorderRadius.topRight);
+        } else if (index == items.length - 1 &&
+            borderRadius.any((element) => [
+                  DSBorderRadius.bottomRight,
+                  DSBorderRadius.all
+                ].any((border) => element == border))) {
+          radius.add(DSBorderRadius.bottomRight);
+        }
 
         children.add(
           Padding(
@@ -85,7 +105,7 @@ class DSCarrousel extends StatelessWidget {
               type: item['type'],
               content: contentContainer,
               align: align,
-              borderRadius: const [DSBorderRadius.all],
+              borderRadius: radius,
               customerName: contentContainer['text'],
               onSelected: onSelected,
               onOpenLink: onOpenLink,
@@ -109,6 +129,7 @@ class DSCarrousel extends StatelessWidget {
             ),
           )
         : Column(
+            mainAxisSize: MainAxisSize.min,
             children: children,
           );
   }

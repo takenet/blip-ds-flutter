@@ -55,6 +55,16 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.documentSelect:
         return _buildDocumentSelect();
 
+      case DSMessageContentType.collection:
+        return DSCarrousel(
+          align: align,
+          content: content,
+          borderRadius: borderRadius,
+          onSelected: onSelected,
+          onOpenLink: onOpenLink,
+          ///TODO: Pass style prop
+        );
+
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,

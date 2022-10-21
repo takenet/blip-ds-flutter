@@ -16,7 +16,8 @@ class SampleCollectionShowcase extends StatelessWidget {
         ),
         DSCarrousel(
           align: DSAlign.left,
-          content: selectJson,
+          content: selectJson['content'] as Map<String, dynamic>,
+          borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
             print('Infos de callback: / $payload');
           },
@@ -30,7 +31,8 @@ class SampleCollectionShowcase extends StatelessWidget {
         ),
         DSCarrousel(
           align: DSAlign.right,
-          content: containerJson,
+          content: containerJson['content'] as Map<String, dynamic>,
+          borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
             print('Infos de callback: / $payload');
           },

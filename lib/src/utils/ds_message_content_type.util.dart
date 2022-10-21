@@ -6,4 +6,5 @@ abstract class DSMessageContentType {
   static const String documentSelect =
       'application/vnd.lime.document-select+json';
   static const String webLink = 'application/vnd.lime.web-link+json';
+  static const String collection = 'application/vnd.lime.collection+json';
 }
