@@ -69,7 +69,7 @@ class DSVideoPlayer extends StatelessWidget {
               Get.back();
             },
             icon: const Icon(
-              DSIcons.arrow_left,
+              DSIcons.arrow_left_outline,
               color: DSColors.neutralLightSnow,
               size: 32.0,
             ),

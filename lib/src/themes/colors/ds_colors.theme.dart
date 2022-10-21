@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 /// All [Color] constants that are used by this Design System.
 abstract class DSColors {
+  static const Color primaryLight = Color(0xFFB3D4FF);
   static const Color primaryMain = Color(0xFF3F7DE8);
   static const Color primaryNight = Color(0xFF0747A6);
-  static const Color primaryLight = Color(0xFFB3D4FF);
+  static const Color primaryGreensMint = Color(0xFF90E6BC);
   static const Color primaryGreensTrue = Color(0xFF21CC79);
+  static const Color primaryGreensForest = Color(0xFF0A6045);
   static const Color primaryYellowsCorn = Color(0xFFFFF6A8);
+  static const Color primaryOrangesDoritos = Color(0xFFC64026);
 
   static const Color neutralDarkCity = Color(0xFF202C44);
   static const Color neutralDarkDesk = Color(0xFF3A4A65);
@@ -20,10 +23,11 @@ abstract class DSColors {
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
   static const Color illustrationBlueGenie = Color(0xFF80E3EB);
-  static const Color primaryGreensMint = Color(0xFF90E6BC);
-  static const Color extendRedsLipstick = Color(0xFFA01C2C);
+
   static const Color extendRedsFlower = Color(0xFFFFA5A5);
+  static const Color extendRedsLipstick = Color(0xFFA01C2C);
   static const Color extendRedsDragon = Color(0xFF6A2026);
+  static const Color extendBrownsWood = Color(0xFF845D37);
 
   static const Color disabledText = Color(0xFF637798);
   static const Color disabledBg = Color(0xFFE8F2FF);

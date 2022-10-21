@@ -138,7 +138,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                     );
                   },
                   leadingIcon: const Icon(
-                    DSIcons.arrow_down,
+                    DSIcons.arrow_down_outline,
                     size: 20,
                   ),
                   backgroundColor: DSColors.neutralLightSnow,
