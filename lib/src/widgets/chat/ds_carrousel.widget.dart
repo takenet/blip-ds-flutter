@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../blip_ds.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../utils/ds_utils.util.dart';
 import '../utils/ds_card.widget.dart';
+
+import 'ds_image_message_bubble.widget.dart';
 
 /// A Design System widget used to display multiple cards.
 ///
@@ -17,21 +22,26 @@ class DSCarrousel extends StatelessWidget {
   /// Json that defines the widget type and content
   final Map<String, dynamic> content;
 
-  /// TODO: add border radius description
+  /// Card borders for design when used grouped
   final List<DSBorderRadius> borderRadius;
 
   /// Selection return callbacks in menus
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
 
-  const DSCarrousel({
+  /// Card styling to adjust custom colors
+  final DSMessageBubbleStyle style;
+
+  DSCarrousel({
     Key? key,
     required this.align,
     required this.content,
     required this.borderRadius,
     this.onSelected,
     this.onOpenLink,
-  }) : super(key: key);
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +49,14 @@ class DSCarrousel extends StatelessWidget {
   }
 
   Widget _buildCollection() {
-    var children = <Widget>[];
-    var typeCollection = '';
-    var items = [];
+    final children = <Widget>[];
+    final String typeCollection;
 
-    var contentSelect = content;
-
-    (contentSelect['itemType'].contains('select'))
+    (content['itemType'].contains('select'))
         ? typeCollection = 'select'
         : typeCollection = 'container';
 
-    items = contentSelect['items'];
+    final items = content['items'];
 
     for (var item in items) {
       if (typeCollection == 'select') {
@@ -58,7 +65,7 @@ class DSCarrousel extends StatelessWidget {
 
         var listOptions = <DSDocumentSelectOption>[];
 
-        for (var option in options) {
+        for (final option in options) {
           listOptions.add(DSDocumentSelectOption.fromJson(option));
         }
 
@@ -76,6 +83,7 @@ class DSCarrousel extends StatelessWidget {
               hasSpacer: false,
               onSelected: onSelected,
               onOpenLink: onOpenLink,
+              style: style,
             ),
           ),
         );
@@ -105,6 +113,7 @@ class DSCarrousel extends StatelessWidget {
               type: item['type'],
               content: contentContainer,
               align: align,
+              style: style,
               borderRadius: radius,
               customerName: contentContainer['text'],
               onSelected: onSelected,

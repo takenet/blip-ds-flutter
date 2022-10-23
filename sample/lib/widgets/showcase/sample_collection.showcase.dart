@@ -7,6 +7,9 @@ class SampleCollectionShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final contentSelect = selectJson['content'] as Map<String, dynamic>;
+    final contentContainer = containerJson['content'] as Map<String, dynamic>;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -16,7 +19,7 @@ class SampleCollectionShowcase extends StatelessWidget {
         ),
         DSCarrousel(
           align: DSAlign.left,
-          content: selectJson['content'] as Map<String, dynamic>,
+          content: contentSelect,
           borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
             print('Infos de callback: / $payload');
@@ -31,7 +34,7 @@ class SampleCollectionShowcase extends StatelessWidget {
         ),
         DSCarrousel(
           align: DSAlign.right,
-          content: containerJson['content'] as Map<String, dynamic>,
+          content: contentContainer,
           borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
             print('Infos de callback: / $payload');
