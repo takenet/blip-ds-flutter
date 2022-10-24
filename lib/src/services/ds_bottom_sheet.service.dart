@@ -20,38 +20,33 @@ class DSBottomSheetService {
         top: MediaQueryData.fromWindow(window).padding.top + 10,
       ),
       decoration: _border(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 0.0,
-        ),
-        child: Stack(
-          children: [
-            controller != null
-                ? ListView(
-                    controller: controller,
-                    children: [
-                      StickyHeader(
-                        overlapHeaders: false,
-                        header: _grabber(),
-                        content: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: _buildChild(padding),
-                        ),
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _grabber(),
-                      Padding(
+      child: Stack(
+        children: [
+          controller != null
+              ? ListView(
+                  controller: controller,
+                  children: [
+                    StickyHeader(
+                      overlapHeaders: false,
+                      header: _grabber(),
+                      content: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: _buildChild(padding),
                       ),
-                    ],
-                  ),
-          ],
-        ),
+                    ),
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _grabber(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: _buildChild(padding),
+                    ),
+                  ],
+                ),
+        ],
       ),
     );
   }
