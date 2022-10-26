@@ -29,10 +29,7 @@ class DSBottomSheetService {
                     StickyHeader(
                       overlapHeaders: false,
                       header: _grabber(),
-                      content: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: _buildChild(padding),
-                      ),
+                      content: _buildChild(padding),
                     ),
                   ],
                 )
@@ -40,10 +37,7 @@ class DSBottomSheetService {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _grabber(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: _buildChild(padding),
-                    ),
+                    _buildChild(padding),
                   ],
                 ),
         ],
