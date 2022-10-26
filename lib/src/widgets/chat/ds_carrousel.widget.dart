@@ -130,6 +130,7 @@ class DSCarrousel extends StatelessWidget {
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
               child: Wrap(
                 spacing: 16.0,
                 alignment: WrapAlignment.start,
