@@ -58,12 +58,12 @@ class DSCarrousel extends StatelessWidget {
 
     final items = content['items'];
 
-    for (var item in items) {
+    for (final item in items) {
       if (typeCollection == 'select') {
-        Map<String, dynamic>? header = item["header"];
-        List options = item["options"];
+        final Map<String, dynamic>? header = item["header"];
+        final List options = item["options"];
 
-        var listOptions = <DSDocumentSelectOption>[];
+        final listOptions = <DSDocumentSelectOption>[];
 
         for (final option in options) {
           listOptions.add(DSDocumentSelectOption.fromJson(option));
@@ -131,7 +131,7 @@ class DSCarrousel extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               scrollDirection: Axis.horizontal,
               child: Wrap(
-                spacing: 16.00,
+                spacing: 16.0,
                 alignment: WrapAlignment.start,
                 children: children,
               ),
