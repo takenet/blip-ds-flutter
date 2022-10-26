@@ -59,7 +59,9 @@ class SampleBottomSheethowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => bottomSheetDraggable.showDraggable(),
+              onPressed: () => bottomSheetDraggable
+                  .showDraggable()
+                  .whenComplete(() => debugPrint('closed')),
               label: 'resizable bottomsheet',
             ),
           ],

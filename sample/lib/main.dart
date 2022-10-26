@@ -11,6 +11,7 @@ import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
 import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
 import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
 import 'package:sample/widgets/showcase/sample_ticket_message.showcase.dart';
+import 'package:sample/widgets/showcase/sample_toast.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
 import 'package:blip_ds/blip_ds.dart';
@@ -59,6 +60,8 @@ class HomePage extends StatelessWidget {
             const SampleSwitchShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleDialogShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleToastShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             SampleRadioShowcase(),
             const Divider(color: DSColors.neutralDarkCity),

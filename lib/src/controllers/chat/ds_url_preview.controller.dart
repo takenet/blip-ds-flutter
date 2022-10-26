@@ -7,6 +7,10 @@ class DSUrlPreviewController extends GetxController {
   final isLoading = RxBool(false);
   final urlPreview = Rx<LinkPreview?>(null);
 
+  DSUrlPreviewController(Uri url) {
+    getUrlPreview(url);
+  }
+
   Future<void> getUrlPreview(final Uri url) async {
     if (url.toString().isNotEmpty) {
       try {

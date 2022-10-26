@@ -65,6 +65,7 @@ export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
+export 'src/enums/ds_toast_action_type.enum.dart' show DSToastActionType;
 export 'src/enums/ds_ticket_message_type.enum.dart' show DSTicketMessageType;
 
 /// Extensions
@@ -99,6 +100,7 @@ export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
 
 /// Services
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 
 /// Models
@@ -131,3 +133,6 @@ export 'src/themes/icons/ds_icons.dart' show DSIcons;
 /// Widgets / Information message
 export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
     show DSTicketMessage;
+
+/// Icons
+export 'src/themes/icons/ds_icons.dart' show DSIcons;

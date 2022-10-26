@@ -28,13 +28,14 @@ abstract class DSLinkify {
       (child) {
         final String? spanText = (child as TextSpan).text;
         final TextStyle? spanStyle = (child.style ?? defaultStyle);
+        final TextStyle? linkStyle = spanStyle?.copyWith(
+          color: linkColor,
+          decoration: TextDecoration.underline,
+        );
 
         if (spanText?.isNotEmpty ?? false) {
           final List<LinkifyElement> elements = linkify(
             spanText!,
-            linkifiers: const [
-              UrlLinkifier(),
-            ],
           );
 
           for (var element in elements) {
@@ -46,30 +47,42 @@ abstract class DSLinkify {
                 ),
               );
             } else {
-              final Uri? url = Uri.tryParse(
-                (element as UrlElement).url,
-              );
+              late final Uri? url;
+              late final String text;
 
-              if (url != null) {
-                formattedText.add(
-                  TextSpan(
-                    text: url.toString(),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => launchUrl(
-                            url,
-                            mode: LaunchMode.inAppWebView,
-                          ),
-                    style: spanStyle?.copyWith(
-                      color: linkColor,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                );
+              if (element is UrlElement) {
+                text = element.url;
+                url = Uri.tryParse(element.url);
+              } else if (element is EmailElement) {
+                text = element.emailAddress;
+                url = Uri.tryParse(element.url);
               }
+
+              formattedText.add(
+                TextSpan(
+                  text: text,
+                  style: linkStyle,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      bool hasLaunched = false;
+
+                      if (url != null) {
+                        hasLaunched = await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+
+                      if (!hasLaunched) {
+                        throw 'Não abriu a url';
+                        //TODO: toast
+                      }
+                    },
+                ),
+              );
             }
           }
         }
-
         return true;
       },
     );

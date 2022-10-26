@@ -34,7 +34,7 @@ class DSAudioMessageBubble extends StatefulWidget {
 }
 
 class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   final _controller = DSAudioMessageBubbleController();
 
   @override
@@ -60,6 +60,8 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final isDefaultBubbleColors =
         widget.style.isDefaultBubbleBackground(widget.align);
     final isLightBubbleBackground =
@@ -173,4 +175,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
