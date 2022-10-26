@@ -1,10 +1,9 @@
 import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
 import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../themes/colors/ds_colors.theme.dart';
-import '../utils/ds_utils.util.dart';
+import '../themes/icons/ds_icons.dart';
 import '../widgets/texts/ds_body_text.widget.dart';
 import '../widgets/texts/ds_headline_small_text.widget.dart';
 
@@ -42,7 +41,18 @@ class DSDialogService {
               ? DSColors.primaryYellowsCorn
               : DSColors.extendRedsFlower;
 
-      final String icon = 'assets/images/icon_alert_${describeEnum(type)}.png';
+      late final IconData icon;
+
+      switch (type) {
+        case DSDialogType.error:
+          icon = DSIcons.error_outline;
+          break;
+        case DSDialogType.warning:
+          icon = DSIcons.warning_outline;
+          break;
+        default:
+          icon = DSIcons.info_outline;
+      }
 
       return Container(
         height: 64.0,
@@ -60,10 +70,10 @@ class DSDialogService {
           ),
           child: Row(
             children: [
-              Image.asset(
+              Icon(
                 icon,
-                package: DSUtils.packageName,
-                width: 28.0,
+                size: 32,
+                color: DSColors.neutralDarkCity,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),

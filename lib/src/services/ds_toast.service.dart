@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/svg.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import 'package:blip_ds/blip_ds.dart';
@@ -177,33 +176,17 @@ class DSToastService {
   /// Prepares the presentation of toast elements according to the type
   void _prepareToast(final DSToastType type) {
     switch (type) {
-      case DSToastType.success:
-        backgroundColor = DSColors.primaryGreensMint;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_like.svg'),
-        );
-        break;
       case DSToastType.warning:
         backgroundColor = DSColors.primaryYellowsCorn;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_warning.svg'),
-        );
+        icon = _setIcon(DSIcons.warning_outline);
         break;
       case DSToastType.error:
         backgroundColor = DSColors.extendRedsFlower;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_error.svg'),
-        );
+        icon = _setIcon(DSIcons.error_outline);
         break;
       case DSToastType.system:
         backgroundColor = DSColors.illustrationBlueGenie;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_message.svg'),
-        );
+        icon = _setIcon(DSIcons.message_ballon_outline);
         break;
       case DSToastType.notification:
         backgroundColor = DSColors.neutralLightSnow;
@@ -212,14 +195,15 @@ class DSToastService {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
-              'assets/images/notificacao.png',
+              'assets/images/notification.png',
               package: DSUtils.packageName,
             ),
           ),
         );
         break;
       default:
-        DSToastType.success;
+        backgroundColor = DSColors.primaryGreensMint;
+        icon = _setIcon(DSIcons.like_outline);
     }
   }
 
@@ -301,12 +285,13 @@ class DSToastService {
     );
   }
 
-  Widget _setIcon(final String image) {
-    return SvgPicture.asset(
-      image,
-      package: DSUtils.packageName,
-      height: 24.0,
-      width: 24.0,
+  Widget _setIcon(final IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, left: 16.0),
+      child: Icon(
+        icon,
+        color: DSColors.neutralDarkCity,
+      ),
     );
   }
 
