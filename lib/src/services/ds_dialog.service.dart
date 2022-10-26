@@ -24,14 +24,12 @@ class DSDialogService {
     this.secondButton,
   });
 
-  void _show(final DSDialogType type) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      useSafeArea: true,
-      builder: (context) => _buildDialog(type),
-    );
-  }
+  Future<T?> _show<T>(final DSDialogType type) => showDialog<T>(
+        context: context,
+        barrierDismissible: false,
+        useSafeArea: true,
+        builder: (context) => _buildDialog(type),
+      );
 
   Widget _buildDialog(final DSDialogType type) {
     Widget buildHeader() {
@@ -151,17 +149,11 @@ class DSDialogService {
   }
 
   /// Shows a [DSDialogType.warning] dialog box type
-  void warning() {
-    _show(DSDialogType.warning);
-  }
+  Future<T?> warning<T>() => _show<T>(DSDialogType.warning);
 
   /// Shows a [DSDialogType.system] dialog box type
-  void system() {
-    _show(DSDialogType.system);
-  }
+  Future<T?> system<T>() => _show<T>(DSDialogType.system);
 
   /// Shows a [DSDialogType.error] dialog box type
-  void error() {
-    _show(DSDialogType.error);
-  }
+  Future<T?> error<T>() => _show<T>(DSDialogType.error);
 }
