@@ -148,7 +148,7 @@ class DSToastService {
                 alignment: Alignment.topLeft,
                 child: icon,
               ),
-            Flexible(
+            Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -210,20 +210,20 @@ class DSToastService {
   /// Switches between exit button types
   Widget _setMainButton() {
     return actionType == DSToastActionType.icon
-        ? Container(
-            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-            child: IconButton(
+        ? Padding(
+            padding: const EdgeInsets.only(top: 8.0, right: 16.0),
+            child: DSIconButton(
               onPressed: () {
                 state!(() {
                   _stopTimer();
                   _controlAnimation = Control.playReverse;
                 });
               },
-              icon: const Icon(Icons.close),
+              icon: const Icon(DSIcons.close_outline),
             ),
           )
         : Container(
-            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+            padding: const EdgeInsets.only(top: 8.0, right: 8.0),
             child: DSTertiaryButton(
               onPressed: () {
                 onPressedButton!();
