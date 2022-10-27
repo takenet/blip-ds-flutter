@@ -5,6 +5,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 class DSBottomSheetService {
   final BuildContext context;
   final Widget child;
+  final Widget childAppBar;
 
   DSBottomSheetService({
     required this.context,
@@ -28,7 +29,7 @@ class DSBottomSheetService {
                   children: [
                     StickyHeader(
                       overlapHeaders: false,
-                      header: _grabber(),
+                      header: _grabber(), Text('teste'),
                       content: _buildChild(padding),
                     ),
                   ],
@@ -59,20 +60,25 @@ class DSBottomSheetService {
     return Container(
       height: 30.0,
       decoration: _border(),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Container(
-            height: 4.0,
-            width: 32.0,
-            decoration: const BoxDecoration(
-              color: DSColors.neutralMediumWave,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 4.0,
+                width: 32.0,
+                decoration: const BoxDecoration(
+                  color: DSColors.neutralMediumWave,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
+          _appBar(padding);
         ],
       ),
     );
@@ -83,7 +89,7 @@ class DSBottomSheetService {
       padding: EdgeInsets.only(
         bottom: padding,
       ),
-      child: child,
+      child: childAppBar,
     );
   }
 
