@@ -22,7 +22,7 @@ class DSRadioTile<T> extends StatelessWidget {
   }) : super(key: key);
 
   /// Clickable radio group title allowing you to select an option.
-  final Widget title;
+  final Widget? title;
 
   /// Determines the grouping of buttons allowing one of them to be selected
   ///

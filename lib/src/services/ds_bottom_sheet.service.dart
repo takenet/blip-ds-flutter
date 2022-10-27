@@ -49,8 +49,8 @@ class DSBottomSheetService {
     return const BoxDecoration(
       color: DSColors.neutralLightSnow,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(15.0),
-        topRight: Radius.circular(15.0),
+        topLeft: Radius.circular(22.0),
+        topRight: Radius.circular(22.0),
       ),
     );
   }
@@ -78,6 +78,15 @@ class DSBottomSheetService {
     );
   }
 
+  Widget _appBar(double padding) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: padding,
+      ),
+      child: child,
+    );
+  }
+
   Widget _buildChild(double padding) {
     return Padding(
       padding: EdgeInsets.only(
@@ -89,7 +98,7 @@ class DSBottomSheetService {
 
   Future<void> showDraggable({
     final double minSize = 0.25,
-    final double initSize = 0.5,
+    final double initSize = 1.0,
   }) {
     return showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
