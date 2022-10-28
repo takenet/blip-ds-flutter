@@ -34,18 +34,12 @@ class DSBottomSheetService {
                         controller: controller,
                         shrinkWrap: true,
                         children: [
-                          //StickyHeader(
-                          //overlapHeaders: false,
-                          //header: _grabber(),
-                          //content:
                           _buildChild(padding),
                         ],
                       ),
                     ),
                   ],
                 )
-              //   ],
-              // )
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
