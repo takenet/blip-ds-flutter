@@ -7,10 +7,8 @@ class DSBottomSheetService {
   final Widget child;
   final Widget childAppBar;
 
-  DSBottomSheetService({
-    required this.context,
-    required this.child,
-  });
+  DSBottomSheetService(
+      {required this.context, required this.child, required this.childAppBar});
 
   Widget _buildBottomSheet({ScrollController? controller}) {
     final window = WidgetsBinding.instance.window;
@@ -24,16 +22,30 @@ class DSBottomSheetService {
       child: Stack(
         children: [
           controller != null
-              ? ListView(
-                  controller: controller,
+              ? Column(
                   children: [
-                    StickyHeader(
-                      overlapHeaders: false,
-                      header: _grabber(), Text('teste'),
-                      content: _buildChild(padding),
+                    _grabber(),
+                    Container(
+                      width: double.infinity,
+                      child: _appBar(padding),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        controller: controller,
+                        shrinkWrap: true,
+                        children: [
+                          //StickyHeader(
+                          //overlapHeaders: false,
+                          //header: _grabber(),
+                          //content:
+                          _buildChild(padding),
+                        ],
+                      ),
                     ),
                   ],
                 )
+              //   ],
+              // )
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -60,25 +72,20 @@ class DSBottomSheetService {
     return Container(
       height: 30.0,
       decoration: _border(),
-      child: Column(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 4.0,
-                width: 32.0,
-                decoration: const BoxDecoration(
-                  color: DSColors.neutralMediumWave,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15.0),
-                  ),
-                ),
+          Container(
+            height: 4.0,
+            width: 32.0,
+            decoration: const BoxDecoration(
+              color: DSColors.neutralMediumWave,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
               ),
-            ],
+            ),
           ),
-          _appBar(padding);
         ],
       ),
     );
@@ -87,7 +94,7 @@ class DSBottomSheetService {
   Widget _appBar(double padding) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: padding,
+        bottom: 33.0,
       ),
       child: childAppBar,
     );
