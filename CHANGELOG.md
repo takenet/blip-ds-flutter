@@ -1,3 +1,10 @@
+## 0.0.16
+
+* Added support for design system Toast
+* Added support for modal bottom sheet
+* Added support for document select bubble
+* Improved group card logic
+
 ## 0.0.15
 
 * Added suport for ticket type bubble
