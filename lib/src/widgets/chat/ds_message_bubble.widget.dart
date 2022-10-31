@@ -15,6 +15,7 @@ class DSMessageBubble extends StatelessWidget {
   final double defaultMaxSize;
   final double defaultMinSize;
   final DSMessageBubbleStyle style;
+  final bool hasSpacer;
 
   const DSMessageBubble({
     Key? key,
@@ -29,6 +30,7 @@ class DSMessageBubble extends StatelessWidget {
     this.defaultMaxSize = DSUtils.bubbleMaxSize,
     this.defaultMinSize = DSUtils.bubbleMinSize,
     required this.style,
+    this.hasSpacer = true,
   }) : super(key: key);
 
   BorderRadius _getBorderRadius() {
@@ -70,7 +72,10 @@ class DSMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isRightAlign = align == DSAlign.right;
-    List<Widget> children = [const Spacer(), _messageContainer()];
+    List<Widget> children = [
+      if (hasSpacer) const Spacer(),
+      _messageContainer(),
+    ];
 
     return Column(
       children: [

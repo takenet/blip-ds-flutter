@@ -109,7 +109,12 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
               Future.delayed(
                 const Duration(milliseconds: 120),
               ).then(
-                (value) => _animationControllers![i + 1].forward(),
+                (value) {
+                  final controller = _animationControllers![i + 1];
+                  if (!controller.isDismissed) {
+                    controller.forward();
+                  }
+                },
               );
             }
           } else if (status == AnimationStatus.completed) {

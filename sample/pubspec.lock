@@ -21,7 +21,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.15"
+    version: "0.0.16"
   boolean_selector:
     dependency: transitive
     description:
@@ -490,6 +490,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  sticky_headers:
+    dependency: transitive
+    description:
+      name: sticky_headers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0+2"
   stream_channel:
     dependency: transitive
     description:

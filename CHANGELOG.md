@@ -1,3 +1,9 @@
+## 0.0.17
+
+* Added unit e goldens tests
+* Added support for email in text
+* Added suport for Carousel message bubble
+
 ## 0.0.16
 
 * Added support for design system Toast

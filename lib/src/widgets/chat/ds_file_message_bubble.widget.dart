@@ -6,7 +6,6 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../utils/ds_utils.util.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_small_text.widget.dart';
@@ -68,15 +67,7 @@ class DSFileMessageBubble extends StatelessWidget {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    controller.getAsset(filename),
-                    height: 42.0,
-                    package: DSUtils.packageName,
-                    errorBuilder: (_, __, ___) => Image.asset(
-                      'assets/images/file-default.png',
-                      package: DSUtils.packageName,
-                    ),
-                  )
+                  controller.getFileIcon(filename),
                 ],
               ),
       ),

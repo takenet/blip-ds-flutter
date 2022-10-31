@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/utils/ds_message_content_type.util.dart';
+
 import '../../models/ds_document_select.model.dart';
+import '../../utils/ds_message_content_type.util.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -52,6 +54,16 @@ class DSCard extends StatelessWidget {
 
       case DSMessageContentType.documentSelect:
         return _buildDocumentSelect();
+
+      case DSMessageContentType.collection:
+        return DSCarrousel(
+          align: align,
+          content: content,
+          borderRadius: borderRadius,
+          onSelected: onSelected,
+          onOpenLink: onOpenLink,
+          style: style,
+        );
 
       default:
         return DSUnsupportedContentMessageBubble(

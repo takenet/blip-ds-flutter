@@ -130,6 +130,12 @@ export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
 
+/// Widgets / Carrousel
+export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
+
 /// Widgets / Information message
 export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
     show DSTicketMessage;
+
+/// Icons
+export 'src/themes/icons/ds_icons.dart' show DSIcons;

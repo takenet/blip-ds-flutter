@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+
+import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
-import '../../models/ds_document_select.model.dart';
-import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
+
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -27,6 +30,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.text,
     this.title,
+    this.hasSpacer = true,
     DSMessageBubbleStyle? style,
     this.selectOptions = const [],
     this.showSelect = false,
@@ -38,6 +42,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final String url;
   final List<DSBorderRadius> borderRadius;
   final String? title;
+  final bool hasSpacer;
   final String? text;
   final String appBarText;
   final Uri? appBarPhotoUri;
@@ -76,6 +81,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
+      hasSpacer: widget.hasSpacer,
       style: widget.style,
       child: FutureBuilder(
         future: _controller.getImageInfo(widget.url),
@@ -144,18 +150,17 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                                   color: color,
                                 ),
                               if ((widget.text?.isNotEmpty ?? false) &&
-                                  (widget.title?.isNotEmpty ?? false)) ...[
+                                  (widget.title?.isNotEmpty ?? false))
                                 const SizedBox(
                                   height: 6.0,
                                 ),
-                                if (widget.text?.isNotEmpty ?? false)
-                                  DSShowMoreText(
-                                    text: widget.text!,
-                                    maxWidth: constraints.maxWidth,
-                                    align: widget.align,
-                                    style: widget.style,
-                                  )
-                              ]
+                              if (widget.text?.isNotEmpty ?? false)
+                                DSShowMoreText(
+                                  text: widget.text!,
+                                  maxWidth: constraints.maxWidth,
+                                  align: widget.align,
+                                  style: widget.style,
+                                )
                             ],
                           ),
                         ),
@@ -209,7 +214,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                         padding: EdgeInsets.zero,
                         onPressed: () => Navigator.of(context).pop(),
                         icon: const Icon(
-                          DSIcons.arrow_left,
+                          DSIcons.arrow_left_outline,
                           color: DSColors.neutralLightSnow,
                           size: 32.0,
                         ),

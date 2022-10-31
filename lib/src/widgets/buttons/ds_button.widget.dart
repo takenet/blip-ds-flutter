@@ -45,7 +45,7 @@ class DSButton extends StatelessWidget {
       onPressed: isEnabled && !isLoading ? onPressed : null,
       style: OutlinedButton.styleFrom(
         padding: shape == DSButtonShape.rounded
-            ? const EdgeInsets.all(12.0)
+            ? const EdgeInsets.all(8.0)
             : EdgeInsets.symmetric(
                 vertical: _isIconOnly() ? 8.0 : 10.0,
                 horizontal: _isIconOnly() ? 10.0 : 16.0,

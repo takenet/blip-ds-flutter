@@ -40,7 +40,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
         children: [
           leftWidget ??
               Icon(
-                DSIcons.false_icon,
+                DSIcons.false_outline,
                 color: style.isLightBubbleBackground(align)
                     ? DSColors.neutralDarkCity
                     : DSColors.neutralLightSnow,
@@ -49,7 +49,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: DSBodyText(
-              text ?? 'Unsupported content',
+              text ?? 'Unsupported content', // TODO: Need localized translate.
               color: color,
             ),
           ),
