@@ -5,10 +5,13 @@ import 'package:sticky_headers/sticky_headers.dart';
 class DSBottomSheetService {
   final BuildContext context;
   final Widget child;
-  final Widget childAppBar;
+  final Widget? fixedHeader;
 
-  DSBottomSheetService(
-      {required this.context, required this.child, required this.childAppBar});
+  DSBottomSheetService({
+    required this.context,
+    required this.child,
+    this.fixedHeader,
+  });
 
   Widget _buildBottomSheet({ScrollController? controller}) {
     final window = WidgetsBinding.instance.window;
@@ -22,21 +25,20 @@ class DSBottomSheetService {
       child: Stack(
         children: [
           controller != null
-              ? Column(
+              ? ListView(
+                  controller: controller,
                   children: [
-                    _grabber(),
-                    Container(
-                      width: double.infinity,
-                      child: _appBar(padding),
-                    ),
-                    Expanded(
-                      child: ListView(
-                        controller: controller,
-                        shrinkWrap: true,
-                        children: [
-                          _buildChild(padding),
-                        ],
-                      ),
+                    StickyHeader(
+                      overlapHeaders: false,
+                      header: fixedHeader != null
+                          ? Column(
+                              children: [
+                                _grabber(),
+                                fixedHeader ?? const SizedBox.shrink()
+                              ],
+                            )
+                          : _grabber(),
+                      content: _buildChild(padding),
                     ),
                   ],
                 )
@@ -82,15 +84,6 @@ class DSBottomSheetService {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _appBar(double padding) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: 33.0,
-      ),
-      child: childAppBar,
     );
   }
 
