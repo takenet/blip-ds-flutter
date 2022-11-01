@@ -34,7 +34,8 @@ class DSUserAvatar extends StatelessWidget {
               return SizedBox(
                 height: size,
                 width: size,
-                child: CircularProgressIndicator(value: downloadProgress.progress, strokeWidth: 1),
+                child: CircularProgressIndicator(
+                    value: downloadProgress.progress, strokeWidth: 1),
               );
             },
             errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -46,7 +47,14 @@ class DSUserAvatar extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: DSBodyText(
-                    RegExp(r'[A-Za-z]').allMatches(text!).map((m) => m.group(0)).join().toUpperCase().substring(0, 2),
+                    RegExp(text!.split(' ').length >= 2
+                            ? r'\b[A-Za-z]'
+                            : r'[A-Za-z]')
+                        .allMatches(text!)
+                        .map((m) => m.group(0))
+                        .join()
+                        .toUpperCase()
+                        .substring(0, 2),
                     color: textColor,
                     overflow: TextOverflow.clip,
                     maxLines: 1,
@@ -59,6 +67,7 @@ class DSUserAvatar extends StatelessWidget {
                 backgroundColor: backgroundColor,
                 backgroundImage: const AssetImage(
                   'assets/images/avatar-default.png',
+                  package: DSUtils.packageName,
                 ),
               );
   }
