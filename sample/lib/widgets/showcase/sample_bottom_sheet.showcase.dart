@@ -34,12 +34,28 @@ class SampleBottomSheethowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomSheetDraggable = DSBottomSheetService(
       context: context,
-      child: body(
+      fixedHeader: Container(
+        color: DSColors.neutralLightSnow,
+        height: 50.0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              DSHeadlineSmallText('Header'),
+            ],
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: DSBodyText(
           lorem(
             words: 300,
             paragraphs: 1,
           ),
-          context),
+          overflow: TextOverflow.clip,
+        ),
+      ),
     );
 
     final bottomSheet = DSBottomSheetService(
