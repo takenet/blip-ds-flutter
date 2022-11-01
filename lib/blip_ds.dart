@@ -139,3 +139,6 @@ export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
 
 /// Icons
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
+
+export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
+    show DSDeliveryReportIcon;
