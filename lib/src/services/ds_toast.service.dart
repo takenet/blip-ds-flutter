@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/svg.dart';
+
 import 'package:simple_animations/simple_animations.dart';
 
 import 'package:blip_ds/blip_ds.dart';
@@ -135,41 +135,49 @@ class DSToastService {
     return Material(
       elevation: 10.0,
       borderRadius: BorderRadius.circular(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (icon != null)
-              Container(
-                alignment: Alignment.topLeft,
-                child: icon,
-              ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (title != null) DSHeadlineSmallText(title),
-                    DSBodyText(
-                      message,
-                      overflow: TextOverflow.visible,
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
+        children: [
+          Positioned(
+            left: -15,
+            top: -2,
+            child: SvgPicture.asset(
+              'assets/images/blip_ balloon.svg',
+              package: DSUtils.packageName,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                if (icon != null) icon!,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (title != null) DSHeadlineSmallText(title),
+                        DSBodyText(
+                          message,
+                          overflow: TextOverflow.visible,
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                _setMainButton(),
+              ],
             ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: _setMainButton(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -177,81 +185,52 @@ class DSToastService {
   /// Prepares the presentation of toast elements according to the type
   void _prepareToast(final DSToastType type) {
     switch (type) {
-      case DSToastType.success:
-        backgroundColor = DSColors.primaryGreensMint;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_like.svg'),
-        );
-        break;
       case DSToastType.warning:
         backgroundColor = DSColors.primaryYellowsCorn;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_warning.svg'),
-        );
+        icon = _setIcon(DSIcons.warning_outline);
         break;
       case DSToastType.error:
         backgroundColor = DSColors.extendRedsFlower;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_error.svg'),
-        );
+        icon = _setIcon(DSIcons.error_outline);
         break;
       case DSToastType.system:
         backgroundColor = DSColors.illustrationBlueGenie;
-        icon = Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-          child: _setIcon('assets/images/icon_message.svg'),
-        );
+        icon = _setIcon(DSIcons.message_ballon_outline);
         break;
       case DSToastType.notification:
-        backgroundColor = DSColors.neutralLightSnow;
-        icon = SizedBox(
-          width: 50.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              'assets/images/notificacao.png',
-              package: DSUtils.packageName,
-            ),
-          ),
-        );
+        backgroundColor = Colors.transparent;
+        icon = _setIcon(DSIcons.bell_outline);
         break;
       default:
-        DSToastType.success;
+        backgroundColor = DSColors.primaryGreensMint;
+        icon = _setIcon(DSIcons.like_outline);
     }
   }
 
   /// Switches between exit button types
   Widget _setMainButton() {
     return actionType == DSToastActionType.icon
-        ? Container(
-            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-            child: IconButton(
-              onPressed: () {
-                state!(() {
+        ? DSIconButton(
+            size: 40.0,
+            icon: const Icon(DSIcons.close_outline),
+            onPressed: () {
+              state!(() {
+                _stopTimer();
+                _controlAnimation = Control.playReverse;
+              });
+            },
+          )
+        : DSTertiaryButton(
+            label: buttonText,
+            onPressed: () {
+              onPressedButton!();
+              state!(
+                () {
                   _stopTimer();
                   _controlAnimation = Control.playReverse;
-                });
-              },
-              icon: const Icon(Icons.close),
-            ),
-          )
-        : Container(
-            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-            child: DSTertiaryButton(
-              onPressed: () {
-                onPressedButton!();
-                state!(
-                  () {
-                    _stopTimer();
-                    _controlAnimation = Control.playReverse;
-                  },
-                );
-              },
-              label: buttonText,
-            ),
+                },
+              );
+            },
           );
   }
 
@@ -301,12 +280,13 @@ class DSToastService {
     );
   }
 
-  Widget _setIcon(final String image) {
-    return SvgPicture.asset(
-      image,
-      package: DSUtils.packageName,
-      height: 24.0,
-      width: 24.0,
+  Widget _setIcon(final IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Icon(
+        icon,
+        color: DSColors.neutralDarkCity,
+      ),
     );
   }
 

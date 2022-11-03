@@ -2,7 +2,7 @@ import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../utils/ds_utils.util.dart';
+import '../../themes/icons/ds_icons.dart';
 import 'ds_button.widget.dart';
 
 class DSSendButton extends DSButton {
@@ -13,12 +13,8 @@ class DSSendButton extends DSButton {
     super.foregroundColor = DSColors.neutralLightSnow,
   }) : super(
           shape: DSButtonShape.rounded,
-          leadingIcon: const ImageIcon(
-            size: 20,
-            AssetImage(
-              'assets/images/send_button.png',
-              package: DSUtils.packageName,
-            ),
+          leadingIcon: const Icon(
+            DSIcons.send_solid,
           ),
         );
 }

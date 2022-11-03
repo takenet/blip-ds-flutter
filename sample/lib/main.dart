@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
+import 'package:sample/widgets/showcase/sample_collection.showcase.dart';
 import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
 import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
 import 'package:sample/widgets/showcase/sample_header.showcase.dart';
@@ -72,6 +73,8 @@ class HomePage extends StatelessWidget {
             const SampleBottomSheethowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTicketMessage(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleCollectionShowcase(),
           ],
         ),
       ),
