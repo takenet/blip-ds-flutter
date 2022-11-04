@@ -27,6 +27,9 @@ class DSVideoMessageBubble extends StatelessWidget {
   /// AppBar title above the video screen that also serves to close, returning to the previous screen.
   final String appBarText;
 
+  /// AppBar avatar uri.
+  final Uri? appBarPhotoUri;
+
   final DSMessageBubbleStyle style;
 
   /// Card for the purpose of triggering a video to play.
@@ -39,6 +42,7 @@ class DSVideoMessageBubble extends StatelessWidget {
     required this.align,
     required this.url,
     required this.appBarText,
+    this.appBarPhotoUri,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
@@ -85,6 +89,7 @@ class DSVideoMessageBubble extends StatelessWidget {
                         _buildTransition(animation, child),
                     pageBuilder: (context, _, __) => DSVideoPlayer(
                       appBarText: appBarText,
+                      appBarPhotoUri: appBarPhotoUri,
                       url: url,
                     ),
                   );
