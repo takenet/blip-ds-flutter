@@ -26,7 +26,6 @@ class DSWeblink extends StatelessWidget {
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
     return DSMessageBubble(
-      // conteudo do bubble aqui
       align: align,
       borderRadius: borderRadius!,
       style: style,

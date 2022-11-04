@@ -83,17 +83,6 @@ class DSCard extends StatelessWidget {
     }
   }
 
-  // Widget _buildWebLink() {
-  //   return DSWeblink(
-  //     align: align,
-  //     text: 'text',
-  //     borderRadius: borderRadius,
-  //     style: style,
-  //     title: 'Paolla',
-  //     url: 'url',
-  //   );
-  // }
-
   Widget _buildDocumentSelect() {
     final documentSelectModel = DSDocumentSelectModel.fromJson(content);
 

@@ -14,7 +14,6 @@ class SampleWeblinkShowcase extends StatelessWidget {
               'Atenda de forma inteligente, no canal digital que seu cliente prefere',
           url: 'https://www.take.net/',
           align: DSAlign.right,
-          //style: null,
         ),
         DSWeblink(
           title: 'Take Blip',
@@ -22,7 +21,6 @@ class SampleWeblinkShowcase extends StatelessWidget {
               'Atenda de forma inteligente, no canal digital que seu cliente prefere',
           url: 'https://www.take.net/',
           align: DSAlign.left,
-          //style: null,
         ),
       ],
     );
