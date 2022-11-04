@@ -1,7 +1,6 @@
+// import 'package:blip_ds/src/widgets/chat/ds_weblink.widget.dart';
 import 'package:flutter/material.dart';
-
 import 'package:blip_ds/blip_ds.dart';
-
 import '../../models/ds_document_select.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 
@@ -65,6 +64,10 @@ class DSCard extends StatelessWidget {
           style: style,
         );
 
+      case DSMessageContentType.webLink:
+        return DSWeblink(
+            title: 'teste', text: 'teste', align: align, url: 'teste');
+
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
@@ -73,6 +76,19 @@ class DSCard extends StatelessWidget {
         );
     }
   }
+
+  // Widget _buildWebLink() {
+  //   return DSWeblink(
+  //     align: align,
+
+  //     text: 'text',
+
+  //     borderRadius: borderRadius,
+  //     style: style,
+
+  //     title: 'Paolla', url: 'url',
+  //   );
+  // }
 
   Widget _buildDocumentSelect() {
     final documentSelectModel = DSDocumentSelectModel.fromJson(content);
