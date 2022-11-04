@@ -631,7 +631,22 @@
             "uri": "https://download.brother.com/welcome/doc100107/cv_mfc4620dw_epr_busr_leu359065.pdf"
           }
         }
+        
+      
       ]
     }
+  },
+  {
+    "content": {
+      "text": "Atenda de forma inteligente, no canal digital que seu cliente prefere",
+      "title": "Take Blip",
+      "uri": "https://www.take.net/"
+    },
+    "date": "2022-08-22T16:20:00.938Z",
+    "displayDate": "8 de Ago de 2022 16:20",
+    "align": "right",
+    "type": "application/vnd.lime.web-link+json",
+    "status": "consumed",
+    "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbd"
   }
 ]

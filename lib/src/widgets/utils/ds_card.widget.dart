@@ -66,7 +66,13 @@ class DSCard extends StatelessWidget {
 
       case DSMessageContentType.webLink:
         return DSWeblink(
-            title: 'teste', text: 'teste', align: align, url: 'teste');
+          title: content['title'],
+          text: content['text'],
+          url: content['uri'],
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+        );
 
       default:
         return DSUnsupportedContentMessageBubble(
@@ -80,13 +86,11 @@ class DSCard extends StatelessWidget {
   // Widget _buildWebLink() {
   //   return DSWeblink(
   //     align: align,
-
   //     text: 'text',
-
   //     borderRadius: borderRadius,
   //     style: style,
-
-  //     title: 'Paolla', url: 'url',
+  //     title: 'Paolla',
+  //     url: 'url',
   //   );
   // }
 

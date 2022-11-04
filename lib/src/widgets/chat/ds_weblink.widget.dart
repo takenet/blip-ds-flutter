@@ -17,7 +17,8 @@ class DSWeblink extends StatelessWidget {
     required this.url,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  }) : style = style ?? DSMessageBubbleStyle();
+  })  : style = style ?? DSMessageBubbleStyle(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class DSWeblink extends StatelessWidget {
     return DSMessageBubble(
       // conteudo do bubble aqui
       align: align,
+      borderRadius: borderRadius!,
       style: style,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,12 +37,13 @@ class DSWeblink extends StatelessWidget {
             title,
             color: color,
           ),
-          DSCaptionSmallText(
+          DSBodyText(
             text,
             color: color,
+            overflow: TextOverflow.visible,
           ),
           const SizedBox(
-            height: 20,
+            height: 20.0,
           ),
           DSBodyText(
             url,
