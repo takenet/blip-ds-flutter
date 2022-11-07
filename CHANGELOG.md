@@ -1,3 +1,7 @@
+## 0.0.18
+
+* Some widget fixes and improvements
+
 ## 0.0.17
 
 * Added unit e goldens tests
