@@ -100,7 +100,7 @@ class SampleRadioShowcase extends StatelessWidget {
   _radioTileString({int index = 0, bool isEnabled = true}) {
     return Obx(
       () => DSRadioTile<String>(
-        title: _controller.optionsString[index],
+        title: DSBodyText(_controller.optionsString[index]),
         value: _controller.optionsString[index],
         groupValue: isEnabled
             ? _controller.selectedRadioTile.value

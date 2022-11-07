@@ -5,10 +5,12 @@ import 'package:sticky_headers/sticky_headers.dart';
 class DSBottomSheetService {
   final BuildContext context;
   final Widget child;
+  final Widget? fixedHeader;
 
   DSBottomSheetService({
     required this.context,
     required this.child,
+    this.fixedHeader,
   });
 
   Widget _buildBottomSheet({ScrollController? controller}) {
@@ -28,11 +30,15 @@ class DSBottomSheetService {
                   children: [
                     StickyHeader(
                       overlapHeaders: false,
-                      header: _grabber(),
-                      content: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: _buildChild(padding),
-                      ),
+                      header: fixedHeader != null
+                          ? Column(
+                              children: [
+                                _grabber(),
+                                fixedHeader ?? const SizedBox.shrink()
+                              ],
+                            )
+                          : _grabber(),
+                      content: _buildChild(padding),
                     ),
                   ],
                 )
@@ -40,10 +46,7 @@ class DSBottomSheetService {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _grabber(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: _buildChild(padding),
-                    ),
+                    _buildChild(padding),
                   ],
                 ),
         ],
@@ -55,8 +58,8 @@ class DSBottomSheetService {
     return const BoxDecoration(
       color: DSColors.neutralLightSnow,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(15.0),
-        topRight: Radius.circular(15.0),
+        topLeft: Radius.circular(22.0),
+        topRight: Radius.circular(22.0),
       ),
     );
   }
@@ -95,7 +98,7 @@ class DSBottomSheetService {
 
   Future<void> showDraggable({
     final double minSize = 0.25,
-    final double initSize = 0.5,
+    final double initSize = 1.0,
   }) {
     return showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,

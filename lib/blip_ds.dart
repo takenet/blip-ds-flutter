@@ -15,6 +15,8 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
 export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
+export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
+    show DSDeliveryReportIcon;
 
 /// Widgets / Chat / Audio
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
@@ -43,6 +45,7 @@ export 'src/widgets/buttons/ds_attachment_button.widget.dart'
     show DSAttachmentButton;
 
 /// Widgets / Texts
+export 'src/widgets/texts/ds_text.widget.dart' show DSText;
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;
 export 'src/widgets/texts/ds_headline_large_text.widget.dart'
     show DSHeadlineLargeText;
