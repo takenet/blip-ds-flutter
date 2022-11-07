@@ -33,8 +33,8 @@ class SampleGroupCardShowcase extends StatelessWidget {
                   pageBackgroundColor: const Color(0xffefefef),
                 ),
                 avatarConfig: const DSMessageBubbleAvatarConfig(
-                  ownerName: 'Owner',
-                  userName: 'User',
+                  receivedName: 'Owner',
+                  sentName: 'User',
                 ),
               );
             } else {
