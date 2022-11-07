@@ -7,13 +7,13 @@ class DSChip extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color background;
 
-  const DSChip(
-      {Key? key,
-      required this.text,
-      this.icon,
-      this.padding,
-      required this.background})
-      : super(key: key);
+  const DSChip({
+    Key? key,
+    required this.text,
+    this.icon,
+    this.padding,
+    required this.background,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,10 @@ class DSChip extends StatelessWidget {
         children: [
           icon ?? const SizedBox.shrink(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 3.0,
+              horizontal: 8.0,
+            ),
             child: text,
           ),
         ],
