@@ -6,7 +6,7 @@ class DSWeblink extends StatelessWidget {
   final String text;
   final String url;
   final DSAlign align;
-  final List<DSBorderRadius>? borderRadius;
+  final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
 
   DSWeblink({
@@ -22,12 +22,14 @@ class DSWeblink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = style.isLightBubbleBackground(align)
+    final isDefaultBubbleColors = style.isDefaultBubbleBackground(align);
+    final isLightBubbleBackground = style.isLightBubbleBackground(align);
+    final color = isLightBubbleBackground
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
     return DSMessageBubble(
       align: align,
-      borderRadius: borderRadius!,
+      borderRadius: borderRadius,
       style: style,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,9 +48,13 @@ class DSWeblink extends StatelessWidget {
           ),
           DSBodyText(
             url,
-            linkColor: align == DSAlign.left
-                ? DSColors.primaryNight
-                : DSColors.primaryLight,
+            linkColor: isLightBubbleBackground
+                ? isDefaultBubbleColors
+                    ? DSColors.primaryNight
+                    : DSColors.neutralDarkCity
+                : isDefaultBubbleColors
+                    ? DSColors.primaryLight
+                    : DSColors.neutralLightSnow,
           ),
         ],
       ),
