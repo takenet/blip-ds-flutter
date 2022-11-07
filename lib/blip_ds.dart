@@ -43,6 +43,7 @@ export 'src/widgets/buttons/ds_attachment_button.widget.dart'
     show DSAttachmentButton;
 
 /// Widgets / Texts
+export 'src/widgets/texts/ds_text.widget.dart' show DSText;
 export 'src/widgets/texts/ds_body_text.widget.dart' show DSBodyText;
 export 'src/widgets/texts/ds_headline_large_text.widget.dart'
     show DSHeadlineLargeText;
@@ -142,3 +143,5 @@ export 'src/themes/icons/ds_icons.dart' show DSIcons;
 
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
+
+
