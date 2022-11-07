@@ -15,6 +15,8 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
 export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
+export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
+    show DSDeliveryReportIcon;
 
 /// Widgets / Chat / Audio
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
@@ -60,6 +62,7 @@ export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
+export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
@@ -138,10 +141,8 @@ export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
 export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
     show DSTicketMessage;
 
+/// Widgets / Texts
+export 'src/widgets/texts/ds_text.widget.dart' show DSText;
+
 /// Icons
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
-
-export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
-    show DSDeliveryReportIcon;
-
-
