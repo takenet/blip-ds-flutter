@@ -16,6 +16,7 @@ import 'package:sample/widgets/showcase/sample_toast.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
 
 import 'package:blip_ds/blip_ds.dart';
+import 'package:sample/widgets/showcase/sample_weblink.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -75,6 +76,8 @@ class HomePage extends StatelessWidget {
             const SampleTicketMessage(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleCollectionShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleWeblinkShowcase(),
           ],
         ),
       ),

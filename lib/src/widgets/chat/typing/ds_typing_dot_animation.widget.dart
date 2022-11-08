@@ -111,9 +111,7 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
               ).then(
                 (value) {
                   final controller = _animationControllers![i + 1];
-                  if (!controller.isDismissed) {
-                    controller.forward();
-                  }
+                  controller.forward();
                 },
               );
             }
