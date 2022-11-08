@@ -1,12 +1,25 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
+/// A Design System widget used to display weblinks.
+
 class DSWeblink extends StatelessWidget {
+  /// Show the [title] on the card
   final String title;
+
+  /// Show the [text] on the card
   final String text;
+
+  /// URL that will be played when clicking on the card
   final String url;
+
+  /// Sets the card's alignment on the screen.
   final DSAlign align;
+
+  /// Card borders for design when used grouped
   final List<DSBorderRadius> borderRadius;
+
+  /// Card styling to adjust custom colors
   final DSMessageBubbleStyle style;
 
   DSWeblink({
