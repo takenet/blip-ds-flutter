@@ -5,8 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// An utility class that has methods related to likified texts.
 abstract class DSLinkify {
-  DSLinkify();
-
   static List<InlineSpan> plainText({
     required String text,
     TextStyle? defaultStyle,
