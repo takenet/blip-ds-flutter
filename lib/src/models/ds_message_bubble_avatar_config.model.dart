@@ -1,16 +1,16 @@
 class DSMessageBubbleAvatarConfig {
-  final Uri? ownerAvatar;
-  final String? ownerName;
-  final Uri? userAvatar;
-  final String? userName;
+  final Uri? receivedAvatar;
+  final String? receivedName;
+  final Uri? sentAvatar;
+  final String? sentName;
 
   const DSMessageBubbleAvatarConfig({
-    this.ownerAvatar,
-    this.ownerName,
-    this.userAvatar,
-    this.userName,
+    this.receivedAvatar,
+    this.receivedName,
+    this.sentAvatar,
+    this.sentName,
   });
 
-  bool get showOwnerAvatar => (ownerAvatar != null || (ownerName?.isNotEmpty ?? false));
-  bool get showUserAvatar => (userAvatar != null || (userName?.isNotEmpty ?? false));
+  bool get showReceivedAvatar => (receivedAvatar != null || (receivedName?.isNotEmpty ?? false));
+  bool get showSentAvatar => (sentAvatar != null || (sentName?.isNotEmpty ?? false));
 }
