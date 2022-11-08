@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
+import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_utils.util.dart';
 import '../utils/ds_card.widget.dart';
@@ -29,6 +30,9 @@ class DSCarrousel extends StatelessWidget {
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
 
+  // Avatar configuration
+  final DSMessageBubbleAvatarConfig avatarConfig;
+
   /// Card styling to adjust custom colors
   final DSMessageBubbleStyle style;
 
@@ -39,6 +43,7 @@ class DSCarrousel extends StatelessWidget {
     required this.borderRadius,
     this.onSelected,
     this.onOpenLink,
+    this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
@@ -77,7 +82,13 @@ class DSCarrousel extends StatelessWidget {
               url: header!["value"]["uri"],
               title: header["value"]["title"],
               text: header["value"]["text"],
-              appBarText: header["value"]["title"],
+              appBarText: (align == DSAlign.left
+                      ? avatarConfig.receivedName
+                      : avatarConfig.sentName) ??
+                  header["value"]["title"],
+              appBarPhotoUri: align == DSAlign.left
+                  ? avatarConfig.receivedAvatar
+                  : avatarConfig.sentAvatar,
               selectOptions: listOptions,
               showSelect: true,
               hasSpacer: false,
@@ -115,7 +126,7 @@ class DSCarrousel extends StatelessWidget {
               align: align,
               style: style,
               borderRadius: radius,
-              customerName: contentContainer['text'],
+              avatarConfig: avatarConfig,
               onSelected: onSelected,
               onOpenLink: onOpenLink,
             ),

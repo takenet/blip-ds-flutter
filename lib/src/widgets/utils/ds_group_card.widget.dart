@@ -211,11 +211,11 @@ class _DSGroupCardState extends State<DSGroupCard> {
     final sentColumns = [flexColumn, fixedColumn];
     final receivedColumns = [fixedColumn, flexColumn];
 
-    if (!widget.avatarConfig.showUserAvatar) {
+    if (!widget.avatarConfig.showSentAvatar) {
       sentColumns.remove(fixedColumn);
     }
 
-    if (!widget.avatarConfig.showOwnerAvatar) {
+    if (!widget.avatarConfig.showReceivedAvatar) {
       receivedColumns.remove(fixedColumn);
     }
 
@@ -241,7 +241,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             align: message.align,
             borderRadius: borderRadius,
             onSelected: widget.onSelected,
-            customerName: message.customerName,
+            avatarConfig: widget.avatarConfig,
             style: widget.style,
             onOpenLink: widget.onOpenLink,
           );
@@ -256,8 +256,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             ),
           ];
 
-          if ((sentMessage && widget.avatarConfig.showUserAvatar) ||
-              (!sentMessage && widget.avatarConfig.showOwnerAvatar)) {
+          if ((sentMessage && widget.avatarConfig.showSentAvatar) ||
+              (!sentMessage && widget.avatarConfig.showReceivedAvatar)) {
             columns.add(
               isLastMsg
                   ? Align(
@@ -267,11 +267,11 @@ class _DSGroupCardState extends State<DSGroupCard> {
                       child: DSUserAvatar(
                         radius: 12,
                         uri: sentMessage
-                            ? widget.avatarConfig.userAvatar
-                            : widget.avatarConfig.ownerAvatar,
+                            ? widget.avatarConfig.sentAvatar
+                            : widget.avatarConfig.receivedAvatar,
                         text: sentMessage
-                            ? widget.avatarConfig.userName
-                            : widget.avatarConfig.ownerName,
+                            ? widget.avatarConfig.sentName
+                            : widget.avatarConfig.receivedName,
                       ),
                     )
                   : const SizedBox(),
@@ -298,8 +298,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
               ),
             ];
 
-            if ((sentMessage && widget.avatarConfig.showUserAvatar) ||
-                (!sentMessage && widget.avatarConfig.showOwnerAvatar)) {
+            if ((sentMessage && widget.avatarConfig.showSentAvatar) ||
+                (!sentMessage && widget.avatarConfig.showReceivedAvatar)) {
               columns.add(
                 const SizedBox(),
               );
@@ -315,7 +315,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
           items.insert(
             0,
             Padding(
-              key: ValueKey<String>(message.id ?? DateTime.now().toIso8601String()),
+              key: ValueKey<String>(
+                  message.id ?? DateTime.now().toIso8601String()),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Table(
                 columnWidths:
@@ -358,7 +359,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
         ),
       ];
 
-      if (widget.avatarConfig.showOwnerAvatar) {
+      if (widget.avatarConfig.showReceivedAvatar) {
         columns.insert(
           0,
           const SizedBox(),

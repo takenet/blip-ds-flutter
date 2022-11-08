@@ -5,51 +5,65 @@ import 'package:flutter_lorem/flutter_lorem.dart';
 class SampleBottomSheethowcase extends StatelessWidget {
   const SampleBottomSheethowcase({Key? key}) : super(key: key);
 
-  Widget body(String text, BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: const Icon(Icons.arrow_back),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: DSHeadlineLargeText('Bottomsheet'),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 16.0,
-        ),
-        DSBodyText(text, overflow: TextOverflow.clip),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final bottomSheetDraggable = DSBottomSheetService(
       context: context,
-      child: body(
-          lorem(
-            words: 300,
-            paragraphs: 1,
+      fixedHeader: Container(
+        color: DSColors.neutralLightSnow,
+        height: 50.0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              DSHeadlineSmallText('Header'),
+            ],
           ),
-          context),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: DSBodyText(
+            lorem(
+              words: 300,
+              paragraphs: 1,
+            ),
+            overflow: TextOverflow.clip),
+      ),
     );
 
     final bottomSheet = DSBottomSheetService(
       context: context,
-      child: body(
-          lorem(
-            words: 50,
-            paragraphs: 1,
-          ),
-          context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: const Icon(Icons.arrow_back),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: DSHeadlineLargeText('Bottomsheet'),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            DSBodyText(
+                lorem(
+                  words: 50,
+                  paragraphs: 1,
+                ),
+                overflow: TextOverflow.clip),
+          ],
+        ),
+      ),
     );
 
     return Column(

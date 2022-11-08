@@ -7,15 +7,6 @@ import '../../utils/ds_message_content_type.util.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
-  final String type;
-  final dynamic content;
-  final DSAlign align;
-  final List<DSBorderRadius> borderRadius;
-  final String? customerName;
-  final void Function(String, Map<String, dynamic>)? onSelected;
-  final void Function(Map<String, dynamic>)? onOpenLink;
-  final DSMessageBubbleStyle style;
-
   /// Creates a new [DSCard] widget
   DSCard({
     Key? key,
@@ -23,12 +14,21 @@ class DSCard extends StatelessWidget {
     required this.content,
     required this.align,
     required this.borderRadius,
-    this.customerName,
     this.onSelected,
     this.onOpenLink,
+    this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
+
+  final String type;
+  final dynamic content;
+  final DSAlign align;
+  final List<DSBorderRadius> borderRadius;
+  final void Function(String, Map<String, dynamic>)? onSelected;
+  final void Function(Map<String, dynamic>)? onOpenLink;
+  final DSMessageBubbleAvatarConfig avatarConfig;
+  final DSMessageBubbleStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +62,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           onSelected: onSelected,
           onOpenLink: onOpenLink,
+          avatarConfig: avatarConfig,
           style: style,
         );
 
@@ -82,7 +83,13 @@ class DSCard extends StatelessWidget {
       url: documentSelectModel.header.mediaLink.uri,
       title: documentSelectModel.header.mediaLink.title!,
       text: documentSelectModel.header.mediaLink.text!,
-      appBarText: customerName ?? '',
+      appBarText: (align == DSAlign.left
+              ? avatarConfig.receivedName
+              : avatarConfig.sentName) ??
+          '',
+      appBarPhotoUri: align == DSAlign.left
+          ? avatarConfig.receivedAvatar
+          : avatarConfig.sentAvatar,
       selectOptions: documentSelectModel.options,
       borderRadius: borderRadius,
       style: style,
@@ -125,7 +132,13 @@ class DSCard extends StatelessWidget {
       return DSImageMessageBubble(
         url: content['uri'],
         align: align,
-        appBarText: customerName ?? '',
+        appBarText: (align == DSAlign.left
+                ? avatarConfig.receivedName
+                : avatarConfig.sentName) ??
+            '',
+        appBarPhotoUri: align == DSAlign.left
+            ? avatarConfig.receivedAvatar
+            : avatarConfig.sentAvatar,
         text: content['text'],
         title: content['title'],
         borderRadius: borderRadius,
@@ -135,7 +148,13 @@ class DSCard extends StatelessWidget {
       return DSVideoMessageBubble(
         url: content['uri'],
         align: align,
-        appBarText: customerName ?? '',
+        appBarText: (align == DSAlign.left
+                ? avatarConfig.receivedName
+                : avatarConfig.sentName) ??
+            '',
+        appBarPhotoUri: align == DSAlign.left
+            ? avatarConfig.receivedAvatar
+            : avatarConfig.sentAvatar,
         text: content['text'],
         borderRadius: borderRadius,
         style: style,
