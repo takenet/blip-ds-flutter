@@ -1,5 +1,15 @@
+import 'package:blip_ds/src/enums/ds_align.enum.dart';
+import 'package:blip_ds/src/enums/ds_border_radius.enum.dart';
+import 'package:blip_ds/src/models/ds_message_bubble_style.model.dart';
+import 'package:blip_ds/src/widgets/chat/audio/ds_audio_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_carrousel.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_file_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_image_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_text_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_video_message_bubble.widget.dart';
+import 'package:blip_ds/src/widgets/chat/ds_weblink.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:blip_ds/blip_ds.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 
