@@ -31,7 +31,7 @@ class DSChip extends StatelessWidget {
           icon ?? const SizedBox.shrink(),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 3.0,
+              vertical: 2.0,
               horizontal: 8.0,
             ),
             child: text,
