@@ -1,9 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import 'package:blip_ds/blip_ds.dart';
 
 class DSChip extends StatelessWidget {
   final DSText text;
   final Icon? icon;
+  final BorderRadius? borderRadius;
   final EdgeInsetsGeometry? padding;
   final Color background;
 
@@ -12,6 +14,7 @@ class DSChip extends StatelessWidget {
     required this.text,
     this.icon,
     this.padding,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
     required this.background,
   }) : super(key: key);
 
@@ -21,9 +24,7 @@ class DSChip extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: background,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8.0),
-        ),
+        borderRadius: borderRadius,
       ),
       child: Row(
         children: [
