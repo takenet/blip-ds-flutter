@@ -13,7 +13,7 @@ class DSBottomSheetService {
     this.fixedHeader,
   });
 
-  Widget _buildBottomSheet({ScrollController? controller}) {
+  Widget _buildBottomSheet({ScrollController? controller, double? height}) {
     final window = WidgetsBinding.instance.window;
     final padding = MediaQueryData.fromWindow(window).padding.bottom + 36;
 
@@ -42,12 +42,24 @@ class DSBottomSheetService {
                     ),
                   ],
                 )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _grabber(),
-                    _buildChild(padding),
-                  ],
+              : SizedBox(
+                  height:
+                      height ?? MediaQueryData.fromWindow(window).size.height,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (fixedHeader != null) ...[
+                        _grabber(),
+                        fixedHeader ?? const SizedBox.shrink()
+                      ],
+                      if (fixedHeader == null) _grabber(),
+                      Expanded(
+                        child: ListView(
+                          children: [_buildChild(padding)],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
         ],
       ),
@@ -116,11 +128,13 @@ class DSBottomSheetService {
     );
   }
 
-  Future<void> show() {
+  Future<void> show({double? height, bool enableDrag = true}) {
     return showModalBottomSheet<void>(
+      enableDrag: enableDrag,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (_) => _buildBottomSheet(),
+      builder: (_) => _buildBottomSheet(height: height),
     );
   }
 }
