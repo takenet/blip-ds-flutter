@@ -16,6 +16,8 @@ class DSButton extends StatelessWidget {
   final bool isEnabled;
   final bool isLoading;
   final DSButtonShape shape;
+  final bool autoSize;
+  final MainAxisAlignment contentAlignment;
 
   final List<Widget> _contentList = [];
 
@@ -35,6 +37,8 @@ class DSButton extends StatelessWidget {
     this.isEnabled = true,
     this.isLoading = false,
     this.shape = DSButtonShape.rectangular,
+    this.autoSize = true,
+    this.contentAlignment = MainAxisAlignment.center,
   });
 
   @override
@@ -50,10 +54,7 @@ class DSButton extends StatelessWidget {
                 vertical: _isIconOnly() ? 8.0 : 10.0,
                 horizontal: _isIconOnly() ? 10.0 : 16.0,
               ),
-        minimumSize: const Size(
-          44.0,
-          44.0,
-        ),
+        minimumSize: const Size(44.0, 44.0),
         maximumSize: shape == DSButtonShape.rounded ? _kMaximumSize : null,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         foregroundColor: foregroundColor,
@@ -69,7 +70,8 @@ class DSButton extends StatelessWidget {
       ),
       child: DSAnimatedSize(
         child: Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: contentAlignment,
+          mainAxisSize: autoSize ? MainAxisSize.min : MainAxisSize.max,
           children: _contentList,
         ),
       ),

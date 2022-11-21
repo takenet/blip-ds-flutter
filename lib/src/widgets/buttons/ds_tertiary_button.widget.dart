@@ -17,6 +17,8 @@ class DSTertiaryButton extends DSButton {
     super.trailingIcon,
     super.isEnabled,
     super.isLoading,
+    super.autoSize,
+    super.contentAlignment,
   }) : super(
           backgroundColor: Colors.transparent,
           foregroundColor: isEnabled
