@@ -25,9 +25,12 @@ class DSMessageItemModel {
 
   /// Used to display a user name and avatar at an image preview in image bubble
   String? customerName;
-  
+
   /// Used to display a user name and avatar at an image preview in image bubble
   Uri? customerAvatar;
+
+  /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
+  bool? hideMessageDetail;
 
   /// Creates a new Design System's [DSMessageItemModel] model
   DSMessageItemModel({
@@ -40,6 +43,7 @@ class DSMessageItemModel {
     this.content,
     this.customerName,
     this.customerAvatar,
+    this.hideMessageDetail,
   });
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
@@ -51,14 +55,19 @@ class DSMessageItemModel {
       type: json['type'],
       content: json['content'],
       status: DSDeliveryReportStatus.unknown.getValue(json['status']),
+      hideMessageDetail: json['hideMessageDetail'],
     );
 
     if (json.containsKey('customerName')) {
       messageItem.customerName = json['customerName'];
     }
-    
+
     if (json.containsKey('customerAvatar')) {
       messageItem.customerAvatar = json['customerAvatar'];
+    }
+
+    if (json.containsKey('hideMessageDetail')) {
+      messageItem.hideMessageDetail = json['hideMessageDetail'];
     }
 
     return messageItem;
