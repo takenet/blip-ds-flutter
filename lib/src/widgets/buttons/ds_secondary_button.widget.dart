@@ -16,6 +16,8 @@ class DSSecondaryButton extends DSButton {
     super.trailingIcon,
     super.isEnabled,
     super.isLoading,
+    super.autoSize,
+    super.contentAlignment,
   }) : super(
           backgroundColor: DSColors.neutralLightSnow,
           foregroundColor: isEnabled

@@ -16,6 +16,8 @@ class DSPrimaryButton extends DSButton {
     super.trailingIcon,
     super.isEnabled,
     super.isLoading,
+    super.autoSize,
+    super.contentAlignment,
   }) : super(
           backgroundColor:
               isEnabled ? DSColors.primaryNight : DSColors.disabledBg,
