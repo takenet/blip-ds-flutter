@@ -31,6 +31,8 @@ export 'src/widgets/animations/ds_animated_size.widget.dart'
 export 'src/widgets/animations/ds_fading_circle_loading.widget.dart'
     show DSFadingCircleLoading;
 export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
+export 'src/widgets/animations/ds_spinner_loading.widget.dart'
+    show DSSpinnerLoading;
 
 /// Widgets / Buttons
 export 'src/widgets/buttons/ds_button.widget.dart' show DSButton;

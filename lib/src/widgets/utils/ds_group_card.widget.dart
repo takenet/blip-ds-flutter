@@ -284,7 +284,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             ),
           );
 
-          if (isLastMsg) {
+          if (isLastMsg &&
+              ((message.hideMessageDetail ?? false) ? false : true)) {
             final columns = <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),

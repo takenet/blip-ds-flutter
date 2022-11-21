@@ -20,6 +20,19 @@ class DSUserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String initials = '';
+
+    if (text?.isNotEmpty ?? false) {
+      initials =
+          RegExp(text!.split(' ').length >= 2 ? r'\b[A-Za-z]' : r'[A-Za-z]')
+              .allMatches(text!)
+              .map((m) => m.group(0))
+              .join()
+              .toUpperCase();
+
+      initials = initials.substring(0, initials.length >= 2 ? 2 : 1);
+    }
+
     return uri != null
         ? CachedNetworkImage(
             imageUrl: uri.toString(),
@@ -47,14 +60,7 @@ class DSUserAvatar extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: DSBodyText(
-                    RegExp(text!.split(' ').length >= 2
-                            ? r'\b[A-Za-z]'
-                            : r'[A-Za-z]')
-                        .allMatches(text!)
-                        .map((m) => m.group(0))
-                        .join()
-                        .toUpperCase()
-                        .substring(0, 2),
+                    initials,
                     color: textColor,
                     overflow: TextOverflow.clip,
                     maxLines: 1,
