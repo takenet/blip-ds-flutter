@@ -8,6 +8,7 @@ abstract class DSColors {
   static const Color primaryGreensMint = Color(0xFF90E6BC);
   static const Color primaryGreensTrue = Color(0xFF21CC79);
   static const Color primaryGreensForest = Color(0xFF0A6045);
+  static const Color primaryGreensAligator = Color(0xFF008767);
   static const Color primaryYellowsCorn = Color(0xFFFFF6A8);
   static const Color primaryPinksWatermelon = Color(0xFFFB5A8B);
   static const Color primaryOrangesDoritos = Color(0xFFC64026);
@@ -31,6 +32,7 @@ abstract class DSColors {
   static const Color extendRedsLipstick = Color(0xFFA01C2C);
   static const Color extendRedsFlower = Color(0xFFFFA5A5);
   static const Color extendRedsDragon = Color(0xFF6A2026);
+  static const Color extendRedsDelete = Color(0xFFFF4C4C);
   static const Color extendGraysElevator = Color(0xFFA7A9AC);
   static const Color extendGraysMoon = Color(0xFFD1D3D4);
   static const Color extendBrownsWood = Color(0xFF845D37);
