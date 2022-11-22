@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:blip_ds/blip_ds.dart';
+import '../../../blip_ds.dart';
 
 class DSChip extends StatelessWidget {
   final DSText text;
