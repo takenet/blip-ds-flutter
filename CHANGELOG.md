@@ -2,7 +2,6 @@
 
 * Added support to web link bubble
 
-* Some widget fixes and improvements
 ## 0.0.18
 
 * Some widget fixes and improvements
