@@ -18,7 +18,7 @@ class DSRadioTile<T> extends StatelessWidget {
     required this.title,
     required this.groupValue,
     this.isEnabled = true,
-    this.contentPadding,
+    this.contentPadding = const EdgeInsets.symmetric(vertical: 16.0),
   }) : super(key: key);
 
   /// Clickable radio group title allowing you to select an option.
@@ -41,23 +41,41 @@ class DSRadioTile<T> extends StatelessWidget {
   final T value;
 
   /// Content spacing inner border size
-  final EdgeInsetsGeometry? contentPadding;
+  final EdgeInsetsGeometry contentPadding;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      enabled: isEnabled,
-      dense: true,
-      horizontalTitleGap: 0,
-      onTap: () => onChanged!(value),
-      leading: DSRadio(
-        isEnabled: isEnabled,
-        value: value,
-        groupValue: groupValue,
-        onChanged: onChanged,
+    return InkWell(
+      onTap: isEnabled ? () => onChanged!(value) : null,
+      child: Padding(
+        padding: contentPadding,
+        child: Row(
+          children: [
+            DSRadio(
+              isEnabled: isEnabled,
+              value: value,
+              groupValue: groupValue,
+              onChanged: onChanged,
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            title ?? const SizedBox.shrink(),
+          ],
+        ),
       ),
-      title: title,
-      contentPadding: contentPadding,
     );
+
+    // ListTile(
+    //   enabled: isEnabled,
+    //   dense: true,
+    //   horizontalTitleGap: 0,
+    //   minVerticalPadding: 0,
+    //   onTap: () => onChanged!(value),
+    //   leading: ,
+    //   title: title,
+    //   contentPadding: contentPadding,
+    // );
   }
 }

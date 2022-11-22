@@ -25,6 +25,7 @@ abstract class DSColors {
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
   static const Color illustrationBlueGenie = Color(0xFF80E3EB);
+  static const Color hoverLight = Color(0xFFD1E3FA);
 
   static const Color extendBrownsSand = Color(0xFFFFD29E);
   static const Color extendBrownsCheetos = Color(0xFFF6A721);

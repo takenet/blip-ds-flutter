@@ -63,6 +63,7 @@ export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
+export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
