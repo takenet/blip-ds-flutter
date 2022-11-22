@@ -146,3 +146,6 @@ export 'src/widgets/texts/ds_text.widget.dart' show DSText;
 
 /// Icons
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
+
+/// Widgets / Weblink
+export 'src/widgets/chat/ds_weblink.widget.dart' show DSWeblink;
