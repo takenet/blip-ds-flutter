@@ -17,18 +17,22 @@ class DSRadioTile<T> extends StatelessWidget {
     required this.onChanged,
     required this.title,
     required this.groupValue,
+    this.subTitle,
     this.isEnabled = true,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 16.0),
   }) : super(key: key);
 
   /// Clickable radio group title allowing you to select an option.
-  final Widget? title;
+  final Widget title;
 
   /// Determines the grouping of buttons allowing one of them to be selected
   ///
   /// The <T> type determines which type of variable to use as [value],
   /// which can be int, String, or even an object.
   final T? groupValue;
+
+  /// Radio tile subtitle widget.
+  final Widget? subTitle;
 
   /// Allows you to enable or disable the use of the button group, setting a
   /// default value and preventing other options from being returned.
@@ -61,7 +65,16 @@ class DSRadioTile<T> extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            title ?? const SizedBox.shrink(),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  title,
+                  const SizedBox(height: 5,),
+                  if (subTitle != null) subTitle!,
+                ],
+              ),
+            ),
           ],
         ),
       ),
