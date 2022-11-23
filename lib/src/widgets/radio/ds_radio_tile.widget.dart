@@ -70,7 +70,9 @@ class DSRadioTile<T> extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   title,
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   if (subTitle != null) subTitle!,
                 ],
               ),
@@ -79,16 +81,5 @@ class DSRadioTile<T> extends StatelessWidget {
         ),
       ),
     );
-
-    // ListTile(
-    //   enabled: isEnabled,
-    //   dense: true,
-    //   horizontalTitleGap: 0,
-    //   minVerticalPadding: 0,
-    //   onTap: () => onChanged!(value),
-    //   leading: ,
-    //   title: title,
-    //   contentPadding: contentPadding,
-    // );
   }
 }
