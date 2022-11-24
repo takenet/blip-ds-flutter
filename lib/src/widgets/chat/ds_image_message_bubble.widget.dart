@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
-
 import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
@@ -15,7 +13,7 @@ import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import '../utils/ds_user_avatar.widget.dart';
-
+import '../animations/ds_spinner_loading.widget.dart';
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -125,9 +123,11 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                           fit: BoxFit.cover,
                           width: width,
                           url: widget.url,
-                          placeholder: (_, __) => const Padding(
-                            padding: EdgeInsets.all(80.0),
-                            child: CircularProgressIndicator(),
+                          placeholder: (_, __) => const Center(
+                            heightFactor: 5.0,
+                            child: DSSpinnerLoading(
+                              color: DSColors.primaryMain,
+                            ),
                           ),
                           onError: _controller.setError,
                           align: widget.align,

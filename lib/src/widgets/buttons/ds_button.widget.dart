@@ -1,6 +1,9 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_button_shape.enum.dart';
+import '../animations/ds_animated_size.widget.dart';
+import '../animations/ds_ring_loading.widget.dart';
+import '../texts/ds_button_text.widget.dart';
 
 const _kMaximumSize = Size(44.0, 44.0);
 
@@ -111,6 +114,7 @@ class DSButton extends StatelessWidget {
           child: DSButtonText(
             label!,
             color: foregroundColor,
+            textAlign: TextAlign.center,
           ),
         ),
       );

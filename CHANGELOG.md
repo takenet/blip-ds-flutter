@@ -1,8 +1,13 @@
+## 0.0.20
+
+* Added support for ticket message style
+* Added new loading spinner
+* Bottom sheet fix
+
 ## 0.0.19
 
 * Added support to web link bubble
 
-* Some widget fixes and improvements
 ## 0.0.18
 
 * Some widget fixes and improvements

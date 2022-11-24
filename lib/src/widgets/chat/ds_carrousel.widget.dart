@@ -65,7 +65,7 @@ class DSCarrousel extends StatelessWidget {
 
     for (final item in items) {
       if (typeCollection == 'select') {
-        final Map<String, dynamic>? header = item["header"];
+        final Map<String, dynamic> header = item["header"];
         final List options = item["options"];
 
         final listOptions = <DSDocumentSelectOption>[];
@@ -79,7 +79,7 @@ class DSCarrousel extends StatelessWidget {
             width: DSUtils.bubbleMinSize,
             child: DSImageMessageBubble(
               align: align,
-              url: header!["value"]["uri"],
+              url: header["value"]["uri"],
               title: header["value"]["title"],
               text: header["value"]["text"],
               appBarText: (align == DSAlign.left
