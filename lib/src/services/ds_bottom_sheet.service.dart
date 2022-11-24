@@ -1,6 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class DSBottomSheetService {
   final BuildContext context;
@@ -15,40 +14,18 @@ class DSBottomSheetService {
 
   Widget _buildBottomSheet({ScrollController? controller}) {
     final window = WidgetsBinding.instance.window;
-    final padding = MediaQueryData.fromWindow(window).padding.bottom + 36;
 
     return Container(
       margin: EdgeInsets.only(
         top: MediaQueryData.fromWindow(window).padding.top + 10,
       ),
       decoration: _border(),
-      child: Stack(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          controller != null
-              ? ListView(
-                  controller: controller,
-                  children: [
-                    StickyHeader(
-                      overlapHeaders: false,
-                      header: fixedHeader != null
-                          ? Column(
-                              children: [
-                                _grabber(),
-                                fixedHeader ?? const SizedBox.shrink()
-                              ],
-                            )
-                          : _grabber(),
-                      content: _buildChild(padding),
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _grabber(),
-                    _buildChild(padding),
-                  ],
-                ),
+          _grabber(),
+          fixedHeader ?? const SizedBox.shrink(),
+          _buildChild(),
         ],
       ),
     );
@@ -87,11 +64,8 @@ class DSBottomSheetService {
     );
   }
 
-  Widget _buildChild(double padding) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: padding,
-      ),
+  Widget _buildChild() {
+    return Flexible(
       child: child,
     );
   }
@@ -119,6 +93,7 @@ class DSBottomSheetService {
   Future<void> show() {
     return showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       context: context,
       builder: (_) => _buildBottomSheet(),
     );
