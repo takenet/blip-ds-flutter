@@ -31,6 +31,8 @@ export 'src/widgets/animations/ds_animated_size.widget.dart'
 export 'src/widgets/animations/ds_fading_circle_loading.widget.dart'
     show DSFadingCircleLoading;
 export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
+export 'src/widgets/animations/ds_spinner_loading.widget.dart'
+    show DSSpinnerLoading;
 
 /// Widgets / Buttons
 export 'src/widgets/buttons/ds_button.widget.dart' show DSButton;
@@ -63,6 +65,7 @@ export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
+export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;

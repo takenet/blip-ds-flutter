@@ -38,6 +38,7 @@ class DSRadio<T> extends Radio<T> {
     required super.value,
     required super.groupValue,
     required super.onChanged,
+    super.materialTapTargetSize,
     this.isEnabled = true,
   }) : super(
           key: key,
@@ -55,7 +56,14 @@ class DSRadio<T> extends Radio<T> {
 
 class _RadioState<T> extends State<DSRadio<T>>
     with TickerProviderStateMixin, ToggleableStateMixin {
-  final _RadioPainter _painter = _RadioPainter();
+  late final _RadioPainter _painter;
+
+  @override
+  void initState() {
+    _painter = _RadioPainter(widget._selected);
+
+    super.initState();
+  }
 
   void _handleChanged(bool? selected) {
     if (widget.isEnabled) {
@@ -136,7 +144,7 @@ class _RadioState<T> extends State<DSRadio<T>>
         break;
       case MaterialTapTargetSize.shrinkWrap:
         size = const Size(
-            kMinInteractiveDimension - 8.0, kMinInteractiveDimension - 8.0);
+            kMinInteractiveDimension / 2.0, kMinInteractiveDimension / 2.0);
         break;
     }
     size += effectiveVisualDensity.baseSizeAdjustment;
@@ -228,6 +236,9 @@ class _RadioState<T> extends State<DSRadio<T>>
 }
 
 class _RadioPainter extends ToggleablePainter {
+  _RadioPainter(this.isSelected);
+
+  final bool isSelected;
   final double _kOuterRadius = 12.0;
   final double _kInnerRadius = 6.0;
   final double _kBackgroundRadius = 11.0;
@@ -243,7 +254,8 @@ class _RadioPainter extends ToggleablePainter {
     if (isEnabled) {
       // Outer circle
       final Paint paint = Paint()
-        ..color = DSColors.neutralDarkCity
+        ..color =
+            isSelected ? DSColors.neutralDarkCity : DSColors.neutralDarkRooftop
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0;
       canvas.drawCircle(center, _kOuterRadius, paint);
