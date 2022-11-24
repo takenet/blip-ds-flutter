@@ -63,7 +63,7 @@ class DSRadioTile<T> extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             const SizedBox(
-              width: 8,
+              width: 8.0,
             ),
             Flexible(
               child: Column(
@@ -71,7 +71,7 @@ class DSRadioTile<T> extends StatelessWidget {
                 children: [
                   title,
                   const SizedBox(
-                    height: 5,
+                    height: 5.0,
                   ),
                   if (subTitle != null) subTitle!,
                 ],
