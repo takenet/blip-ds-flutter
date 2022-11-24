@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../enums/ds_ticket_message_type.enum.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
@@ -14,6 +14,7 @@ import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
 import '../chat/ds_video_message_bubble.widget.dart';
 import '../chat/ds_weblink.widget.dart';
+import '../ticket_message/ds_ticket_message.widget.dart';
 
 /// A Design System widget used to display a Design System's widget based in LIME protocol content types
 class DSCard extends StatelessWidget {
@@ -84,6 +85,13 @@ class DSCard extends StatelessWidget {
           align: align,
           borderRadius: borderRadius,
           style: style,
+        );
+
+      case DSMessageContentType.ticket:
+        return DSTicketMessage(
+          messageType: DSTicketMessageType.forwardedTicket,
+          ticketNumber: content['sequentialId'].toString(),
+          chatbotIdentity: content['ownerIdentity'],
         );
 
       default:
