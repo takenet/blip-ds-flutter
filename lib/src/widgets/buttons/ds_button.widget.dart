@@ -5,7 +5,7 @@ import '../animations/ds_animated_size.widget.dart';
 import '../animations/ds_ring_loading.widget.dart';
 import '../texts/ds_button_text.widget.dart';
 
-const _kMaximumSize = Size(44.0, 44.0);
+const _kMinimumSize = Size(44.0, 44.0);
 
 /// A container that has some default properties which should be extended by others Design System's [ButtonStyleButton].
 class DSButton extends StatelessWidget {
@@ -57,8 +57,8 @@ class DSButton extends StatelessWidget {
                 vertical: _isIconOnly() ? 8.0 : 10.0,
                 horizontal: _isIconOnly() ? 10.0 : 16.0,
               ),
-        minimumSize: const Size(44.0, 44.0),
-        maximumSize: shape == DSButtonShape.rounded ? _kMaximumSize : null,
+        minimumSize: _kMinimumSize,
+        maximumSize: shape == DSButtonShape.rounded ? _kMinimumSize : null,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,
