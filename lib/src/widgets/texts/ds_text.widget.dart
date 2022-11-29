@@ -1,7 +1,8 @@
-import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
-import 'package:blip_ds/src/themes/texts/utils/ds_font_weights.theme.dart';
-import 'package:blip_ds/src/utils/ds_linkify.util.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../../utils/ds_linkify.util.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [Text].
 class DSText extends StatelessWidget {
