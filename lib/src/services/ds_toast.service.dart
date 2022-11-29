@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'package:simple_animations/simple_animations.dart';
 
@@ -11,8 +12,21 @@ import '../enums/ds_toast_type.enum.dart';
 
 /// A Design System's [DSToastService] used to display a toast.
 class DSToastService {
-  /// Use [context] to set the toast on the current screen
-  final BuildContext context;
+  /// Creates a new Design System's [DSToastService]
+  DSToastService({
+    this.title,
+    required this.message,
+    this.actionType = DSToastActionType.icon,
+    this.buttonText,
+    this.onPressedButton,
+    required this.toastDuration,
+    this.positionOffset = 16.0,
+  })  : assert((actionType == DSToastActionType.button)
+            ? buttonText != null
+            : true),
+        assert((actionType == DSToastActionType.button)
+            ? onPressedButton != null
+            : true);
 
   /// Use [title] to show title in toast.
   ///
@@ -68,28 +82,12 @@ class DSToastService {
   /// Timer to keep toast on screen
   Timer? _timeToastDuration;
 
-  /// Creates a new Design System's [DSToastService]
-  DSToastService({
-    this.title,
-    required this.message,
-    required this.context,
-    this.actionType = DSToastActionType.icon,
-    this.buttonText,
-    this.onPressedButton,
-    required this.toastDuration,
-    this.positionOffset = 16.0,
-  })  : assert((actionType == DSToastActionType.button)
-            ? buttonText != null
-            : true),
-        assert((actionType == DSToastActionType.button)
-            ? onPressedButton != null
-            : true);
+  Widget? content;
 
   void _show(final DSToastType type) {
     _prepareToast(type);
 
     _overlayEntry = createOverlayEntry(
-      context: context,
       message: message,
       animationDuration: animationDuration,
       toastDuration: toastDuration,
@@ -97,13 +95,12 @@ class DSToastService {
       mainButton: mainButton,
     );
 
-    Overlay.of(context)!.insert(_overlayEntry!);
+    Overlay.of(Get.overlayContext!)!.insert(_overlayEntry!);
 
     _controlAnimation = Control.playFromStart;
   }
 
   OverlayEntry createOverlayEntry({
-    required BuildContext context,
     required String message,
     int? animationDuration,
     required int toastDuration,
@@ -112,21 +109,25 @@ class DSToastService {
     String? title,
   }) {
     return OverlayEntry(
-      builder: (context) => Positioned(
-        bottom: 50.0 + positionOffset!,
-        width: MediaQuery.of(context).size.width - 16.0,
-        left: 8.0,
-        child: Dismissible(
-          key: const Key('ds-toast-key'),
-          onDismissed: (direction) {
-            if (_overlayEntry != null) {
-              _controlAnimation = Control.stop;
-              _close();
-            }
-          },
-          child: _animeCard(),
-        ),
-      ),
+      builder: (context) {
+        content ??= Positioned(
+          bottom: 50.0 + positionOffset!,
+          width: MediaQuery.of(context).size.width - 16.0,
+          left: 8.0,
+          child: Dismissible(
+            key: const Key('ds-toast-key'),
+            onDismissed: (direction) {
+              if (_overlayEntry != null) {
+                _controlAnimation = Control.stop;
+                _close();
+              }
+            },
+            child: _animeCard(),
+          ),
+        );
+
+        return content!;
+      },
     );
   }
 
@@ -236,7 +237,7 @@ class DSToastService {
 
   /// Create and manage the toast animation
   StatefulBuilder _animeCard() {
-    double start = (MediaQuery.of(context).size.width) * -1.0;
+    double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
     double end = 0.0;
 
     return StatefulBuilder(
@@ -300,6 +301,7 @@ class DSToastService {
 
   void _stopTimer() {
     if (_timeToastDuration != null) {
+      content = null;
       _timeToastDuration!.cancel();
       _timeToastDuration = null;
     }
