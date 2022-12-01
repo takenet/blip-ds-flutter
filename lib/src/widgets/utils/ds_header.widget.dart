@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_text_style.theme.dart';
+import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
+import '../../widgets/texts/ds_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
-import '../texts/ds_headline_small_text.widget.dart';
 import 'ds_user_avatar.widget.dart';
 
 class DSHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -15,6 +17,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final bool? canPop;
   final void Function()? onBackButtonPressed;
+  final DSTextStyle? titleTextStyle;
 
   const DSHeader({
     Key? key,
@@ -26,6 +29,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.canPop,
     this.onBackButtonPressed,
+    this.titleTextStyle,
   }) : super(key: key);
 
   @override
@@ -59,9 +63,12 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
               textColor: DSColors.neutralLightSnow,
             )
           : null,
-      title: DSHeadlineSmallText(
+      title: DSText(
         title,
-        color: DSColors.neutralDarkCity,
+        style: titleTextStyle ??
+            const DSHeadlineSmallTextStyle(
+              color: DSColors.neutralDarkCity,
+            ),
       ),
       subtitle: subtitle != null
           ? DSCaptionText(
