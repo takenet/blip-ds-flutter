@@ -1,3 +1,7 @@
+## 0.0.21
+
+* Fix DSUserAvatar when user name contains number only
+
 ## 0.0.20
 
 * Added support for ticket message style
