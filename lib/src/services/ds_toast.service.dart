@@ -101,9 +101,11 @@ class DSToastService {
   OverlayEntry createOverlayEntry() {
     return OverlayEntry(
       builder: (context) {
+        final mediaQuery = MediaQuery.of(context);
+
         _content ??= Positioned(
-          bottom: 50.0 + positionOffset!,
-          width: MediaQuery.of(context).size.width - 16.0,
+          bottom: mediaQuery.viewPadding.bottom + 70 + positionOffset!,
+          width: mediaQuery.size.width - 16.0,
           left: 8.0,
           child: Dismissible(
             key: const Key('ds-toast-key'),
