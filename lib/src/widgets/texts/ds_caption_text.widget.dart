@@ -1,5 +1,5 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/texts/ds_text.widget.dart';
+import '../../themes/texts/styles/ds_caption_text_style.theme.dart';
+import 'ds_text.widget.dart';
 
 /// A Design System's [Text] primarily used by regular subtitles and descriptions.
 ///
@@ -12,6 +12,7 @@ class DSCaptionText extends DSText {
     super.fontWeight,
     super.color,
     super.linkColor,
+    super.overflow,
     super.decoration,
     super.textAlign,
     super.maxLines,
@@ -30,6 +31,7 @@ class DSCaptionText extends DSText {
     super.fontWeight,
     super.color,
     super.linkColor,
+    super.overflow,
     super.decoration,
     super.textAlign,
     super.maxLines,

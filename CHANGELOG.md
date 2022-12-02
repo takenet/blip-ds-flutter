@@ -1,3 +1,9 @@
+## 0.0.22
+
+* [DSToast] Fixed animation when navigating between screens
+* [DSBottomSheet] Removed `child` and created `builder` parameter
+* General fixes
+
 ## 0.0.21
 
 * Fix DSUserAvatar when user name contains number only
