@@ -22,7 +22,7 @@ class DSUserAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     String initials = '';
 
-    if (text?.isNotEmpty ?? false) {
+    if ((text?.isNotEmpty ?? false) && (int.tryParse(text!) == null)) {
       initials =
           RegExp(text!.split(' ').length >= 2 ? r'\b[A-Za-z]' : r'[A-Za-z]')
               .allMatches(text!)
@@ -59,13 +59,19 @@ class DSUserAvatar extends StatelessWidget {
                 backgroundColor: backgroundColor,
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: DSBodyText(
-                    initials,
-                    color: textColor,
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                  ),
+                  child: int.tryParse(text!) == null
+                      ? DSBodyText(
+                          initials,
+                          color: textColor,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                        )
+                      : const Icon(
+                          DSIcons.user_defaut_outline,
+                          color: DSColors.neutralLightSnow,
+                          size: 20.0,
+                        ),
                 ),
               )
             : CircleAvatar(
