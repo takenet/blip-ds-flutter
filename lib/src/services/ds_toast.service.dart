@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'package:simple_animations/simple_animations.dart';
 
@@ -11,8 +12,24 @@ import '../enums/ds_toast_type.enum.dart';
 
 /// A Design System's [DSToastService] used to display a toast.
 class DSToastService {
-  /// Use [context] to set the toast on the current screen
-  final BuildContext context;
+  /// Creates a new Design System's [DSToastService]
+  DSToastService({
+    this.title,
+    this.message,
+    this.actionType = DSToastActionType.icon,
+    this.buttonText,
+    this.onPressedButton,
+    required this.toastDuration,
+    this.positionOffset = 16.0,
+  })  : assert(
+          (actionType == DSToastActionType.button &&
+                  buttonText != null &&
+                  onPressedButton != null) ||
+              actionType != DSToastActionType.button,
+        ),
+        assert(
+          (title?.isNotEmpty ?? false) || (message?.isNotEmpty ?? false),
+        );
 
   /// Use [title] to show title in toast.
   ///
@@ -20,7 +37,7 @@ class DSToastService {
   final String? title;
 
   /// Use [message] to show the message below the title in the toast
-  final String message;
+  final String? message;
 
   /// Use [actionType] to set the action type of the toast output resource
   /// [DSActionType.icon] or [DSActionType.button].
@@ -68,65 +85,42 @@ class DSToastService {
   /// Timer to keep toast on screen
   Timer? _timeToastDuration;
 
-  /// Creates a new Design System's [DSToastService]
-  DSToastService({
-    this.title,
-    required this.message,
-    required this.context,
-    this.actionType = DSToastActionType.icon,
-    this.buttonText,
-    this.onPressedButton,
-    required this.toastDuration,
-    this.positionOffset = 16.0,
-  })  : assert((actionType == DSToastActionType.button)
-            ? buttonText != null
-            : true),
-        assert((actionType == DSToastActionType.button)
-            ? onPressedButton != null
-            : true);
+  /// Overlay content while displaying toast
+  Widget? _content;
 
   void _show(final DSToastType type) {
     _prepareToast(type);
 
-    _overlayEntry = createOverlayEntry(
-      context: context,
-      message: message,
-      animationDuration: animationDuration,
-      toastDuration: toastDuration,
-      icon: icon,
-      mainButton: mainButton,
-    );
+    _overlayEntry = createOverlayEntry();
 
-    Overlay.of(context)!.insert(_overlayEntry!);
+    Overlay.of(Get.overlayContext!)!.insert(_overlayEntry!);
 
     _controlAnimation = Control.playFromStart;
   }
 
-  OverlayEntry createOverlayEntry({
-    required BuildContext context,
-    required String message,
-    int? animationDuration,
-    required int toastDuration,
-    Widget? icon,
-    Widget? mainButton,
-    String? title,
-  }) {
+  OverlayEntry createOverlayEntry() {
     return OverlayEntry(
-      builder: (context) => Positioned(
-        bottom: 50.0 + positionOffset!,
-        width: MediaQuery.of(context).size.width - 16.0,
-        left: 8.0,
-        child: Dismissible(
-          key: const Key('ds-toast-key'),
-          onDismissed: (direction) {
-            if (_overlayEntry != null) {
-              _controlAnimation = Control.stop;
-              _close();
-            }
-          },
-          child: _animeCard(),
-        ),
-      ),
+      builder: (context) {
+        final mediaQuery = MediaQuery.of(context);
+
+        _content ??= Positioned(
+          bottom: mediaQuery.viewPadding.bottom + 70 + positionOffset!,
+          width: mediaQuery.size.width - 16.0,
+          left: 8.0,
+          child: Dismissible(
+            key: const Key('ds-toast-key'),
+            onDismissed: (direction) {
+              if (_overlayEntry != null) {
+                _controlAnimation = Control.stop;
+                _close();
+              }
+            },
+            child: _animeCard(),
+          ),
+        );
+
+        return _content!;
+      },
     );
   }
 
@@ -164,11 +158,16 @@ class DSToastService {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (title != null) DSHeadlineSmallText(title),
-                        DSBodyText(
-                          message,
-                          overflow: TextOverflow.visible,
-                        ),
+                        if (title != null)
+                          DSHeadlineSmallText(
+                            title,
+                            overflow: TextOverflow.visible,
+                          ),
+                        if (message != null)
+                          DSBodyText(
+                            message,
+                            overflow: TextOverflow.visible,
+                          ),
                       ],
                     ),
                   ),
@@ -220,23 +219,25 @@ class DSToastService {
               });
             },
           )
-        : DSTertiaryButton(
-            label: buttonText,
-            onPressed: () {
-              onPressedButton!();
-              state!(
-                () {
-                  _stopTimer();
-                  _controlAnimation = Control.playReverse;
+        : actionType == DSToastActionType.button
+            ? DSTertiaryButton(
+                label: buttonText,
+                onPressed: () {
+                  onPressedButton!();
+                  state!(
+                    () {
+                      _stopTimer();
+                      _controlAnimation = Control.playReverse;
+                    },
+                  );
                 },
-              );
-            },
-          );
+              )
+            : const SizedBox.shrink();
   }
 
   /// Create and manage the toast animation
   StatefulBuilder _animeCard() {
-    double start = (MediaQuery.of(context).size.width) * -1.0;
+    double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
     double end = 0.0;
 
     return StatefulBuilder(
@@ -300,6 +301,7 @@ class DSToastService {
 
   void _stopTimer() {
     if (_timeToastDuration != null) {
+      _content = null;
       _timeToastDuration!.cancel();
       _timeToastDuration = null;
     }
