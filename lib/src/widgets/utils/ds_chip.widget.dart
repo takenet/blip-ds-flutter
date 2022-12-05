@@ -5,7 +5,7 @@ import '../texts/ds_text.widget.dart';
 
 class DSChip extends StatelessWidget {
   final DSText text;
-  final Icon? icon;
+  final Widget? icon;
   final BorderRadius? borderRadius;
   final EdgeInsetsGeometry? padding;
   final Color background;
@@ -42,15 +42,19 @@ class DSChip extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             icon ?? const SizedBox.shrink(),
-            Padding(
-              padding: textPadding ??
-                  const EdgeInsets.symmetric(
-                    vertical: 2.0,
-                    horizontal: 8.0,
-                  ),
-              child: text,
+            Flexible(
+              child: Padding(
+                padding: textPadding ??
+                    const EdgeInsets.symmetric(
+                      vertical: 2.0,
+                      horizontal: 8.0,
+                    ),
+                child: text,
+              ),
             ),
-            deleteIcon ?? const SizedBox.shrink(),
+            Flexible(
+              child: deleteIcon ?? const SizedBox.shrink(),
+            ),
           ],
         ),
       ),
