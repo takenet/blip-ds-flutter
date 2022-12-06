@@ -95,13 +95,7 @@ class DSBottomSheetService {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
-      builder: (context) => AnimatedPadding(
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.easeOut,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: _buildBottomSheet(),
-      ),
+      builder: (context) => _buildBottomSheet(),
     );
   }
 }
