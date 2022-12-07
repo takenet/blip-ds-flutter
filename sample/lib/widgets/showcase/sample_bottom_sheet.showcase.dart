@@ -21,7 +21,7 @@ class SampleBottomSheethowcase extends StatelessWidget {
           ),
         ),
       ),
-      child: Padding(
+      builder: (_) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: DSBodyText(
             lorem(
@@ -34,7 +34,7 @@ class SampleBottomSheethowcase extends StatelessWidget {
 
     final bottomSheet = DSBottomSheetService(
       context: context,
-      child: Padding(
+      builder: (_) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
