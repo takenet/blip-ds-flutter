@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -18,6 +19,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final bool? canPop;
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
+  final SystemUiOverlayStyle? systemUiOverlayStyle;
 
   const DSHeader({
     Key? key,
@@ -30,6 +32,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.canPop,
     this.onBackButtonPressed,
     this.titleTextStyle,
+    this.systemUiOverlayStyle,
   }) : super(key: key);
 
   @override
@@ -45,6 +48,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 40.0,
       leading: _buildLeading(context),
       title: _buildTitle(context),
+      systemOverlayStyle: systemUiOverlayStyle,
     );
   }
 
