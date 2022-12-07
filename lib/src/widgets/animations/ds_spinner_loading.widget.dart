@@ -77,7 +77,7 @@ class DSSpinnerLoadingState extends State<DSSpinnerLoading>
           child: SizedBox.fromSize(
             size: Size.square(widget.size),
             child: CustomPaint(
-              foregroundPainter: Paiter(
+              foregroundPainter: Painter(
                 paintWidth: widget.lineWidth,
                 trackColor: widget.color,
                 progressPercent: _animation.value,
@@ -91,8 +91,8 @@ class DSSpinnerLoadingState extends State<DSSpinnerLoading>
   }
 }
 
-class Paiter extends CustomPainter {
-  Paiter({
+class Painter extends CustomPainter {
+  Painter({
     required this.paintWidth,
     this.progressPercent,
     this.startAngle,

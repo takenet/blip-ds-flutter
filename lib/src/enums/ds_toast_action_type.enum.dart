@@ -2,4 +2,5 @@
 enum DSToastActionType {
   icon,
   button,
+  none,
 }

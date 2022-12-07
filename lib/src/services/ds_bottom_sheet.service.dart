@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class DSBottomSheetService {
   final BuildContext context;
-  final Widget child;
+  final Widget Function(ScrollController?) builder;
   final Widget? fixedHeader;
 
   DSBottomSheetService({
     required this.context,
-    required this.child,
+    required this.builder,
     this.fixedHeader,
   });
 
@@ -25,7 +25,7 @@ class DSBottomSheetService {
         children: [
           _grabber(),
           fixedHeader ?? const SizedBox.shrink(),
-          _buildChild(),
+          _buildChild(controller),
         ],
       ),
     );
@@ -64,9 +64,9 @@ class DSBottomSheetService {
     );
   }
 
-  Widget _buildChild() {
+  Widget _buildChild(ScrollController? controller) {
     return Flexible(
-      child: child,
+      child: builder(controller),
     );
   }
 
