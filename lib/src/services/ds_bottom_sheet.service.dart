@@ -95,7 +95,7 @@ class DSBottomSheetService {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
-      builder: (context) => _buildBottomSheet(),
+      builder: (_) => _buildBottomSheet(),
     );
   }
 }
