@@ -20,6 +20,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
   final SystemUiOverlayStyle? systemUiOverlayStyle;
+  final double elevation;
 
   const DSHeader({
     Key? key,
@@ -33,6 +34,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.titleTextStyle,
     this.systemUiOverlayStyle,
+    this.elevation = 1.0,
   }) : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: false,
       automaticallyImplyLeading: false,
-      elevation: 1,
+      elevation: elevation,
       backgroundColor: DSColors.neutralLightSnow,
       shadowColor: DSColors.neutralMediumWave,
       actions: actions,
