@@ -20,7 +20,8 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
   final SystemUiOverlayStyle? systemUiOverlayStyle;
-  final double elevation;
+  final double? elevation;
+  final void Function()? onTap;
 
   const DSHeader({
     Key? key,
@@ -35,6 +36,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.titleTextStyle,
     this.systemUiOverlayStyle,
     this.elevation = 1.0,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildTitle(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       contentPadding:
           _canPop(context) ? EdgeInsets.zero : const EdgeInsets.only(left: 16),
       leading: customerName != null || customerUri != null
