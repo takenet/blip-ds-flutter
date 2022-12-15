@@ -66,7 +66,7 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
-export 'src/widgets/utils/ds_input_chip.widget.dart' show DSInputChip;
+export 'src/widgets/tags/ds_input_chip.widget.dart' show DSInputChip;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
