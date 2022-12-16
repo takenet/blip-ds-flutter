@@ -14,6 +14,7 @@ class DSInputChip extends StatefulWidget {
   final void Function(String text)? onTextChanged;
   final void Function(int index)? onDeleted;
   final String? hintText;
+  final ScrollController? scrollController;
 
   const DSInputChip({
     Key? key,
@@ -22,6 +23,7 @@ class DSInputChip extends StatefulWidget {
     this.onTextChanged,
     required this.controller,
     this.onDeleted,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class _DSInputChipState extends State<DSInputChip> {
   Widget build(BuildContext context) {
     return Obx(
       () => TagEditor(
+        scrollController: widget.scrollController,
         tagSpacing: 5.0,
         minTextFieldWidth: 40.0,
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -65,7 +68,7 @@ class _DSInputChipState extends State<DSInputChip> {
         hasAddButton: false,
         inputDecoration: InputDecoration(
           contentPadding: const EdgeInsets.only(
-            bottom: 8.0,
+            bottom: 10.0,
             left: 4.0,
           ),
           border: InputBorder.none,
