@@ -14,6 +14,7 @@ class DSBodyTextStyle extends DSTextStyle {
     super.decoration,
     super.overflow = TextOverflow.ellipsis,
   }) : super(
-          fontSize: 16,
+          fontSize: 16.0,
+          height: 1.5,
         );
 }
