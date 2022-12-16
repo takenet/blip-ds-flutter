@@ -1,3 +1,7 @@
+## 0.0.23
+
+* Created a new design system widget `DSInputChip`
+
 ## 0.0.22
 
 * [DSToast] Fixed animation when navigating between screens
