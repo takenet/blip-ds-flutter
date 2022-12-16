@@ -21,7 +21,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.20"
+    version: "0.0.22"
   boolean_selector:
     dependency: transitive
     description:
@@ -246,7 +246,7 @@ packages:
       name: just_audio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.28"
+    version: "0.9.30"
   just_audio_platform_interface:
     dependency: transitive
     description:
