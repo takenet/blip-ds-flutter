@@ -67,6 +67,8 @@ export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 export 'src/widgets/utils/ds_input_chip.widget.dart' show DSInputChip;
+export 'src/widgets/utils/ds_file_extension_icon.util.dart'
+    show DSFileExtensionIcon;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
