@@ -10,7 +10,8 @@ class DSHeadlineSmallTextStyle extends DSTextStyle {
   const DSHeadlineSmallTextStyle({
     super.color = DSColors.neutralDarkCity,
   }) : super(
-          fontSize: 16,
+          fontSize: 16.0,
           fontWeight: DSFontWeights.bold,
+          height: 1.5,
         );
 }

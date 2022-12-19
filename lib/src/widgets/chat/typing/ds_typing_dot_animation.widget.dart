@@ -36,6 +36,7 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
   List<AnimationController>? _animationControllers;
 
   final List<Animation<double>> _animations = [];
+  bool disposed = false;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
 
   @override
   void dispose() {
+    disposed = true;
     for (var controller in _animationControllers!) {
       controller.dispose();
     }
@@ -111,7 +113,10 @@ class _DSTypingDotAnimationState extends State<DSTypingDotAnimation>
               ).then(
                 (value) {
                   final controller = _animationControllers![i + 1];
-                  controller.forward();
+
+                  if (!disposed) {
+                    controller.forward();
+                  }
                 },
               );
             }

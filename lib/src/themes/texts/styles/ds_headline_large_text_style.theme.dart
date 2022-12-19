@@ -9,8 +9,9 @@ class DSHeadlineLargeTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-20-h4 font variant.
   const DSHeadlineLargeTextStyle()
       : super(
-          fontSize: 20,
+          fontSize: 20.0,
           fontWeight: DSFontWeights.bold,
           color: DSColors.neutralDarkCity,
+          height: 1.4,
         );
 }
