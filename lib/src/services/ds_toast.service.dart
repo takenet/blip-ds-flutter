@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import 'package:simple_animations/simple_animations.dart';
-
 import 'package:blip_ds/blip_ds.dart';
 
 import '../enums/ds_toast_type.enum.dart';
@@ -19,7 +17,7 @@ class DSToastService {
     this.actionType = DSToastActionType.icon,
     this.buttonText,
     this.onPressedButton,
-    required this.toastDuration,
+    this.toastDuration,
     this.positionOffset = 16.0,
   })  : assert(
           (actionType == DSToastActionType.button &&
@@ -57,7 +55,7 @@ class DSToastService {
   /// Set a time value in milliseconds using the [toastDuration] parameter to
   /// keep the toast on the screen without closing. If you set the value to 0, the toast
   /// will not close automatically, depending on a manual action.
-  final int toastDuration; // miliseconds
+  final int? toastDuration; // miliseconds
 
   /// Button widget to show
   Widget? mainButton;
@@ -240,6 +238,15 @@ class DSToastService {
     double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
     double end = 0.0;
 
+    final dynamicDuration = toastDuration ??
+        (message != null && title != null
+            ? (message!.length * 100 + title!.length * 100)
+            : message != null
+                ? message!.length * 100
+                : title != null
+                    ? title!.length * 100
+                    : 2000);
+
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter mystate) {
         state = mystate;
@@ -262,7 +269,7 @@ class DSToastService {
             } else {
               if (_controlAnimation == Control.playFromStart) {
                 _timeToastDuration = Timer(
-                  Duration(milliseconds: toastDuration),
+                  Duration(milliseconds: dynamicDuration),
                   () {
                     state!(
                       () {
