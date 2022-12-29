@@ -218,10 +218,14 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSAudioMessageBubble(
             align: DSAlign.left,
             uri: _sampleAudio,
+            uniqueId: 'audio1',
+            audioType: 'mp3',
           ),
           DSAudioMessageBubble(
             align: DSAlign.right,
             uri: _sampleAudio,
+            uniqueId: 'audio2',
+            audioType: 'mp3',
           ),
           DSVideoMessageBubble(
             align: DSAlign.right,

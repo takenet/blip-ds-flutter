@@ -244,6 +244,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             avatarConfig: widget.avatarConfig,
             style: widget.style,
             onOpenLink: widget.onOpenLink,
+            messageId: message.id,
           );
 
           final isLastMsg = msgCount == length;
