@@ -9,12 +9,16 @@ class DSSendButton extends DSButton {
   DSSendButton({
     super.key,
     super.onPressed,
-    super.backgroundColor = DSColors.primaryNight,
-    super.foregroundColor = DSColors.neutralLightSnow,
+    super.isEnabled = true,
+    Color backgroundColor = DSColors.primaryNight,
+    Color foregroundColor = DSColors.neutralLightSnow,
   }) : super(
           shape: DSButtonShape.rounded,
           leadingIcon: const Icon(
             DSIcons.send_solid,
           ),
+          backgroundColor: isEnabled ? backgroundColor : DSColors.disabledBg,
+          foregroundColor:
+              isEnabled ? foregroundColor : DSColors.neutralMediumElephant,
         );
 }

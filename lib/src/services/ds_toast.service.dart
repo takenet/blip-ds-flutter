@@ -105,8 +105,8 @@ class DSToastService {
 
         _content ??= Positioned(
           bottom: mediaQuery.viewPadding.bottom + 70 + positionOffset!,
-          width: mediaQuery.size.width - 16.0,
-          left: 8.0,
+          width: mediaQuery.size.width - 32.0,
+          left: 16.0,
           child: Dismissible(
             key: const Key('ds-toast-key'),
             onDismissed: (direction) {

@@ -69,7 +69,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final color = widget.style.isLightBubbleBackground(widget.align)
+    final foregroundColor = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
@@ -84,22 +84,32 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       child: FutureBuilder(
         future: _controller.getImageInfo(widget.url),
         builder: (buildContext, snapshot) {
-          if (snapshot.hasData || snapshot.hasError) {
-            final ImageInfo? data =
-                snapshot.hasError ? null : snapshot.data as ImageInfo;
+          final isLoadingImage = !(snapshot.hasData || snapshot.hasError);
 
-            final width = snapshot.hasError
-                ? 240.0
-                : data!.image.width <= DSUtils.bubbleMinSize
-                    ? DSUtils.bubbleMinSize
-                    : data.image.width.toDouble();
+          final ImageInfo? data =
+              snapshot.hasData ? snapshot.data as ImageInfo : null;
 
-            return LayoutBuilder(
-              builder: (_, constraints) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
+          final width =
+              snapshot.hasData && data!.image.width > DSUtils.bubbleMinSize
+                  ? data.image.width.toDouble()
+                  : DSUtils.bubbleMinSize;
+
+          return LayoutBuilder(
+            builder: (_, constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Visibility(
+                    visible: !isLoadingImage,
+                    replacement: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: Center(
+                        child: _buildLoading(),
+                      ),
+                    ),
+                    child: GestureDetector(
                       onTap: () {
                         if (!_controller.error.value) {
                           _controller.appBarVisible.value = false;
@@ -123,11 +133,9 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                           fit: BoxFit.cover,
                           width: width,
                           url: widget.url,
-                          placeholder: (_, __) => const Center(
+                          placeholder: (_, __) => Center(
                             heightFactor: 5.0,
-                            child: DSSpinnerLoading(
-                              color: DSColors.primaryMain,
-                            ),
+                            child: _buildLoading(),
                           ),
                           onError: _controller.setError,
                           align: widget.align,
@@ -135,50 +143,49 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                         ),
                       ),
                     ),
-                    if ((widget.title?.isNotEmpty ?? false) ||
-                        (widget.text?.isNotEmpty ?? false))
-                      SizedBox(
-                        width: width,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (widget.title?.isNotEmpty ?? false)
-                                DSCaptionText(
-                                  widget.title!,
-                                  color: color,
-                                ),
-                              if ((widget.text?.isNotEmpty ?? false) &&
-                                  (widget.title?.isNotEmpty ?? false))
-                                const SizedBox(
-                                  height: 6.0,
-                                ),
-                              if (widget.text?.isNotEmpty ?? false)
-                                DSShowMoreText(
-                                  text: widget.text!,
-                                  maxWidth: constraints.maxWidth,
-                                  align: widget.align,
-                                  style: widget.style,
-                                )
-                            ],
-                          ),
+                  ),
+                  if ((widget.title?.isNotEmpty ?? false) ||
+                      (widget.text?.isNotEmpty ?? false))
+                    SizedBox(
+                      width: width,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.title?.isNotEmpty ?? false)
+                              DSCaptionText(
+                                widget.title!,
+                                color: foregroundColor,
+                              ),
+                            if ((widget.text?.isNotEmpty ?? false) &&
+                                (widget.title?.isNotEmpty ?? false))
+                              const SizedBox(
+                                height: 6.0,
+                              ),
+                            if (widget.text?.isNotEmpty ?? false)
+                              DSShowMoreText(
+                                text: widget.text!,
+                                maxWidth: constraints.maxWidth,
+                                align: widget.align,
+                                style: widget.style,
+                              )
+                          ],
                         ),
                       ),
-                    if (widget.showSelect)
-                      DSDocumentSelect(
-                        align: widget.align,
-                        options: widget.selectOptions,
-                        onSelected: widget.onSelected,
-                        onOpenLink: widget.onOpenLink,
-                        style: widget.style,
-                      ),
-                  ],
-                );
-              },
-            );
-          }
-          return const SizedBox();
+                    ),
+                  if (widget.showSelect)
+                    DSDocumentSelect(
+                      align: widget.align,
+                      options: widget.selectOptions,
+                      onSelected: widget.onSelected,
+                      onOpenLink: widget.onOpenLink,
+                      style: widget.style,
+                    ),
+                ],
+              );
+            },
+          );
         },
       ),
     );
@@ -258,6 +265,16 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return DSSpinnerLoading(
+      color: widget.style.isLightBubbleBackground(widget.align)
+          ? DSColors.primaryNight
+          : DSColors.neutralLightSnow,
+      size: 32.0,
+      lineWidth: 4.0,
     );
   }
 
