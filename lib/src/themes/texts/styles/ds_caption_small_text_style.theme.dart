@@ -11,6 +11,7 @@ class DSCaptionSmallTextStyle extends DSTextStyle {
     super.fontWeight = DSFontWeights.regular,
     super.color = DSColors.neutralDarkCity,
   }) : super(
-          fontSize: 12,
+          fontSize: 12.0,
+          height: 1.66,
         );
 }

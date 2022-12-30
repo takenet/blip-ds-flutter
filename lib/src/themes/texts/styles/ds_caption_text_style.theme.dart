@@ -9,6 +9,7 @@ class DSCaptionTextStyle extends DSTextStyle {
     super.color = DSColors.neutralDarkCity,
     super.decoration,
   }) : super(
-          fontSize: 14,
+          fontSize: 14.0,
+          height: 1.57,
         );
 }

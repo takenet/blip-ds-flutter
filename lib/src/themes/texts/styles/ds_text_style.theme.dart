@@ -11,6 +11,7 @@ class DSTextStyle extends TextStyle {
     super.color,
     super.decoration,
     super.overflow = TextOverflow.ellipsis,
+    super.height,
   }) : super(
           package: DSUtils.packageName,
           fontFamily: DSFontFamilies.nunitoSans,
