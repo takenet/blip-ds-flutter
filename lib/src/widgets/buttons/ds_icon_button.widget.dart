@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
-import '../animations/ds_fading_circle_loading.widget.dart';
+import '../animations/ds_spinner_loading.widget.dart';
 
 class DSIconButton extends InkWell {
   DSIconButton({
@@ -16,9 +16,10 @@ class DSIconButton extends InkWell {
             size: Size(size, size),
             child: Center(
               child: isLoading
-                  ? const DSFadingCircleLoading(
-                      color: DSColors.neutralDarkRooftop,
-                      size: 25,
+                  ? const DSSpinnerLoading(
+                      color: DSColors.primaryMain,
+                      size: 24,
+                      lineWidth: 4.0,
                     )
                   : icon,
             ),

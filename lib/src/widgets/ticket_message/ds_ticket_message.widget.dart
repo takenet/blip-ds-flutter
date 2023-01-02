@@ -60,7 +60,7 @@ class DSTicketMessage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: DSBodyText(
-                'Ticket $ticketNumber',
+                'Ticket #$ticketNumber',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 fontWeight: FontWeight.w700,
