@@ -238,14 +238,8 @@ class DSToastService {
     double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
     double end = 0.0;
 
-    final dynamicDuration = toastDuration ??
-        (message != null && title != null
-            ? (message!.length * 100 + title!.length * 100)
-            : message != null
-                ? message!.length * 100
-                : title != null
-                    ? title!.length * 100
-                    : 2000);
+    final duration = toastDuration ??
+        ((message?.length ?? 0) * 100 + (title?.length ?? 0) * 100);
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter mystate) {
@@ -269,7 +263,7 @@ class DSToastService {
             } else {
               if (_controlAnimation == Control.playFromStart) {
                 _timeToastDuration = Timer(
-                  Duration(milliseconds: dynamicDuration),
+                  Duration(milliseconds: duration),
                   () {
                     state!(
                       () {
