@@ -8,7 +8,7 @@ import 'package:blip_ds/blip_ds.dart';
 /// Depending on the message type defined by the [messageType] parameter, other parameters
 /// may or may not be mandatory.
 class DSTicketMessage extends StatelessWidget {
-  /// include the parameter [ticketNumber] to be displayed if the message type is [DSTicketMessageType.forwardedTicket]
+  /// include the parameter [ticketId] to be displayed if the message type is [DSTicketMessageType.forwardedTicket]
   final String? ticketId;
 
   /// Enter [chatbotIdentity] to compose the message if it is of type [DSTicketMessageType.forwardedTicket]
