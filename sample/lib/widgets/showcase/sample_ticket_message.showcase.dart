@@ -11,7 +11,7 @@ class SampleTicketMessage extends StatelessWidget {
       children: [
         DSTicketMessage(
           messageType: DSTicketMessageType.forwardedTicket,
-          ticketNumber: '#2022000123',
+          ticketId: '2022000123',
           chatbotIdentity: 'Papagaio',
         ),
         const SizedBox(height: 20.0),
