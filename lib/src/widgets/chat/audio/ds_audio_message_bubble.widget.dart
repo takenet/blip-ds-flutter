@@ -1,25 +1,24 @@
 import 'dart:io';
 
 import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_audio/ffmpeg_session.dart';
 import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '/src/services/ds_file.service.dart';
-import '/src/widgets/buttons/ds_pause_button.widget.dart';
-import '/src/widgets/buttons/ds_play_button.widget.dart';
-import '/src/widgets/chat/audio/ds_audio_seek_bar.widget.dart';
-import '/src/controllers/chat/ds_audio_message_bubble.controller.dart';
-import '/src/widgets/chat/audio/ds_audio_speed_button.widget.dart';
-import '/src/enums/ds_align.enum.dart';
-import '/src//enums/ds_border_radius.enum.dart';
-import '/src/models/ds_message_bubble_style.model.dart';
-import '/src/themes/colors/ds_colors.theme.dart';
-import '/src/widgets/animations/ds_fading_circle_loading.widget.dart';
-import '/src/widgets/chat/ds_message_bubble.widget.dart';
+import '../../../controllers/chat/ds_audio_message_bubble.controller.dart';
+import '../../../enums/ds_align.enum.dart';
+import '../../../enums/ds_border_radius.enum.dart';
+import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../services/ds_file.service.dart';
+import '../../../themes/colors/ds_colors.theme.dart';
+import '../../animations/ds_fading_circle_loading.widget.dart';
+import '../../buttons/ds_pause_button.widget.dart';
+import '../../buttons/ds_play_button.widget.dart';
+import '../ds_message_bubble.widget.dart';
+import 'ds_audio_seek_bar.widget.dart';
+import 'ds_audio_speed_button.widget.dart';
 
 class DSAudioMessageBubble extends StatefulWidget {
   final String uri;
@@ -142,7 +141,7 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
       return;
     }
 
-    FFmpegSession session = await FFmpegKit.execute(
+    final session = await FFmpegKit.execute(
         '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}');
 
     final returnCode = await session.getReturnCode();

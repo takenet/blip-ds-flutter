@@ -1,13 +1,23 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
-import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../enums/ds_button_shape.enum.dart';
+import '../../models/ds_message_bubble_avatar_config.model.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_message_item.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
+import '../../utils/ds_utils.util.dart';
+import '../buttons/ds_button.widget.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
+import '../chat/ds_quick_reply.widget.dart';
+import '../chat/typing/ds_typing_message_bubble.widget.dart';
 import 'ds_card.widget.dart';
+import 'ds_user_avatar.widget.dart';
 
 // Default compare message function
 // ignore: prefer_function_declarations_over_variables

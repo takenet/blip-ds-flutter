@@ -1,6 +1,6 @@
-import 'package:blip_ds/src/enums/ds_button_shape.enum.dart';
 import 'package:flutter/material.dart';
 
+import '../../enums/ds_button_shape.enum.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import 'ds_button.widget.dart';
