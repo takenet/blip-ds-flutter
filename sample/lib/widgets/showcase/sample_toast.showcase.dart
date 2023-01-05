@@ -11,7 +11,7 @@ class SampleToastShowcase extends StatelessWidget {
       title: 'Título do toast',
       message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. ',
-      toastDuration: 3000,
+      // toastDuration: 3000,
     );
 
     final toastAction = DSToastService(
@@ -20,7 +20,7 @@ class SampleToastShowcase extends StatelessWidget {
       actionType: DSToastActionType.button,
       buttonText: 'Action',
       onPressedButton: () => print('FECHOU'),
-      toastDuration: 2000,
+      // toastDuration: 2000,
     );
 
     final toastPersistent = DSToastService(
@@ -34,7 +34,7 @@ class SampleToastShowcase extends StatelessWidget {
       message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. Vivamus eget molestie urna. ',
       positionOffset: 100.0,
-      toastDuration: 3000,
+      // toastDuration: 3000,
     );
 
     return Column(

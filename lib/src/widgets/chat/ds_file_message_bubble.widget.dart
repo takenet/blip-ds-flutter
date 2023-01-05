@@ -1,7 +1,7 @@
-import 'package:blip_ds/src/controllers/chat/ds_file_message_bubble.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../controllers/chat/ds_file_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
@@ -9,6 +9,7 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_small_text.widget.dart';
+import '../utils/ds_file_extension_icon.util.dart';
 import 'ds_message_bubble.widget.dart';
 
 class DSFileMessageBubble extends StatelessWidget {
@@ -67,7 +68,10 @@ class DSFileMessageBubble extends StatelessWidget {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  controller.getFileIcon(filename),
+                  DSFileExtensionIcon(
+                    filename: filename,
+                    size: 40.0,
+                  ),
                 ],
               ),
       ),

@@ -8,8 +8,8 @@ import 'package:blip_ds/blip_ds.dart';
 /// Depending on the message type defined by the [messageType] parameter, other parameters
 /// may or may not be mandatory.
 class DSTicketMessage extends StatelessWidget {
-  /// include the parameter [ticketNumber] to be displayed if the message type is [DSTicketMessageType.forwardedTicket]
-  final String? ticketNumber;
+  /// include the parameter [ticketId] to be displayed if the message type is [DSTicketMessageType.forwardedTicket]
+  final String? ticketId;
 
   /// Enter [chatbotIdentity] to compose the message if it is of type [DSTicketMessageType.forwardedTicket]
   final String? chatbotIdentity;
@@ -30,14 +30,14 @@ class DSTicketMessage extends StatelessWidget {
 
   DSTicketMessage({
     super.key,
-    this.ticketNumber,
+    this.ticketId,
     this.agentIdentity,
     this.chatbotIdentity,
     required this.messageType,
   })  : assert((messageType == DSTicketMessageType.forwardedTicket)
-            ? (ticketNumber != null &&
+            ? (ticketId != null &&
                 chatbotIdentity != null &&
-                ticketNumber.trim().isNotEmpty &&
+                ticketId.trim().isNotEmpty &&
                 chatbotIdentity.trim().isNotEmpty)
             : true),
         assert((messageType == DSTicketMessageType.closedAttendant)
@@ -60,7 +60,7 @@ class DSTicketMessage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: DSBodyText(
-                'Ticket $ticketNumber',
+                'Ticket $ticketId',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 fontWeight: FontWeight.w700,

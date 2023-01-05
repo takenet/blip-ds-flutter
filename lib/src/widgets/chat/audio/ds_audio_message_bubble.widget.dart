@@ -1,24 +1,32 @@
-import 'package:blip_ds/src/widgets/buttons/ds_pause_button.widget.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_play_button.widget.dart';
-import 'package:blip_ds/src/widgets/chat/audio/ds_audio_seek_bar.widget.dart';
-import 'package:blip_ds/src/controllers/chat/ds_audio_message_bubble.controller.dart';
-import 'package:blip_ds/src/widgets/chat/audio/ds_audio_speed_button.widget.dart';
+import 'dart:io';
+
+import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../../controllers/chat/ds_audio_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../services/ds_file.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
+import '../../buttons/ds_pause_button.widget.dart';
+import '../../buttons/ds_play_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
+import 'ds_audio_seek_bar.widget.dart';
+import 'ds_audio_speed_button.widget.dart';
 
 class DSAudioMessageBubble extends StatefulWidget {
   final String uri;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
+  final String uniqueId;
+  final String audioType;
 
   DSAudioMessageBubble({
     Key? key,
@@ -26,6 +34,8 @@ class DSAudioMessageBubble extends StatefulWidget {
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
+    required this.uniqueId,
+    required this.audioType,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
 
@@ -109,8 +119,35 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
       }
     });
 
-    await _controller.player
-        .setAudioSource(AudioSource.uri(Uri.parse(widget.uri)));
+    Platform.isIOS && widget.audioType.contains('ogg')
+        ? await _transcoder()
+        : await _controller.player
+            .setAudioSource(AudioSource.uri(Uri.parse(widget.uri)));
+  }
+
+  Future<void> _transcoder() async {
+    final inputFileName = 'AUDIO-${widget.uniqueId}.ogg';
+
+    final inputFilePath = await DSFileService.download(
+      widget.uri,
+      inputFileName,
+    );
+
+    final temporaryPath = (await getTemporaryDirectory()).path;
+    final outputFile = File("$temporaryPath/AUDIO-${widget.uniqueId}.mp3");
+
+    if (await outputFile.exists()) {
+      await _controller.player.setFilePath(outputFile.path);
+    } else {
+      final session = await FFmpegKit.execute(
+          '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}');
+
+      final returnCode = await session.getReturnCode();
+
+      if (ReturnCode.isSuccess(returnCode)) {
+        await _controller.player.setFilePath(outputFile.path);
+      }
+    }
   }
 
   Widget _controlButtons() {

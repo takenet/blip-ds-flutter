@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import 'package:simple_animations/simple_animations.dart';
-
 import 'package:blip_ds/blip_ds.dart';
 
 import '../enums/ds_toast_type.enum.dart';
@@ -19,7 +17,7 @@ class DSToastService {
     this.actionType = DSToastActionType.icon,
     this.buttonText,
     this.onPressedButton,
-    required this.toastDuration,
+    this.toastDuration,
     this.positionOffset = 16.0,
   })  : assert(
           (actionType == DSToastActionType.button &&
@@ -57,7 +55,7 @@ class DSToastService {
   /// Set a time value in milliseconds using the [toastDuration] parameter to
   /// keep the toast on the screen without closing. If you set the value to 0, the toast
   /// will not close automatically, depending on a manual action.
-  final int toastDuration; // miliseconds
+  final int? toastDuration; // miliseconds
 
   /// Button widget to show
   Widget? mainButton;
@@ -105,8 +103,8 @@ class DSToastService {
 
         _content ??= Positioned(
           bottom: mediaQuery.viewPadding.bottom + 70 + positionOffset!,
-          width: mediaQuery.size.width - 16.0,
-          left: 8.0,
+          width: mediaQuery.size.width - 32.0,
+          left: 16.0,
           child: Dismissible(
             key: const Key('ds-toast-key'),
             onDismissed: (direction) {
@@ -240,6 +238,9 @@ class DSToastService {
     double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
     double end = 0.0;
 
+    final duration = toastDuration ??
+        ((message?.length ?? 0) * 100 + (title?.length ?? 0) * 100);
+
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter mystate) {
         state = mystate;
@@ -262,7 +263,7 @@ class DSToastService {
             } else {
               if (_controlAnimation == Control.playFromStart) {
                 _timeToastDuration = Timer(
-                  Duration(milliseconds: toastDuration),
+                  Duration(milliseconds: duration),
                   () {
                     state!(
                       () {

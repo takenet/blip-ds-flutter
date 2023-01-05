@@ -29,6 +29,7 @@ class DSCard extends StatelessWidget {
     this.onOpenLink,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
+    this.messageId,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
 
@@ -40,6 +41,7 @@ class DSCard extends StatelessWidget {
   final void Function(Map<String, dynamic>)? onOpenLink;
   final DSMessageBubbleAvatarConfig avatarConfig;
   final DSMessageBubbleStyle style;
+  final String? messageId;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.ticket:
         return DSTicketMessage(
           messageType: DSTicketMessageType.forwardedTicket,
-          ticketNumber: content['sequentialId'].toString(),
+          ticketId: content['formattedTicketId'],
           chatbotIdentity: content['ownerIdentity'],
         );
 
@@ -155,6 +157,8 @@ class DSCard extends StatelessWidget {
         align: align,
         borderRadius: borderRadius,
         style: style,
+        uniqueId: messageId ?? DateTime.now().toIso8601String(),
+        audioType: content['type'],
       );
     } else if (contentType.contains('image')) {
       return DSImageMessageBubble(
