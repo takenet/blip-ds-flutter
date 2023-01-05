@@ -1,3 +1,9 @@
+## 0.0.25
+
+* [DSAudioMessageBubble] Fixes for ogg audio files
+* [DSToastService] Added default duration for toasts
+* [DSGroupCard] Added `formattedTicketId` in ticket card
+
 ## 0.0.24
 
 * [DSInputChip] Fixes some problems with scroll
