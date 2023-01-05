@@ -138,16 +138,15 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
 
     if (await outputFile.exists()) {
       await _controller.player.setFilePath(outputFile.path);
-      return;
-    }
+    } else {
+      final session = await FFmpegKit.execute(
+          '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}');
 
-    final session = await FFmpegKit.execute(
-        '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}');
+      final returnCode = await session.getReturnCode();
 
-    final returnCode = await session.getReturnCode();
-
-    if (ReturnCode.isSuccess(returnCode)) {
-      await _controller.player.setFilePath(outputFile.path);
+      if (ReturnCode.isSuccess(returnCode)) {
+        await _controller.player.setFilePath(outputFile.path);
+      }
     }
   }
 
