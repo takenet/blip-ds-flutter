@@ -1,9 +1,9 @@
-import 'package:blip_ds/src/enums/ds_dialog_type.enum.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_button.widget.dart';
 import 'package:flutter/material.dart';
 
+import '../enums/ds_dialog_type.enum.dart';
 import '../themes/colors/ds_colors.theme.dart';
 import '../themes/icons/ds_icons.dart';
+import '../widgets/buttons/ds_button.widget.dart';
 import '../widgets/texts/ds_body_text.widget.dart';
 import '../widgets/texts/ds_headline_small_text.widget.dart';
 
