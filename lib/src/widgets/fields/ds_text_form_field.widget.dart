@@ -13,6 +13,7 @@ class DSTextFormField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.showEmojiButton = false,
     this.obscureText = false,
+    this.isEnabled = true,
   });
 
   final TextEditingController controller;
@@ -23,6 +24,7 @@ class DSTextFormField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final bool showEmojiButton;
   final bool obscureText;
+  final bool isEnabled;
 
   final hasFocus = false.obs;
   final _scrollController = ScrollController();
@@ -42,8 +44,13 @@ class DSTextFormField extends StatelessWidget {
                 width: 1,
                 color: hasFocus.value
                     ? DSColors.primaryMain
-                    : DSColors.neutralMediumSilver,
+                    : isEnabled
+                        ? DSColors.neutralMediumSilver
+                        : DSColors.neutralLightBox,
               ),
+              color: isEnabled
+                  ? DSColors.neutralLightSnow
+                  : DSColors.neutralLightWhisper,
             ),
             child: Scrollbar(
               controller: _scrollController,
@@ -60,9 +67,11 @@ class DSTextFormField extends StatelessWidget {
                       child: TextFormField(
                         controller: controller,
                         scrollController: _scrollController,
+                        enabled: isEnabled,
                         obscureText: obscureText,
                         style: const DSBodyTextStyle(),
                         decoration: InputDecoration(
+                          isDense: true,
                           contentPadding: EdgeInsets.zero,
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -71,8 +80,8 @@ class DSTextFormField extends StatelessWidget {
                           disabledBorder: InputBorder.none,
                           hintText: hint,
                           hintStyle: const DSBodyTextStyle(
-                              color: DSColors.neutralMediumElephant),
-                          isDense: true,
+                            color: DSColors.neutralMediumElephant,
+                          ),
                         ),
                         cursorColor: DSColors.primaryMain,
                         cursorHeight: 20.0,

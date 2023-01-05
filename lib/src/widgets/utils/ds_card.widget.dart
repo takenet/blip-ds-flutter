@@ -90,9 +90,13 @@ class DSCard extends StatelessWidget {
         );
 
       case DSMessageContentType.ticket:
+        final sequentialId = content['sequentialId'].toString();
+        final sequentialSuffix = content['sequentialSuffix']?.toString();
+        final ticketNumber = '$sequentialId${sequentialSuffix ?? ''}';
+
         return DSTicketMessage(
           messageType: DSTicketMessageType.forwardedTicket,
-          ticketNumber: content['sequentialId'].toString(),
+          ticketNumber: ticketNumber,
           chatbotIdentity: content['ownerIdentity'],
         );
 

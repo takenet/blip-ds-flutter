@@ -23,13 +23,17 @@ final _defaultCompareMessageFuntion =
     }
   }
 
-  return (DateTime.parse(firstMsg.date)
-              .difference(DateTime.parse(secondMsg.date))
-              .inSeconds <=
-          60 &&
-      firstMsg.status == secondMsg.status &&
-      firstMsg.align == secondMsg.align &&
-      shouldGroupSelect);
+  final dateDifference = DateTime.parse(firstMsg.date)
+      .difference(DateTime.parse(secondMsg.date))
+      .inMinutes;
+
+  final hasSameStatus = firstMsg.status == secondMsg.status;
+  final hasSameAlign = firstMsg.align == secondMsg.align;
+
+  return dateDifference <= 1 &&
+      hasSameStatus &&
+      hasSameAlign &&
+      shouldGroupSelect;
 };
 
 /// A Design System widget used to display a grouped [DSMessageBubble] list
@@ -162,9 +166,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
     if (widget.sortMessages) {
       widget.documents.sort(
-        ((a, b) {
-          return a.date.compareTo(b.date);
-        }),
+        (a, b) => a.date.compareTo(b.date),
       );
     }
 
