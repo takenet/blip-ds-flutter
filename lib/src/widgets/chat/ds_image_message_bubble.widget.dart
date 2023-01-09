@@ -101,14 +101,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                 children: [
                   Visibility(
                     visible: !isLoadingImage,
-                    replacement: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                      ),
-                      child: Center(
-                        child: _buildLoading(),
-                      ),
-                    ),
+                    replacement: _buildLoading(),
                     child: GestureDetector(
                       onTap: () {
                         if (!_controller.error.value) {
@@ -133,10 +126,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                           fit: BoxFit.cover,
                           width: width,
                           url: widget.url,
-                          placeholder: (_, __) => Center(
-                            heightFactor: 5.0,
-                            child: _buildLoading(),
-                          ),
+                          placeholder: (_, __) => _buildLoading(),
                           onError: _controller.setError,
                           align: widget.align,
                           style: widget.style,
@@ -269,12 +259,24 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   }
 
   Widget _buildLoading() {
-    return DSSpinnerLoading(
-      color: widget.style.isLightBubbleBackground(widget.align)
-          ? DSColors.primaryNight
-          : DSColors.neutralLightSnow,
-      size: 32.0,
-      lineWidth: 4.0,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 8.0,
+          ),
+          child: Center(
+            child: DSSpinnerLoading(
+              color: widget.style.isLightBubbleBackground(widget.align)
+                  ? DSColors.primaryNight
+                  : DSColors.neutralLightSnow,
+              size: 32.0,
+              lineWidth: 4.0,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
