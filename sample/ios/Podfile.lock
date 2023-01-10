@@ -1,6 +1,13 @@
 PODS:
   - audio_session (0.0.1):
     - Flutter
+  - ffmpeg-kit-ios-audio (5.1)
+  - ffmpeg_kit_flutter_audio (5.1.0):
+    - ffmpeg_kit_flutter_audio/audio (= 5.1.0)
+    - Flutter
+  - ffmpeg_kit_flutter_audio/audio (5.1.0):
+    - ffmpeg-kit-ios-audio (= 5.1)
+    - Flutter
   - Flutter (1.0.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -23,6 +30,7 @@ PODS:
 
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
+  - ffmpeg_kit_flutter_audio (from `.symlinks/plugins/ffmpeg_kit_flutter_audio/ios`)
   - Flutter (from `Flutter`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - open_filex (from `.symlinks/plugins/open_filex/ios`)
@@ -34,11 +42,14 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - ffmpeg-kit-ios-audio
     - FMDB
 
 EXTERNAL SOURCES:
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
+  ffmpeg_kit_flutter_audio:
+    :path: ".symlinks/plugins/ffmpeg_kit_flutter_audio/ios"
   Flutter:
     :path: Flutter
   just_audio:
@@ -58,6 +69,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
+  ffmpeg-kit-ios-audio: 6eaf5a3c4249b767328502747a08bfd901a86d3d
+  ffmpeg_kit_flutter_audio: 5ee05bc5c18d4798a32505e82235dd2117cf3a04
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
@@ -68,6 +81,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
+PODFILE CHECKSUM: 7adbc9d59f05e1b01f554ea99b6c79e97f2214a2
 
 COCOAPODS: 1.11.3
