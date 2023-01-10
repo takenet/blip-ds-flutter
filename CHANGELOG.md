@@ -1,3 +1,8 @@
+## 0.0.26
+
+* [DSImageMessageBubble] Fix image loading container
+* [Sample] Update deployment target version of iOS from 11.0 to 12.1
+
 ## 0.0.25
 
 * [DSAudioMessageBubble] Fixes for ogg audio files
