@@ -49,4 +49,19 @@ abstract class DSColors {
     ],
     degree: -153.33,
   );
+
+  static Gradient gradientTree = DSLinearGradient(
+    colors: const [
+      Color(0xFF167491),
+      Color(0xFF21CC79),
+    ],
+    degree: -146.81,
+  );
+  static Gradient gradientFabulous = DSLinearGradient(
+    colors: const [
+      Color(0xFF9933CC),
+      Color(0xFFFB5A8B),
+    ],
+    degree: -147.25,
+  );
 }
