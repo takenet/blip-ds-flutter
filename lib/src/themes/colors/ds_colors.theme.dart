@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/themes/colors/ds_linear_gradient.theme.dart';
 import 'package:flutter/material.dart';
 
 /// All [Color] constants that are used by this Design System.
@@ -40,4 +41,12 @@ abstract class DSColors {
 
   static const Color disabledText = Color(0xFF637798);
   static const Color disabledBg = Color(0xFFE8F2FF);
+
+  static Gradient gradientOcean = DSLinearGradient(
+    colors: const [
+      Color(0xFF4F0E87),
+      Color(0xFF4786F1),
+    ],
+    degree: -153.33,
+  );
 }
