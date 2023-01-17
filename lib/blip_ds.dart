@@ -86,6 +86,7 @@ export 'package:blip_ds/src/extensions/ds_delivery_report_status.extension.dart'
 
 /// Themes / Colors
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
+export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
 
 /// Themes / Texts
 export 'src/themes/texts/ds_text_theme.theme.dart' show DSTextTheme;
