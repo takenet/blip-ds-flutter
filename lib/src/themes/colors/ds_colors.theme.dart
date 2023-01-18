@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/themes/colors/ds_linear_gradient.theme.dart';
 import 'package:flutter/material.dart';
 
 /// All [Color] constants that are used by this Design System.
@@ -5,6 +6,7 @@ abstract class DSColors {
   static const Color primaryLight = Color(0xFFB3D4FF);
   static const Color primaryMain = Color(0xFF3F7DE8);
   static const Color primaryNight = Color(0xFF0747A6);
+  static const Color primaryDark = Color(0xFF125AD5);
   static const Color primaryGreensMint = Color(0xFF90E6BC);
   static const Color primaryGreensTrue = Color(0xFF21CC79);
   static const Color primaryGreensForest = Color(0xFF0A6045);
@@ -12,6 +14,7 @@ abstract class DSColors {
   static const Color primaryYellowsCorn = Color(0xFFFFF6A8);
   static const Color primaryPinksWatermelon = Color(0xFFFB5A8B);
   static const Color primaryOrangesDoritos = Color(0xFFC64026);
+  static const Color primaryPurplesWitch = Color(0xFF9933CC);
 
   static const Color neutralDarkCity = Color(0xFF202C44);
   static const Color neutralDarkDesk = Color(0xFF3A4A65);
@@ -26,6 +29,7 @@ abstract class DSColors {
   static const Color neutralLightSnow = Color(0xFFFFFFFF);
 
   static const Color illustrationBlueGenie = Color(0xFF80E3EB);
+  static const Color illustrationBlueJeans = Color(0xFF212A3C);
   static const Color hoverLight = Color(0xFFD1E3FA);
 
   static const Color extendBrownsSand = Color(0xFFFFD29E);
@@ -40,4 +44,27 @@ abstract class DSColors {
 
   static const Color disabledText = Color(0xFF637798);
   static const Color disabledBg = Color(0xFFE8F2FF);
+
+  static Gradient gradientOcean = DSLinearGradient(
+    colors: const [
+      Color(0xFF4F0E87),
+      Color(0xFF4786F1),
+    ],
+    degree: -153.33,
+  );
+
+  static Gradient gradientTree = DSLinearGradient(
+    colors: const [
+      Color(0xFF167491),
+      Color(0xFF21CC79),
+    ],
+    degree: -146.81,
+  );
+  static Gradient gradientFabulous = DSLinearGradient(
+    colors: const [
+      Color(0xFF9933CC),
+      Color(0xFFFB5A8B),
+    ],
+    degree: -147.25,
+  );
 }

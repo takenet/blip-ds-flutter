@@ -288,6 +288,7 @@ class DSToastService {
       child: Icon(
         icon,
         color: DSColors.neutralDarkCity,
+        size: 24.0,
       ),
     );
   }

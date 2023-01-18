@@ -9,11 +9,11 @@ class SampleDialogShowcase extends StatelessWidget {
     final dialog = DSDialogService(
       title: 'title',
       text: 'text',
-      firstButton: DSPrimaryButton(
+      primaryButton: DSPrimaryButton(
         onPressed: (() => Navigator.of(context).pop()),
         label: 'firstButton',
       ),
-      secondButton: DSSecondaryButton(
+      secondaryButton: DSSecondaryButton(
         onPressed: (() => Navigator.of(context).pop()),
         label: 'secondButton',
       ),
@@ -27,15 +27,15 @@ class SampleDialogShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => dialog.system(),
+              onPressed: () => dialog.showSystem(),
               label: 'System',
             ),
             DSPrimaryButton(
-              onPressed: () => dialog.error(),
+              onPressed: () => dialog.showError(),
               label: 'Error',
             ),
             DSPrimaryButton(
-              onPressed: () => dialog.warning(),
+              onPressed: () => dialog.showWarning(),
               label: 'Warning',
             ),
           ],
