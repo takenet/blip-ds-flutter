@@ -63,8 +63,10 @@ class DSGroupCard extends StatefulWidget {
     this.shrinkWrap = false,
     DSMessageBubbleStyle? style,
     bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
+    ScrollController? scrollController,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
-        style = style ?? DSMessageBubbleStyle();
+        style = style ?? DSMessageBubbleStyle(),
+        scrollController = scrollController ?? ScrollController();
 
   final List<DSMessageItemModel> documents;
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
@@ -78,28 +80,30 @@ class DSGroupCard extends StatefulWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
   final bool shrinkWrap;
+  final ScrollController scrollController;
 
   @override
   State<StatefulWidget> createState() => _DSGroupCardState();
 }
 
 class _DSGroupCardState extends State<DSGroupCard> {
-  final scrollController = ScrollController();
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
 
   @override
   void initState() {
-    scrollController.addListener(() {
-      final nextPageTrigger = 0.90 * scrollController.position.maxScrollExtent;
+    widget.scrollController.addListener(() {
+      final nextPageTrigger =
+          0.90 * widget.scrollController.position.maxScrollExtent;
 
-      if (scrollController.position.pixels > nextPageTrigger) {
+      if (widget.scrollController.position.pixels > nextPageTrigger) {
         if (widget.onInfinitScroll != null) {
           widget.onInfinitScroll!();
         }
       }
 
-      showScrollBottomButton.value = scrollController.position.pixels > 600;
+      showScrollBottomButton.value =
+          widget.scrollController.position.pixels > 600;
     });
 
     super.initState();
@@ -107,7 +111,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
   @override
   void dispose() {
-    scrollController.dispose();
+    widget.scrollController.dispose();
     super.dispose();
   }
 
@@ -119,7 +123,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
       children: [
         ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          controller: scrollController,
+          controller: widget.scrollController,
           reverse: true,
           shrinkWrap: widget.shrinkWrap,
           itemCount: widgets.length,
@@ -145,7 +149,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 child: DSButton(
                   shape: DSButtonShape.rounded,
                   onPressed: () {
-                    scrollController.animateTo(
+                    widget.scrollController.animateTo(
                       0,
                       duration: const Duration(milliseconds: 600),
                       curve: Curves.easeIn,

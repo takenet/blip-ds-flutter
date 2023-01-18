@@ -89,7 +89,7 @@ class DSVideoPlayerController extends GetxController {
     Get.back();
     Get.delete<DSVideoPlayerController>();
     final dialog = _dialogErrorFile(fileName);
-    dialog.error();
+    dialog.showError();
   }
 
   DSDialogService _dialogErrorFile(final String fileName) {
@@ -97,14 +97,14 @@ class DSVideoPlayerController extends GetxController {
       title: 'Erro ao reproduzir o vídeo',
       text:
           'Encontramos um erro ao reproduzir o vídeo. Você deseja tentar abrir o vídeo externamente?',
-      firstButton: DSPrimaryButton(
+      primaryButton: DSPrimaryButton(
         onPressed: () {
           Get.back();
           DSFileService.open(fileName, url);
         },
         label: 'Sim',
       ),
-      secondButton: DSSecondaryButton(
+      secondaryButton: DSSecondaryButton(
         onPressed: (() => Navigator.of(Get.context!).pop()),
         label: 'Não, obrigado',
       ),
