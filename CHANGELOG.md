@@ -1,3 +1,9 @@
+## 0.0.27
+
+* [DSDialogService] Improve readability
+* [DSToast] Fix icon size from undefined to 24.0
+* [DSGroupCard] Add scroll controller property
+
 ## 0.0.26
 
 * [DSImageMessageBubble] Fix image loading container
