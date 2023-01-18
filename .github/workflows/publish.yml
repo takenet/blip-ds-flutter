@@ -2,14 +2,15 @@ name: Publish to pub.dev
 
 on:
   push:
+    branches: [ main ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
-  
+      
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   publish:
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@main
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml
     # with:
-    #  working-directory: blip-ds-flutter/lib/blip_ds.dart
+    #   working-directory: path/to/package/within/repository
