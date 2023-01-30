@@ -1,3 +1,7 @@
+## 0.0.28
+
+* [DSAnimate] Created a utils class for animations 
+
 ## 0.0.27
 
 * [DSDialogService] Improve readability
