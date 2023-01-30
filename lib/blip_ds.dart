@@ -3,6 +3,7 @@ library blip_ds;
 /// Utils
 export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/utils/ds_linkify.util.dart' show DSLinkify;
+export 'src/utils/ds_animate.util.dart' show DSAnimate;
 
 /// Widgets / Chat
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;

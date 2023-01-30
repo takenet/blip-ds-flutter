@@ -12,6 +12,7 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
+import '../../utils/ds_animate.util.dart';
 import '../buttons/ds_button.widget.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
@@ -148,13 +149,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 padding: const EdgeInsets.all(16),
                 child: DSButton(
                   shape: DSButtonShape.rounded,
-                  onPressed: () {
-                    widget.scrollController.animateTo(
-                      0,
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.easeIn,
-                    );
-                  },
+                  onPressed: () async => await DSAnimate.animateTo(
+                    widget.scrollController,
+                    duration: const Duration(milliseconds: 600),
+                  ),
                   leadingIcon: const Icon(
                     DSIcons.arrow_down_outline,
                     size: 20,
