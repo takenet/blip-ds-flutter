@@ -149,8 +149,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 padding: const EdgeInsets.all(16),
                 child: DSButton(
                   shape: DSButtonShape.rounded,
-                  onPressed: () async =>
-                      await DSAnimate.animateTo(widget.scrollController),
+                  onPressed: () async => await DSAnimate.animateTo(
+                    widget.scrollController,
+                    duration: const Duration(milliseconds: 600),
+                  ),
                   leadingIcon: const Icon(
                     DSIcons.arrow_down_outline,
                     size: 20,

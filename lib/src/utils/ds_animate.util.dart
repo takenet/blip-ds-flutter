@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ds_utils.util.dart';
 
 /// An animation utility class that has methods related to animations.
 abstract class DSAnimate {
@@ -6,7 +7,7 @@ abstract class DSAnimate {
   static Future<void> animateTo(
     ScrollController scrollController, {
     double offset = 0,
-    Duration duration = const Duration(milliseconds: 600),
+    Duration duration = DSUtils.defaultAnimationDuration,
     Curve curve = Curves.easeIn,
   }) async {
     await scrollController.animateTo(
