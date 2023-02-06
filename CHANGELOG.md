@@ -1,3 +1,8 @@
+## 0.0.28
+
+* Fix Dart Analyzer warnings
+* [DSDialogService] Change primaryButton to be nullable
+
 ## 0.0.27
 
 * [DSDialogService] Improve readability
