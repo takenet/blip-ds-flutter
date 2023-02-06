@@ -1,7 +1,11 @@
-## 0.0.28
+## 0.0.29
 
 * Fix Dart Analyzer warnings
 * [DSDialogService] Change primaryButton to be nullable
+
+## 0.0.28
+
+* [DSAnimate] Created a utils class for animations 
 
 ## 0.0.27
 
