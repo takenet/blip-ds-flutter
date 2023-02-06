@@ -91,7 +91,7 @@ class DSToastService {
 
     _overlayEntry = createOverlayEntry();
 
-    Overlay.of(Get.overlayContext!)!.insert(_overlayEntry!);
+    Overlay.of(Get.overlayContext!).insert(_overlayEntry!);
 
     _controlAnimation = Control.playFromStart;
   }

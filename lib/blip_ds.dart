@@ -140,7 +140,6 @@ export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
 export 'src/widgets/chat/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
-export 'src/themes/icons/ds_icons.dart' show DSIcons;
 
 /// Widgets / Carrousel
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
@@ -148,9 +147,6 @@ export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
 /// Widgets / Information message
 export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
     show DSTicketMessage;
-
-/// Widgets / Texts
-export 'src/widgets/texts/ds_text.widget.dart' show DSText;
 
 /// Icons
 export 'src/themes/icons/ds_icons.dart' show DSIcons;

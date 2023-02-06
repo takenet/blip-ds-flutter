@@ -20,10 +20,10 @@ class SampleGroupCardShowcase extends StatelessWidget {
               return DSGroupCard(
                 shrinkWrap: true,
                 onOpenLink: (dynamic payload) {
-                  print('Infos de callback: / $payload');
+                  debugPrint('Infos de callback: / $payload');
                 },
                 onSelected: (String text, dynamic payload) {
-                  print('Infos de callback: $text / $payload');
+                  debugPrint('Infos de callback: $text / $payload');
                 },
                 isComposing: false,
                 documents: snapshot.data as List<DSMessageItemModel>,
