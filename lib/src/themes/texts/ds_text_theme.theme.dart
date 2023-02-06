@@ -12,13 +12,13 @@ class DSTextTheme extends TextTheme {
   /// Creates a Design System's [TextTheme].
   const DSTextTheme()
       : super(
-          headline1: const DSHeadlineLargeTextStyle(),
-          headline2: const DSHeadlineSmallTextStyle(),
-          bodyText1: const DSBodyTextStyle(),
-          button: const DSButtonTextStyle(
+          displayLarge: const DSHeadlineLargeTextStyle(),
+          displayMedium: const DSHeadlineSmallTextStyle(),
+          bodyLarge: const DSBodyTextStyle(),
+          labelLarge: const DSButtonTextStyle(
             color: DSColors.neutralDarkCity,
           ),
-          subtitle1: const DSCaptionTextStyle(),
-          subtitle2: const DSCaptionSmallTextStyle(),
+          titleMedium: const DSCaptionTextStyle(),
+          titleSmall: const DSCaptionSmallTextStyle(),
         );
 }

@@ -22,10 +22,10 @@ class SampleCollectionShowcase extends StatelessWidget {
           content: contentSelect,
           borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
-            print('Infos de callback: / $payload');
+            debugPrint('Infos de callback: / $payload');
           },
           onSelected: (String text, dynamic payload) {
-            print('Infos de callback: $text / $payload');
+            debugPrint('Infos de callback: $text / $payload');
           },
         ),
         const SizedBox(height: 40.0),
@@ -37,10 +37,10 @@ class SampleCollectionShowcase extends StatelessWidget {
           content: contentContainer,
           borderRadius: const [DSBorderRadius.all],
           onOpenLink: (dynamic payload) {
-            print('Infos de callback: / $payload');
+            debugPrint('Infos de callback: / $payload');
           },
           onSelected: (String text, dynamic payload) {
-            print('Infos de callback: $text / $payload');
+            debugPrint('Infos de callback: $text / $payload');
           },
         ),
       ],

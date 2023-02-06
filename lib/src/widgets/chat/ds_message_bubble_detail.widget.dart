@@ -1,5 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/chat/ds_delivery_report_icon.widget.dart';
 import 'package:flutter/material.dart';
 
 /// A Design System widget used to display a date and a [DSDeliveryReportIcon] at a message.

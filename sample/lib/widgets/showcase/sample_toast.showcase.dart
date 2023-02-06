@@ -19,7 +19,7 @@ class SampleToastShowcase extends StatelessWidget {
       message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit.',
       actionType: DSToastActionType.button,
       buttonText: 'Action',
-      onPressedButton: () => print('FECHOU'),
+      onPressedButton: () => debugPrint('FECHOU'),
       // toastDuration: 2000,
     );
 

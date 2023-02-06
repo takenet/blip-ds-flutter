@@ -8,7 +8,7 @@ import Foundation
 import audio_session
 import ffmpeg_kit_flutter_audio
 import just_audio
-import path_provider_macos
+import path_provider_foundation
 import sqflite
 import url_launcher_macos
 import wakelock_macos

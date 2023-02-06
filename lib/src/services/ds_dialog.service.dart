@@ -11,7 +11,7 @@ import '../widgets/texts/ds_headline_small_text.widget.dart';
 class DSDialogService {
   final String title;
   final String text;
-  final Widget primaryButton;
+  final Widget? primaryButton;
   final Widget? secondaryButton;
   final BuildContext? context;
 
@@ -22,7 +22,7 @@ class DSDialogService {
     this.context,
     required this.title,
     required this.text,
-    required this.primaryButton,
+    this.primaryButton,
     this.secondaryButton,
   });
 
@@ -159,16 +159,17 @@ class DSDialogService {
             Flexible(
               child: secondaryButton!,
             ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 16.0,
-                top: 8.0,
-                bottom: 8.0,
+          if (primaryButton != null)
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 16.0,
+                  top: 8.0,
+                  bottom: 8.0,
+                ),
+                child: primaryButton,
               ),
-              child: primaryButton,
             ),
-          ),
         ],
       ),
     );

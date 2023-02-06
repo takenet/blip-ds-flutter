@@ -120,7 +120,7 @@ class _RadioState<T> extends State<DSRadio<T>>
         return themeData.disabledColor;
       }
       if (states.contains(MaterialState.selected)) {
-        return themeData.toggleableActiveColor;
+        return themeData.colorScheme.secondary;
       }
       return themeData.unselectedWidgetColor;
     });
