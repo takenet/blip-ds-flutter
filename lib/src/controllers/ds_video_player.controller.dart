@@ -106,7 +106,7 @@ class DSVideoPlayerController extends GetxController {
       ),
       secondaryButton: DSSecondaryButton(
         onPressed: (() => Navigator.of(Get.context!).pop()),
-        label: 'Não, obrigado',
+        label: 'Não',
       ),
       context: Get.context!,
     );
