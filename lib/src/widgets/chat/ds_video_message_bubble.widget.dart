@@ -32,6 +32,8 @@ class DSVideoMessageBubble extends StatelessWidget {
 
   final DSMessageBubbleStyle style;
 
+  final String uniqueId;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -46,6 +48,7 @@ class DSVideoMessageBubble extends StatelessWidget {
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
+    required this.uniqueId,
   }) : style = style ?? DSMessageBubbleStyle();
 
   Widget _buildTransition(Animation<double> animation, Widget? child) {
@@ -91,6 +94,7 @@ class DSVideoMessageBubble extends StatelessWidget {
                       appBarText: appBarText,
                       appBarPhotoUri: appBarPhotoUri,
                       url: url,
+                      uniqueId: uniqueId,
                     ),
                   );
                 },

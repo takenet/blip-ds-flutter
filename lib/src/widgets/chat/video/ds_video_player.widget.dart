@@ -15,6 +15,8 @@ class DSVideoPlayer extends StatelessWidget {
   /// Avatar to be displayed in the appBarr
   final Uri? appBarPhotoUri;
 
+  final String uniqueId;
+
   /// Video player widget
   ///
   /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
@@ -24,7 +26,13 @@ class DSVideoPlayer extends StatelessWidget {
     required this.appBarText,
     this.appBarPhotoUri,
     required String url,
-  })  : controller = Get.put(DSVideoPlayerController(url: url)),
+    required this.uniqueId,
+  })  : controller = Get.put(
+          DSVideoPlayerController(
+            url: url,
+            uniqueId: uniqueId,
+          ),
+        ),
         super(key: key);
 
   @override

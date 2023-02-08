@@ -190,6 +190,7 @@ class DSCard extends StatelessWidget {
         text: content['text'],
         borderRadius: borderRadius,
         style: style,
+        uniqueId: messageId ?? DateTime.now().toIso8601String(),
       );
     } else {
       return DSFileMessageBubble(

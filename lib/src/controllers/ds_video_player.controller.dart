@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
 
 import 'package:blip_ds/src/services/ds_dialog.service.dart';
 import 'package:blip_ds/src/services/ds_file.service.dart';
@@ -18,10 +21,13 @@ class DSVideoPlayerController extends GetxController {
   /// the management of video controls.
   DSVideoPlayerController({
     required this.url,
+    required this.uniqueId,
   });
 
   // External URL containing the video to be played
   final String url;
+
+  final String uniqueId;
 
   VideoPlayerController? _videoPlayerController;
   ChewieController? chewieController;
@@ -52,36 +58,49 @@ class DSVideoPlayerController extends GetxController {
   Future<void> initializePlayer() async {
     try {
       final fileName = url.substring(url.lastIndexOf('/')).substring(1);
-      final result = await DSFileService.download(url, fileName);
-      if (result?.isNotEmpty ?? false) {
-        _videoPlayerController = VideoPlayerController.file(File(result!));
 
-        final completer = Completer<void>();
+      final temporaryPath = (await getTemporaryDirectory()).path;
+      final outputFile = File("$temporaryPath/VIDEO-$uniqueId.mp4");
 
-        await Future<void>(() async {
-          _videoPlayerController!
-              .initialize()
-              .then((_) => completer.complete())
-              .catchError((e) {
-            _screenError(fileName);
-          });
+      if (await outputFile.exists()) {
+        _videoPlayerController =
+            VideoPlayerController.file(File(outputFile.path));
+      } else {
+        final inputFilePath = await DSFileService.download(url, fileName);
 
-          return completer.future;
-        });
+        final session = await FFmpegKit.execute(
+            '-hide_banner -y -i $inputFilePath ${outputFile.path}');
 
-        if (!completer.isCompleted) {
-          _screenError(fileName);
+        final returnCode = await session.getReturnCode();
+
+        if (ReturnCode.isSuccess(returnCode)) {
+          _videoPlayerController =
+              VideoPlayerController.file(File(outputFile.path));
         } else {
-          if (!isClosed) _createChewieController();
+          _screenError(fileName);
         }
-
-        _videoPlayerController?.addListener(_showAppBar);
-
-        isLoading.value = false;
       }
-    } on Exception {
+
+      // //
+      // var fileName2 = await VideoThumbnail.thumbnailFile(
+      //   video: outputFile.path,
+      //   thumbnailPath: (await getTemporaryDirectory()).path,
+      //   imageFormat: ImageFormat.JPEG,
+      //   maxHeight:
+      //       64, // specify the height of the thumbnail, let the width auto-scaled to keep the source aspect ratio
+      //   quality: 75,
+      // );
+      // fileName2 = fileName2;
+      // await DSFileService.open('fileName.jpeg', fileName2!);
+      // //
+
+      await _videoPlayerController!.initialize();
+      _createChewieController();
+
+      _videoPlayerController?.addListener(_showAppBar);
       isLoading.value = false;
-      Get.back();
+    } catch (e) {
+      isLoading.value = false;
     }
   }
 
