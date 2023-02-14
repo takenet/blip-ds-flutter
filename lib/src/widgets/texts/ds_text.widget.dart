@@ -17,6 +17,7 @@ class DSText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   final bool shouldLinkify;
+  final bool isSelectable;
 
   /// Creates a Design System's [Text].
   const DSText(
@@ -31,6 +32,7 @@ class DSText extends StatelessWidget {
     this.textAlign,
     this.maxLines,
     this.shouldLinkify = true,
+    this.isSelectable = false,
   }) : textSpan = null;
 
   const DSText.rich(
@@ -45,11 +47,15 @@ class DSText extends StatelessWidget {
     this.textAlign,
     this.maxLines,
     this.shouldLinkify = true,
+    this.isSelectable = false,
   }) : text = null;
 
   @override
-  Widget build(BuildContext context) {
-    List<InlineSpan>? formattedText;
+  Widget build(BuildContext context) =>
+      isSelectable ? _buildSelectableText() : _buildText();
+
+  TextSpan get _formattedText {
+    late final List<InlineSpan> formattedText;
 
     if (shouldLinkify) {
       if (text?.isNotEmpty ?? false) {
@@ -69,15 +75,25 @@ class DSText extends StatelessWidget {
       formattedText = [textSpan ?? TextSpan(text: text)];
     }
 
-    return Text.rich(
-      TextSpan(
-        children: formattedText,
-      ),
-      key: key,
-      style: style,
-      overflow: overflow,
-      textAlign: textAlign,
-      maxLines: maxLines,
+    return TextSpan(
+      children: formattedText,
     );
   }
+
+  SelectableText _buildSelectableText() => SelectableText.rich(
+        _formattedText,
+        key: key,
+        style: style,
+        textAlign: textAlign,
+        minLines: 1,
+        maxLines: maxLines,
+      );
+
+  Text _buildText() => Text.rich(
+        _formattedText,
+        key: key,
+        style: style,
+        textAlign: textAlign,
+        maxLines: maxLines,
+      );
 }

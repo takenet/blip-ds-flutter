@@ -6,8 +6,8 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 import '../buttons/ds_play_button_rounded.widget.dart';
-import '../texts/ds_body_text.widget.dart';
 import 'ds_message_bubble.widget.dart';
+import 'ds_show_more_text.widget.dart';
 import 'video/ds_video_player.widget.dart';
 
 class DSVideoMessageBubble extends StatelessWidget {
@@ -69,46 +69,50 @@ class DSVideoMessageBubble extends StatelessWidget {
       borderRadius: borderRadius,
       padding: EdgeInsets.zero,
       style: style,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 240.0,
-            width: 240.0,
-            color: DSColors.neutralDarkRooftop,
-            child: Align(
-              alignment: Alignment.center,
-              child: DSRoundedPlayButton(
-                align: align,
-                onPressed: () async {
-                  await showGeneralDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    transitionDuration: DSUtils.defaultAnimationDuration,
-                    transitionBuilder: (_, animation, __, child) =>
-                        _buildTransition(animation, child),
-                    pageBuilder: (context, _, __) => DSVideoPlayer(
-                      appBarText: appBarText,
-                      appBarPhotoUri: appBarPhotoUri,
-                      url: url,
-                    ),
-                  );
-                },
+      child: LayoutBuilder(
+        builder: (_, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 240.0,
+              width: 240.0,
+              color: DSColors.neutralDarkRooftop,
+              child: Align(
+                alignment: Alignment.center,
+                child: DSRoundedPlayButton(
+                  align: align,
+                  onPressed: () async {
+                    await showGeneralDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      transitionDuration: DSUtils.defaultAnimationDuration,
+                      transitionBuilder: (_, animation, __, child) =>
+                          _buildTransition(animation, child),
+                      pageBuilder: (context, _, __) => DSVideoPlayer(
+                        appBarText: appBarText,
+                        appBarPhotoUri: appBarPhotoUri,
+                        url: url,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          if (text?.isNotEmpty ?? false)
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
+            if (text?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                child: DSShowMoreText(
+                  text: text!,
+                  maxWidth: constraints.maxWidth,
+                  align: align,
+                  style: style,
+                ),
               ),
-              child: DSBodyText(
-                text!,
-                color: foregroundColor,
-              ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

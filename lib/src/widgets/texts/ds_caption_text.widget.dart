@@ -17,11 +17,13 @@ class DSCaptionText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super(
           style: DSCaptionTextStyle(
             fontWeight: fontWeight,
             color: color,
             decoration: decoration,
+            overflow: overflow,
           ),
         );
 
@@ -36,11 +38,13 @@ class DSCaptionText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super.rich(
           style: DSCaptionTextStyle(
             fontWeight: fontWeight,
             color: color,
             decoration: decoration,
+            overflow: overflow,
           ),
         );
 }

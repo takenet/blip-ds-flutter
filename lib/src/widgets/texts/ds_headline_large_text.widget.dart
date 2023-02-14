@@ -6,7 +6,7 @@ import 'ds_text.widget.dart';
 /// Sets [DSHeadlineLargeTextStyle] as [style] default value. This style's font variant is $fs-20-h2.
 class DSHeadlineLargeText extends DSText {
   /// Creates a Design System's [Text] with $fs-20-h2 font variant.
-  const DSHeadlineLargeText(
+  DSHeadlineLargeText(
     super.text, {
     super.key,
     super.linkColor,
@@ -14,11 +14,14 @@ class DSHeadlineLargeText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super(
-          style: const DSHeadlineLargeTextStyle(),
+          style: DSHeadlineLargeTextStyle(
+            overflow: overflow,
+          ),
         );
 
-  const DSHeadlineLargeText.rich(
+  DSHeadlineLargeText.rich(
     super.textSpan, {
     super.key,
     super.linkColor,
@@ -26,7 +29,10 @@ class DSHeadlineLargeText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super.rich(
-          style: const DSHeadlineLargeTextStyle(),
+          style: DSHeadlineLargeTextStyle(
+            overflow: overflow,
+          ),
         );
 }

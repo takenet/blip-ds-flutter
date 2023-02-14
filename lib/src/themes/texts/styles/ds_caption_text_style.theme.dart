@@ -1,6 +1,8 @@
-import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
-import 'package:blip_ds/src/themes/texts/utils/ds_font_weights.theme.dart';
-import 'package:blip_ds/src/themes/texts/styles/ds_text_style.theme.dart';
+import 'package:flutter/material.dart';
+
+import '../../colors/ds_colors.theme.dart';
+import '../utils/ds_font_weights.theme.dart';
+import 'ds_text_style.theme.dart';
 
 /// A Design System's [TextStyle] primarily used by regular subtitles and descriptions.
 class DSCaptionTextStyle extends DSTextStyle {
@@ -8,6 +10,7 @@ class DSCaptionTextStyle extends DSTextStyle {
     super.fontWeight = DSFontWeights.regular,
     super.color = DSColors.neutralDarkCity,
     super.decoration,
+    super.overflow = TextOverflow.ellipsis,
   }) : super(
           fontSize: 14.0,
           height: 1.57,
