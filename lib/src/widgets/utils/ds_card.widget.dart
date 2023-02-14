@@ -12,7 +12,7 @@ import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
-import '../chat/ds_video_message_bubble.widget.dart';
+import '../chat/video/ds_video_message_bubble.widget.dart';
 import '../chat/ds_weblink.widget.dart';
 import '../ticket_message/ds_ticket_message.widget.dart';
 
@@ -191,6 +191,7 @@ class DSCard extends StatelessWidget {
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId ?? DateTime.now().toIso8601String(),
+        mediaSize: content['size'],
       );
     } else {
       return DSFileMessageBubble(

@@ -33,7 +33,6 @@ dependencies:
   pointer_interceptor: ^0.9.1
   debounce_throttle: ^2.0.0
   ffmpeg_kit_flutter_audio: ^5.1.0
-  video_thumbnail: ^0.5.3
 
 dev_dependencies:
   flutter_test:

@@ -233,6 +233,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: '.mov',
             appBarText: 'Unknown User',
             uniqueId: 'video1',
+            mediaSize: 10000,
           ),
           DSVideoMessageBubble(
             align: DSAlign.left,
@@ -240,6 +241,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: '.avi!',
             appBarText: 'Unknown User',
             uniqueId: 'video2',
+            mediaSize: 10000,
           ),
           DSVideoMessageBubble(
             align: DSAlign.right,
@@ -247,13 +249,15 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: '.mpeg',
             appBarText: 'Unknown User',
             uniqueId: 'video3',
+            mediaSize: 10000,
           ),
           DSVideoMessageBubble(
             align: DSAlign.right,
             url: _srcsVideo[3],
             text: '.mpg',
             appBarText: 'Unknown User',
-            uniqueId: 'video3',
+            uniqueId: 'video4',
+            mediaSize: 10000,
           ),
         ],
       ),
