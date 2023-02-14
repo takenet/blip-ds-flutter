@@ -56,7 +56,12 @@ class DSVideoPlayer extends StatelessWidget {
             child: controller.isLoading.value
                 ? const CircularProgressIndicator()
                 : Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.fromLTRB(
+                      8.0,
+                      8.0,
+                      8.0,
+                      8.0 + MediaQuery.of(context).padding.bottom,
+                    ),
                     child: Chewie(
                       controller: controller.chewieController!,
                     ),
