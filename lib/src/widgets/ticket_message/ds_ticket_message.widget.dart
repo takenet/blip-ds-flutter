@@ -55,6 +55,7 @@ class DSTicketMessage extends StatelessWidget {
             textAlign: TextAlign.center,
             overflow: TextOverflow.visible,
             fontWeight: FontWeight.w400,
+            isSelectable: true,
           ),
           if (messageType == DSTicketMessageType.forwardedTicket)
             Padding(
@@ -64,6 +65,7 @@ class DSTicketMessage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 fontWeight: FontWeight.w700,
+                isSelectable: true,
               ),
             ),
         ],

@@ -55,7 +55,7 @@ class DSText extends StatelessWidget {
       isSelectable ? _buildSelectableText() : _buildText();
 
   TextSpan get _formattedText {
-    late final List<InlineSpan> formattedText;
+    List<InlineSpan>? formattedText;
 
     if (shouldLinkify) {
       if (text?.isNotEmpty ?? false) {

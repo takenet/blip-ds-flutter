@@ -99,6 +99,7 @@ class DSFileMessageBubble extends StatelessWidget {
               filename,
               color: color,
               textAlign: TextAlign.center,
+              isSelectable: true,
             ),
             DSCaptionSmallText(
               controller.getFileSize(size),

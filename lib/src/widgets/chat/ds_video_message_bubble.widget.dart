@@ -60,10 +60,6 @@ class DSVideoMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final foregroundColor = style.isLightBubbleBackground(align)
-        ? DSColors.neutralDarkCity
-        : DSColors.neutralLightSnow;
-
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
