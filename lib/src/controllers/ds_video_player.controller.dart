@@ -1,27 +1,26 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-
 import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
-import 'package:blip_ds/src/services/ds_dialog.service.dart';
-import 'package:blip_ds/src/services/ds_file.service.dart';
-import 'package:blip_ds/src/themes/colors/ds_colors.theme.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_primary_button.widget.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_secondary_button.widget.dart';
+import '../themes/colors/ds_colors.theme.dart';
+import '../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoPlayerController extends GetxController {
   /// Video controller. responsible for managing the state of the video widget, and all
   /// the management of video controls.
   DSVideoPlayerController({
     required this.url,
+    required this.uniqueId,
   });
 
   // External URL containing the video to be played
   final String url;
+
+  final String uniqueId;
 
   VideoPlayerController? _videoPlayerController;
   ChewieController? chewieController;
@@ -35,8 +34,7 @@ class DSVideoPlayerController extends GetxController {
 
   @override
   void onInit() async {
-    await initializePlayer();
-
+    await _initializePlayer();
     super.onInit();
   }
 
@@ -44,80 +42,44 @@ class DSVideoPlayerController extends GetxController {
   void onClose() {
     _videoPlayerController?.dispose();
     chewieController?.dispose();
-    _videoPlayerController?.removeListener(_showAppBar);
+
     isClosed = true;
     super.onClose();
   }
 
-  Future<void> initializePlayer() async {
+  Future<void> _initializePlayer() async {
+    final fileName = url.substring(url.lastIndexOf('/')).substring(1);
+
     try {
-      final fileName = url.substring(url.lastIndexOf('/')).substring(1);
-      final result = await DSFileService.download(url, fileName);
-      if (result?.isNotEmpty ?? false) {
-        _videoPlayerController = VideoPlayerController.file(File(result!));
+      final temporaryPath = (await getTemporaryDirectory()).path;
+      final outputFile = File("$temporaryPath/VIDEO-$uniqueId.mp4");
 
-        final completer = Completer<void>();
+      _videoPlayerController =
+          VideoPlayerController.file(File(outputFile.path));
 
-        await Future<void>(() async {
-          _videoPlayerController!
-              .initialize()
-              .then((_) => completer.complete())
-              .catchError((e) {
-            _screenError(fileName);
-          });
+      await _videoPlayerController!.initialize();
+      _createChewieController();
 
-          return completer.future;
-        });
-
-        if (!completer.isCompleted) {
-          _screenError(fileName);
-        } else {
-          if (!isClosed) _createChewieController();
-        }
-
-        _videoPlayerController?.addListener(_showAppBar);
-
-        isLoading.value = false;
-      }
-    } on Exception {
       isLoading.value = false;
-      Get.back();
+    } catch (e) {
+      isLoading.value = false;
+      _showErrorDialog(fileName);
     }
   }
 
-  void _screenError(final fileName) {
+  Future<void> _showErrorDialog(final fileName) async {
     Get.back();
     Get.delete<DSVideoPlayerController>();
-    final dialog = _dialogErrorFile(fileName);
-    dialog.showError();
-  }
-
-  DSDialogService _dialogErrorFile(final String fileName) {
-    return DSDialogService(
-      title: 'Erro ao reproduzir o vídeo',
-      text:
-          'Encontramos um erro ao reproduzir o vídeo. Você deseja tentar abrir o vídeo externamente?',
-      primaryButton: DSPrimaryButton(
-        onPressed: () {
-          Get.back();
-          DSFileService.open(fileName, url);
-        },
-        label: 'Sim',
-      ),
-      secondaryButton: DSSecondaryButton(
-        onPressed: (() => Navigator.of(Get.context!).pop()),
-        label: 'Não',
-      ),
-      context: Get.context!,
-    );
+    await DSVideoErrorDialog.show(fileName, url);
   }
 
   void _createChewieController() {
     chewieController = ChewieController(
+      showOptions: false,
       videoPlayerController: _videoPlayerController!,
       autoPlay: true,
       looping: true,
-      allowPlaybackSpeedChanging: true,
+      allowPlaybackSpeedChanging: false,
       allowMuting: false,
       allowFullScreen: false,
       playbackSpeeds: const [0.5, 1.0, 1.5, 2.0],
@@ -132,9 +94,5 @@ class DSVideoPlayerController extends GetxController {
       ),
       autoInitialize: true,
     );
-  }
-
-  Future<void> _showAppBar() async {
-    appBarVisible.value = !(chewieController!.isPlaying);
   }
 }

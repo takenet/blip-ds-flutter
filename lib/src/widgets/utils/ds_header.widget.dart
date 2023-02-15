@@ -22,8 +22,10 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final double? elevation;
   final void Function()? onTap;
+  final Color backgroundColor;
+  late final bool isBackgroundLight;
 
-  const DSHeader({
+  DSHeader({
     Key? key,
     required this.title,
     this.subtitle,
@@ -37,7 +39,10 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.systemUiOverlayStyle,
     this.elevation = 1.0,
     this.onTap,
-  }) : super(key: key);
+    this.backgroundColor = DSColors.neutralLightSnow,
+  }) : super(key: key) {
+    isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       automaticallyImplyLeading: false,
       elevation: elevation,
-      backgroundColor: DSColors.neutralLightSnow,
+      backgroundColor: backgroundColor,
       shadowColor: DSColors.neutralMediumWave,
       actions: actions,
       titleSpacing: 0,
@@ -69,20 +74,26 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
               text: customerName,
               uri: customerUri,
               radius: 20.0,
-              textColor: DSColors.neutralLightSnow,
+              textColor: isBackgroundLight
+                  ? DSColors.neutralLightSnow
+                  : DSColors.neutralDarkCity,
             )
           : null,
       title: DSText(
         title,
         style: titleTextStyle ??
-            const DSHeadlineSmallTextStyle(
-              color: DSColors.neutralDarkCity,
+            DSHeadlineSmallTextStyle(
+              color: isBackgroundLight
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
             ),
       ),
       subtitle: subtitle != null
           ? DSCaptionText(
               subtitle!,
-              color: DSColors.neutralDarkCity,
+              color: isBackgroundLight
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
             )
           : null,
     );
@@ -96,9 +107,11 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
                 padding: EdgeInsets.zero,
                 onPressed: onBackButtonPressed ?? Navigator.of(context).pop,
                 iconSize: 28,
-                icon: const Icon(
+                icon: Icon(
                   DSIcons.arrow_left_outline,
-                  color: DSColors.neutralDarkRooftop,
+                  color: isBackgroundLight
+                      ? DSColors.neutralDarkRooftop
+                      : DSColors.neutralLightSnow,
                 ),
               )
             : null);

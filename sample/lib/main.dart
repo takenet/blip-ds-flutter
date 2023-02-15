@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DSHeader(
+      appBar: DSHeader(
         title: 'Blip Design System Showcase',
       ),
       body: SafeArea(
