@@ -145,7 +145,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                       : _controller.thumbnail.isEmpty
                           ? Center(
                               child: SizedBox(
-                                width: 122,
                                 height: 40,
                                 child: DSButton(
                                   leadingIcon: const Icon(
@@ -155,7 +154,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                   backgroundColor: buttonBackgroundColor,
                                   foregroundColor: buttonForegroundColor,
                                   borderColor: buttonBorderColor,
-                                  label: _controller.size,
+                                  label: _controller.size(),
                                   onPressed: () async =>
                                       await _controller.downloadVideo(),
                                 ),

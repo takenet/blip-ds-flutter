@@ -176,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_sizes:
+    dependency: transitive
+    description:
+      name: file_sizes
+      sha256: d24964a4b194b6116d490005428d07cb3e83834ad1f7ec6a1012dedc2f6d2a19
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   filesize:
     dependency: transitive
     description:
@@ -748,14 +756,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  video_compress:
-    dependency: transitive
-    description:
-      name: video_compress
-      sha256: "407693726e674a1e1958801deb2d9daf5a5297707ba6d03375007012dae7389a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.2"
   video_player:
     dependency: transitive
     description:
@@ -796,14 +796,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.13"
-  video_thumbnail:
-    dependency: transitive
-    description:
-      name: video_thumbnail
-      sha256: "3455c189d3f0bb4e3fc2236475aa84fe598b9b2d0e08f43b9761f5bc44210016"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.3"
   wakelock:
     dependency: transitive
     description:

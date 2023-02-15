@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
+import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -25,7 +26,12 @@ class DSVideoMessageBubbleController {
   final thumbnail = RxString('');
   final hasError = RxBool(false);
 
-  String get size => '${(mediaSize / 1000 / 1000).toStringAsFixed(1)} MB';
+  String size() {
+    return FileSize.getSize(
+      mediaSize,
+      precision: PrecisionValue.One,
+    );
+  }
 
   Future<void> setThumbnail() async {
     final thumbnailFile = File(await getFullThumbnailPath());
