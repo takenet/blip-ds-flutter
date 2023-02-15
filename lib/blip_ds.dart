@@ -91,6 +91,10 @@ export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
 
 /// Themes / Texts
 export 'src/themes/texts/ds_text_theme.theme.dart' show DSTextTheme;
+export 'src/themes/texts/ds_text_selection_theme.theme.dart'
+    show DSTextSelectionThemeData;
+export 'src/themes/texts/ds_cupertino_theme_data.theme.dart'
+    show DSCupertinoThemeData;
 
 /// Themes / Texts / Utils
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;

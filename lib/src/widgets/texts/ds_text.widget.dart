@@ -80,16 +80,11 @@ class DSText extends StatelessWidget {
     );
   }
 
-  SelectableText _buildSelectableText() => SelectableText.rich(
-        _formattedText,
-        key: key,
-        style: style,
-        textAlign: textAlign,
-        minLines: 1,
-        maxLines: maxLines,
+  Widget _buildSelectableText() => SelectionArea(
+        child: _buildText(),
       );
 
-  Text _buildText() => Text.rich(
+  Widget _buildText() => Text.rich(
         _formattedText,
         key: key,
         style: style,
