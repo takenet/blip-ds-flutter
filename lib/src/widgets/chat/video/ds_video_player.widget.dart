@@ -15,6 +15,8 @@ class DSVideoPlayer extends StatelessWidget {
   /// Avatar to be displayed in the appBarr
   final Uri? appBarPhotoUri;
 
+  final String uniqueId;
+
   /// Video player widget
   ///
   /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
@@ -24,72 +26,48 @@ class DSVideoPlayer extends StatelessWidget {
     required this.appBarText,
     this.appBarPhotoUri,
     required String url,
-  })  : controller = Get.put(DSVideoPlayerController(url: url)),
+    required this.uniqueId,
+  })  : controller = Get.put(
+          DSVideoPlayerController(
+            url: url,
+            uniqueId: uniqueId,
+          ),
+        ),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: WillPopScope(
-        onWillPop: () => Get.delete<DSVideoPlayerController>(),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Obx(
-            () {
-              return Stack(
-                children: [
-                  Center(
-                    child: controller.isLoading.value
-                        ? const CircularProgressIndicator()
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Chewie(
-                              controller: controller.chewieController!,
-                            ),
-                          ),
+    return WillPopScope(
+      onWillPop: () => Get.delete<DSVideoPlayerController>(),
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: DSHeader(
+          title: appBarText,
+          customerUri: appBarPhotoUri,
+          customerName: appBarText,
+          backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
+          onBackButtonPressed: () {
+            Get.delete<DSVideoPlayerController>();
+            Get.back();
+          },
+        ),
+        body: Obx(
+          () => Center(
+            child: controller.isLoading.value
+                ? const CircularProgressIndicator()
+                : Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      8.0,
+                      8.0,
+                      8.0,
+                      8.0 + MediaQuery.of(context).padding.bottom,
+                    ),
+                    child: Chewie(
+                      controller: controller.chewieController!,
+                    ),
                   ),
-                  _appBar(context),
-                ],
-              );
-            },
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _appBar(BuildContext context) {
-    return SafeArea(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          IconButton(
-            padding: EdgeInsets.zero,
-            splashRadius: 20.0,
-            onPressed: () {
-              Get.delete<DSVideoPlayerController>();
-              Get.back();
-            },
-            icon: const Icon(
-              DSIcons.arrow_left_outline,
-              color: DSColors.neutralLightSnow,
-              size: 32.0,
-            ),
-          ),
-          DSUserAvatar(
-            text: appBarText,
-            uri: appBarPhotoUri,
-          ),
-          const SizedBox(width: 20.0),
-          Expanded(
-            child: DSHeadlineSmallText(
-              appBarText,
-              color: DSColors.neutralLightSnow,
-            ),
-          ),
-        ],
       ),
     );
   }

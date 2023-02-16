@@ -23,7 +23,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.27"
+    version: "0.0.29"
   boolean_selector:
     dependency: transitive
     description:
@@ -176,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_sizes:
+    dependency: transitive
+    description:
+      name: file_sizes
+      sha256: d24964a4b194b6116d490005428d07cb3e83834ad1f7ec6a1012dedc2f6d2a19
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   filesize:
     dependency: transitive
     description:
