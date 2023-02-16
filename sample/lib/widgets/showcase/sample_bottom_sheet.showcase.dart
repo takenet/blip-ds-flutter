@@ -46,8 +46,8 @@ class SampleBottomSheethowcase extends StatelessWidget {
                   onTap: () => Navigator.of(context).pop(),
                   child: const Icon(Icons.arrow_back),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: DSHeadlineLargeText('Bottomsheet'),
                 ),
               ],

@@ -1,5 +1,12 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 /// A Design System widget used to display weblinks.
 
@@ -51,11 +58,13 @@ class DSWeblink extends StatelessWidget {
           DSHeadlineSmallText(
             title,
             color: color,
+            isSelectable: true,
           ),
           DSBodyText(
             text,
             color: color,
             overflow: TextOverflow.visible,
+            isSelectable: true,
           ),
           const SizedBox(
             height: 20.0,

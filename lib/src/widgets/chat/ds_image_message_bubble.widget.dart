@@ -167,6 +167,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                               DSCaptionText(
                                 widget.title!,
                                 color: foregroundColor,
+                                isSelectable: true,
                               ),
                             if ((widget.text?.isNotEmpty ?? false) &&
                                 (widget.title?.isNotEmpty ?? false))
