@@ -1,3 +1,7 @@
+## 0.0.30
+
+* [DSVideoPlayer] Alter to use FFmpegKit to encode video
+
 ## 0.0.29
 
 * Fix Dart Analyzer warnings
