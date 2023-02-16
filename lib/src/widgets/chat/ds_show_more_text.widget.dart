@@ -1,20 +1,24 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../texts/ds_body_text.widget.dart';
 
 class DSShowMoreText extends StatelessWidget {
   final String text;
   final double maxWidth;
   final DSAlign align;
-
   final DSMessageBubbleStyle style;
 
   DSShowMoreText({
     super.key,
     required this.text,
     required this.maxWidth,
-    DSMessageBubbleStyle? style,
     required this.align,
+    DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final shouldShowFullText = RxBool(false);
@@ -59,6 +63,7 @@ class DSShowMoreText extends StatelessWidget {
               overflow:
                   !shouldShowFullText.value ? TextOverflow.ellipsis : null,
               maxLines: textPainter.maxLines,
+              isSelectable: true,
             ),
             if (textPainter.didExceedMaxLines)
               Padding(

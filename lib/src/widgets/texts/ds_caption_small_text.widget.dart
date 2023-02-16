@@ -16,10 +16,12 @@ class DSCaptionSmallText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
             color: color,
+            overflow: overflow,
           ),
         );
 
@@ -33,10 +35,12 @@ class DSCaptionSmallText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super.rich(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
             color: color,
+            overflow: overflow,
           ),
         );
 }

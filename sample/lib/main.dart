@@ -33,6 +33,8 @@ class SampleApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: const DSTextTheme(),
+        textSelectionTheme: DSTextSelectionThemeData(),
+        cupertinoOverrideTheme: const DSCupertinoThemeData(),
       ),
       home: const HomePage(),
     );

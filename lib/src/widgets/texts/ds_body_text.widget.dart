@@ -17,12 +17,13 @@ class DSBodyText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
             color: color,
-            overflow: overflow,
             decoration: decoration,
+            overflow: overflow,
           ),
         );
 
@@ -37,12 +38,13 @@ class DSBodyText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super.rich(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
             color: color,
-            overflow: overflow,
             decoration: decoration,
+            overflow: overflow,
           ),
         );
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
@@ -14,8 +13,8 @@ import '../../../utils/ds_utils.util.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
 import '../../buttons/ds_play_button_rounded.widget.dart';
-import '../../texts/ds_body_text.widget.dart';
 import '../ds_message_bubble.widget.dart';
+import '../ds_show_more_text.widget.dart';
 import 'ds_video_player.widget.dart';
 
 class DSVideoMessageBubble extends StatefulWidget {
@@ -117,122 +116,107 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
       style: widget.style,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Obx(
-            () => SizedBox(
-              height: 240,
-              width: 240,
-              child: _controller.hasError.value
-                  ? const Icon(
-                      DSIcons.video_broken_outline,
-                      size: 80.0,
-                      color: DSColors.neutralDarkRooftop,
-                    )
-                  : _controller.isDownloading.value
-                      ? Center(
-                          child: Container(
-                            height: 50.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: foregroundColor),
-                            child: DSFadingCircleLoading(
-                              color: backgroundLoadingColor,
-                              size: 45.0,
-                            ),
-                          ),
-                        )
-                      : _controller.thumbnail.isEmpty
-                          ? Center(
-                              child: SizedBox(
-                                height: 40,
-                                child: DSButton(
-                                  leadingIcon: const Icon(
-                                    DSIcons.download_outline,
-                                    size: 20,
-                                  ),
-                                  backgroundColor: buttonBackgroundColor,
-                                  foregroundColor: buttonForegroundColor,
-                                  borderColor: buttonBorderColor,
-                                  label: _controller.size(),
-                                  onPressed: () async =>
-                                      await _controller.downloadVideo(),
-                                ),
+      child: LayoutBuilder(
+        builder: (_, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Obx(
+              () => SizedBox(
+                height: 240,
+                width: 240,
+                child: _controller.hasError.value
+                    ? const Icon(
+                        DSIcons.video_broken_outline,
+                        size: 80.0,
+                        color: DSColors.neutralDarkRooftop,
+                      )
+                    : _controller.isDownloading.value
+                        ? Center(
+                            child: Container(
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: foregroundColor),
+                              child: DSFadingCircleLoading(
+                                color: backgroundLoadingColor,
+                                size: 45.0,
                               ),
-                            )
-                          : Stack(
-                              children: [
-                                Center(
-                                  child: Image.file(
-                                    File(
-                                      _controller.thumbnail.value,
-                                    ),
-                                    width: 240,
-                                    height: 240,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Center(
-                                  child: DSRoundedPlayButton(
-                                    align: widget.align,
-                                    onPressed: () async {
-                                      SystemChrome.setSystemUIOverlayStyle(
-                                        const SystemUiOverlayStyle(
-                                            systemNavigationBarColor:
-                                                Colors.black,
-                                            systemNavigationBarDividerColor:
-                                                Colors.black,
-                                            systemNavigationBarIconBrightness:
-                                                Brightness.light),
-                                      );
-
-                                      await showGeneralDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        transitionDuration:
-                                            DSUtils.defaultAnimationDuration,
-                                        transitionBuilder: (_, animation, __,
-                                                child) =>
-                                            _buildTransition(animation, child),
-                                        pageBuilder: (context, _, __) =>
-                                            DSVideoPlayer(
-                                          appBarText: widget.appBarText,
-                                          appBarPhotoUri: widget.appBarPhotoUri,
-                                          url: widget.url,
-                                          uniqueId: widget.uniqueId,
-                                        ),
-                                      ).then(
-                                        (value) {
-                                          SystemChrome.setSystemUIOverlayStyle(
-                                            const SystemUiOverlayStyle(
-                                                systemNavigationBarColor:
-                                                    DSColors.neutralLightSnow,
-                                                systemNavigationBarDividerColor:
-                                                    DSColors.neutralLightSnow,
-                                                systemNavigationBarIconBrightness:
-                                                    Brightness.dark),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
                             ),
-            ),
-          ),
-          if (widget.text?.isNotEmpty ?? false)
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
+                          )
+                        : _controller.thumbnail.isEmpty
+                            ? Center(
+                                child: SizedBox(
+                                  height: 40,
+                                  child: DSButton(
+                                    leadingIcon: const Icon(
+                                      DSIcons.download_outline,
+                                      size: 20,
+                                    ),
+                                    backgroundColor: buttonBackgroundColor,
+                                    foregroundColor: buttonForegroundColor,
+                                    borderColor: buttonBorderColor,
+                                    label: _controller.size(),
+                                    onPressed: () async =>
+                                        await _controller.downloadVideo(),
+                                  ),
+                                ),
+                              )
+                            : Stack(
+                                children: [
+                                  Center(
+                                    child: Image.file(
+                                      File(
+                                        _controller.thumbnail.value,
+                                      ),
+                                      width: 240,
+                                      height: 240,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Center(
+                                    child: DSRoundedPlayButton(
+                                      align: widget.align,
+                                      onPressed: () async {
+                                        await showGeneralDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          transitionDuration:
+                                              DSUtils.defaultAnimationDuration,
+                                          transitionBuilder:
+                                              (_, animation, __, child) =>
+                                                  _buildTransition(
+                                                      animation, child),
+                                          pageBuilder: (context, _, __) =>
+                                              DSVideoPlayer(
+                                            appBarText: widget.appBarText,
+                                            appBarPhotoUri:
+                                                widget.appBarPhotoUri,
+                                            url: widget.url,
+                                            uniqueId: widget.uniqueId,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
               ),
-              child: DSBodyText(
-                widget.text!,
-                color: foregroundColor,
-              ),
             ),
-        ],
+            if (widget.text?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                child: DSShowMoreText(
+                  text: widget.text!,
+                  align: widget.align,
+                  style: widget.style,
+                  maxWidth: constraints.maxWidth,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

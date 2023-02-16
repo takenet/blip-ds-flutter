@@ -15,9 +15,11 @@ class DSHeadlineSmallText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super(
           style: DSHeadlineSmallTextStyle(
             color: color,
+            overflow: overflow,
           ),
         );
 
@@ -30,9 +32,11 @@ class DSHeadlineSmallText extends DSText {
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
+    super.isSelectable,
   }) : super.rich(
           style: DSHeadlineSmallTextStyle(
             color: color,
+            overflow: overflow,
           ),
         );
 }
