@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import '../../controllers/chat/ds_image_message_bubble.controller.dart';
@@ -106,6 +107,15 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                       onTap: () {
                         if (!_controller.error.value) {
                           _controller.appBarVisible.value = false;
+
+                          SystemChrome.setSystemUIOverlayStyle(
+                            const SystemUiOverlayStyle(
+                                systemNavigationBarColor: Colors.black,
+                                systemNavigationBarDividerColor: Colors.black,
+                                systemNavigationBarIconBrightness:
+                                    Brightness.light),
+                          );
+
                           showGeneralDialog(
                             context: context,
                             barrierDismissible: false,
@@ -115,6 +125,16 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                                 _buildTransition(animation, child),
                             pageBuilder: (context, _, __) =>
                                 _buildPage(context),
+                          ).then(
+                            (_) => SystemChrome.setSystemUIOverlayStyle(
+                              const SystemUiOverlayStyle(
+                                  systemNavigationBarColor:
+                                      DSColors.neutralLightSnow,
+                                  systemNavigationBarDividerColor:
+                                      DSColors.neutralLightSnow,
+                                  systemNavigationBarIconBrightness:
+                                      Brightness.dark),
+                            ),
                           );
                         }
                       },

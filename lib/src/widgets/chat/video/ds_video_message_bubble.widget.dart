@@ -202,7 +202,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                           uniqueId: widget.uniqueId,
                                         ),
                                       ).then(
-                                        (value) {
+                                        (_) {
                                           SystemChrome.setSystemUIOverlayStyle(
                                             const SystemUiOverlayStyle(
                                                 systemNavigationBarColor:
