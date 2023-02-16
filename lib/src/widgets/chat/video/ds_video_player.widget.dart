@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:chewie/chewie.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
+import '../../../controllers/ds_video_player.controller.dart';
+import '../../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_header.widget.dart';
 
 class DSVideoPlayer extends StatelessWidget {
   final DSVideoPlayerController controller;
@@ -37,35 +39,40 @@ class DSVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Get.delete<DSVideoPlayerController>(),
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: DSHeader(
-          title: appBarText,
-          customerUri: appBarPhotoUri,
-          customerName: appBarText,
-          backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
-          onBackButtonPressed: () {
-            Get.delete<DSVideoPlayerController>();
-            Get.back();
-          },
-        ),
-        body: Obx(
-          () => Center(
-            child: controller.isLoading.value
-                ? const CircularProgressIndicator()
-                : Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      8.0,
-                      8.0,
-                      8.0,
-                      8.0 + MediaQuery.of(context).padding.bottom,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.transparent,
+      ),
+      child: WillPopScope(
+        onWillPop: () => Get.delete<DSVideoPlayerController>(),
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: DSHeader(
+            title: appBarText,
+            customerUri: appBarPhotoUri,
+            customerName: appBarText,
+            backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
+            onBackButtonPressed: () {
+              Get.delete<DSVideoPlayerController>();
+              Get.back();
+            },
+          ),
+          body: Obx(
+            () => Center(
+              child: controller.isLoading.value
+                  ? const CircularProgressIndicator()
+                  : Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        8.0,
+                        8.0,
+                        8.0,
+                        8.0 + MediaQuery.of(context).padding.bottom,
+                      ),
+                      child: Chewie(
+                        controller: controller.chewieController!,
+                      ),
                     ),
-                    child: Chewie(
-                      controller: controller.chewieController!,
-                    ),
-                  ),
+            ),
           ),
         ),
       ),
