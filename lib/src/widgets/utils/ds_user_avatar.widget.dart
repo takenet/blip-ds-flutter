@@ -65,7 +65,7 @@ class DSUserAvatar extends StatelessWidget {
           radius: radius,
           backgroundColor: backgroundColor,
           child: Padding(
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2.0),
             child: int.tryParse(text!) == null
                 ? DSBodyText(
                     _initials,
