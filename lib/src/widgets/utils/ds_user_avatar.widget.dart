@@ -27,7 +27,7 @@ class DSUserAvatar extends StatelessWidget {
             backgroundColor: backgroundColor,
             backgroundImage: image,
           ),
-          progressIndicatorBuilder: (context, url, downloadProgress) {
+          progressIndicatorBuilder: (_, __, downloadProgress) {
             final size = Size.fromRadius(radius);
 
             return SizedBox(
