@@ -22,7 +22,7 @@ class DSUserAvatar extends StatelessWidget {
   Widget build(BuildContext context) => uri != null
       ? CachedNetworkImage(
           imageUrl: uri.toString(),
-          imageBuilder: (context, image) => CircleAvatar(
+          imageBuilder: (_, image) => CircleAvatar(
             radius: radius,
             backgroundColor: backgroundColor,
             backgroundImage: image,
