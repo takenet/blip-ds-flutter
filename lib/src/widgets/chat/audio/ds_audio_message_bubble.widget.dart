@@ -13,7 +13,6 @@ import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
 import '../../../services/ds_file.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
-import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_pause_button.widget.dart';
 import '../../buttons/ds_play_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
@@ -78,31 +77,44 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
         widget.style.isLightBubbleBackground(widget.align);
 
     return DSMessageBubble(
-      padding: EdgeInsets.zero,
       borderRadius: widget.borderRadius,
       align: widget.align,
       style: widget.style,
       child: SizedBox(
-        height: 62.0,
+        height: 52.0,
         child: Stack(
           children: [
-            _controlButtons(),
-            _seekBar(),
-            Obx(
-              () => DSAudioSpeedButton(
-                text:
-                    "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
-                onTap: _controller.setAudioSpeed,
-                borderColor: isLightBubbleBackground
-                    ? isDefaultBubbleColors
-                        ? DSColors.neutralMediumSilver
-                        : DSColors.neutralDarkCity
-                    : isDefaultBubbleColors
-                        ? DSColors.disabledText
-                        : DSColors.neutralLightSnow,
-                color: isLightBubbleBackground
-                    ? DSColors.neutralDarkCity
-                    : DSColors.neutralLightSnow,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: _controlButtons(),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 28.0,
+                ),
+                child: _seekBar(),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Obx(
+                () => DSAudioSpeedButton(
+                  text:
+                      "x${_controller.audioSpeed.value.toString().replaceAll(RegExp(r'([.]*0)(?!.*\d)'), '')}",
+                  onTap: _controller.setAudioSpeed,
+                  borderColor: isLightBubbleBackground
+                      ? isDefaultBubbleColors
+                          ? DSColors.neutralMediumSilver
+                          : DSColors.neutralDarkCity
+                      : isDefaultBubbleColors
+                          ? DSColors.disabledText
+                          : DSColors.neutralLightSnow,
+                  color: isLightBubbleBackground
+                      ? DSColors.neutralDarkCity
+                      : DSColors.neutralLightSnow,
+                ),
               ),
             ),
           ],
@@ -161,21 +173,12 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
         final playerState = snapshot.data;
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
-        if ([ProcessingState.loading, ProcessingState.buffering]
-            .contains(processingState)) {
-          return Positioned(
-            left: 12.0,
-            top: 14.0,
-            child: DSFadingCircleLoading(
-              color: color,
-            ),
-          );
-        } else if (playing != true) {
+        if (playing != true) {
           return DSPlayButton(
             onPressed: _controller.player.play,
-            icon: widget.style.isLightBubbleBackground(widget.align)
-                ? DSPlayButtonIconColor.neutralLightSnow
-                : DSPlayButtonIconColor.neutralDarkRooftop,
+            isLoading: [ProcessingState.loading, ProcessingState.buffering]
+                .contains(processingState),
+            color: color,
           );
         } else if (processingState != ProcessingState.completed) {
           return DSPauseButton(
@@ -194,20 +197,15 @@ class _DSAudioMessageBubbleState extends State<DSAudioMessageBubble>
       stream: _controller.positionDataStream,
       builder: (context, snapshot) {
         final positionData = snapshot.data;
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 40.0,
-          ),
-          child: DSAudioSeekBar(
-            duration: positionData?.duration ?? Duration.zero,
-            position: positionData?.position ?? Duration.zero,
-            bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-            onChangeEnd: _controller.player.play,
-            onChanged: _controller.player.seek,
-            onChangeStart: _controller.player.pause,
-            align: widget.align,
-            style: widget.style,
-          ),
+        return DSAudioSeekBar(
+          duration: positionData?.duration ?? Duration.zero,
+          position: positionData?.position ?? Duration.zero,
+          bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
+          onChangeEnd: _controller.player.play,
+          onChanged: _controller.player.seek,
+          onChangeStart: _controller.player.pause,
+          align: widget.align,
+          style: widget.style,
         );
       },
     );

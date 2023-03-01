@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../colors/ds_colors.theme.dart';
 import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
@@ -11,9 +10,9 @@ class DSBodyTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-16-p1 font variant.
   const DSBodyTextStyle({
     super.fontWeight = DSFontWeights.regular,
-    super.color = DSColors.neutralDarkCity,
+    super.color,
     super.decoration,
-    super.overflow = TextOverflow.ellipsis,
+    super.overflow,
   }) : super(
           fontSize: 16.0,
           height: 1.5,

@@ -13,7 +13,7 @@ import '../../../themes/icons/ds_icons.dart';
 import '../../../utils/ds_utils.util.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
-import '../../buttons/ds_play_button_rounded.widget.dart';
+import '../../buttons/ds_rounded_play_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
 import 'ds_video_player.widget.dart';

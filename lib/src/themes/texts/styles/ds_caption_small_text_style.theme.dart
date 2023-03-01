@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../colors/ds_colors.theme.dart';
 import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
@@ -11,8 +10,8 @@ class DSCaptionSmallTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-12-p3 font variant.
   const DSCaptionSmallTextStyle({
     super.fontWeight = DSFontWeights.regular,
-    super.color = DSColors.neutralDarkCity,
-    super.overflow = TextOverflow.ellipsis,
+    super.color,
+    super.overflow,
   }) : super(
           fontSize: 12.0,
           height: 1.66,

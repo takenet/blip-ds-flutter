@@ -17,26 +17,20 @@ class DSAudioSpeedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10.0),
-        child: GestureDetector(
-          onTap: () => onTap(),
-          child: Container(
-            width: 44.0,
-            height: 46.0,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-              border: Border.all(color: borderColor),
-            ),
-            child: Center(
-              child: DSCaptionText(
-                text,
-                color: color,
-                fontWeight: DSFontWeights.bold,
-              ),
-            ),
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Container(
+        width: 44.0,
+        height: 46.0,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          border: Border.all(color: borderColor),
+        ),
+        child: Center(
+          child: DSCaptionText(
+            text,
+            color: color,
+            fontWeight: DSFontWeights.bold,
           ),
         ),
       ),

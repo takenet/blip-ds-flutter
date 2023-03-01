@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../colors/ds_colors.theme.dart';
-import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
 /// A Design System's [TextStyle] primarily used by large titles.
@@ -10,11 +8,11 @@ import 'ds_text_style.theme.dart';
 class DSHeadlineLargeTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-20-h4 font variant.
   const DSHeadlineLargeTextStyle({
-    super.overflow = TextOverflow.ellipsis,
+    super.color,
+    super.overflow,
+    super.fontWeight,
   }) : super(
           fontSize: 20.0,
-          fontWeight: DSFontWeights.bold,
-          color: DSColors.neutralDarkCity,
           height: 1.4,
         );
 }
