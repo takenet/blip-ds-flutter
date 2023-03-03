@@ -1,3 +1,7 @@
+## 0.0.31
+
+* [DSToast] Fixed toast overlap
+
 ## 0.0.30
 
 * [DSVideoPlayer] Alter to use FFmpegKit to encode video
