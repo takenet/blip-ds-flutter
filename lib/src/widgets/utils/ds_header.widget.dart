@@ -48,6 +48,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        color: DSColors.neutralLightSnow,
         border: Border(
           bottom: BorderSide(
             color: DSColors.neutralMediumWave,
