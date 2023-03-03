@@ -10,16 +10,40 @@ class DSUserAvatar extends StatelessWidget {
   final Color textColor;
 
   const DSUserAvatar({
-    Key? key,
+    super.key,
     this.text,
     this.uri,
     this.radius = 25.0,
     this.backgroundColor = DSColors.primaryGreensTrue,
     this.textColor = Colors.black,
-  }) : super(key: key);
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => uri != null
+      ? CachedNetworkImage(
+          imageUrl: uri.toString(),
+          imageBuilder: (_, image) => CircleAvatar(
+            radius: radius,
+            backgroundColor: backgroundColor,
+            backgroundImage: image,
+          ),
+          progressIndicatorBuilder: (_, __, downloadProgress) {
+            final size = Size.fromRadius(radius);
+
+            return SizedBox(
+              height: size.height,
+              width: size.width,
+              child: CircularProgressIndicator(
+                value: downloadProgress.progress,
+                strokeWidth: 1,
+              ),
+            );
+          },
+          errorWidget: (_, __, ___) => _defaultUserIcon,
+        )
+      : _defaultUserIcon;
+
+  String get _initials {
     String initials = '';
 
     if ((text?.isNotEmpty ?? false) && (int.tryParse(text!) == null)) {
@@ -33,54 +57,36 @@ class DSUserAvatar extends StatelessWidget {
       initials = initials.substring(0, initials.length >= 2 ? 2 : 1);
     }
 
-    return uri != null
-        ? CachedNetworkImage(
-            imageUrl: uri.toString(),
-            imageBuilder: (context, image) => CircleAvatar(
-              radius: radius,
-              backgroundColor: backgroundColor,
-              backgroundImage: image,
-            ),
-            progressIndicatorBuilder: (context, url, downloadProgress) {
-              final size = radius * 2;
-
-              return SizedBox(
-                height: size,
-                width: size,
-                child: CircularProgressIndicator(
-                    value: downloadProgress.progress, strokeWidth: 1),
-              );
-            },
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          )
-        : (text?.isNotEmpty ?? false)
-            ? CircleAvatar(
-                radius: radius,
-                backgroundColor: backgroundColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: int.tryParse(text!) == null
-                      ? DSBodyText(
-                          initials,
-                          color: textColor,
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                        )
-                      : const Icon(
-                          DSIcons.user_defaut_outline,
-                          color: DSColors.neutralLightSnow,
-                          size: 20.0,
-                        ),
-                ),
-              )
-            : CircleAvatar(
-                radius: radius,
-                backgroundColor: backgroundColor,
-                backgroundImage: const AssetImage(
-                  'assets/images/avatar-default.png',
-                  package: DSUtils.packageName,
-                ),
-              );
+    return initials;
   }
+
+  CircleAvatar get _defaultUserIcon => (text?.isNotEmpty ?? false)
+      ? CircleAvatar(
+          radius: radius,
+          backgroundColor: backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: int.tryParse(text!) == null
+                ? DSBodyText(
+                    _initials,
+                    color: textColor,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                  )
+                : const Icon(
+                    DSIcons.user_defaut_outline,
+                    color: DSColors.neutralLightSnow,
+                    size: 20.0,
+                  ),
+          ),
+        )
+      : CircleAvatar(
+          radius: radius,
+          backgroundColor: backgroundColor,
+          backgroundImage: const AssetImage(
+            'assets/images/avatar-default.png',
+            package: DSUtils.packageName,
+          ),
+        );
 }
