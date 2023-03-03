@@ -37,7 +37,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.titleTextStyle,
     this.systemUiOverlayStyle,
-    this.elevation = 1.0,
+    this.elevation = 0.0,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
   }) : super(key: key) {
@@ -46,18 +46,31 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: elevation,
-      backgroundColor: backgroundColor,
-      shadowColor: DSColors.neutralMediumWave,
-      actions: actions,
-      titleSpacing: 0,
-      leadingWidth: 40.0,
-      leading: _buildLeading(context),
-      title: _buildTitle(context),
-      systemOverlayStyle: systemUiOverlayStyle,
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: DSColors.neutralMediumWave,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: AppBar(
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          elevation: elevation,
+          backgroundColor: backgroundColor,
+          shadowColor: DSColors.neutralMediumWave,
+          actions: actions,
+          titleSpacing: 0,
+          leadingWidth: 40.0,
+          leading: _buildLeading(context),
+          title: _buildTitle(context),
+          systemOverlayStyle: systemUiOverlayStyle,
+        ),
+      ),
     );
   }
 
