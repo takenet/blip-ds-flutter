@@ -1,6 +1,7 @@
 ## 0.0.31
 
 * [DSToast] Fixed toast overlap
+* [DSText] Add selectable text feature
 
 ## 0.0.30
 
