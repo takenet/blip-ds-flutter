@@ -1,29 +1,35 @@
+import 'dart:math';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class DSAudioSeekBar extends StatefulWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
+  final Color labelColor;
+  final Color bufferActiveTrackColor;
+  final Color bufferInactiveTrackColor;
+  final Color sliderActiveTrackColor;
+  final Color sliderThumbColor;
   final ValueChanged<Duration>? onChanged;
   final VoidCallback? onChangeEnd;
   final VoidCallback? onChangeStart;
-  final DSAlign align;
-  final DSMessageBubbleStyle style;
 
-  DSAudioSeekBar({
-    Key? key,
+  const DSAudioSeekBar({
+    super.key,
     required this.duration,
     required this.position,
     required this.bufferedPosition,
+    required this.labelColor,
+    required this.bufferActiveTrackColor,
+    required this.bufferInactiveTrackColor,
+    required this.sliderActiveTrackColor,
+    required this.sliderThumbColor,
     this.onChanged,
     this.onChangeEnd,
     this.onChangeStart,
-    required this.align,
-    DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  });
 
   @override
   DSAudioSeekBarState createState() => DSAudioSeekBarState();
@@ -40,24 +46,25 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
       children: [
         _bufferSlider(),
         _slider(),
-        _audioLabel(widget.duration, DSAlign.right),
-        _audioLabel(widget.position, DSAlign.left),
+        Positioned(
+          right: 23.0,
+          bottom: 0.0,
+          child: _audioLabel(widget.duration),
+        ),
+        Positioned(
+          left: 23.0,
+          bottom: 0.0,
+          child: _audioLabel(widget.position),
+        ),
       ],
     );
   }
 
-  Widget _bufferSlider() {
-    return Positioned.fill(
-      bottom: 8.0,
-      child: SliderTheme(
+  Widget _bufferSlider() => SliderTheme(
         data: sliderThemeData.copyWith(
           thumbShape: HiddenThumbComponentShape(),
-          activeTrackColor: widget.style.isLightBubbleBackground(widget.align)
-              ? DSColors.neutralMediumWave
-              : DSColors.neutralMediumElephant,
-          inactiveTrackColor: widget.style.isLightBubbleBackground(widget.align)
-              ? DSColors.neutralDarkRooftop
-              : DSColors.neutralLightBox,
+          activeTrackColor: widget.bufferActiveTrackColor,
+          inactiveTrackColor: widget.bufferInactiveTrackColor,
         ),
         child: ExcludeSemantics(
           child: Slider(
@@ -68,22 +75,13 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
             onChanged: (v) {},
           ),
         ),
-      ),
-    );
-  }
+      );
 
-  Widget _slider() {
-    return Positioned.fill(
-      bottom: 8.0,
-      child: SliderTheme(
+  Widget _slider() => SliderTheme(
         data: sliderThemeData.copyWith(
           inactiveTrackColor: Colors.transparent,
-          thumbColor: widget.style.isLightBubbleBackground(widget.align)
-              ? DSColors.neutralDarkRooftop
-              : DSColors.neutralLightSnow,
-          activeTrackColor: widget.style.isLightBubbleBackground(widget.align)
-              ? DSColors.primaryNight
-              : DSColors.primaryLight,
+          thumbColor: widget.sliderThumbColor,
+          activeTrackColor: widget.sliderActiveTrackColor,
           thumbShape: const RoundSliderThumbShape(
             enabledThumbRadius: 7.0,
           ),
@@ -109,26 +107,15 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
             }
           },
         ),
-      ),
-    );
-  }
+      );
 
-  Widget _audioLabel(final Duration value, final DSAlign align) {
-    return Positioned(
-      right: align == DSAlign.right ? 23.0 : null,
-      left: align == DSAlign.left ? 24.0 : null,
-      bottom: 6.0,
-      child: DSCaptionText(
+  Widget _audioLabel(final Duration value) => DSCaptionText(
         RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                 .firstMatch("$value")
                 ?.group(1) ??
             "$value",
-        color: widget.style.isLightBubbleBackground(widget.align)
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow,
-      ),
-    );
-  }
+        color: widget.labelColor,
+      );
 }
 
 class HiddenThumbComponentShape extends SliderComponentShape {

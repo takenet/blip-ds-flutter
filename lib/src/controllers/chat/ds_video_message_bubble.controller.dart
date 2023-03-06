@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
