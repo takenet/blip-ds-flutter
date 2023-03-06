@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
@@ -178,16 +177,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                     child: DSRoundedPlayButton(
                                       align: widget.align,
                                       onPressed: () async {
-                                        SystemChrome.setSystemUIOverlayStyle(
-                                          const SystemUiOverlayStyle(
-                                              systemNavigationBarColor:
-                                                  Colors.black,
-                                              systemNavigationBarDividerColor:
-                                                  Colors.black,
-                                              systemNavigationBarIconBrightness:
-                                                  Brightness.light),
-                                        );
-
                                         await showGeneralDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -205,19 +194,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                             url: widget.url,
                                             uniqueId: widget.uniqueId,
                                           ),
-                                        ).then(
-                                          (value) {
-                                            SystemChrome
-                                                .setSystemUIOverlayStyle(
-                                              const SystemUiOverlayStyle(
-                                                  systemNavigationBarColor:
-                                                      DSColors.neutralLightSnow,
-                                                  systemNavigationBarDividerColor:
-                                                      DSColors.neutralLightSnow,
-                                                  systemNavigationBarIconBrightness:
-                                                      Brightness.dark),
-                                            );
-                                          },
                                         );
                                       },
                                     ),
