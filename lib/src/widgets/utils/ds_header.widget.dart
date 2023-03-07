@@ -24,7 +24,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final void Function()? onTap;
   final Color backgroundColor;
-  final Color color;
+  final Color borderColor;
   late final bool isBackgroundLight;
 
   DSHeader({
@@ -42,7 +42,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.elevation = 0.0,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
-    this.color = DSColors.neutralMediumWave,
+    this.borderColor = DSColors.neutralMediumWave,
   }) : super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
@@ -54,7 +54,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
         color: backgroundColor,
         border: Border(
           bottom: BorderSide(
-            color: color,
+            color: borderColor,
           ),
         ),
       ),
