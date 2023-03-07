@@ -1,10 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
-import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
+import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../widgets/texts/ds_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import 'ds_user_avatar.widget.dart';
@@ -23,6 +24,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final void Function()? onTap;
   final Color backgroundColor;
+  final Color color;
   late final bool isBackgroundLight;
 
   DSHeader({
@@ -40,6 +42,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.elevation = 0.0,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
+    this.color = DSColors.neutralMediumWave,
   }) : super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
@@ -47,11 +50,11 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: DSColors.neutralLightSnow,
+      decoration: BoxDecoration(
+        color: backgroundColor,
         border: Border(
           bottom: BorderSide(
-            color: DSColors.neutralMediumWave,
+            color: color,
           ),
         ),
       ),

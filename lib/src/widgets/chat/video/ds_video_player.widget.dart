@@ -41,11 +41,12 @@ class DSVideoPlayer extends StatelessWidget {
       onWillPop: () => Get.delete<DSVideoPlayerController>(),
       child: Scaffold(
         backgroundColor: Colors.black,
-        appBar: DSHeader(
+        appBar: DSHeader(color: Colors.black,
           title: appBarText,
+          elevation: 0.0,
           customerUri: appBarPhotoUri,
           customerName: appBarText,
-          backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
+          backgroundColor: Colors.black,
           onBackButtonPressed: () {
             Get.delete<DSVideoPlayerController>();
             Get.back();
