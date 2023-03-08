@@ -1,6 +1,8 @@
 ## 0.0.34
 
 * [DSHeader] Adding bottom property on appbar
+* [DSHeader] Fixes to use with media preview page
+
 ## 0.0.33
 
 * [DSHeader] Ajust layout with horizontal screen
