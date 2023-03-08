@@ -52,7 +52,7 @@ class DSDocumentSelectOption {
     return DSDocumentSelectOption(
       label:
           DSDocumentSelectValue(json['label']['type'], json['label']['value']),
-      value: json.containsKey('value')
+      value: json.containsKey('value') && json['value'] != null
           ? DSDocumentSelectValue(json['value']['type'], json['value']['value'])
           : null,
     );

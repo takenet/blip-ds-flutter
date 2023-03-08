@@ -18,6 +18,8 @@ export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
+export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
+    show DSMessageBubbleDetail;
 
 /// Widgets / Chat / Audio
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
@@ -70,6 +72,7 @@ export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 export 'src/widgets/tags/ds_input_chip.widget.dart' show DSInputChip;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
     show DSFileExtensionIcon;
+export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 
 /// Enums
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
