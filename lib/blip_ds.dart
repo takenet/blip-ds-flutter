@@ -152,6 +152,7 @@ export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
 /// Widgets / Utils
 export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
     show DSCachedNetworkImageView;
+export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
