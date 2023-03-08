@@ -11,6 +11,7 @@ import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
+import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
 import '../chat/ds_weblink.widget.dart';
@@ -31,6 +32,7 @@ class DSCard extends StatelessWidget {
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
     this.messageId,
+    this.showQuickReplyOptions = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -42,6 +44,7 @@ class DSCard extends StatelessWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final DSMessageBubbleStyle style;
   final String? messageId;
+  final bool showQuickReplyOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -131,11 +134,29 @@ class DSCard extends StatelessWidget {
 
   Widget _buildSelect() {
     return content['scope'] == 'immediate'
-        ? DSTextMessageBubble(
-            align: align,
-            text: content['text'],
-            borderRadius: borderRadius,
-            style: style,
+        ? Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: showQuickReplyOptions ? 16.0 : 0.0,
+                ),
+                child: DSTextMessageBubble(
+                  align: align,
+                  text: content['text'],
+                  borderRadius: borderRadius,
+                  style: style,
+                ),
+              ),
+              Visibility(
+                visible: showQuickReplyOptions,
+                child: DSQuickReply(
+                  key: const ValueKey('ds-quick-reply'),
+                  align: align,
+                  content: content,
+                  onSelected: onSelected,
+                ),
+              ),
+            ],
           )
         : DSTextMessageBubble(
             align: align,
@@ -191,13 +212,13 @@ class DSCard extends StatelessWidget {
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId ?? DateTime.now().toIso8601String(),
-        mediaSize: content['size'],
+        mediaSize: content.containsKey('size') ? content['size'] : 0,
       );
     } else {
       return DSFileMessageBubble(
         align: align,
         url: content['uri'],
-        size: content['size'],
+        size: content.containsKey('size') ? content['size'] : 0,
         filename: content['title'],
         borderRadius: borderRadius,
         style: style,

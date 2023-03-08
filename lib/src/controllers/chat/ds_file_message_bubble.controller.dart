@@ -1,13 +1,13 @@
 import 'package:filesize/filesize.dart';
 import 'package:get/get.dart';
 
-import 'package:blip_ds/src/services/ds_file.service.dart';
+import '../../services/ds_file.service.dart';
 
 class DSFileMessageBubbleController extends GetxController {
   final isDownloading = RxBool(false);
 
   String getFileSize(final int size) {
-    return filesize(size, 1);
+    return size > 0 ? filesize(size, 1) : '';
   }
 
   Future<void> openFile(
