@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
-import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
+import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../widgets/texts/ds_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import 'ds_user_avatar.widget.dart';
@@ -16,6 +16,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final Uri? customerUri;
   final List<Widget>? actions;
   final Widget? leading;
+  final Widget? bottomWidget;
   final bool? canPop;
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
@@ -38,6 +39,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.titleTextStyle,
     this.systemUiOverlayStyle,
     this.elevation = 1.0,
+    this.bottomWidget,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
   }) : super(key: key) {
@@ -54,6 +56,12 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
       shadowColor: DSColors.neutralMediumWave,
       actions: actions,
       titleSpacing: 0,
+      bottom: bottomWidget != null
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(48),
+              child: bottomWidget!,
+            )
+          : null,
       leadingWidth: 40.0,
       leading: _buildLeading(context),
       title: _buildTitle(context),
