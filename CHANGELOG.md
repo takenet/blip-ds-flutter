@@ -1,3 +1,7 @@
+## 0.0.33
+
+* [DSToast] Add bottom property on appbar
+
 ## 0.0.32
 
 * [DSToast] Fixed toast overlap
