@@ -1,3 +1,6 @@
+## 0.0.34
+
+* [DSHeader] Adding bottom property on appbar
 ## 0.0.33
 
 * [DSHeader] Ajust layout with horizontal screen

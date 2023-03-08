@@ -17,6 +17,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final Uri? customerUri;
   final List<Widget>? actions;
   final Widget? leading;
+  final Widget? bottomWidget;
   final bool? canPop;
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
@@ -40,6 +41,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.titleTextStyle,
     this.systemUiOverlayStyle,
     this.elevation = 0.0,
+    this.bottomWidget,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
     this.borderColor = DSColors.neutralMediumWave,
@@ -67,6 +69,12 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
           elevation: elevation,
           backgroundColor: backgroundColor,
           shadowColor: DSColors.neutralMediumWave,
+          bottom: bottomWidget != null
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(48),
+              child: bottomWidget!,
+            )
+          : null,
           actions: actions,
           titleSpacing: 0,
           leadingWidth: 40.0,
