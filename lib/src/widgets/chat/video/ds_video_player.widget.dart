@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -43,12 +42,11 @@ class DSVideoPlayer extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: DSHeader(
-          borderColor: const Color(0xFF000000).withOpacity(0.7),
+          showBorder: false,
           title: appBarText,
-          elevation: 0.0,
           customerUri: appBarPhotoUri,
           customerName: appBarText,
-          backgroundColor: const Color(0xFF000000).withOpacity(0.7),
+          backgroundColor: Colors.black.withOpacity(.7),
           systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
             statusBarColor: Colors.transparent,
           ),
