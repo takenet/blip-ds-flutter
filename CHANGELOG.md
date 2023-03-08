@@ -1,3 +1,7 @@
+## 0.0.33
+
+* [DSHeader] Ajust layout with horizontal screen
+
 ## 0.0.32
 
 * [DSToast] Fixed toast overlap
