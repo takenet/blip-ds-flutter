@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/ds_video_player.controller.dart';
-import '../../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_header.widget.dart';
 
 class DSVideoPlayer extends StatelessWidget {
@@ -44,10 +43,12 @@ class DSVideoPlayer extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: DSHeader(
+          borderColor: const Color(0xFF000000).withOpacity(0.7),
           title: appBarText,
+          elevation: 0.0,
           customerUri: appBarPhotoUri,
           customerName: appBarText,
-          backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
+          backgroundColor: const Color(0xFF000000).withOpacity(0.7),
           systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
             statusBarColor: Colors.transparent,
           ),
