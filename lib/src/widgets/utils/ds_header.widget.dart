@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,6 +25,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final void Function()? onTap;
   final Color backgroundColor;
+  final Color borderColor;
   late final bool isBackgroundLight;
 
   DSHeader({
@@ -38,34 +40,49 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.titleTextStyle,
     this.systemUiOverlayStyle,
-    this.elevation = 1.0,
+    this.elevation = 0.0,
     this.bottomWidget,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
+    this.borderColor = DSColors.neutralMediumWave,
   }) : super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: elevation,
-      backgroundColor: backgroundColor,
-      shadowColor: DSColors.neutralMediumWave,
-      actions: actions,
-      titleSpacing: 0,
-      bottom: bottomWidget != null
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        border: Border(
+          bottom: BorderSide(
+            color: borderColor,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: AppBar(
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          elevation: elevation,
+          backgroundColor: backgroundColor,
+          shadowColor: DSColors.neutralMediumWave,
+          bottom: bottomWidget != null
           ? PreferredSize(
               preferredSize: const Size.fromHeight(48),
               child: bottomWidget!,
             )
           : null,
-      leadingWidth: 40.0,
-      leading: _buildLeading(context),
-      title: _buildTitle(context),
-      systemOverlayStyle: systemUiOverlayStyle,
+          actions: actions,
+          titleSpacing: 0,
+          leadingWidth: 40.0,
+          leading: _buildLeading(context),
+          title: _buildTitle(context),
+          systemOverlayStyle: systemUiOverlayStyle,
+        ),
+      ),
     );
   }
 
