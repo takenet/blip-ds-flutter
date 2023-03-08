@@ -1,3 +1,18 @@
+## 0.0.34
+
+* [DSHeader] Adding bottom property on appbar
+## 0.0.33
+
+* [DSHeader] Ajust layout with horizontal screen
+
+## 0.0.32
+
+* [DSToast] Fixed toast overlap
+
+## 0.0.31
+
+* [DSText] Add selectable text feature
+
 ## 0.0.30
 
 * [DSVideoPlayer] Alter to use FFmpegKit to encode video

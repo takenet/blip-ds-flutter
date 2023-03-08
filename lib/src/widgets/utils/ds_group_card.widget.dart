@@ -10,9 +10,9 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_message_item.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_animate.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
-import '../../utils/ds_animate.util.dart';
 import '../buttons/ds_button.widget.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
@@ -332,7 +332,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             0,
             Padding(
               key: ValueKey<String>(
-                  message.id ?? DateTime.now().toIso8601String()),
+                message.id ?? DateTime.now().toIso8601String(),
+              ),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Table(
                 columnWidths:

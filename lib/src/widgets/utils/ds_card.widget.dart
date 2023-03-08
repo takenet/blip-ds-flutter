@@ -22,7 +22,7 @@ import '../ticket_message/ds_ticket_message.widget.dart';
 class DSCard extends StatelessWidget {
   /// Creates a new [DSCard] widget
   DSCard({
-    Key? key,
+    super.key,
     required this.type,
     required this.content,
     required this.align,
@@ -33,8 +33,7 @@ class DSCard extends StatelessWidget {
     DSMessageBubbleStyle? style,
     this.messageId,
     this.showQuickReplyOptions = false,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
   final dynamic content;
