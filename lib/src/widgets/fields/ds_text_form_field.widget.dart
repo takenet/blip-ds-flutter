@@ -14,6 +14,7 @@ class DSTextFormField extends StatelessWidget {
     this.showEmojiButton = false,
     this.obscureText = false,
     this.isEnabled = true,
+    this.focusNode,
   });
 
   final TextEditingController controller;
@@ -25,6 +26,7 @@ class DSTextFormField extends StatelessWidget {
   final bool showEmojiButton;
   final bool obscureText;
   final bool isEnabled;
+  final FocusNode? focusNode;
 
   final hasFocus = false.obs;
   final _scrollController = ScrollController();
@@ -89,6 +91,7 @@ class DSTextFormField extends StatelessWidget {
                         textInputAction: textInputAction,
                         maxLines: obscureText ? 1 : maxLines,
                         onChanged: onChanged,
+                        focusNode: focusNode,
                       ),
                     ),
                   ),
