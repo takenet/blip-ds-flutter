@@ -1,5 +1,5 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/route_manager.dart';
 import 'package:sample/widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'package:sample/widgets/showcase/sample_button.showcase.dart';
@@ -14,8 +14,6 @@ import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
 import 'package:sample/widgets/showcase/sample_ticket_message.showcase.dart';
 import 'package:sample/widgets/showcase/sample_toast.showcase.dart';
 import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
-
-import 'package:blip_ds/blip_ds.dart';
 import 'package:sample/widgets/showcase/sample_weblink.showcase.dart';
 
 void main() {
@@ -53,6 +51,12 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
+            DSPrimaryButton(
+              onPressed: null,
+              leadingIcon: const Icon(Icons.data_array),
+              trailingIcon: const Icon(Icons.ac_unit_outlined),
+              label: 'Click here ' * 10,
+            ),
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),

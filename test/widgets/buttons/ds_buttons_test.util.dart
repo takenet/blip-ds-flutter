@@ -1,6 +1,4 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_pause_button.widget.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_play_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
@@ -151,7 +149,7 @@ class DSButtonsTestUtils {
       'Neutral Light Snow Color',
       buildPlayButton(
         onPressed: () {},
-        iconColor: DSPlayButtonIconColor.neutralLightSnow,
+        iconColor: DSColors.neutralLightSnow,
       ),
     );
 
@@ -159,7 +157,7 @@ class DSButtonsTestUtils {
       'Neutral Dark Rooftop Color',
       buildPlayButton(
         onPressed: () {},
-        iconColor: DSPlayButtonIconColor.neutralDarkRooftop,
+        iconColor: DSColors.neutralDarkRooftop,
       ),
     );
 
@@ -274,11 +272,10 @@ class DSButtonsTestUtils {
 
   static DSPlayButton buildPlayButton({
     required final void Function() onPressed,
-    final DSPlayButtonIconColor iconColor =
-        DSPlayButtonIconColor.neutralDarkRooftop,
+    final iconColor = DSColors.neutralDarkRooftop,
   }) {
     return DSPlayButton(
-      icon: iconColor,
+      color: iconColor,
       onPressed: onPressed,
     );
   }
