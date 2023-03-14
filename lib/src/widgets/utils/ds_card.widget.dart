@@ -29,6 +29,7 @@ class DSCard extends StatelessWidget {
     required this.borderRadius,
     this.onSelected,
     this.onOpenLink,
+    this.hasSpacer = true,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
     this.messageId,
@@ -39,6 +40,7 @@ class DSCard extends StatelessWidget {
   final dynamic content;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final bool hasSpacer;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final DSMessageBubbleAvatarConfig avatarConfig;
@@ -60,6 +62,7 @@ class DSCard extends StatelessWidget {
           align: align,
           borderRadius: borderRadius,
           style: style,
+          hasSpacer: hasSpacer,
         );
 
       case DSMessageContentType.mediaLink:

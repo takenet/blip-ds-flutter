@@ -57,8 +57,10 @@ class DSGroupCard extends StatefulWidget {
     this.sortMessages = true,
     this.onSelected,
     this.onOpenLink,
+    this.hasSpacer = true,
     this.hideOptions = false,
     this.showMessageStatus = true,
+    this.shouldBubbleGroup = true,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     this.onInfinitScroll,
     this.shrinkWrap = false,
@@ -76,7 +78,9 @@ class DSGroupCard extends StatefulWidget {
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
+  final bool hasSpacer;
   final bool showMessageStatus;
+  final bool shouldBubbleGroup;
   final DSMessageBubbleStyle style;
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
@@ -194,15 +198,24 @@ class _DSGroupCardState extends State<DSGroupCard> {
       DSMessageItemModel message = widget.documents[i];
 
       List<DSMessageItemModel> groupMsgs = group['msgs'];
+      if (widget.shouldBubbleGroup) {
+        if (widget.compareMessages(message, groupMsgs.last)) {
+          group['msgs'].add(message);
+          group['date'] = message.date;
+          group['status'] = message.status;
+          group['displayDate'] = message.displayDate;
+        } else {
+          groups.add(group);
 
-      if (widget.compareMessages(message, groupMsgs.last)) {
-        group['msgs'].add(message);
-        group['date'] = message.date;
-        group['status'] = message.status;
-        group['displayDate'] = message.displayDate;
+          group = {
+            'msgs': [message],
+            'align': message.align,
+            'date': message.date,
+            'status': message.status,
+            'displayDate': message.displayDate,
+          };
+        }
       } else {
-        groups.add(group);
-
         group = {
           'msgs': [message],
           'align': message.align,
@@ -210,6 +223,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
           'status': message.status,
           'displayDate': message.displayDate,
         };
+        groups.add(group);
       }
     }
     groups.add(group);
@@ -252,6 +266,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
           final bubble = DSCard(
             type: message.type,
             content: message.content,
+            hasSpacer: widget.hasSpacer,
             align: message.align,
             borderRadius: borderRadius,
             onSelected: widget.onSelected,
