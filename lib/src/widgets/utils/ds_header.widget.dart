@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
-import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
+import '../../themes/texts/styles/ds_text_style.theme.dart';
+import '../../utils/ds_utils.util.dart';
 import '../../widgets/texts/ds_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import 'ds_user_avatar.widget.dart';
@@ -16,6 +17,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final Uri? customerUri;
   final List<Widget>? actions;
   final Widget? leading;
+  final Widget? bottomWidget;
   final bool? canPop;
   final void Function()? onBackButtonPressed;
   final DSTextStyle? titleTextStyle;
@@ -23,6 +25,9 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final void Function()? onTap;
   final Color backgroundColor;
+  final Color borderColor;
+  final bool showBorder;
+  final bool visible;
   late final bool isBackgroundLight;
 
   DSHeader({
@@ -37,27 +42,57 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.titleTextStyle,
     this.systemUiOverlayStyle,
-    this.elevation = 1.0,
+    this.elevation = 0.0,
+    this.bottomWidget,
     this.onTap,
     this.backgroundColor = DSColors.neutralLightSnow,
+    this.borderColor = DSColors.neutralMediumWave,
+    this.showBorder = true,
+    this.visible = true,
   }) : super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: elevation,
-      backgroundColor: backgroundColor,
-      shadowColor: DSColors.neutralMediumWave,
-      actions: actions,
-      titleSpacing: 0,
-      leadingWidth: 40.0,
-      leading: _buildLeading(context),
-      title: _buildTitle(context),
-      systemOverlayStyle: systemUiOverlayStyle,
+    return AnimatedOpacity(
+      opacity: visible ? 1.0 : 0.0,
+      duration: DSUtils.defaultAnimationDuration,
+      child: Container(
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: showBorder
+              ? Border(
+                  bottom: BorderSide(
+                    color: borderColor,
+                  ),
+                )
+              : null,
+        ),
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: AppBar(
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            elevation: elevation,
+            backgroundColor: Colors.transparent,
+            shadowColor: DSColors.neutralMediumWave,
+            bottom: bottomWidget != null
+                ? PreferredSize(
+                    preferredSize: const Size.fromHeight(48),
+                    child: bottomWidget!,
+                  )
+                : null,
+            actions: actions,
+            titleSpacing: 0,
+            leadingWidth: 40.0,
+            leading: _buildLeading(context),
+            title: _buildTitle(context),
+            systemOverlayStyle: systemUiOverlayStyle,
+          ),
+        ),
+      ),
     );
   }
 
@@ -105,7 +140,9 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 splashRadius: 17,
                 padding: EdgeInsets.zero,
-                onPressed: onBackButtonPressed ?? Navigator.of(context).pop,
+                onPressed: visible
+                    ? onBackButtonPressed ?? Navigator.of(context).pop
+                    : null,
                 iconSize: 28,
                 icon: Icon(
                   DSIcons.arrow_left_outline,

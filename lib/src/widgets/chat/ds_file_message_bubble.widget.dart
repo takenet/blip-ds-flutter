@@ -101,9 +101,12 @@ class DSFileMessageBubble extends StatelessWidget {
               textAlign: TextAlign.center,
               isSelectable: true,
             ),
-            DSCaptionSmallText(
-              controller.getFileSize(size),
-              color: color,
+            Visibility(
+              visible: size > 0,
+              child: DSCaptionSmallText(
+                controller.getFileSize(size),
+                color: color,
+              ),
             )
           ],
         ),

@@ -118,7 +118,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSFileMessageBubble(
             align: DSAlign.left,
             filename: 'teste.pdf',
-            size: 10000,
+            size: 0,
             url:
                 'https://download.brother.com/welcome/doc100107/cv_mfc4620dw_epr_busr_leu359065.pdf',
           ),

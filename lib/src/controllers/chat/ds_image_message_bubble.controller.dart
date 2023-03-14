@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class DSImageMessageBubbleController extends GetxController {
   final error = RxBool(false);
-  final appBarVisible = RxBool(false);
+  final appBarVisible = RxBool(true);
 
   void setError() {
     error.value = true;

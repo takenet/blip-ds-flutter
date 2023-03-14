@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/ds_video_player.controller.dart';
+import '../../../controllers/ds_video_player.controller.dart';
+import '../../utils/ds_header.widget.dart';
 
 class DSVideoPlayer extends StatelessWidget {
   final DSVideoPlayerController controller;
@@ -42,10 +42,14 @@ class DSVideoPlayer extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: DSHeader(
+          showBorder: false,
           title: appBarText,
           customerUri: appBarPhotoUri,
           customerName: appBarText,
-          backgroundColor: DSColors.neutralDarkEclipse.withOpacity(0.7),
+          backgroundColor: Colors.black.withOpacity(.7),
+          systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+            statusBarColor: Colors.transparent,
+          ),
           onBackButtonPressed: () {
             Get.delete<DSVideoPlayerController>();
             Get.back();

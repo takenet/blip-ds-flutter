@@ -27,10 +27,12 @@ class DSVideoMessageBubbleController {
   final hasError = RxBool(false);
 
   String size() {
-    return FileSize.getSize(
-      mediaSize,
-      precision: PrecisionValue.One,
-    );
+    return mediaSize > 0
+        ? FileSize.getSize(
+            mediaSize,
+            precision: PrecisionValue.One,
+          )
+        : 'Download';
   }
 
   Future<void> setThumbnail() async {

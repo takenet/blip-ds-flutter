@@ -17,6 +17,8 @@ class DSTextFormField extends DSInputDecoration {
     this.textCapitalization = TextCapitalization.sentences,
     this.showEmojiButton = false,
     this.obscureText = false,
+    this.isEnabled = true,
+    this.focusNode,
   });
 
   final TextEditingController controller;
@@ -27,6 +29,9 @@ class DSTextFormField extends DSInputDecoration {
   final TextCapitalization textCapitalization;
   final bool showEmojiButton;
   final bool obscureText;
+  @override
+  final bool isEnabled;
+  final FocusNode? focusNode;
 
   final _scrollController = ScrollController();
 
@@ -73,6 +78,7 @@ class DSTextFormField extends DSInputDecoration {
                     textInputAction: textInputAction,
                     maxLines: obscureText ? 1 : maxLines,
                     onChanged: onChanged,
+                    focusNode: focusNode,
                   ),
                 ),
               ),

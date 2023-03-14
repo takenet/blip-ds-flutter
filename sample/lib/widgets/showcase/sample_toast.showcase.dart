@@ -1,40 +1,36 @@
-import 'package:flutter/material.dart';
-
 import 'package:blip_ds/blip_ds.dart';
+import 'package:flutter/material.dart';
 
 class SampleToastShowcase extends StatelessWidget {
   const SampleToastShowcase({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final toast = DSToastService(
+    final toastProps = DSToastProps(
       title: 'Título do toast',
       message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. ',
-      // toastDuration: 3000,
     );
 
-    final toastAction = DSToastService(
+    final toastActionProps = DSToastProps(
       title: 'Título do toast com action',
       message: 'Lorem ipsum dolor sit amet, consectetur adipisci elit.',
       actionType: DSToastActionType.button,
       buttonText: 'Action',
       onPressedButton: () => debugPrint('FECHOU'),
-      // toastDuration: 2000,
     );
 
-    final toastPersistent = DSToastService(
-      title: 'Título do toast',
+    final toastPersistentProps = DSToastProps(
+      title: 'Persistent Toast',
       message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. Vivamus eget molestie urna. ',
       toastDuration: 0,
     );
 
-    final toastNoTitle = DSToastService(
+    final toastNoTitleProps = DSToastProps(
       message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed blandit ex. Vivamus eget molestie urna. ',
       positionOffset: 100.0,
-      // toastDuration: 3000,
     );
 
     return Column(
@@ -45,11 +41,11 @@ class SampleToastShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => toastAction.success(),
+              onPressed: () => DSToastService.success(toastActionProps),
               label: 'Success',
             ),
             DSPrimaryButton(
-              onPressed: () => toast.notification(),
+              onPressed: () => DSToastService.notification(toastProps),
               label: 'Notification',
             ),
           ],
@@ -59,15 +55,15 @@ class SampleToastShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => toast.system(),
+              onPressed: () => DSToastService.system(toastProps),
               label: 'System',
             ),
             DSPrimaryButton(
-              onPressed: () => toast.error(),
+              onPressed: () => DSToastService.error(toastProps),
               label: 'Error',
             ),
             DSPrimaryButton(
-              onPressed: () => toast.warning(),
+              onPressed: () => DSToastService.warning(toastProps),
               label: 'Warning',
             ),
           ],
@@ -77,11 +73,11 @@ class SampleToastShowcase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             DSPrimaryButton(
-              onPressed: () => toastPersistent.system(),
+              onPressed: () => DSToastService.system(toastPersistentProps),
               label: 'System persistent toast',
             ),
             DSPrimaryButton(
-              onPressed: () => toastNoTitle.system(),
+              onPressed: () => DSToastService.system(toastNoTitleProps),
               label: 'No title',
             ),
           ],

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+
 import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
-import '../texts/ds_caption_text.widget.dart';
-import '../texts/ds_headline_small_text.widget.dart';
-import '../utils/ds_cached_network_image_view.widget.dart';
-import '../utils/ds_user_avatar.widget.dart';
 import '../animations/ds_spinner_loading.widget.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../utils/ds_cached_network_image_view.widget.dart';
+import '../utils/ds_header.widget.dart';
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -106,15 +105,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                     child: GestureDetector(
                       onTap: () {
                         if (!_controller.error.value) {
-                          _controller.appBarVisible.value = false;
-
-                          SystemChrome.setSystemUIOverlayStyle(
-                            const SystemUiOverlayStyle(
-                                systemNavigationBarColor: Colors.black,
-                                systemNavigationBarDividerColor: Colors.black,
-                                systemNavigationBarIconBrightness:
-                                    Brightness.light),
-                          );
+                          _controller.appBarVisible.value = true;
 
                           showGeneralDialog(
                             context: context,
@@ -125,16 +116,6 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                                 _buildTransition(animation, child),
                             pageBuilder: (context, _, __) =>
                                 _buildPage(context),
-                          ).then(
-                            (_) => SystemChrome.setSystemUIOverlayStyle(
-                              const SystemUiOverlayStyle(
-                                  systemNavigationBarColor:
-                                      DSColors.neutralLightSnow,
-                                  systemNavigationBarDividerColor:
-                                      DSColors.neutralLightSnow,
-                                  systemNavigationBarIconBrightness:
-                                      Brightness.dark),
-                            ),
                           );
                         }
                       },
@@ -213,67 +194,40 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   }
 
   Widget _buildPage(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: SafeArea(
-        child: Obx(
-          () {
-            return Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(80.0),
-                child: AnimatedOpacity(
-                  opacity: _controller.appBarVisible.value ? 1.0 : 0.0,
-                  duration: DSUtils.defaultAnimationDuration,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        splashRadius: 20.0,
-                        padding: EdgeInsets.zero,
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(
-                          DSIcons.arrow_left_outline,
-                          color: DSColors.neutralLightSnow,
-                          size: 32.0,
-                        ),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: DSUserAvatar(
-                            text: widget.appBarText,
-                            uri: widget.appBarPhotoUri,
-                          ),
-                          title: DSHeadlineSmallText(
-                            widget.appBarText,
-                            color: DSColors.neutralLightSnow,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+      ),
+      child: Obx(
+        () => Scaffold(
+          backgroundColor: Colors.black,
+          extendBodyBehindAppBar: true,
+          appBar: DSHeader(
+            showBorder: false,
+            visible: _controller.appBarVisible.value,
+            title: widget.appBarText,
+            customerUri: widget.appBarPhotoUri,
+            customerName: widget.appBarText,
+            backgroundColor: Colors.black.withOpacity(.7),
+            systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Colors.transparent,
+            ),
+            onBackButtonPressed: Get.back,
+          ),
+          body: GestureDetector(
+            onTap: () => _controller.showAppBar(),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: PinchZoom(
+                child: DSCachedNetworkImageView(
+                  url: widget.url,
+                  fit: BoxFit.contain,
+                  align: widget.align,
+                  style: widget.style,
                 ),
               ),
-              body: GestureDetector(
-                onTap: () => _controller.showAppBar(),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.all(8.0),
-                  color: Colors.black,
-                  child: PinchZoom(
-                    resetDuration: const Duration(milliseconds: 100),
-                    child: DSCachedNetworkImageView(
-                      url: widget.url,
-                      fit: BoxFit.contain,
-                      align: widget.align,
-                      style: widget.style,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
