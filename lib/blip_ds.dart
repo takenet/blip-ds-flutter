@@ -21,6 +21,7 @@ export 'src/models/ds_message_bubble_style.model.dart'
 
 /// Models
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
+export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 
 /// Services
@@ -105,6 +106,8 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
 
 /// Widgets / Chat
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
+export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
+    show DSMessageBubbleDetail;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
@@ -158,6 +161,7 @@ export 'src/widgets/ticket_message/ds_ticket_message.widget.dart'
 /// Widgets / Utils
 export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
     show DSCachedNetworkImageView;
+export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
