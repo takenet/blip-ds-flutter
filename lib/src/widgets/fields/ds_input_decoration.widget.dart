@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 
-class DSTextInputDecoration extends StatelessWidget {
+class DSInputDecoration extends StatelessWidget {
   final Widget? child;
   final EdgeInsetsGeometry? padding;
   final bool isEnabled;
 
   final hasFocus = RxBool(false);
 
-  DSTextInputDecoration({
+  DSInputDecoration({
     super.key,
     this.child,
     this.padding,
@@ -23,6 +23,9 @@ class DSTextInputDecoration extends StatelessWidget {
         onFocusChange: hasFocus,
         child: Obx(
           () => AnimatedContainer(
+            constraints: const BoxConstraints(
+              minHeight: 44.0,
+            ),
             duration: DSUtils.defaultAnimationDuration,
             padding: padding,
             decoration: BoxDecoration(

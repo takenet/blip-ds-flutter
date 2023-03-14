@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
-import 'ds_text_input_decoration.widget.dart';
+import 'ds_input_decoration.widget.dart';
 
-class DSTextFormField extends DSTextInputDecoration {
+class DSTextFormField extends DSInputDecoration {
   DSTextFormField({
     super.key,
     super.isEnabled,
@@ -31,7 +31,7 @@ class DSTextFormField extends DSTextInputDecoration {
   final _scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context) => DSTextInputDecoration(
+  Widget build(BuildContext context) => DSInputDecoration(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 10,

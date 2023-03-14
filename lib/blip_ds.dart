@@ -124,11 +124,11 @@ export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
 export 'src/widgets/chat/video/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
+export 'src/widgets/fields/ds_input_decoration.widget.dart'
+    show DSInputDecoration;
 
 /// Widgets / Chat / Form Fields
 export 'src/widgets/fields/ds_text_form_field.widget.dart' show DSTextFormField;
-export 'src/widgets/fields/ds_text_input_decoration.widget.dart'
-    show DSTextInputDecoration;
 
 /// Widgets / Radio
 export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
