@@ -194,37 +194,32 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   }
 
   Widget _buildPage(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
-      ),
-      child: Obx(
-        () => Scaffold(
-          backgroundColor: Colors.black,
-          extendBodyBehindAppBar: true,
-          appBar: DSHeader(
-            showBorder: false,
-            visible: _controller.appBarVisible.value,
-            title: widget.appBarText,
-            customerUri: widget.appBarPhotoUri,
-            customerName: widget.appBarText,
-            backgroundColor: Colors.black.withOpacity(.7),
-            systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-              statusBarColor: Colors.transparent,
-            ),
-            onBackButtonPressed: Get.back,
+    return Obx(
+      () => Scaffold(
+        backgroundColor: Colors.black,
+        extendBodyBehindAppBar: true,
+        appBar: DSHeader(
+          showBorder: false,
+          visible: _controller.appBarVisible.value,
+          title: widget.appBarText,
+          customerUri: widget.appBarPhotoUri,
+          customerName: widget.appBarText,
+          backgroundColor: Colors.black.withOpacity(.7),
+          systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+            statusBarColor: Colors.transparent,
           ),
-          body: GestureDetector(
-            onTap: () => _controller.showAppBar(),
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: PinchZoom(
-                child: DSCachedNetworkImageView(
-                  url: widget.url,
-                  fit: BoxFit.contain,
-                  align: widget.align,
-                  style: widget.style,
-                ),
+          onBackButtonPressed: Get.back,
+        ),
+        body: GestureDetector(
+          onTap: () => _controller.showAppBar(),
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: PinchZoom(
+              child: DSCachedNetworkImageView(
+                url: widget.url,
+                fit: BoxFit.contain,
+                align: widget.align,
+                style: widget.style,
               ),
             ),
           ),

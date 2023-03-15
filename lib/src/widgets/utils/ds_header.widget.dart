@@ -41,7 +41,6 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.canPop,
     this.onBackButtonPressed,
     this.titleTextStyle,
-    this.systemUiOverlayStyle,
     this.elevation = 0.0,
     this.bottomWidget,
     this.onTap,
@@ -49,7 +48,12 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.borderColor = DSColors.neutralMediumWave,
     this.showBorder = true,
     this.visible = true,
-  }) : super(key: key) {
+    final SystemUiOverlayStyle? systemUiOverlayStyle,
+  })  : systemUiOverlayStyle = systemUiOverlayStyle ??
+            SystemUiOverlayStyle.dark.copyWith(
+              statusBarColor: Colors.transparent,
+            ),
+        super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
 
