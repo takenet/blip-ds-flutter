@@ -1,3 +1,7 @@
+## 0.0.35
+
+* [DSHeader] Added default StatusBar color
+
 ## 0.0.34
 
 * [DSHeader] Adding bottom property on appbar
