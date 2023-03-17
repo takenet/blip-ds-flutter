@@ -1,3 +1,9 @@
+## 0.0.36
+
+* [DSMessageBubbleDetail] Added detailWidget attribute
+* [DSHeader] Added default value for systemOverlayStyle attribute
+* [DSSystemOverlayStyle] Created new abstract class, with some default overlay styles
+
 ## 0.0.35
 
 * [DSHeader] Added default StatusBar color

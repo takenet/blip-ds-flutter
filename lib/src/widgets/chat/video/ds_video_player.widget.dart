@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/ds_video_player.controller.dart';
+import '../../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../utils/ds_header.widget.dart';
 
 class DSVideoPlayer extends StatelessWidget {
@@ -37,39 +38,42 @@ class DSVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Get.delete<DSVideoPlayerController>(),
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: DSHeader(
-          showBorder: false,
-          title: appBarText,
-          customerUri: appBarPhotoUri,
-          customerName: appBarText,
-          backgroundColor: Colors.black.withOpacity(.7),
-          systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-            statusBarColor: Colors.transparent,
+    const overlayStyle = DSSystemOverlayStyle.light;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlayStyle,
+      child: WillPopScope(
+        onWillPop: () => Get.delete<DSVideoPlayerController>(),
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: DSHeader(
+            showBorder: false,
+            title: appBarText,
+            customerUri: appBarPhotoUri,
+            customerName: appBarText,
+            backgroundColor: Colors.black.withOpacity(.7),
+            systemUiOverlayStyle: overlayStyle,
+            onBackButtonPressed: () {
+              Get.delete<DSVideoPlayerController>();
+              Get.back();
+            },
           ),
-          onBackButtonPressed: () {
-            Get.delete<DSVideoPlayerController>();
-            Get.back();
-          },
-        ),
-        body: Obx(
-          () => Center(
-            child: controller.isLoading.value
-                ? const CircularProgressIndicator()
-                : Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      8.0,
-                      8.0,
-                      8.0,
-                      8.0 + MediaQuery.of(context).padding.bottom,
+          body: Obx(
+            () => Center(
+              child: controller.isLoading.value
+                  ? const CircularProgressIndicator()
+                  : Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        8.0,
+                        8.0,
+                        8.0,
+                        8.0 + MediaQuery.of(context).padding.bottom,
+                      ),
+                      child: Chewie(
+                        controller: controller.chewieController!,
+                      ),
                     ),
-                    child: Chewie(
-                      controller: controller.chewieController!,
-                    ),
-                  ),
+            ),
           ),
         ),
       ),
