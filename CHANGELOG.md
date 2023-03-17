@@ -1,3 +1,6 @@
+## 0.0.36
+
+* [DSMessageBubbleDetail] Added detailWidget Attribute
 ## 0.0.35
 
 * [DSHeader] Added default StatusBar color
