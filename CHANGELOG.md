@@ -1,3 +1,7 @@
+## 0.0.37
+
+* [DSMessageBubbleDetail] Fixed message status report expand
+
 ## 0.0.36
 
 * [DSMessageBubbleDetail] Added detailWidget attribute
