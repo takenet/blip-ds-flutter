@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
 import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
@@ -49,10 +50,8 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.showBorder = true,
     this.visible = true,
     final SystemUiOverlayStyle? systemUiOverlayStyle,
-  })  : systemUiOverlayStyle = systemUiOverlayStyle ??
-            SystemUiOverlayStyle.dark.copyWith(
-              statusBarColor: Colors.transparent,
-            ),
+  })  : systemUiOverlayStyle =
+            systemUiOverlayStyle ?? DSSystemOverlayStyle.dark,
         super(key: key) {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }

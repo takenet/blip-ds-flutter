@@ -9,6 +9,7 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
@@ -194,32 +195,35 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   }
 
   Widget _buildPage(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-        backgroundColor: Colors.black,
-        extendBodyBehindAppBar: true,
-        appBar: DSHeader(
-          showBorder: false,
-          visible: _controller.appBarVisible.value,
-          title: widget.appBarText,
-          customerUri: widget.appBarPhotoUri,
-          customerName: widget.appBarText,
-          backgroundColor: Colors.black.withOpacity(.7),
-          systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-            statusBarColor: Colors.transparent,
+    const overlayStyle = DSSystemOverlayStyle.light;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlayStyle,
+      child: Obx(
+        () => Scaffold(
+          backgroundColor: Colors.black,
+          extendBodyBehindAppBar: true,
+          appBar: DSHeader(
+            showBorder: false,
+            visible: _controller.appBarVisible.value,
+            title: widget.appBarText,
+            customerUri: widget.appBarPhotoUri,
+            customerName: widget.appBarText,
+            backgroundColor: Colors.black.withOpacity(.7),
+            onBackButtonPressed: Get.back,
+            systemUiOverlayStyle: overlayStyle,
           ),
-          onBackButtonPressed: Get.back,
-        ),
-        body: GestureDetector(
-          onTap: () => _controller.showAppBar(),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: PinchZoom(
-              child: DSCachedNetworkImageView(
-                url: widget.url,
-                fit: BoxFit.contain,
-                align: widget.align,
-                style: widget.style,
+          body: GestureDetector(
+            onTap: () => _controller.showAppBar(),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: PinchZoom(
+                child: DSCachedNetworkImageView(
+                  url: widget.url,
+                  fit: BoxFit.contain,
+                  align: widget.align,
+                  style: widget.style,
+                ),
               ),
             ),
           ),
