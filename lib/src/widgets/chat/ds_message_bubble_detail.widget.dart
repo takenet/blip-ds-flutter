@@ -29,7 +29,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        Expanded(
+        Flexible(
           child: Container(
             padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 0),
             child: Row(
