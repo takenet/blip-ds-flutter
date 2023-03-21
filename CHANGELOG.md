@@ -1,3 +1,7 @@
+## 0.0.38
+
+* [DSMessageBubble] Added hasSpacer attribute
+
 ## 0.0.37
 
 * [DSMessageBubbleDetail] Fixed message status report expand

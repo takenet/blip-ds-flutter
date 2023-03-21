@@ -14,6 +14,7 @@ import 'ds_url_preview.widget.dart';
 class DSTextMessageBubble extends StatefulWidget {
   final String text;
   final DSAlign align;
+  final bool hasSpacer;
   final List<DSBorderRadius> borderRadius;
   final dynamic selectContent;
   final bool showSelect;
@@ -26,6 +27,7 @@ class DSTextMessageBubble extends StatefulWidget {
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     this.selectContent,
+    this.hasSpacer = true,
     this.showSelect = false,
     this.onSelected,
     DSMessageBubbleStyle? style,
@@ -59,6 +61,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
       style: widget.style,
+      hasSpacer: widget.hasSpacer,
       child: _buildText(),
     );
   }
