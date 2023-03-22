@@ -22,8 +22,6 @@ export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
-
-/// Themes / SystemOverlay
 export 'src/themes/system_overlay/ds_system_overlay.style.dart'
     show DSSystemOverlayStyle;
 export 'src/themes/texts/ds_cupertino_theme_data.theme.dart'
