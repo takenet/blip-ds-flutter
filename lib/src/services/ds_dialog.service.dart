@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../enums/ds_dialog_type.enum.dart';
 import '../themes/colors/ds_colors.theme.dart';
 import '../themes/icons/ds_icons.dart';
+import '../themes/system_overlay/ds_system_overlay.style.dart';
 import '../widgets/texts/ds_body_text.widget.dart';
 import '../widgets/texts/ds_headline_small_text.widget.dart';
 
@@ -15,7 +17,7 @@ class DSDialogService {
   final Widget? secondaryButton;
   final BuildContext? context;
 
-  late final DSDialogType type;
+  DSDialogType type = DSDialogType.system;
 
   /// Creates a new Design System's [Dialog]
   DSDialogService({
@@ -55,33 +57,36 @@ class DSDialogService {
   }
 
   Widget _buildDialog(final DSDialogType type) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 400.0),
-          decoration: BoxDecoration(
-            color: DSColors.neutralLightSnow,
-            borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-            boxShadow: [
-              BoxShadow(
-                color: DSColors.neutralDarkEclipse.withOpacity(0.4),
-                blurRadius: 15.0,
-                offset: const Offset(0.0, 3.0),
-              ),
-            ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: DSSystemOverlayStyle.light,
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              _buildBody(),
-              _buildFooter(),
-            ],
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400.0),
+            decoration: BoxDecoration(
+              color: DSColors.neutralLightSnow,
+              borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+              boxShadow: [
+                BoxShadow(
+                  color: DSColors.neutralDarkEclipse.withOpacity(0.4),
+                  blurRadius: 15.0,
+                  offset: const Offset(0.0, 3.0),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(),
+                _buildBody(),
+                _buildFooter(),
+              ],
+            ),
           ),
         ),
       ),

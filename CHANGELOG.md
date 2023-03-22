@@ -1,3 +1,21 @@
+## 0.0.38
+
+* [DSMessageBubble] Added hasSpacer attribute
+
+## 0.0.37
+
+* [DSMessageBubbleDetail] Fixed message status report expand
+
+## 0.0.36
+
+* [DSMessageBubbleDetail] Added detailWidget attribute
+* [DSHeader] Added default value for systemOverlayStyle attribute
+* [DSSystemOverlayStyle] Created new abstract class, with some default overlay styles
+
+## 0.0.35
+
+* [DSHeader] Added default StatusBar color
+
 ## 0.0.34
 
 * [DSHeader] Adding bottom property on appbar

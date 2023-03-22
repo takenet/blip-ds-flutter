@@ -9,6 +9,7 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
@@ -194,10 +195,10 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
   }
 
   Widget _buildPage(BuildContext context) {
+    const overlayStyle = DSSystemOverlayStyle.light;
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
-      ),
+      value: overlayStyle,
       child: Obx(
         () => Scaffold(
           backgroundColor: Colors.black,
@@ -209,10 +210,8 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
             customerUri: widget.appBarPhotoUri,
             customerName: widget.appBarText,
             backgroundColor: Colors.black.withOpacity(.7),
-            systemUiOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-              statusBarColor: Colors.transparent,
-            ),
             onBackButtonPressed: Get.back,
+            systemUiOverlayStyle: overlayStyle,
           ),
           body: GestureDetector(
             onTap: () => _controller.showAppBar(),
