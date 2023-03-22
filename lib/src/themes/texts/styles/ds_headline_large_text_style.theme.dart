@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
 /// A Design System's [TextStyle] primarily used by large titles.
@@ -10,7 +11,7 @@ class DSHeadlineLargeTextStyle extends DSTextStyle {
   const DSHeadlineLargeTextStyle({
     super.color,
     super.overflow,
-    super.fontWeight,
+    super.fontWeight = DSFontWeights.bold,
   }) : super(
           fontSize: 20.0,
           height: 1.4,

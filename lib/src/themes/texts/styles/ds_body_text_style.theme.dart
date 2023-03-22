@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
 /// A Design System's [TextStyle] primarily used by body texts, like messages and inputs.
@@ -9,7 +8,7 @@ import 'ds_text_style.theme.dart';
 class DSBodyTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-16-p1 font variant.
   const DSBodyTextStyle({
-    super.fontWeight = DSFontWeights.regular,
+    super.fontWeight,
     super.color,
     super.decoration,
     super.overflow,
