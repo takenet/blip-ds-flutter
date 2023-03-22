@@ -51,12 +51,6 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            DSPrimaryButton(
-              onPressed: null,
-              leadingIcon: const Icon(Icons.data_array),
-              trailingIcon: const Icon(Icons.ac_unit_outlined),
-              label: 'Click here ' * 10,
-            ),
             SampleMessageBubbleShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTextStyleShowcase(),

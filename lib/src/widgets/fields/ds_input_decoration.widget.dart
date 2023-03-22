@@ -23,28 +23,32 @@ class DSInputDecoration extends StatelessWidget {
         onFocusChange: hasFocus,
         child: Obx(
           () => AnimatedContainer(
-            constraints: const BoxConstraints(
-              minHeight: 44.0,
-            ),
             duration: DSUtils.defaultAnimationDuration,
-            padding: padding,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(25),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(22.0),
+                ),
+                border: Border.all(
+                  width: 1.0,
+                  color: hasFocus.value
+                      ? DSColors.primaryMain
+                      : isEnabled
+                          ? DSColors.neutralMediumSilver
+                          : DSColors.neutralLightBox,
+                ),
+                color: isEnabled
+                    ? DSColors.neutralLightSnow
+                    : DSColors.neutralLightWhisper,
               ),
-              border: Border.all(
-                width: 1,
-                color: hasFocus.value
-                    ? DSColors.primaryMain
-                    : isEnabled
-                        ? DSColors.neutralMediumSilver
-                        : DSColors.neutralLightBox,
+              child: Container(
+                constraints: const BoxConstraints(
+                  minHeight: 44.0,
+                ),
+                padding: padding,
+                child: child,
               ),
-              color: isEnabled
-                  ? DSColors.neutralLightSnow
-                  : DSColors.neutralLightWhisper,
             ),
-            child: child,
           ),
         ),
       );

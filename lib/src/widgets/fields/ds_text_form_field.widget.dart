@@ -5,10 +5,9 @@ import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
 import 'ds_input_decoration.widget.dart';
 
-class DSTextFormField extends DSInputDecoration {
+class DSTextFormField extends StatelessWidget {
   DSTextFormField({
     super.key,
-    super.isEnabled,
     required this.controller,
     required this.hint,
     required this.onChanged,
@@ -18,6 +17,7 @@ class DSTextFormField extends DSInputDecoration {
     this.showEmojiButton = false,
     this.obscureText = false,
     this.focusNode,
+    this.isEnabled = true,
   });
 
   final TextEditingController controller;
@@ -29,71 +29,79 @@ class DSTextFormField extends DSInputDecoration {
   final bool showEmojiButton;
   final bool obscureText;
   final FocusNode? focusNode;
+  final bool isEnabled;
 
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) => DSInputDecoration(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 10,
+        padding: const EdgeInsets.only(
+          left: 12.0,
+          right: 6.0,
+          top: 10.0,
+          bottom: 10.0,
         ),
         child: Scrollbar(
           controller: _scrollController,
           radius: const Radius.circular(5),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxHeight: 100.0,
-                  ),
-                  child: TextFormField(
-                    controller: controller,
-                    scrollController: _scrollController,
-                    enabled: isEnabled,
-                    obscureText: obscureText,
-                    style: const DSBodyTextStyle(),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      hintText: hint,
-                      hintStyle: const DSBodyTextStyle(
-                        color: DSColors.neutralMediumElephant,
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 6.0,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 100.0,
                     ),
-                    cursorColor: DSColors.primaryMain,
-                    cursorHeight: 20.0,
-                    textCapitalization: textCapitalization,
-                    textInputAction: textInputAction,
-                    maxLines: obscureText ? 1 : maxLines,
-                    onChanged: onChanged,
-                    focusNode: focusNode,
+                    child: TextFormField(
+                      controller: controller,
+                      scrollController: _scrollController,
+                      enabled: isEnabled,
+                      obscureText: obscureText,
+                      style: const DSBodyTextStyle(),
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        hintText: hint,
+                        hintStyle: const DSBodyTextStyle(
+                          color: DSColors.neutralMediumSilver,
+                        ),
+                      ),
+                      cursorColor: DSColors.primaryMain,
+                      cursorHeight: 20.0,
+                      textCapitalization: textCapitalization,
+                      textInputAction: textInputAction,
+                      maxLines: obscureText ? 1 : maxLines,
+                      onChanged: onChanged,
+                      focusNode: focusNode,
+                    ),
                   ),
                 ),
-              ),
-              if (showEmojiButton)
-                IconButton(
-                  /// TODO: Implement to open emoji keyboard!!
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  splashRadius: 15,
-                  constraints: const BoxConstraints(),
-                  icon: Image.asset(
-                    'assets/images/emoji.png',
-                    package: DSUtils.packageName,
-                    height: 20.5,
-                    width: 20.5,
-                  ),
-                )
-            ],
+                if (showEmojiButton)
+                  IconButton(
+                    /// TODO: Implement to open emoji keyboard!!
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    splashRadius: 15,
+                    constraints: const BoxConstraints(),
+                    icon: Image.asset(
+                      'assets/images/emoji.png',
+                      package: DSUtils.packageName,
+                      height: 20.5,
+                      width: 20.5,
+                    ),
+                  )
+              ],
+            ),
           ),
         ),
       );

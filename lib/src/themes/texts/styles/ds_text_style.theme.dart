@@ -10,7 +10,7 @@ class DSTextStyle extends TextStyle {
     super.fontWeight,
     super.color,
     super.decoration,
-    super.overflow,
+    super.overflow = TextOverflow.ellipsis,
     super.height,
   }) : super(
           package: DSUtils.packageName,
