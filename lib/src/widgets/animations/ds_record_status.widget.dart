@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../themes/colors/ds_colors.theme.dart';
 
 class DSRecordStatus extends StatefulWidget {
   const DSRecordStatus({
@@ -54,11 +53,11 @@ class _DSRecordStatusState extends State<DSRecordStatus> {
       );
 
   Future<void> _updateRecordStatusFade() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(DSUtils.defaultAnimationDuration);
 
     shouldFadeIn.value = false;
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(DSUtils.defaultAnimationDuration);
 
     shouldFadeIn.value = true;
   }

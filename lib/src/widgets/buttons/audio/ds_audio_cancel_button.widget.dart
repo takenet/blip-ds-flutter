@@ -6,6 +6,7 @@ class DSAudioCancelButton extends DSTertiaryButton {
     super.key,
     super.onPressed,
     super.label,
+    super.isEnabled,
   }) : super(
           leadingIcon: const Icon(
             DSIcons.trash_outline,
