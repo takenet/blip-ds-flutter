@@ -1,5 +1,8 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../themes/colors/ds_colors.theme.dart';
+import '../../../utils/ds_utils.util.dart';
+import '../ds_tertiary_button.widget.dart';
 
 class DSAudioResumeButton extends DSTertiaryButton {
   DSAudioResumeButton({

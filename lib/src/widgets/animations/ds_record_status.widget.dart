@@ -1,8 +1,10 @@
 import 'dart:async';
 
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
 
 class DSRecordStatus extends StatefulWidget {
   const DSRecordStatus({

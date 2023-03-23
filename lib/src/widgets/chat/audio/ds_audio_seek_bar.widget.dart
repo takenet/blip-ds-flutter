@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../texts/ds_caption_text.widget.dart';
 
 class DSAudioSeekBar extends StatefulWidget {
   final Duration duration;

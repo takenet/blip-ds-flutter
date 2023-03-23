@@ -1,5 +1,7 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../../texts/ds_caption_text.widget.dart';
 
 class DSAudioSpeedButton extends StatelessWidget {
   final VoidCallback onTap;
