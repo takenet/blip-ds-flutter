@@ -34,6 +34,12 @@ class DSAudioMessageBubble extends StatelessWidget {
       borderRadius: borderRadius,
       align: align,
       style: style,
+      padding: const EdgeInsets.only(
+        left: 4.0,
+        right: 8.0,
+        top: 8.0,
+        bottom: 8.0,
+      ),
       child: DSAudioPlayer(
         uri: uri,
         uniqueId: uniqueId,

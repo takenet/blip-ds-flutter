@@ -79,10 +79,6 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       child: Stack(
         children: [
           Align(
-            alignment: Alignment.centerLeft,
-            child: _controlButtons(),
-          ),
-          Align(
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -90,6 +86,10 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
               ),
               child: _seekBar(),
             ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: _controlButtons(),
           ),
           Align(
             alignment: Alignment.centerRight,
