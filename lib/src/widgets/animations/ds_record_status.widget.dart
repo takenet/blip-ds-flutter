@@ -15,7 +15,7 @@ class DSRecordStatus extends StatefulWidget {
 
 class _DSRecordStatusState extends State<DSRecordStatus>
     with SingleTickerProviderStateMixin {
-  late final Timer? _timer;
+  late final Timer _timer;
 
   late final _animationController = AnimationController(
     vsync: this,
@@ -50,7 +50,7 @@ class _DSRecordStatusState extends State<DSRecordStatus>
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     _animationController.dispose();
 
     super.dispose();
