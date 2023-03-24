@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../utils/ds_utils.util.dart';
 
 class DSRecordStatus extends StatefulWidget {
   const DSRecordStatus({
@@ -15,52 +13,63 @@ class DSRecordStatus extends StatefulWidget {
   State<DSRecordStatus> createState() => _DSRecordStatusState();
 }
 
-class _DSRecordStatusState extends State<DSRecordStatus> {
-  final shouldFadeIn = RxBool(true);
-  Timer? timer;
+class _DSRecordStatusState extends State<DSRecordStatus>
+    with SingleTickerProviderStateMixin {
+  final _totalAnimationCycle = const Duration(seconds: 1);
+  late final Timer? _timer;
+
+  late final _animationController = AnimationController(
+    vsync: this,
+    duration: _getAnimationCycleByDividend(4),
+  );
+
+  late final _opacity = Tween<double>(
+    begin: 1.0,
+    end: 0.0,
+  ).animate(
+    CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.linear,
+    ),
+  );
 
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) => _updateRecordStatusFade(),
+    _timer = Timer.periodic(
+      _getAnimationCycleByDividend(2),
+      (_) => _animationController.isDismissed
+          ? _animationController.forward()
+          : _animationController.reverse(),
     );
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    _timer?.cancel();
+    _animationController.dispose();
 
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => Obx(
-        () => AnimatedOpacity(
-          opacity: shouldFadeIn.value ? 1.0 : 0.0,
-          duration: const Duration(
-            milliseconds: 200,
-          ),
-          child: Container(
-            width: 8.0,
-            height: 8.0,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: DSColors.extendRedsDelete,
-            ),
+  Widget build(BuildContext context) => FadeTransition(
+        opacity: _opacity,
+        child: Container(
+          width: 8.0,
+          height: 8.0,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: DSColors.extendRedsDelete,
           ),
         ),
       );
 
-  Future<void> _updateRecordStatusFade() async {
-    await Future.delayed(DSUtils.defaultAnimationDuration);
-
-    shouldFadeIn.value = false;
-
-    await Future.delayed(DSUtils.defaultAnimationDuration);
-
-    shouldFadeIn.value = true;
-  }
+  Duration _getAnimationCycleByDividend(
+    final int dividend,
+  ) =>
+      Duration(
+        milliseconds: (_totalAnimationCycle.inMilliseconds / dividend).ceil(),
+      );
 }
