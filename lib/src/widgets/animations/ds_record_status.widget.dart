@@ -15,12 +15,13 @@ class DSRecordStatus extends StatefulWidget {
 
 class _DSRecordStatusState extends State<DSRecordStatus>
     with SingleTickerProviderStateMixin {
-  final _totalAnimationCycle = const Duration(seconds: 1);
   late final Timer? _timer;
 
   late final _animationController = AnimationController(
     vsync: this,
-    duration: _getAnimationCycleByDividend(4),
+    duration: const Duration(
+      milliseconds: 200,
+    ),
   );
 
   late final _opacity = Tween<double>(
@@ -38,10 +39,12 @@ class _DSRecordStatusState extends State<DSRecordStatus>
     super.initState();
 
     _timer = Timer.periodic(
-      _getAnimationCycleByDividend(2),
-      (_) => _animationController.isDismissed
-          ? _animationController.forward()
-          : _animationController.reverse(),
+      const Duration(
+        milliseconds: 500,
+      ),
+      (_) => _animationController.isCompleted
+          ? _animationController.reverse()
+          : _animationController.forward(),
     );
   }
 
@@ -64,12 +67,5 @@ class _DSRecordStatusState extends State<DSRecordStatus>
             color: DSColors.extendRedsDelete,
           ),
         ),
-      );
-
-  Duration _getAnimationCycleByDividend(
-    final int dividend,
-  ) =>
-      Duration(
-        milliseconds: (_totalAnimationCycle.inMilliseconds / dividend).ceil(),
       );
 }
