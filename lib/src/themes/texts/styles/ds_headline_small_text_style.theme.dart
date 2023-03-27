@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../colors/ds_colors.theme.dart';
 import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
@@ -10,8 +9,8 @@ import 'ds_text_style.theme.dart';
 class DSHeadlineSmallTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-16-p1 font variant.
   const DSHeadlineSmallTextStyle({
-    super.color = DSColors.neutralDarkCity,
-    super.overflow = TextOverflow.ellipsis,
+    super.color,
+    super.overflow,
   }) : super(
           fontSize: 16.0,
           fontWeight: DSFontWeights.bold,

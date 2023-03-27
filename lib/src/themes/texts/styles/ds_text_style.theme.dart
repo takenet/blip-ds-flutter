@@ -1,14 +1,17 @@
-import 'package:blip_ds/src/themes/texts/utils/ds_font_families.theme.dart';
-import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/ds_utils.util.dart';
+import '../../colors/ds_colors.theme.dart';
+import '../utils/ds_font_families.theme.dart';
+import '../utils/ds_font_weights.theme.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [TextStyle].
 class DSTextStyle extends TextStyle {
   /// Creates a Design System's [TextStyle].
   const DSTextStyle({
     super.fontSize,
-    super.fontWeight,
-    super.color,
+    super.fontWeight = DSFontWeights.regular,
+    super.color = DSColors.neutralDarkCity,
     super.decoration,
     super.overflow = TextOverflow.ellipsis,
     super.height,

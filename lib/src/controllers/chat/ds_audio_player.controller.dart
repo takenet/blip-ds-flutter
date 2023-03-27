@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rx_dart;
 
-class DSAudioMessageBubbleController extends GetxController {
+class DSAudioPlayerController extends GetxController {
   final audioSpeed = RxDouble(1.0);
 
   final player = AudioPlayer();
