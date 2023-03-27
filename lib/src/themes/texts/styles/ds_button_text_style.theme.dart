@@ -10,7 +10,7 @@ class DSButtonTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-16-p1 font variant.
   const DSButtonTextStyle({
     required super.color,
-    super.overflow = TextOverflow.ellipsis,
+    super.overflow,
   }) : super(
           fontSize: 16.0,
           fontWeight: DSFontWeights.bold,
