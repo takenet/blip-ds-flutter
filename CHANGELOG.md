@@ -1,3 +1,31 @@
+## 0.0.39
+
+* New Widgets:
+  * DSRecordStatus
+  * DSAudioPlayer
+  * DSAudioSeekBar
+  * DSAudioSpeedButton
+  * DSAudioCancelButton
+  * DSAudioIconButton
+  * DSAudioResumeButton
+  * DSCustomRepliesIconButton
+  * DSInputDecoration
+* Changed Widgets:
+  * [DSRoundedPlayButton] Now it uses an SVG as the main icon.
+  * [DSPlayButton] Now it uses an SVG as the main icon.
+  * [DSPauseButton] Now it uses an SVG as the main icon.
+  * [DSButton] Changed padding between elements from 6.0 to 4.0.
+  * [DSAudioPlayerController] Renamed from DSAudioMessageBubbleController
+  * [DSAudioMessageBubble] The audio player (new DSAudioPlayer) was separated from this bubble, alongside with his seek bar and speed button.
+  * [DSTextFormField] The input decoration (new DSInputDecoration) was separated from this widget.
+* Miscellaneous:
+  * Fixed some properties default values.
+  * [Library] Removed comments to help indentation.
+  * [Pubspec] Replaced ffmpeg_kit_flutter_audio (deprecated) by ffmpeg_kit_flutter.
+* Tests
+  * Updated goldens.
+  
+
 ## 0.0.38
 
 * [DSMessageBubble] Added hasSpacer attribute
@@ -31,7 +59,7 @@
 
 ## 0.0.31
 
-* [DSText] Add selectable text feature
+* [DSText] Added selectable text feature
 
 ## 0.0.30
 
@@ -48,15 +76,15 @@
 
 ## 0.0.27
 
-* [DSDialogService] Improve readability
-* [DSToast] Fix icon size from undefined to 24.0
-* [DSGroupCard] Add scroll controller property
-* [DSLinearGradient] Add linear gradient widget
+* [DSDialogService] Improved readability
+* [DSToast] Fixed icon size from undefined to 24.0
+* [DSGroupCard] Added scroll controller property
+* [DSLinearGradient] Added linear gradient widget
 
 ## 0.0.26
 
-* [DSImageMessageBubble] Fix image loading container
-* [Sample] Update deployment target version of iOS from 11.0 to 12.1
+* [DSImageMessageBubble] Fixed image loading container
+* [Sample] Updated deployment target version of iOS from 11.0 to 12.1
 
 ## 0.0.25
 

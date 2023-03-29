@@ -174,11 +174,11 @@ class DSCard extends StatelessWidget {
 
     if (contentType.contains('audio')) {
       return DSAudioMessageBubble(
-        uri: content['uri'],
+        uri: Uri.parse(content['uri']),
         align: align,
         borderRadius: borderRadius,
         style: style,
-        uniqueId: messageId ?? DateTime.now().toIso8601String(),
+        uniqueId: messageId,
         audioType: content['type'],
       );
     } else if (contentType.contains('image')) {

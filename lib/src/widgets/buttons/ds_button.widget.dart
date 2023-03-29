@@ -140,7 +140,9 @@ class DSButton extends StatelessWidget {
       _contentList.insert(
         i,
         const Padding(
-          padding: EdgeInsets.only(right: 6.0),
+          padding: EdgeInsets.only(
+            right: 4.0,
+          ),
         ),
       );
     }

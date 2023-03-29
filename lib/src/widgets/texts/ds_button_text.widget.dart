@@ -17,6 +17,7 @@ class DSButtonText extends DSText {
   }) : super(
           style: DSButtonTextStyle(
             color: color,
+            overflow: overflow,
           ),
           shouldLinkify: false,
         );

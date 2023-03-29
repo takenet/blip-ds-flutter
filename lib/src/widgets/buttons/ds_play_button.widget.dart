@@ -1,30 +1,23 @@
-import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class DSPlayButton extends StatelessWidget {
-  final DSPlayButtonIconColor icon;
-  final VoidCallback onPressed;
+import '../../utils/ds_utils.util.dart';
+import 'ds_icon_button.widget.dart';
 
-  const DSPlayButton({Key? key, required this.icon, required this.onPressed})
-      : super(key: key);
+class DSPlayButton extends DSIconButton {
+  final Color color;
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      splashRadius: 1,
-      icon: icon == DSPlayButtonIconColor.neutralDarkRooftop
-          ? Image.asset(
-              'assets/images/play_neutral_light_snow.png',
-              package: DSUtils.packageName,
-            )
-          : Image.asset(
-              'assets/images/play_neutral_dark_rooftop.png',
-              package: DSUtils.packageName,
-            ),
-      iconSize: 42.0,
-      onPressed: onPressed,
-    );
-  }
+  DSPlayButton({
+    super.key,
+    required this.color,
+    required super.onPressed,
+    super.isLoading,
+  }) : super(
+          icon: SvgPicture.asset(
+            'assets/images/play.svg',
+            package: DSUtils.packageName,
+            color: color,
+            height: 24.0,
+          ),
+        );
 }
-
-enum DSPlayButtonIconColor { neutralDarkRooftop, neutralLightSnow }

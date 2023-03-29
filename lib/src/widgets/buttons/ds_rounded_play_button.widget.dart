@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 
 class DSRoundedPlayButton extends InkWell {
+  final DSAlign align;
+  final void Function() onPressed;
+
   DSRoundedPlayButton({
     super.key,
-    required final DSAlign align,
-    required void Function() onPressed,
+    required this.align,
+    required this.onPressed,
   }) : super(
           onTap: onPressed,
           child: Container(
@@ -29,12 +33,13 @@ class DSRoundedPlayButton extends InkWell {
               ),
             ),
             child: Center(
-              child: Image.asset(
-                align == DSAlign.right
-                    ? 'assets/images/play_neutral_light_snow.png'
-                    : 'assets/images/play_neutral_dark_rooftop.png',
-                height: 33,
+              child: SvgPicture.asset(
+                'assets/images/play.svg',
                 package: DSUtils.packageName,
+                color: align == DSAlign.right
+                    ? DSColors.neutralLightSnow
+                    : DSColors.neutralDarkCity,
+                height: 32,
               ),
             ),
           ),

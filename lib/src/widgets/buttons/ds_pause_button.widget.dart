@@ -1,36 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class DSPauseButton extends StatelessWidget {
-  final VoidCallback onPressed;
+import '../../utils/ds_utils.util.dart';
+import 'ds_icon_button.widget.dart';
+
+class DSPauseButton extends DSIconButton {
   final Color color;
 
-  const DSPauseButton({Key? key, required this.onPressed, required this.color})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      splashRadius: 1,
-      icon: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildVerticalBar(),
-          _buildVerticalBar(),
-        ],
-      ),
-      iconSize: 42.0,
-      onPressed: onPressed,
-    );
-  }
-
-  Widget _buildVerticalBar() {
-    return Container(
-      width: 9.0,
-      height: 26.0,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.all(Radius.circular(3.0)),
-      ),
-    );
-  }
+  DSPauseButton({
+    super.key,
+    required this.color,
+    required super.onPressed,
+    super.isLoading,
+  }) : super(
+          icon: SvgPicture.asset(
+            'assets/images/pause.svg',
+            package: DSUtils.packageName,
+            color: color,
+            height: 24.0,
+          ),
+        );
 }
