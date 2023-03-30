@@ -7,10 +7,10 @@ class DSProgressBar extends StatelessWidget {
   final double value;
 
   const DSProgressBar({
-    Key? key,
+    super.key,
     required this.width,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

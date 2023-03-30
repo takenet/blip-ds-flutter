@@ -1,3 +1,7 @@
+## 0.0.40
+
+* [DSProgressBar] Created the widget.
+
 ## 0.0.39
 
 * New Widgets:
