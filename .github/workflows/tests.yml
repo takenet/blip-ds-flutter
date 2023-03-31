@@ -6,20 +6,19 @@
 name: Tests
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
 
 jobs:
-  build:
+  tests:
+    name: Run Automated Tests
     runs-on: macos-latest
-
     steps:
       - uses: actions/checkout@v2
-
       - uses: subosito/flutter-action@v2.7.0
         with:
           flutter-version: '3.7.8'
-      - run: flutter pub get
-      - run: flutter test
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test

@@ -72,9 +72,23 @@ jobs:
           draft: false
           prerelease: false
           
+  tests:
+    name: Run Automated Tests
+    needs: create-release
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2.7.0
+        with:
+          flutter-version: '3.7.8'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test
+
   publish:
     name: Upload package to pub.dev
-    needs: create-release
+    needs: tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -82,10 +96,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.8'
-      - name: Install dependencies
-        run: flutter pub get
-      - name: Run tests
-        run: flutter test
       - name: Check Publish Warnings
         run: dart pub publish --dry-run
       - name: Publish
