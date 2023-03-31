@@ -1,3 +1,11 @@
+## 0.0.41
+
+* [DSProgressBar] Added animation in progress bar.
+
+## 0.0.40
+
+* [DSProgressBar] Created the widget.
+
 ## 0.0.39
 
 * New Widgets:
