@@ -1,3 +1,7 @@
+## 0.0.42
+
+* Pipeline Fix
+
 ## 0.0.41
 
 * [DSProgressBar] Added animation in progress bar.
