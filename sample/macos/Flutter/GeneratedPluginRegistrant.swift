@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import audio_session
-import ffmpeg_kit_flutter
+import ffmpeg_kit_flutter_full_gpl
 import just_audio
 import path_provider_foundation
 import sqflite
