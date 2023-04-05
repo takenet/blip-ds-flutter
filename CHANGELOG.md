@@ -1,3 +1,7 @@
+## 0.0.45
+
+* [DSAudioPlayer] Fixed audio player on iOS when reproducing .ogg files.
+
 ## 0.0.44
 
 * Pipeline Fix
