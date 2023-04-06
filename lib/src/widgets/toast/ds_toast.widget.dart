@@ -107,7 +107,7 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
 
   Widget _setIcon(final IconData icon) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Icon(
         icon,
         color: DSColors.neutralDarkCity,
@@ -125,15 +125,15 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
       child: Stack(
         children: [
           Positioned(
-            left: -15,
-            top: -2,
+            left: -15.0,
+            top: -2.0,
             child: SvgPicture.asset(
               'assets/images/blip_balloon.svg',
               package: DSUtils.packageName,
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(8.0),
@@ -146,7 +146,7 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 8,
+                      vertical: 8.0,
                       horizontal: 16.0,
                     ),
                     child: Column(
