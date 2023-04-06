@@ -5,7 +5,7 @@ name: CI
 # Controls when the workflow will run
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,12 +18,12 @@ jobs:
     outputs:
       tag: ${{ steps.gen-tag-step.outputs.tagname }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: jacopocarlini/action-autotag@2.0.4
-      id: gen-tag-step
-      with:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        tag_prefix: "v"
+      - uses: actions/checkout@v2
+      - uses: jacopocarlini/action-autotag@2.0.4
+        id: gen-tag-step
+        with:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          tag_prefix: 'v'
 
   generate-changelog:
     if: ${{ startsWith(needs.auto-gen-tag.outputs.tag, 'v') }}
@@ -48,7 +48,7 @@ jobs:
         with:
           name: changelog
           path: CHANGELOG.md
-  
+
   # This workflow contains a single job called "build"
   create-release:
     name: Draft Github release
@@ -71,7 +71,7 @@ jobs:
           body_path: CHANGELOG.md
           draft: false
           prerelease: false
-          
+
   tests:
     name: Run Automated Tests
     needs: create-release
