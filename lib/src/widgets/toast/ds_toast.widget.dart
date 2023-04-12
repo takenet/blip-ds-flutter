@@ -107,7 +107,7 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
 
   Widget _setIcon(final IconData icon) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Icon(
         icon,
         color: DSColors.neutralDarkCity,
@@ -125,83 +125,121 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
       child: Stack(
         children: [
           Positioned(
-            left: -15,
-            top: -2,
+            left: -15.0,
+            top: -2.0,
             child: SvgPicture.asset(
               'assets/images/blip_balloon.svg',
               package: DSUtils.packageName,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                if (icon != null) icon!,
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16.0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (props.title != null)
-                          DSHeadlineSmallText(
-                            props.title,
-                            overflow: TextOverflow.visible,
-                          ),
-                        if (props.message != null)
-                          DSBodyText(
-                            props.message,
-                            overflow: TextOverflow.visible,
-                          ),
-                      ],
+          if (props.actionType == DSToastActionType.icon)
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  if (icon != null) icon!,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 16.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (props.title != null)
+                            DSHeadlineSmallText(
+                              props.title,
+                              overflow: TextOverflow.visible,
+                            ),
+                          if (props.message != null)
+                            DSBodyText(
+                              props.message,
+                              overflow: TextOverflow.visible,
+                            ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _setMainButton(),
-              ],
+                  DSIconButton(
+                    size: 40.0,
+                    icon: const Icon(DSIcons.close_outline),
+                    onPressed: () {
+                      state!(() {
+                        _stopTimer();
+                        _controlAnimation = Control.playReverse;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
+          if (props.actionType == DSToastActionType.button)
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      if (icon != null) icon!,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 16.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (props.title != null)
+                                DSHeadlineSmallText(
+                                  props.title,
+                                  overflow: TextOverflow.visible,
+                                ),
+                              if (props.message != null)
+                                DSBodyText(
+                                  props.message,
+                                  overflow: TextOverflow.visible,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  DSTertiaryButton(
+                    label: props.buttonText,
+                    onPressed: () {
+                      props.onPressedButton!();
+                      state!(
+                        () {
+                          _stopTimer();
+                          _controlAnimation = Control.playReverse;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
-  }
-
-  /// Switches between exit button types
-  Widget _setMainButton() {
-    return props.actionType == DSToastActionType.icon
-        ? DSIconButton(
-            size: 40.0,
-            icon: const Icon(DSIcons.close_outline),
-            onPressed: () {
-              state!(() {
-                _stopTimer();
-                _controlAnimation = Control.playReverse;
-              });
-            },
-          )
-        : props.actionType == DSToastActionType.button
-            ? DSTertiaryButton(
-                label: props.buttonText,
-                onPressed: () {
-                  props.onPressedButton!();
-                  state!(
-                    () {
-                      _stopTimer();
-                      _controlAnimation = Control.playReverse;
-                    },
-                  );
-                },
-              )
-            : const SizedBox.shrink();
   }
 
   /// Create and manage the toast animation
