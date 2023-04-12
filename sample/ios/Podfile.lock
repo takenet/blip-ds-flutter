@@ -1,12 +1,12 @@
 PODS:
   - audio_session (0.0.1):
     - Flutter
-  - ffmpeg-kit-ios-https (5.1)
-  - ffmpeg_kit_flutter (5.1.0):
-    - ffmpeg_kit_flutter/https (= 5.1.0)
+  - ffmpeg-kit-ios-full-gpl (5.1)
+  - ffmpeg_kit_flutter_full_gpl (5.1.0):
+    - ffmpeg_kit_flutter_full_gpl/full-gpl (= 5.1.0)
     - Flutter
-  - ffmpeg_kit_flutter/https (5.1.0):
-    - ffmpeg-kit-ios-https (= 5.1)
+  - ffmpeg_kit_flutter_full_gpl/full-gpl (5.1.0):
+    - ffmpeg-kit-ios-full-gpl (= 5.1)
     - Flutter
   - Flutter (1.0.0)
   - FMDB (2.7.5):
@@ -31,7 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
-  - ffmpeg_kit_flutter (from `.symlinks/plugins/ffmpeg_kit_flutter/ios`)
+  - ffmpeg_kit_flutter_full_gpl (from `.symlinks/plugins/ffmpeg_kit_flutter_full_gpl/ios`)
   - Flutter (from `Flutter`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - open_filex (from `.symlinks/plugins/open_filex/ios`)
@@ -43,14 +43,14 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - ffmpeg-kit-ios-https
+    - ffmpeg-kit-ios-full-gpl
     - FMDB
 
 EXTERNAL SOURCES:
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
-  ffmpeg_kit_flutter:
-    :path: ".symlinks/plugins/ffmpeg_kit_flutter/ios"
+  ffmpeg_kit_flutter_full_gpl:
+    :path: ".symlinks/plugins/ffmpeg_kit_flutter_full_gpl/ios"
   Flutter:
     :path: Flutter
   just_audio:
@@ -70,8 +70,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
-  ffmpeg-kit-ios-https: 8dffbe1623a2f227be98fc314294847a97f818e4
-  ffmpeg_kit_flutter: 17e9f35a4ec996ac55051c20be05240f2a0b53e8
+  ffmpeg-kit-ios-full-gpl: 2682965e5b3e7f13a05836d46d302eafe6c5039e
+  ffmpeg_kit_flutter_full_gpl: 7dcfcdc419f4667252cde1871859976bca328169
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
@@ -82,6 +82,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 7adbc9d59f05e1b01f554ea99b6c79e97f2214a2
+PODFILE CHECKSUM: da491a8b7d2d8eef05b8be02236cf916620dd0f4
 
 COCOAPODS: 1.12.0
