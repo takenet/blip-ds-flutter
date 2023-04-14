@@ -12,6 +12,8 @@ class DSTextFormField extends StatelessWidget {
     required this.hint,
     required this.onChanged,
     this.textInputAction = TextInputAction.send,
+    this.onTap,
+    this.onTapOutside,
     this.maxLines,
     this.textCapitalization = TextCapitalization.sentences,
     this.showEmojiButton = false,
@@ -24,6 +26,8 @@ class DSTextFormField extends StatelessWidget {
   final String hint;
   final void Function(String) onChanged;
   final TextInputAction textInputAction;
+  final VoidCallback? onTap;
+  final void Function(PointerDownEvent)? onTapOutside;
   final int? maxLines;
   final TextCapitalization textCapitalization;
   final bool showEmojiButton;
@@ -83,6 +87,8 @@ class DSTextFormField extends StatelessWidget {
                       maxLines: obscureText ? 1 : maxLines,
                       onChanged: onChanged,
                       focusNode: focusNode,
+                      onTap: onTap,
+                      onTapOutside: onTapOutside,
                     ),
                   ),
                 ),

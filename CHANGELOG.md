@@ -1,3 +1,6 @@
+## 0.0.47
+
+* [DSTextFormField] Add onTap and onTapOutside on DSTextFormField.
 ## 0.0.46
 
 * [DSToast] Toast layout adjustment.
