@@ -24,10 +24,12 @@ class DSBottomSheetService {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Visibility(
-            visible: !hideGrabbler,
-            child: _grabber(),
-          ),
+          hideGrabbler
+              ? Container(
+                  height: 15.0,
+                  decoration: _border(),
+                )
+              : _grabber(),
           fixedHeader ?? const SizedBox.shrink(),
           _buildChild(controller),
         ],
