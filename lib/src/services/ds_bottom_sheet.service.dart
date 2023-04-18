@@ -26,7 +26,7 @@ class DSBottomSheetService {
         children: [
           hideGrabbler
               ? Container(
-                  height: 15.0,
+                  height: 7.0,
                   decoration: _border(),
                 )
               : _grabber(),
