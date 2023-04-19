@@ -1,3 +1,8 @@
+## 0.0.48
+
+* [DSTextFormField] Add hasFocus on DSTextFormField.
+* [DSInputDecoration] Add hasFocus on DSInputDecoration.
+
 ## 0.0.47
 
 * [DSTextFormField] Add onTap and onTapOutside on DSTextFormField.
