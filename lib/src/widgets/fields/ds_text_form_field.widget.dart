@@ -11,6 +11,7 @@ class DSTextFormField extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.onChanged,
+    required this.hasFocus,
     this.textInputAction = TextInputAction.send,
     this.onTap,
     this.onTapOutside,
@@ -34,11 +35,13 @@ class DSTextFormField extends StatelessWidget {
   final bool obscureText;
   final FocusNode? focusNode;
   final bool isEnabled;
+  final bool hasFocus;
 
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) => DSInputDecoration(
+        hasFocus: focusNode?.hasFocus,
         padding: const EdgeInsets.only(
           left: 12.0,
           right: 6.0,
@@ -66,6 +69,7 @@ class DSTextFormField extends StatelessWidget {
                       scrollController: _scrollController,
                       enabled: isEnabled,
                       obscureText: obscureText,
+                      focusNode: focusNode,
                       style: const DSBodyTextStyle(),
                       decoration: InputDecoration(
                         isDense: true,
@@ -86,7 +90,6 @@ class DSTextFormField extends StatelessWidget {
                       textInputAction: textInputAction,
                       maxLines: obscureText ? 1 : maxLines,
                       onChanged: onChanged,
-                      focusNode: focusNode,
                       onTap: onTap,
                       onTapOutside: onTapOutside,
                     ),
