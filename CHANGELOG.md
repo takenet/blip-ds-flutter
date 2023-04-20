@@ -1,7 +1,6 @@
 ## 0.0.48
 
-* [DSTextFormField] Add hasFocus on DSTextFormField.
-* [DSInputDecoration] Add hasFocus on DSInputDecoration.
+* [DSTextFormField] Fixing focus on DSTextFormField.
 
 ## 0.0.47
 
