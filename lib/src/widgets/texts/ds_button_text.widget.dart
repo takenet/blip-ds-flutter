@@ -11,6 +11,7 @@ class DSButtonText extends DSText {
     required super.color,
     super.key,
     super.overflow,
+    super.fontStyle,
     super.textAlign,
     super.maxLines,
     super.isSelectable,
@@ -18,6 +19,7 @@ class DSButtonText extends DSText {
           style: DSButtonTextStyle(
             color: color,
             overflow: overflow,
+            fontStyle: fontStyle,
           ),
           shouldLinkify: false,
         );
@@ -27,6 +29,7 @@ class DSButtonText extends DSText {
     required super.color,
     super.key,
     super.overflow,
+    super.fontStyle,
     super.textAlign,
     super.maxLines,
     super.isSelectable,
@@ -34,6 +37,7 @@ class DSButtonText extends DSText {
           style: DSButtonTextStyle(
             color: color,
             overflow: overflow,
+            fontStyle: fontStyle,
           ),
           shouldLinkify: false,
         );

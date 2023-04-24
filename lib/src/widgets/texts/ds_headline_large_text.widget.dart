@@ -15,6 +15,7 @@ class DSHeadlineLargeText extends DSText {
     super.textAlign,
     super.maxLines,
     super.fontWeight,
+    super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
   }) : super(
@@ -22,6 +23,7 @@ class DSHeadlineLargeText extends DSText {
             color: color,
             overflow: overflow,
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
           ),
         );
 
@@ -34,6 +36,7 @@ class DSHeadlineLargeText extends DSText {
     super.textAlign,
     super.maxLines,
     super.fontWeight,
+    super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
   }) : super.rich(
@@ -41,6 +44,7 @@ class DSHeadlineLargeText extends DSText {
             color: color,
             overflow: overflow,
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
           ),
         );
 }

@@ -12,6 +12,7 @@ class DSHeadlineLargeTextStyle extends DSTextStyle {
     super.color,
     super.overflow,
     super.fontWeight = DSFontWeights.bold,
+    super.fontStyle,
   }) : super(
           fontSize: 20.0,
           height: 1.4,

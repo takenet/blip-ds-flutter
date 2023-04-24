@@ -11,6 +11,7 @@ class DSTextStyle extends TextStyle {
   const DSTextStyle({
     super.fontSize,
     super.fontWeight = DSFontWeights.regular,
+    super.fontStyle = FontStyle.normal,
     super.color = DSColors.neutralDarkCity,
     super.decoration,
     super.overflow = TextOverflow.ellipsis,
