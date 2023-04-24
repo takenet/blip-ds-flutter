@@ -18,13 +18,12 @@ class DSInputPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return DSInputDecoration(
         child: InternationalPhoneNumberInput(
+      searchBoxDecoration: const InputDecoration(hoverColor: Colors.red), inputBorder: InputBorder.,
       hintText: hintText,
       initialValue: number,
       keyboardType:
           const TextInputType.numberWithOptions(signed: true, decimal: true),
       textFieldController: controller,
-      
-      formatInput: true, //??
       maxLength: 15,
       onInputChanged: (PhoneNumber number) {
         number.phoneNumber;
