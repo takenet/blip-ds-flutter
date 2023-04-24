@@ -1,3 +1,7 @@
+## 0.0.48
+
+* [DSTextFormField] Fixing focus on DSTextFormField.
+
 ## 0.0.47
 
 * [DSTextFormField] Add onTap and onTapOutside on DSTextFormField.
