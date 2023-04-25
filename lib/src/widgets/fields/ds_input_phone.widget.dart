@@ -2,6 +2,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 //import 'package:blip_ds/src/widgets/fields/ds_input_decoration.widget.dart';
 
@@ -30,24 +31,21 @@ class DSInputPhone extends StatelessWidget {
         ),
       ),
       child: InternationalPhoneNumberInput(
-        searchBoxDecoration: const InputDecoration(
-            //icon: DSIcons.arrow_drop_down_circle,
-
-            ),
         inputDecoration: const InputDecoration(
+          hintText: "Número de telefone",
+          hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
           border: InputBorder.none,
         ),
         cursorColor: DSColors.primaryMain,
         selectorTextStyle: const TextStyle(
           color: DSColors.neutralMediumElephant,
         ),
-        textStyle:
-            const TextStyle(fontSize: 16.0, color: DSColors.neutralDarkCity),
         spaceBetweenSelectorAndTextField: 8.0,
-        hintText: "teste",
-        initialValue: number, 
-        keyboardType:
-            const TextInputType.numberWithOptions(signed: true, decimal: true,),
+        initialValue: number,
+        //keyboardType: TextInputType.phone,
+        //   signed: true,
+        //   decimal: true,
+
         textFieldController: controller,
         maxLength: 15,
         onInputChanged: (PhoneNumber number) {
@@ -56,4 +54,9 @@ class DSInputPhone extends StatelessWidget {
       ),
     );
   }
+
+  final maskFormatter = MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 }
