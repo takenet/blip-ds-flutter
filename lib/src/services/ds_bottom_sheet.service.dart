@@ -26,12 +26,14 @@ class DSBottomSheetService {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          hideGrabber
-              ? Container(
-                  height: 7.0,
-                  decoration: _border(),
-                )
-              : _grabber(),
+          Visibility(
+            visible: !hideGrabber,
+            replacement: Container(
+              height: 7.0,
+              decoration: _border(),
+            ),
+            child: _grabber(),
+          ),
           fixedHeader ?? const SizedBox.shrink(),
           _buildChild(controller),
         ],
