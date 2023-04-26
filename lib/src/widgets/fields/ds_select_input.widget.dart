@@ -36,7 +36,6 @@ class DSSelectInput extends StatelessWidget {
             child: TextField(
               keyboardType: TextInputType.none,
               showCursor: false,
-              textInputAction: TextInputAction.none,
               focusNode: focusNode,
               controller: controller,
               onChanged: onChanged,
