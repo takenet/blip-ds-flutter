@@ -1,4 +1,5 @@
 import '../../themes/texts/styles/ds_headline_large_text_style.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import 'ds_text.widget.dart';
 
 /// A Design System's [Text] primarily used by large titles.
@@ -14,7 +15,7 @@ class DSHeadlineLargeText extends DSText {
     super.overflow,
     super.textAlign,
     super.maxLines,
-    super.fontWeight,
+    super.fontWeight = DSFontWeights.bold,
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
@@ -35,7 +36,7 @@ class DSHeadlineLargeText extends DSText {
     super.overflow,
     super.textAlign,
     super.maxLines,
-    super.fontWeight,
+    super.fontWeight = DSFontWeights.bold,
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
