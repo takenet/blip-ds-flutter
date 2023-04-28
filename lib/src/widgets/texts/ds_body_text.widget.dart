@@ -10,6 +10,7 @@ class DSBodyText extends DSText {
     super.text, {
     super.key,
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.linkColor,
     super.overflow,
@@ -21,6 +22,7 @@ class DSBodyText extends DSText {
   }) : super(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
             color: color,
             decoration: decoration,
             overflow: overflow,
@@ -31,6 +33,7 @@ class DSBodyText extends DSText {
     super.textSpan, {
     super.key,
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.linkColor,
     super.overflow,
@@ -42,6 +45,7 @@ class DSBodyText extends DSText {
   }) : super.rich(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
             color: color,
             decoration: decoration,
             overflow: overflow,

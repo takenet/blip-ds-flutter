@@ -12,6 +12,7 @@ class DSHeadlineSmallText extends DSText {
     super.color,
     super.linkColor,
     super.overflow,
+    super.fontStyle,
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
@@ -20,6 +21,7 @@ class DSHeadlineSmallText extends DSText {
           style: DSHeadlineSmallTextStyle(
             color: color,
             overflow: overflow,
+            fontStyle: fontStyle,
           ),
         );
 
@@ -29,6 +31,7 @@ class DSHeadlineSmallText extends DSText {
     super.color,
     super.linkColor,
     super.overflow,
+    super.fontStyle,
     super.textAlign,
     super.maxLines,
     super.shouldLinkify,
@@ -37,6 +40,7 @@ class DSHeadlineSmallText extends DSText {
           style: DSHeadlineSmallTextStyle(
             color: color,
             overflow: overflow,
+            fontStyle: fontStyle,
           ),
         );
 }

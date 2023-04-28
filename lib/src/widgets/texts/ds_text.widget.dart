@@ -10,6 +10,7 @@ class DSText extends StatelessWidget {
   final InlineSpan? textSpan;
   final TextStyle style;
   final FontWeight? fontWeight;
+  final FontStyle? fontStyle;
   final Color color;
   final Color linkColor;
   final TextOverflow? overflow;
@@ -25,6 +26,7 @@ class DSText extends StatelessWidget {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
+    this.fontStyle = FontStyle.normal,
     this.color = DSColors.neutralDarkCity,
     this.linkColor = DSColors.primaryNight,
     this.overflow = TextOverflow.ellipsis,
@@ -40,6 +42,7 @@ class DSText extends StatelessWidget {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
+    this.fontStyle = FontStyle.normal,
     this.color = DSColors.neutralDarkCity,
     this.linkColor = DSColors.primaryNight,
     this.overflow = TextOverflow.ellipsis,
