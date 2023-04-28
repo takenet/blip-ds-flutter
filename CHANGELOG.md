@@ -3,7 +3,7 @@
 * Add font style prop to typography widgets.
 * [DSBottomsheetService] Improve grabber visibility.
 * [DSHeadlineLargeText] Fix default font weight.
-* [DSSelectInput] Fix TextInputAction on iOS.
+* [DSSelectInput] Add select field (LOV) widget.
 
 ## 0.0.48
 
