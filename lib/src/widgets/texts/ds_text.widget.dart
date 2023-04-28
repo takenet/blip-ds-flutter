@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../utils/ds_linkify.util.dart';
 
 /// A container that has some default properties which should be extended by others Design System's [Text].
@@ -25,7 +24,7 @@ class DSText extends StatelessWidget {
     this.text, {
     required this.style,
     super.key,
-    this.fontWeight = DSFontWeights.regular,
+    this.fontWeight,
     this.fontStyle = FontStyle.normal,
     this.color = DSColors.neutralDarkCity,
     this.linkColor = DSColors.primaryNight,
@@ -41,7 +40,7 @@ class DSText extends StatelessWidget {
     this.textSpan, {
     required this.style,
     super.key,
-    this.fontWeight = DSFontWeights.regular,
+    this.fontWeight,
     this.fontStyle = FontStyle.normal,
     this.color = DSColors.neutralDarkCity,
     this.linkColor = DSColors.primaryNight,
