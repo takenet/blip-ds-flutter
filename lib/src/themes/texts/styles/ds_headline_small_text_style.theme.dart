@@ -11,6 +11,7 @@ class DSHeadlineSmallTextStyle extends DSTextStyle {
   const DSHeadlineSmallTextStyle({
     super.color,
     super.overflow,
+    super.fontStyle,
   }) : super(
           fontSize: 16.0,
           fontWeight: DSFontWeights.bold,

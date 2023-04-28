@@ -10,6 +10,7 @@ class DSCaptionSmallText extends DSText {
     super.text, {
     super.key,
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.linkColor,
     super.overflow,
@@ -20,6 +21,7 @@ class DSCaptionSmallText extends DSText {
   }) : super(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
             color: color,
             overflow: overflow,
           ),
@@ -29,6 +31,7 @@ class DSCaptionSmallText extends DSText {
     super.textSpan, {
     super.key,
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.linkColor,
     super.overflow,
@@ -39,6 +42,7 @@ class DSCaptionSmallText extends DSText {
   }) : super.rich(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
             color: color,
             overflow: overflow,
           ),

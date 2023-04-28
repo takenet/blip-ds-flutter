@@ -11,6 +11,7 @@ class DSButtonTextStyle extends DSTextStyle {
   const DSButtonTextStyle({
     required super.color,
     super.overflow,
+    super.fontStyle,
   }) : super(
           fontSize: 16.0,
           fontWeight: DSFontWeights.bold,

@@ -12,8 +12,10 @@ class DSBottomSheetService {
     this.fixedHeader,
   });
 
-  Widget _buildBottomSheet(
-      {ScrollController? controller, final bool hideGrabbler = false}) {
+  Widget _buildBottomSheet({
+    ScrollController? controller,
+    final bool hideGrabber = false,
+  }) {
     final window = WidgetsBinding.instance.window;
 
     return Container(
@@ -25,7 +27,11 @@ class DSBottomSheetService {
         mainAxisSize: MainAxisSize.min,
         children: [
           Visibility(
-            visible: !hideGrabbler,
+            visible: !hideGrabber,
+            replacement: Container(
+              height: 7.0,
+              decoration: _border(),
+            ),
             child: _grabber(),
           ),
           fixedHeader ?? const SizedBox.shrink(),
@@ -111,7 +117,7 @@ class DSBottomSheetService {
       builder: (_) => WillPopScope(
         onWillPop: () async => false,
         child: _buildBottomSheet(
-          hideGrabbler: true,
+          hideGrabber: true,
         ),
       ),
       enableDrag: false,
