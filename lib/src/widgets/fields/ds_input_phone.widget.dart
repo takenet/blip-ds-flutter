@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+//import '../../models/ds_input_phone.model.dart';
 
 class DSInputPhone extends StatefulWidget {
   final String? hintText;
@@ -16,8 +19,10 @@ class DSInputPhone extends StatefulWidget {
 }
 
 class _DSInputPhoneState extends State<DSInputPhone> {
-  List<DropdownMenu> list = ;
-  String dropDownValue = list.first;
+  // List<DSInputPhoneModel> countries = getDSInputPhoneModel(){
+
+  // };
+  // String dropDownValue = countries.first;
   // final String initialCountry = 'BR';
 
   // final PhoneNumber number = PhoneNumber(isoCode: 'BR');
@@ -40,17 +45,32 @@ class _DSInputPhoneState extends State<DSInputPhone> {
         ),
         child: Row(
           children: [
-            DropdownButton<String>(
-                icon: SvgPicture.asset(
-                  'assets/svg/brazil_flag.svg',
+            // DropdownButton<String>(
+            //     icon: SvgPicture.asset(
+            //       'assets/svg/brazil_flag.svg',
+            //     ),
+            //     items: items,
+            //     onChanged: (String? value) {
+            //       setState(() {
+            //         dropDownValue = value!;
+            //       });
+            //     }),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: TextFormField(
+                autofocus: true,
+                keyboardType: TextInputType.phone, //ou usar o .number??
+                showCursor: true,
+                cursorColor: DSColors.primaryMain,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Número de telefone',
+                  hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
                 ),
-                items: items,
-                onChanged: (String? value) {
-                  setState(() {
-                    dropDownValue = value!;
-                  });
-                }),
-                const TextField(keyboardType: TextInputType.phone,showCursor: true,cursorColor: DSColors.primaryMain,),
+                inputFormatters: [maskFormatter],
+              ),
+            ),
           ],
         )
 
@@ -78,4 +98,9 @@ class _DSInputPhoneState extends State<DSInputPhone> {
         // ),
         );
   }
+
+  dynamic maskFormatter = MaskTextInputFormatter(
+      mask: '+# (##) #####-####', //rever esses valores
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 }
