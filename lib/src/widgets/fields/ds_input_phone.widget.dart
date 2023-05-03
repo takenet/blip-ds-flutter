@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/models/ds_input_phone.model.dart';
@@ -25,36 +25,33 @@ class DSInputPhone extends StatefulWidget {
 }
 
 class _DSInputPhoneState extends State<DSInputPhone> {
-  // List<DSInputPhoneModel> countries = getDSInputPhoneModel(){
-
-  // };
   // String dropDownValue = countries.first;
   // final String initialCountry = 'BR';
 
   // final PhoneNumber number = PhoneNumber(isoCode: 'BR');
 
   // final TextEditingController controller = TextEditingController();
-  late List<DSInputPhoneModel> _inputPhoneModel = [];
-//final String dropDownFirst = _inputPhoneModel.first;
+  late List<DSInputPhoneModel> _listInputPhoneModel = [];
+  String? dropdownValue;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      final jsonString = await DefaultAssetBundle.of(context)
-          .loadString('jsons/countries.json');
-      final Map<String, dynamic> jsonMap =
-          const JsonDecoder().convert(jsonString);
-      _inputPhoneModel = (jsonMap['data'] as List)
-          .map((e) => DSInputPhoneModel.fromMap(e))
-          .toList();
+      final jsonString = await rootBundle.loadString(
+        'packages/${DSUtils.packageName}/assets/jsons/countries.json',
+      );
+      final List<dynamic> jsonMap = const JsonDecoder().convert(jsonString);
+      _listInputPhoneModel =
+          jsonMap.map((e) => DSInputPhoneModel.fromMap(e)).toList();
+      setState(() {});
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    return Expanded(
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
@@ -70,40 +67,62 @@ class _DSInputPhoneState extends State<DSInputPhone> {
           ),
           child: Row(
             children: [
-              DropdownButton<String>(
-                underline: const SizedBox.shrink(),
-                icon: const Icon(DSIcons.arrow_ball_down_outline),
-                items: _inputPhoneModel.map<DropdownMenuItem<String>>(
-                  (DSInputPhoneModel value) {
-                    return DropdownMenuItem<String>(
-                      value: value.code,
-                      child: Row(
-                        children: const [
-                          SizedBox(width: 10.0),
-                        ],
-                      ),
-                    );
-                  },
-                ).toList(),
-                onChanged: (String? value) {
-                  setState(() {
-                    //dropDownFirst = value!;
-                  });
-                },
-                selectedItemBuilder: (BuildContext context) {
-                  return _inputPhoneModel
-                      .map<SvgPicture>((DSInputPhoneModel value) =>
-                          SvgPicture.asset(
-                              'assets/svg/flags/${value.flag}.svg'))
-                      .toList();
-                },
-              ),
               Expanded(
+                //TODO verificar o expanded
+                child: DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(
+                    DSIcons.arrow_down_outline,
+                    size: 16.0,
+                  ),
+                  elevation: 16, //verificar
+                  //style:
+                  underline: const SizedBox.shrink(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                  selectedItemBuilder: (BuildContext context) {
+                    return _listInputPhoneModel
+                        .map<SvgPicture>(
+                            (DSInputPhoneModel value) => SvgPicture.asset(
+                                  'assets/svg/flags/${value.flag}.svg',
+                                  width: 22.0,
+                                  height: 16.0,
+                                  package: DSUtils.packageName,
+                                ))
+                        .toList();
+                  },
+                  items: _listInputPhoneModel.map<DropdownMenuItem<String>>(
+                    (DSInputPhoneModel value) {
+                      return DropdownMenuItem<String>(
+                        value: value.code,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/svg/flags/${value.flag}.svg',
+                              package: DSUtils.packageName,
+                              width: 22.0,
+                              height: 16.0,
+                            ),
+                            const SizedBox(width: 5.0),
+                            Text(value.code),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+              Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: TextFormField(
                     autofocus: true,
-                    keyboardType: TextInputType.phone, //ou usar o .number??
+                    keyboardType:
+                        TextInputType.phone, //TODO ou usar o .number??
                     showCursor: true,
                     cursorColor: DSColors.primaryMain,
                     decoration: const InputDecoration(
