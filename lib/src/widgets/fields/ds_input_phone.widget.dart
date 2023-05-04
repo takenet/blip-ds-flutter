@@ -23,13 +23,10 @@ class DSInputPhone extends StatefulWidget {
 }
 
 class _DSInputPhoneState extends State<DSInputPhone> {
-  // final String initialCountry = 'BR';
-
-  // final PhoneNumber number = PhoneNumber(isoCode: 'BR');
-
   // final TextEditingController controller = TextEditingController();
   List<DSCountry> _listCountries = [];
   final dropdownValue = Rx<DSCountry?>(null);
+  DSCountry? country;
 
   @override
   void initState() {
@@ -49,49 +46,12 @@ class _DSInputPhoneState extends State<DSInputPhone> {
     return Obx(
       () => Row(
         children: [
-          DropdownButton<DSCountry>(
-            //isExpanded: true,
-            value: dropdownValue.value,
+          DSIconButton(
+            onPressed: () {},
             icon: const Icon(
               DSIcons.arrow_down_outline,
               size: 16.0,
             ),
-            elevation: 16, //verificar
-            //style:
-            underline: const SizedBox.shrink(),
-            onChanged: (value) => dropdownValue.value = value!,
-            selectedItemBuilder: (BuildContext context) {
-              return _listCountries
-                  .map<SvgPicture>(
-                    (country) => SvgPicture.asset(
-                      'assets/svg/flags/${country.flag}.svg',
-                      width: 22.0,
-                      height: 16.0,
-                      package: DSUtils.packageName,
-                    ),
-                  )
-                  .toList();
-            },
-            items: _listCountries
-                .map<DropdownMenuItem<DSCountry>>(
-                  (country) => DropdownMenuItem<DSCountry>(
-                    value: country,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/flags/${country.flag}.svg',
-                          package: DSUtils.packageName,
-                          width: 22.0,
-                          height: 16.0,
-                        ),
-                        const SizedBox(width: 5.0),
-                        Expanded(child: Text(country.code)),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
           ),
           Flexible(
             child: Padding(
@@ -103,7 +63,8 @@ class _DSInputPhoneState extends State<DSInputPhone> {
                 cursorColor: DSColors.primaryMain,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Número de telefone',
+                  hintText:
+                      'Número de telefone', //TODO colocar variavel hint aqui
                   hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
                 ),
                 inputFormatters: [maskFormatter],
@@ -111,6 +72,52 @@ class _DSInputPhoneState extends State<DSInputPhone> {
             ),
           ),
         ],
+// DropdownButton<DSCountry>(
+        //   //isExpanded: true,
+        //   value: dropdownValue.value,
+        //   icon: const Icon(
+        //     DSIcons.arrow_down_outline,
+        //     size: 16.0,
+        //   ),
+        //   elevation: 16, //verificar
+        //   //style:
+        //   underline: const SizedBox.shrink(),
+        //   onChanged: (value) => dropdownValue.value = value!,
+        //   selectedItemBuilder: (BuildContext context) {
+        //     return _listCountries
+        //         .map<SvgPicture>(
+        //           (country) => SvgPicture.asset(
+        //             'assets/svg/flags/${country.flag}.svg',
+        //             width: 22.0,
+        //             height: 16.0,
+        //             package: DSUtils.packageName,
+        //           ),
+        //         )
+        //         .toList();
+        //   },
+        //   items: _listCountries
+        //       .map<DropdownMenuItem<DSCountry>>(
+        //         (country) => DropdownMenuItem<DSCountry>(
+        //           value: country,
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               SvgPicture.asset(
+        //                 'assets/svg/flags/${country.flag}.svg',
+        //                 package: DSUtils.packageName,
+        //                 width: 22.0,
+        //                 height: 16.0,
+        //               ),
+        //               const SizedBox(width: 5.0),
+        //               Flexible(
+        //                 child: Text(country.code),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       )
+        //       .toList(),
+        // ),
 
         // InternationalPhoneNumberInput(
         //   inputDecoration: const InputDecoration(
@@ -139,7 +146,7 @@ class _DSInputPhoneState extends State<DSInputPhone> {
   }
 
   dynamic maskFormatter = MaskTextInputFormatter(
-      mask: '+# (##) #####-####', //TODO rever esses valores
+      mask: '(##) #####-####', //TODO rever esses valores
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 }
