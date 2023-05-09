@@ -10,6 +10,7 @@ class DSAppSearchInput extends StatelessWidget {
     this.controller,
     this.showSuffixIcon = true,
     this.hintText,
+    this.color = DSColors.disabledBg,
   });
 
   final void Function(String term) onSearch;
@@ -18,6 +19,7 @@ class DSAppSearchInput extends StatelessWidget {
   final TextEditingController? controller;
   final bool showSuffixIcon;
   final String? hintText;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,9 @@ class DSAppSearchInput extends StatelessWidget {
             ),
             child: Container(
               padding: const EdgeInsets.all(2.0),
-              decoration: const BoxDecoration(
-                color: DSColors.disabledBg,
-                borderRadius: BorderRadius.all(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: const BorderRadius.all(
                   Radius.circular(8.0),
                 ),
               ),

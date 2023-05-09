@@ -3,7 +3,7 @@ class DSCountry {
   final String name;
   final String flag;
 
-  DSCountry({
+  const DSCountry({
     required this.code,
     required this.name,
     required this.flag,

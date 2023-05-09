@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/fields/ds_app_search_input.widget.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../models/ds_country.model.dart';
+import '../ds_bottomsheet_countries.widget.dart';
 
 class DSInputPhone extends StatefulWidget {
   final String? hintText;
@@ -24,38 +20,21 @@ class DSInputPhone extends StatefulWidget {
 }
 
 class _DSInputPhoneState extends State<DSInputPhone> {
-  final TextEditingController controller = TextEditingController();
-  List<DSCountry> _listCountries = [];
-  final _filterCountries = RxList<DSCountry>([]);
-  final dropdownValue = Rx<DSCountry?>(null);
-  final selectedCountry = Rxn<DSCountry>();
-  final showClearButton = RxBool(false);
-  final 
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      final jsonString = await rootBundle.loadString(
-        'packages/${DSUtils.packageName}/assets/jsons/countries.json',
-      );
-      final jsonMap = jsonDecode(jsonString) as List;
-      _listCountries = jsonMap.map((e) => DSCountry.fromJson(e)).toList();
-      _filterCountries.assignAll(_listCountries);
-      dropdownValue.value = _listCountries.first;
-    });
-  }
+  final dropdownValue =
+      Rx<DSCountry>(DSBottomSheetCountries.listCountries.first);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         DSTertiaryButton(
-          leadingIcon: SvgPicture.asset(
-            'assets/svg/flags/${_listCountries.first.flag}.svg',
-            width: 22.0,
-            height: 16.0,
-            package: DSUtils.packageName,
+          leadingIcon: Obx(
+            () => SvgPicture.asset(
+              'assets/svg/flags/${dropdownValue.value.flag}.svg',
+              width: 22.0,
+              height: 16.0,
+              package: DSUtils.packageName,
+            ),
           ),
           trailingIcon: const Padding(
             padding: EdgeInsets.only(left: 4.0),
@@ -65,32 +44,47 @@ class _DSInputPhoneState extends State<DSInputPhone> {
             ),
           ),
           onPressed: () async {
-            final result = await _bottomSheetCountries();
+            final result = await DSBottomSheetCountries.show();
+            dropdownValue.value = result;
           },
+        ),
+        Obx(
+          () => DSBodyText(
+            dropdownValue.value.code,
+            color: DSColors.neutralMediumElephant,
+          ),
         ),
         Flexible(
           child: Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: TextFormField(
-              autofocus: true,
-              keyboardType: TextInputType.phone, //TODO ou usar o .number??
-              showCursor: true,
-              cursorColor: DSColors.primaryMain,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText:
-                    'Número de telefone', //TODO colocar variavel hint aqui
-                hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
-              ),
+            child: Obx(
+              () => TextFormField(
+                style: const TextStyle(
+                    fontSize: 16.0,
+                    color: DSColors.neutralDarkCity,
+                    fontFamily: DSFontFamilies.nunitoSans),
+                autofocus: true,
+                keyboardType: TextInputType.phone, //TODO ou usar o .number??
+                showCursor: true,
+                cursorColor: DSColors.primaryMain,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText:
+                      'Número de telefone', //TODO colocar variavel hint aqui
+                  hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
+                ),
 
-              //inputFormatters: _listCountries.first.flag
-              //? [maskFormatterBrazil]
-              //: [maskFormatter],
+                inputFormatters: [
+                  dropdownValue.value.flag == 'brazil_flag'
+                      ? maskFormatterBrazil
+                      : maskFormatter
+                ],
+              ),
             ),
           ),
         ),
       ],
-// DropdownButton<DSCountry>(
+      // DropdownButton<DSCountry>(
       //   //isExpanded: true,
       //   value: dropdownValue.value,
       //   icon: const Icon(
@@ -162,93 +156,94 @@ class _DSInputPhoneState extends State<DSInputPhone> {
     );
   }
 
-  _bottomSheetCountries() { //TODO colocar outro arquivo 
-    return DSBottomSheetService(
-      fixedHeader: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: SafeArea(
-              top: false,
-              bottom: false,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DSHeadlineLargeText(
-                    'País',
-                  ),
-                  DSIconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(DSIcons.close_outline,
-                        color: DSColors.neutralDarkRooftop),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const DSDivider(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              16.0,
-              8.0,
-              16.0,
-              8.0,
-            ),
-            child: Obx(
-              () => DSAppSearchInput(
-                onSearch: _onSearch,
-                onClear: _onClear,
-                showSuffixIcon: showClearButton.value,
-                controller: controller,
-              ),
-            ),
-          ),
-          const DSDivider(),
-        ],
-      ),
-      context: Get.context!,
-      builder: (_) => _builderCountries(),
-    ).show();
-  }
+  // _bottomSheetCountries() {
+  //   //TODO colocar outro arquivo
+  //   return DSBottomSheetService(
+  //     fixedHeader: Column(
+  //       children: [
+  //         Padding(
+  //           padding: const EdgeInsets.only(left: 16.0),
+  //           child: SafeArea(
+  //             top: false,
+  // bottom: false,
+  // child: Row(
+  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //   children: [
+  //     DSHeadlineLargeText(
+  //       'País',
+  //     ),
+  //     DSIconButton(
+  //       onPressed: () {
+  //         Get.back();
+  //       },
+  //       icon: const Icon(DSIcons.close_outline,
+  //           color: DSColors.neutralDarkRooftop),
+  //         ),
+  //       ],
+  //     ),
+  //   ),
+  // ),
+  // const DSDivider(),
+  // Padding(
+  //   padding: const EdgeInsets.fromLTRB(
+  //     16.0,
+  //     8.0,
+  //   16.0,
+  //   8.0,
+  // ),
+  // child: Obx(
+  //   () => DSAppSearchInput(
+  //     onSearch: _onSearch,
+  //     onClear: _onClear,
+  //     showSuffixIcon: showClearButton.value,
+  //     controller: controller,
+  //             ),
+  //           ),
+  //         ),
+  //         const DSDivider(),
+  //       ],
+  //     ),
+  //     context: Get.context!,
+  //     builder: (_) => _builderCountries(),
+  //   ).show();
+  // }
 
-  _onSearch(String searchString) {
-    showClearButton.value = searchString.isNotEmpty;
-    _filterCountries.assignAll(
-      _listCountries.where((country) =>
-          country.name.toLowerCase().contains(searchString.toLowerCase()) ||
-          country.code.toLowerCase().contains(searchString.toLowerCase())),
-    );
-  }
+  // _onSearch(String searchString) {
+  //   showClearButton.value = searchString.isNotEmpty;
+  //   _filterCountries.assignAll(
+  //     _listCountries.where((country) =>
+  //         country.name.toLowerCase().contains(searchString.toLowerCase()) ||
+  //         country.code.toLowerCase().contains(searchString.toLowerCase())),
+  //   );
+  // }
 
-  _onClear() {
-    _filterCountries.assignAll(_listCountries);
-    controller.clear();
-    showClearButton.value = false;
-  }
+  // _onClear() {
+  //   _filterCountries.assignAll(_listCountries);
+  //   controller.clear();
+  //   showClearButton.value = false;
+  // }
 
-  Widget _builderCountries() {
-    return Obx(
-      () => ListView.builder(
-        itemBuilder: (_, index) {
-          final country = _filterCountries[index];
-          return Obx(
-            () => DSRadioTile<DSCountry>(
-              value: country,
-              onChanged: (value) {
-                selectedCountry.value = value!;
-                Get.back(result: selectedCountry.value);
-              },
-              title: Text(_listCountries[index].code),
-              groupValue: selectedCountry.value,
-            ),
-          );
-        },
-        itemCount: _filterCountries.length,
-      ),
-    );
-  }
+  // Widget _builderCountries() { //FOI P/ o OUTRO ARQUIVO
+  //   return Obx(
+  //     () => ListView.builder(
+  //       itemBuilder: (_, index) {
+  //         final country = _filterCountries[index];
+  //         return Obx(
+  //           () => DSRadioTile<DSCountry>(
+  //             value: country,
+  //             onChanged: (value) {
+  //               selectedCountry.value = value!;
+  //               Get.back(result: selectedCountry.value);
+  //             },
+  //             title: Text(_listCountries[index].code),
+  //             groupValue: selectedCountry.value,
+  //           ),
+  //         );
+  //       },
+  //       itemCount: _filterCountries.length,
+  //     ),
+  //   );
+  // }
 
   //   List <DSCountry> countries =
   //       .map<DropdownMenuItem<DSCountry>>(
@@ -275,7 +270,7 @@ class _DSInputPhoneState extends State<DSInputPhone> {
   // ), dscheck box title ver page preferencias
 
   dynamic maskFormatterBrazil = MaskTextInputFormatter(
-      mask: '(##) #####-####', //TODO rever esses valores
+      mask: '(##) ####-#####', //TODO rever esses valores
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
