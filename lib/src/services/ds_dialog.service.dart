@@ -28,6 +28,8 @@ class DSDialogService {
     this.secondaryButton,
   });
 
+  static bool hasDialogOpen({BuildContext? context}) => Get.isDialogOpen ?? false;
+
   /// Shows a [DSDialogType.warning] dialog box type
   Future<T?> showWarning<T>() => _show<T>(
         type: DSDialogType.warning,
