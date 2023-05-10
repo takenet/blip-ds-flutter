@@ -11,7 +11,6 @@ abstract class DSBottomSheetCountries {
   static final _filterCountries = RxList<DSCountry>([]);
   static final TextEditingController controller = TextEditingController();
   static final selectedCountry = Rxn<DSCountry>();
-  //static final DSListCountries list = DSListCountries.listCountries;
 
   static show() async {
     _filterCountries.assignAll(listCountries);

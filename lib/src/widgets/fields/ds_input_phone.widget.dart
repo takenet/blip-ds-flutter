@@ -22,81 +22,79 @@ class DSInputPhone extends StatefulWidget {
 class _DSInputPhoneState extends State<DSInputPhone> {
   final dropdownValue =
       Rx<DSCountry>(DSBottomSheetCountries.listCountries.first);
-  // dynamic textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        DSTertiaryButton(
-          leadingIcon: Obx(
-            () => SvgPicture.asset(
-              'assets/svg/flags/${dropdownValue.value.flag}.svg',
-              width: 22.0,
-              height: 16.0,
-              package: DSUtils.packageName,
+    return Container(
+      child: Row(
+        children: [
+          DSTertiaryButton(
+            leadingIcon: Obx(
+              () => SvgPicture.asset(
+                'assets/svg/flags/${dropdownValue.value.flag}.svg',
+                width: 22.0,
+                height: 16.0,
+                package: DSUtils.packageName,
+              ),
+            ),
+            trailingIcon: const Padding(
+              padding: EdgeInsets.only(left: 4.0),
+              child: Icon(
+                DSIcons.arrow_down_outline,
+                size: 16.0,
+              ),
+            ),
+            onPressed: () async {
+              final result = await DSBottomSheetCountries.show();
+              dropdownValue.value = result;
+              final mask = result.name == 'Brasil'
+                  ? '(##) ####-#####'
+                  : '#################';
+              maskFormatter.updateMask(mask: mask);
+            },
+          ),
+          Obx(
+            () => DSBodyText(
+              dropdownValue.value.code,
+              color: DSColors.neutralMediumElephant,
             ),
           ),
-          trailingIcon: const Padding(
-            padding: EdgeInsets.only(left: 4.0),
-            child: Icon(
-              DSIcons.arrow_down_outline,
-              size: 16.0,
-            ),
-          ),
-          onPressed: () async {
-            final result = await DSBottomSheetCountries.show();
-            dropdownValue.value = result;
-          },
-        ),
-        Obx(
-          () => DSBodyText(
-            dropdownValue.value.code,
-            color: DSColors.neutralMediumElephant,
-          ),
-        ),
-        Flexible(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Obx(
-              () => TextFormField(
-                // controller: textEditingController =
-                //     maskFormatter.updateMask(mask: '(##) #####-####'),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: TextFormField(
+                onChanged: (value) {
+                  final phoneNumber = value.replaceAll(RegExp('[^0-9]'), '');
+                  final mask = phoneNumber.length >= 10
+                      ? '(##) #####-####'
+                      : '(##) ####-#####';
+                  maskFormatter.updateMask(mask: mask);
+                },
                 style: const TextStyle(
                     fontSize: 16.0,
                     color: DSColors.neutralDarkCity,
                     fontFamily: DSFontFamilies.nunitoSans),
                 autofocus: true,
-                keyboardType: TextInputType.phone, //TODO ou usar o .number??
+                keyboardType: TextInputType.phone,
                 showCursor: true,
                 cursorColor: DSColors.primaryMain,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText:
-                      'Número de telefone', //TODO colocar variavel hint aqui
-                  hintStyle: DSBodyTextStyle(color: DSColors.neutralMediumWave),
+                  hintText: widget.hintText ?? 'Número de telefone',
+                  hintStyle:
+                      const DSBodyTextStyle(color: DSColors.neutralMediumWave),
                 ),
-
-                inputFormatters: [
-                  dropdownValue.value.flag == 'brazil_flag'
-                      ? maskFormatterBrazil
-                      : maskFormatter
-                ],
+                inputFormatters: [maskFormatter],
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  dynamic maskFormatterBrazil = MaskTextInputFormatter(
-      mask: '(##) ####-####', //TODO rever esses valores
-      filter: {"#": RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
-
-  dynamic maskFormatter = MaskTextInputFormatter(
-      mask: '#######-####', //TODO rever esses valores
+  final maskFormatter = MaskTextInputFormatter(
+      mask: '(##) ####-####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 }
