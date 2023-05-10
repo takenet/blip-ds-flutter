@@ -21,7 +21,7 @@ class DSHeadlineLargeText extends DSText {
           style: DSHeadlineLargeTextStyle(
             color: color,
             overflow: overflow,
-            fontWeight: fontWeight,
+            //fontWeight: fontWeight,
           ),
         );
 
