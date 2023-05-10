@@ -9,6 +9,7 @@ class DSBodyTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-16-p1 font variant.
   const DSBodyTextStyle({
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.decoration,
     super.overflow,

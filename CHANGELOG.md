@@ -1,3 +1,10 @@
+## 0.0.49
+
+* Add font style prop to typography widgets.
+* [DSBottomsheetService] Improve grabber visibility.
+* [DSHeadlineLargeText] Fix default font weight.
+* [DSSelectInput] Add select field (LOV) widget.
+
 ## 0.0.48
 
 * [DSTextFormField] Fixing focus on DSTextFormField.

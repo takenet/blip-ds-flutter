@@ -6,6 +6,7 @@ import 'ds_text_style.theme.dart';
 class DSCaptionTextStyle extends DSTextStyle {
   const DSCaptionTextStyle({
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.decoration,
     super.overflow,

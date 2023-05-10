@@ -9,6 +9,7 @@ class DSCaptionSmallTextStyle extends DSTextStyle {
   /// Creates a Design System's [TextStyle] with $fs-12-p3 font variant.
   const DSCaptionSmallTextStyle({
     super.fontWeight,
+    super.fontStyle,
     super.color,
     super.overflow,
   }) : super(
