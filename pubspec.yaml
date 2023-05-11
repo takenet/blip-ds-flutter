@@ -48,7 +48,6 @@ flutter:
   
   assets:
     - assets/images/
-    - assets/jsons/countries.json
     - assets/svg/flags/
     
   fonts:
