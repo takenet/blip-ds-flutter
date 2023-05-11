@@ -16,11 +16,11 @@ class DSBottomSheetService {
     ScrollController? controller,
     final bool hideGrabber = false,
   }) {
-    final window = WidgetsBinding.instance.window;
+    final view = View.of(context);
 
     return Container(
       margin: EdgeInsets.only(
-        top: MediaQueryData.fromWindow(window).padding.top + 10,
+        top: MediaQueryData.fromView(view).padding.top + 10,
       ),
       decoration: _border(),
       child: Column(
