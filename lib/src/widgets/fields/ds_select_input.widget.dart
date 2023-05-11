@@ -14,6 +14,8 @@ class DSSelectInput extends StatelessWidget {
     this.showSuffixIcon = true,
     this.hintText,
     this.padding = EdgeInsets.zero,
+    this.textInputType = TextInputType.none,
+    this.showCursor = false,
   });
 
   final void Function(String term)? onChanged;
@@ -23,6 +25,8 @@ class DSSelectInput extends StatelessWidget {
   final bool showSuffixIcon;
   final String? hintText;
   final EdgeInsets padding;
+  final TextInputType textInputType;
+  final bool showCursor;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +38,8 @@ class DSSelectInput extends StatelessWidget {
           child: SizedBox(
             height: 44.0,
             child: TextField(
-              keyboardType: TextInputType.none,
-              showCursor: false,
+              keyboardType: textInputType,
+              showCursor: showCursor,
               focusNode: focusNode,
               controller: controller,
               onChanged: onChanged,

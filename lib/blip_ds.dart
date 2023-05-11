@@ -55,6 +55,7 @@ export 'src/widgets/animations/ds_record_status.widget.dart'
 export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
 export 'src/widgets/animations/ds_spinner_loading.widget.dart'
     show DSSpinnerLoading;
+export 'src/widgets/borders/ds_dashed_border.widget.dart' show DSDashedBorder;
 export 'src/widgets/buttons/audio/ds_audio_cancel_button.widget.dart'
     show DSAudioCancelButton;
 export 'src/widgets/buttons/audio/ds_audio_icon_button.widget.dart'
