@@ -69,7 +69,7 @@ class DSText extends StatelessWidget {
         );
       } else if (span is TextSpan) {
         formattedText = DSLinkify.textSpan(
-          textSpan: span as TextSpan,
+          span: span!,
           defaultStyle: style,
           linkColor: linkColor,
         );
