@@ -7,7 +7,7 @@ import '../../utils/ds_linkify.util.dart';
 /// A container that has some default properties which should be extended by others Design System's [Text].
 class DSText extends StatelessWidget {
   final String? text;
-  final InlineSpan? textSpan;
+  final InlineSpan? span;
   final TextStyle style;
   final FontWeight? fontWeight;
   final FontStyle? fontStyle;
@@ -35,10 +35,10 @@ class DSText extends StatelessWidget {
     this.maxLines,
     this.shouldLinkify = true,
     this.isSelectable = false,
-  }) : textSpan = null;
+  }) : span = null;
 
   const DSText.rich(
-    this.textSpan, {
+    this.span, {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
@@ -57,7 +57,7 @@ class DSText extends StatelessWidget {
   Widget build(BuildContext context) =>
       isSelectable ? _buildSelectableText() : _buildText();
 
-  TextSpan get _formattedText {
+  InlineSpan get _formattedText {
     List<InlineSpan>? formattedText;
 
     if (shouldLinkify) {
@@ -67,15 +67,15 @@ class DSText extends StatelessWidget {
           defaultStyle: style,
           linkColor: linkColor,
         );
-      } else if (textSpan != null) {
+      } else if (span is TextSpan) {
         formattedText = DSLinkify.textSpan(
-          textSpan: textSpan!,
+          textSpan: span as TextSpan,
           defaultStyle: style,
           linkColor: linkColor,
         );
       }
     } else {
-      formattedText = [textSpan ?? TextSpan(text: text)];
+      formattedText = [span ?? TextSpan(text: text)];
     }
 
     return TextSpan(
@@ -93,5 +93,8 @@ class DSText extends StatelessWidget {
         style: style,
         textAlign: textAlign,
         maxLines: maxLines,
+        textHeightBehavior: const TextHeightBehavior(
+          leadingDistribution: TextLeadingDistribution.even,
+        ),
       );
 }

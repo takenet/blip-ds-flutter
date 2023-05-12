@@ -17,12 +17,12 @@ abstract class DSLinkify {
     );
   }
 
-  static List<InlineSpan> textSpan({
-    required InlineSpan textSpan,
+  static List<TextSpan> textSpan({
+    required TextSpan textSpan,
     TextStyle? defaultStyle,
     Color? linkColor,
   }) {
-    final List<InlineSpan> formattedText = [];
+    final List<TextSpan> formattedText = [];
 
     textSpan.visitChildren(
       (child) {
