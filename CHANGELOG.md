@@ -1,3 +1,7 @@
+## 0.0.51
+
+- [DSDialogService] Fixed hasDialogOpen method. Created isDialogOpen property instead.
+
 ## 0.0.50
 
 - [DSDialogService] Create hasDialogOpen method.
