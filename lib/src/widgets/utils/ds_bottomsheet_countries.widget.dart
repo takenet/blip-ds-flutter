@@ -8,7 +8,7 @@ import '../fields/ds_app_search_input.widget.dart';
 abstract class DSBottomSheetCountries {
   static final showClearButton = RxBool(false);
   static final _filterCountries = RxList<DSCountry>([]);
-  static final TextEditingController controller = TextEditingController();
+  static final controller = TextEditingController();
   static final selectedCountry = Rxn<DSCountry>();
 
   static show() async {
