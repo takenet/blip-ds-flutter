@@ -1,3 +1,7 @@
+## 0.0.52
+
+- [DSSelectInput] Create a default scrollPhysics option.
+
 ## 0.0.51
 
 - [DSDialogService] Fixed hasDialogOpen method. Created isDialogOpen property instead.
