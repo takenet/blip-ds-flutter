@@ -14,6 +14,7 @@ class DSSelectInput extends StatelessWidget {
     this.showSuffixIcon = true,
     this.hintText,
     this.padding = EdgeInsets.zero,
+    this.scrollPhysics = const NeverScrollableScrollPhysics(),
   });
 
   final void Function(String term)? onChanged;
@@ -23,6 +24,7 @@ class DSSelectInput extends StatelessWidget {
   final bool showSuffixIcon;
   final String? hintText;
   final EdgeInsets padding;
+  final ScrollPhysics scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class DSSelectInput extends StatelessWidget {
                   color: DSColors.neutralMediumElephant,
                 ),
               ),
+              scrollPhysics: scrollPhysics,
             ),
           ),
         ),
