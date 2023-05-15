@@ -104,17 +104,13 @@ abstract class DSBottomSheetCountries {
                     },
                     title: Row(
                       children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/svg/flags/${country.flag}.svg',
-                              width: 22.0,
-                              height: 16.0,
-                              package: DSUtils.packageName,
-                            ),
-                            DSBodyText(' ${country.name} '),
-                          ],
+                        SvgPicture.asset(
+                          'assets/svg/flags/${country.flag}.svg',
+                          width: 22.0,
+                          height: 16.0,
+                          package: DSUtils.packageName,
                         ),
+                        DSBodyText(' ${country.name} '),
                         DSBodyText(country.code),
                       ],
                     ),
