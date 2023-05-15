@@ -103,7 +103,6 @@ abstract class DSBottomSheetCountries {
                       Get.back(result: selectedCountry.value);
                     },
                     title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           children: [
