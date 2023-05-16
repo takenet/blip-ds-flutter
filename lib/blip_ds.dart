@@ -18,6 +18,7 @@ export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
@@ -99,6 +100,9 @@ export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
     show DSTypingDotAnimation;
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
     show DSTypingAnimationMessageBubble;
+export 'src/widgets/chat/video/ds_video_body.widget.dart' show DSVideoBody;
+export 'src/widgets/chat/video/ds_video_error.dialog.dart'
+    show DSVideoErrorDialog;
 export 'src/widgets/chat/video/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
@@ -134,4 +138,3 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/chat/video/ds_video_body.widget.dart' show DSVideoBody;

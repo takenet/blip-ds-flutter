@@ -16,6 +16,7 @@ class DSSelectInput extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.textInputType = TextInputType.none,
     this.showCursor = false,
+    this.absorbing = true,
   });
 
   final void Function(String term)? onChanged;
@@ -27,6 +28,7 @@ class DSSelectInput extends StatelessWidget {
   final EdgeInsets padding;
   final TextInputType textInputType;
   final bool showCursor;
+  final bool absorbing;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class DSSelectInput extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AbsorbPointer(
+          absorbing: absorbing,
           child: SizedBox(
             height: 44.0,
             child: TextField(
