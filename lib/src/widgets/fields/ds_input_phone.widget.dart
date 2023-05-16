@@ -58,8 +58,8 @@ class _DSInputPhoneState extends State<DSInputPhone> {
               onPressed: () async {
                 final result = await DSBottomSheetCountries.show();
                 dropdownValue.value = result;
-                final mask = result.name == 'Brasil' ? mask1 : mask2;
-                maskFormatter.updateMask(mask: mask);
+                final maskBr = result.name == 'Brasil' ? mask1 : mask2;
+                maskFormatter.updateMask(mask: maskBr);
               },
             ),
             Obx(
@@ -74,7 +74,11 @@ class _DSInputPhoneState extends State<DSInputPhone> {
                 child: TextFormField(
                   onChanged: (value) {
                     final phoneNumber = value.replaceAll(RegExp('[^0-9]'), '');
-                    final mask = phoneNumber.length >= 10 ? mask3 : mask1;
+                    final mask = dropdownValue.value.name != 'Brasil'
+                        ? mask2
+                        : phoneNumber.length >= 10
+                            ? mask1
+                            : mask3;
                     maskFormatter.updateMask(mask: mask);
                   },
                   style: const TextStyle(
