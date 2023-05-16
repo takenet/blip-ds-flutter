@@ -58,8 +58,8 @@ class _DSInputPhoneState extends State<DSInputPhone> {
               onPressed: () async {
                 final result = await DSBottomSheetCountries.show();
                 dropdownValue.value = result;
-                final maskBr = result.name == 'Brasil' ? mask1 : mask2;
-                maskFormatter.updateMask(mask: maskBr);
+                final mask = result.name == 'Brasil' ? mask1 : mask2;
+                maskFormatter.updateMask(mask: mask);
               },
             ),
             Obx(
