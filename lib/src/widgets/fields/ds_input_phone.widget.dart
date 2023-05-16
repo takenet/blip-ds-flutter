@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../models/ds_country.model.dart';
-import '../ds_bottomsheet_countries.widget.dart';
+import '../utils/ds_bottomsheet_countries.widget.dart';
 
 class DSInputPhone extends StatefulWidget {
   final String? hintText;

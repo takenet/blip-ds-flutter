@@ -9,7 +9,7 @@ abstract class DSBottomSheetCountries {
   static final showClearButton = RxBool(false);
   static final _filterCountries = RxList<DSCountry>([]);
   static final controller = TextEditingController();
-  static final selectedCountry = Rxn<DSCountry>();
+  static final selectedCountry = Rxn<DSCountry?>();
 
   static show() async {
     _filterCountries.assignAll(listCountries);
