@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             const SampleWeblinkShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            const SampleInputPhoneShowcase(),
+            const SampleInputShowcase(),
           ],
         ),
       ),

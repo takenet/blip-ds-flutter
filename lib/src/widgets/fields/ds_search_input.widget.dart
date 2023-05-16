@@ -1,8 +1,8 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-class DSAppSearchInput extends StatelessWidget {
-  const DSAppSearchInput({
+class DSSearchInput extends StatelessWidget {
+  const DSSearchInput({
     super.key,
     required this.onSearch,
     required this.onClear,

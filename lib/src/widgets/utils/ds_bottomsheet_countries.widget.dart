@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../blip_ds.dart';
 import '../../models/ds_country.model.dart';
-import '../fields/ds_app_search_input.widget.dart';
+import '../fields/ds_search_input.widget.dart';
 
 abstract class DSBottomSheetCountries {
   static final showClearButton = RxBool(false);
@@ -11,12 +11,13 @@ abstract class DSBottomSheetCountries {
   static final controller = TextEditingController();
   static final selectedCountry = Rxn<DSCountry?>();
 
-  static show() async {
+  static show() {
     _filterCountries.assignAll(listCountries);
+    selectedCountry.value ??= _filterCountries.first;
     return _bottomSheetCountries();
   }
 
-  static _bottomSheetCountries() {
+  static Future<void> _bottomSheetCountries() {
     return DSBottomSheetService(
       fixedHeader: Column(
         children: [
@@ -33,7 +34,9 @@ abstract class DSBottomSheetCountries {
                   ),
                   DSIconButton(
                     onPressed: () {
-                      Get.back();
+                      Get.back(
+                        result: selectedCountry.value,
+                      );
                     },
                     icon: const Icon(DSIcons.close_outline,
                         color: DSColors.neutralDarkRooftop),
@@ -51,7 +54,7 @@ abstract class DSBottomSheetCountries {
               8.0,
             ),
             child: Obx(
-              () => DSAppSearchInput(
+              () => DSSearchInput(
                 color: DSColors.neutralLightSnow,
                 hintText: 'Buscar por nome do país ou código',
                 onSearch: _onSearch,
@@ -69,7 +72,7 @@ abstract class DSBottomSheetCountries {
     ).show();
   }
 
-  static _onSearch(String searchString) {
+  static Future<void> _onSearch(String searchString) async {
     showClearButton.value = searchString.isNotEmpty;
     _filterCountries.assignAll(
       listCountries.where((country) =>
@@ -78,7 +81,7 @@ abstract class DSBottomSheetCountries {
     );
   }
 
-  static _onClear() {
+  static Future<void> _onClear() async {
     _filterCountries.assignAll(listCountries);
     controller.clear();
     showClearButton.value = false;

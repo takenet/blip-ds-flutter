@@ -7,23 +7,21 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../models/ds_country.model.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
-class DSInputPhone extends StatefulWidget {
+class DSInputPhone extends StatelessWidget {
   final String? hintText;
 
-  const DSInputPhone({
+  DSInputPhone({
     super.key,
     this.hintText,
   });
 
-  @override
-  State<DSInputPhone> createState() => _DSInputPhoneState();
-}
-
-class _DSInputPhoneState extends State<DSInputPhone> {
   final dropdownValue =
       Rx<DSCountry>(DSBottomSheetCountries.listCountries.first);
-  final String mask1 = '(##) ####-#####';
+
+  final String mask1 = '(##) #####-####';
+
   final String mask2 = '#################';
+
   final String mask3 = '(##) #####-####';
 
   @override
@@ -90,7 +88,7 @@ class _DSInputPhoneState extends State<DSInputPhone> {
                   cursorColor: DSColors.primaryMain,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: widget.hintText ?? 'Número de telefone',
+                    hintText: hintText ?? 'Número de telefone',
                     hintStyle: const DSBodyTextStyle(
                         color: DSColors.neutralMediumWave),
                   ),
