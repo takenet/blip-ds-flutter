@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blip_ds/src/widgets/chat/video/ds_video_body.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -163,7 +165,16 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                 appBarText: widget.appBarText,
                                 uniqueId: widget.uniqueId,
                                 url: widget.url,
-                                thumbnail: _controller.thumbnail.value,
+                                thumbnail: Center(
+                                  child: Image.file(
+                                    File(
+                                      _controller.thumbnail.value,
+                                    ),
+                                    width: 240,
+                                    height: 240,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
               ),
             ),

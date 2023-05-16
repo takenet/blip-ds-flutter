@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../../../../blip_ds.dart';
@@ -20,22 +18,13 @@ class DSVideoBody extends StatelessWidget {
   final Uri? appBarPhotoUri;
   final String url;
   final String uniqueId;
-  final String thumbnail;
+  final Widget thumbnail;
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Center(
-          child: Image.file(
-            File(
-              thumbnail,
-            ),
-            width: 240,
-            height: 240,
-            fit: BoxFit.cover,
-          ),
-        ),
+        thumbnail,
         Center(
           child: DSRoundedPlayButton(
             align: align,
