@@ -55,7 +55,6 @@ class DSInputPhone extends StatelessWidget {
                 () => SvgPicture.asset(
                   'assets/svg/flags/${dropdownValue.value.flag}.svg',
                   width: 22.0,
-                  height: 16.0,
                   package: DSUtils.packageName,
                 ),
               ),
