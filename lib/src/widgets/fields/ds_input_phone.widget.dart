@@ -21,14 +21,18 @@ class DSInputPhone extends StatelessWidget {
     this.hintText,
   });
 
-  final dropdownValue =
-      Rx<DSCountry>(DSBottomSheetCountries.listCountries.first);
+  final dropdownValue = Rx<DSCountry>(DSUtils.countriesList.first);
+  final inputController = TextEditingController();
 
-  final String mask1 = '(##) #####-####';
+  // TODO: get masks considering selected country.
+  final defaultMask = '#################';
+  final tenDigitsMask = '(##) ####-#####';
+  final elevenDigitsMask = '(##) #####-####';
 
-  final String mask2 = '#################';
-
-  final String mask3 = '(##) #####-####';
+  late final maskFormatter = MaskTextInputFormatter(
+    mask: tenDigitsMask,
+    filter: {"#": RegExp(r'[0-9]')},
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,10 @@ class DSInputPhone extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 1.0, color: DSColors.neutralMediumWave),
+            border: Border.all(
+              width: 1.0,
+              color: DSColors.neutralMediumWave,
+            ),
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             color: DSColors.neutralLightSnow),
         child: Row(
@@ -60,10 +67,11 @@ class DSInputPhone extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                final result = await DSBottomSheetCountries.show();
-                dropdownValue.value = result;
-                final mask = result.name == 'Brasil' ? mask1 : mask2;
-                maskFormatter.updateMask(mask: mask);
+                dropdownValue.value = await DSBottomSheetCountries.show();
+
+                updatePhoneMask(
+                  phoneNumber: inputController.text,
+                );
               },
             ),
             Obx(
@@ -74,22 +82,20 @@ class DSInputPhone extends StatelessWidget {
             ),
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                ),
                 child: TextFormField(
-                  onChanged: (value) {
-                    final phoneNumber = value.replaceAll(RegExp('[^0-9]'), '');
-                    final mask = dropdownValue.value.name != 'Brasil'
-                        ? mask2
-                        : phoneNumber.length >= 10
-                            ? mask1
-                            : mask3;
-                    maskFormatter.updateMask(mask: mask);
-                  },
+                  controller: inputController,
+                  onChanged: (value) => updatePhoneMask(
+                    phoneNumber: value,
+                  ),
                   style: const TextStyle(
-                      fontSize: 16.0,
-                      color: DSColors.neutralDarkCity,
-                      fontFamily: DSFontFamilies.nunitoSans),
-                  keyboardType: TextInputType.phone,
+                    fontSize: 16.0,
+                    color: DSColors.neutralDarkCity,
+                    fontFamily: DSFontFamilies.nunitoSans,
+                  ),
+                  keyboardType: TextInputType.number,
                   showCursor: true,
                   cursorColor: DSColors.primaryMain,
                   decoration: InputDecoration(
@@ -108,8 +114,15 @@ class DSInputPhone extends StatelessWidget {
     );
   }
 
-  final maskFormatter = MaskTextInputFormatter(
-      mask: '(##) ####-####',
-      filter: {"#": RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
+  void updatePhoneMask({
+    required String phoneNumber,
+  }) {
+    inputController.value = maskFormatter.updateMask(
+      mask: dropdownValue.value.name != 'Brasil'
+          ? defaultMask
+          : phoneNumber.replaceAll(RegExp('[^0-9]'), '').length <= 10
+              ? tenDigitsMask
+              : elevenDigitsMask,
+    );
+  }
 }
