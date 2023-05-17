@@ -6,6 +6,20 @@ class SampleInputShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DSInputPhone();
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
+      child: Wrap(
+        runSpacing: 8.0,
+        children: [
+          DSInputPhone(),
+          DSSearchInput(
+            onClear: () {},
+            onSearch: (_) {},
+          ),
+        ],
+      ),
+    );
   }
 }
