@@ -1,5 +1,8 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 
 class DSSearchInput extends StatelessWidget {
   const DSSearchInput({

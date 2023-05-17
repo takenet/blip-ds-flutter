@@ -7,7 +7,7 @@ import '../fields/ds_search_input.widget.dart';
 
 abstract class DSBottomSheetCountries {
   static final showClearButton = RxBool(false);
-  static final _filterCountries = RxList<DSCountry>([]);
+  static final _filterCountries = RxList<DSCountry>();
   static final controller = TextEditingController();
   static final selectedCountry = Rxn<DSCountry?>();
 
@@ -47,11 +47,9 @@ abstract class DSBottomSheetCountries {
           ),
           const DSDivider(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-              16.0,
-              8.0,
-              16.0,
-              8.0,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
             ),
             child: Obx(
               () => DSSearchInput(
