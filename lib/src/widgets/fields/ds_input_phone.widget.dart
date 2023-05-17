@@ -50,28 +50,35 @@ class DSInputPhone extends StatelessWidget {
             color: DSColors.neutralLightSnow),
         child: Row(
           children: [
-            DSTertiaryButton(
-              leadingIcon: Obx(
-                () => SvgPicture.asset(
-                  'assets/svg/flags/${dropdownValue.value.flag}.svg',
-                  width: 22.0,
-                  package: DSUtils.packageName,
-                ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 8.0,
               ),
-              trailingIcon: const Padding(
-                padding: EdgeInsets.only(left: 4.0),
-                child: Icon(
-                  DSIcons.arrow_down_outline,
-                  size: 16.0,
+              child: DSTertiaryButton(
+                leadingIcon: Obx(
+                  () => SvgPicture.asset(
+                    'assets/svg/flags/${dropdownValue.value.flag}.svg',
+                    width: 22.0,
+                    package: DSUtils.packageName,
+                  ),
                 ),
-              ),
-              onPressed: () async {
-                dropdownValue.value = await DSBottomSheetCountries.show();
+                trailingIcon: const Padding(
+                  padding: EdgeInsets.only(
+                    left: 4.0,
+                  ),
+                  child: Icon(
+                    DSIcons.arrow_down_outline,
+                    size: 16.0,
+                  ),
+                ),
+                onPressed: () async {
+                  dropdownValue.value = await DSBottomSheetCountries.show();
 
-                updatePhoneMask(
-                  phoneNumber: inputController.text,
-                );
-              },
+                  updatePhoneMask(
+                    phoneNumber: inputController.text,
+                  );
+                },
+              ),
             ),
             Obx(
               () => DSBodyText(
@@ -117,7 +124,7 @@ class DSInputPhone extends StatelessWidget {
     required String phoneNumber,
   }) {
     inputController.value = maskFormatter.updateMask(
-      mask: dropdownValue.value.name != 'Brasil'
+      mask: dropdownValue.value.code != '+55'
           ? defaultMask
           : phoneNumber.replaceAll(RegExp('[^0-9]'), '').length <= 10
               ? tenDigitsMask
