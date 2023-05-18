@@ -70,10 +70,12 @@ class DSRadioTile<T> extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   title,
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  if (subTitle != null) subTitle!,
+                  if (subTitle != null) ...[
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    subTitle!
+                  ],
                 ],
               ),
             ),
