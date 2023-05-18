@@ -1,3 +1,8 @@
+## 0.0.53
+
+- [DSPhoneInput] Add phone input widget with selectable country.
+- [DSSearchInput] Add search input widget.
+  
 ## 0.0.52
 
 - [DSSelectInput] Create a default scrollPhysics option.
