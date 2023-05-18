@@ -13,7 +13,7 @@ class SampleInputShowcase extends StatelessWidget {
       child: Wrap(
         runSpacing: 8.0,
         children: [
-          DSInputPhone(),
+          DSPhoneInput(),
           DSSearchInput(
             onClear: () {},
             onSearch: (_) {},

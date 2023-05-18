@@ -13,10 +13,10 @@ import '../buttons/ds_tertiary_button.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
-class DSInputPhone extends StatelessWidget {
+class DSPhoneInput extends StatelessWidget {
   final String? hintText;
 
-  DSInputPhone({
+  DSPhoneInput({
     super.key,
     this.hintText,
   });

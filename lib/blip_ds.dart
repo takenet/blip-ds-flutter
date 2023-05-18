@@ -103,7 +103,7 @@ export 'src/widgets/chat/video/ds_video_message_bubble.widget.dart'
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
 export 'src/widgets/fields/ds_input_decoration.widget.dart'
     show DSInputDecoration;
-export 'src/widgets/fields/ds_input_phone.widget.dart' show DSInputPhone;
+export 'src/widgets/fields/ds_phone_input.widget.dart' show DSPhoneInput;
 export 'src/widgets/fields/ds_search_input.widget.dart' show DSSearchInput;
 export 'src/widgets/fields/ds_select_input.widget.dart' show DSSelectInput;
 export 'src/widgets/fields/ds_text_form_field.widget.dart' show DSTextFormField;
