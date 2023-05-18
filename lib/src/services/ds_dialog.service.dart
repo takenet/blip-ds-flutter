@@ -11,22 +11,25 @@ import '../widgets/texts/ds_headline_small_text.widget.dart';
 
 /// A Design System's [Dialog] used to display a dialog box.
 class DSDialogService {
-  final String title;
-  final String text;
-  final Widget? primaryButton;
-  final Widget? secondaryButton;
-  final BuildContext? context;
-
-  DSDialogType type = DSDialogType.system;
-
   /// Creates a new Design System's [Dialog]
   DSDialogService({
-    this.context,
     required this.title,
     required this.text,
     this.primaryButton,
     this.secondaryButton,
-  });
+    final BuildContext? context,
+  }) : context = context ?? Get.overlayContext ?? Get.context!;
+
+  final String title;
+  final String text;
+  final Widget? primaryButton;
+  final Widget? secondaryButton;
+  final BuildContext context;
+
+  DSDialogType type = DSDialogType.system;
+
+  bool _isDialogOpen = false;
+  bool get isDialogOpen => _isDialogOpen;
 
   /// Shows a [DSDialogType.warning] dialog box type
   Future<T?> showWarning<T>() => _show<T>(
@@ -48,12 +51,18 @@ class DSDialogService {
   }) {
     this.type = type;
 
+    _isDialogOpen = true;
+
     return showDialog<T>(
-      context: context ?? Get.context!,
+      context: context,
       barrierDismissible: false,
       useSafeArea: true,
       builder: (_) => _buildDialog(type),
-    );
+    ).then((value) {
+      _isDialogOpen = false;
+
+      return value;
+    });
   }
 
   Widget _buildDialog(final DSDialogType type) {

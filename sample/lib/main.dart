@@ -1,20 +1,22 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:sample/widgets/showcase/sample_bottom_sheet.showcase.dart';
-import 'package:sample/widgets/showcase/sample_button.showcase.dart';
-import 'package:sample/widgets/showcase/sample_collection.showcase.dart';
-import 'package:sample/widgets/showcase/sample_dialog.showcase.dart';
-import 'package:sample/widgets/showcase/sample_group_card.showcase.dart';
-import 'package:sample/widgets/showcase/sample_header.showcase.dart';
-import 'package:sample/widgets/showcase/sample_message_bubble.showcase.dart';
-import 'package:sample/widgets/showcase/sample_radio.showcase.dart';
-import 'package:sample/widgets/showcase/sample_switch.showcase.dart';
-import 'package:sample/widgets/showcase/sample_text_style.showcase.dart';
-import 'package:sample/widgets/showcase/sample_ticket_message.showcase.dart';
-import 'package:sample/widgets/showcase/sample_toast.showcase.dart';
-import 'package:sample/widgets/showcase/sample_typing.showcase.dart';
-import 'package:sample/widgets/showcase/sample_weblink.showcase.dart';
+
+import 'widgets/showcase/sample_bottom_sheet.showcase.dart';
+import 'widgets/showcase/sample_button.showcase.dart';
+import 'widgets/showcase/sample_collection.showcase.dart';
+import 'widgets/showcase/sample_dialog.showcase.dart';
+import 'widgets/showcase/sample_group_card.showcase.dart';
+import 'widgets/showcase/sample_header.showcase.dart';
+import 'widgets/showcase/sample_input.showcase.dart';
+import 'widgets/showcase/sample_message_bubble.showcase.dart';
+import 'widgets/showcase/sample_radio.showcase.dart';
+import 'widgets/showcase/sample_switch.showcase.dart';
+import 'widgets/showcase/sample_text_style.showcase.dart';
+import 'widgets/showcase/sample_ticket_message.showcase.dart';
+import 'widgets/showcase/sample_toast.showcase.dart';
+import 'widgets/showcase/sample_typing.showcase.dart';
+import 'widgets/showcase/sample_weblink.showcase.dart';
 
 void main() {
   runApp(const SampleApp());
@@ -78,6 +80,8 @@ class HomePage extends StatelessWidget {
             const SampleCollectionShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleWeblinkShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleInputShowcase(),
           ],
         ),
       ),
