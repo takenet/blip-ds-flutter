@@ -2,7 +2,9 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 class SampleInputShowcase extends StatelessWidget {
-  const SampleInputShowcase({super.key});
+  SampleInputShowcase({super.key});
+
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,11 @@ class SampleInputShowcase extends StatelessWidget {
       child: Wrap(
         runSpacing: 8.0,
         children: [
-          DSPhoneInput(),
+          DSPhoneInput(
+            controller: controller,
+            // ignore: avoid_print
+            onChangeCountry: (country) => print(country.code),
+          ),
           DSSearchInput(
             onClear: () {},
             onSearch: (_) {},
