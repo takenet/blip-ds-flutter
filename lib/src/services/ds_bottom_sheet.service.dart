@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../themes/colors/ds_colors.theme.dart';
 
 class DSBottomSheetService {
   final BuildContext context;
@@ -29,7 +30,6 @@ class DSBottomSheetService {
           Visibility(
             visible: !hideGrabber,
             replacement: Container(
-              height: 7.0,
               decoration: _border(),
             ),
             child: _grabber(),

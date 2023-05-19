@@ -15,10 +15,14 @@ import '../utils/ds_bottomsheet_countries.widget.dart';
 
 class DSPhoneInput extends StatelessWidget {
   final String? hintText;
+  final TextEditingController controller;
+  final void Function(DSCountry)? onChangeCountry;
 
   DSPhoneInput({
     super.key,
     this.hintText,
+    required this.controller,
+    this.onChangeCountry,
   });
 
   // TODO: get masks considering selected country.
@@ -28,7 +32,6 @@ class DSPhoneInput extends StatelessWidget {
   static const _brazilCode = '+55';
 
   final _dropdownValue = Rx<DSCountry>(DSUtils.countriesList.first);
-  final _inputController = TextEditingController();
 
   late final maskFormatter = MaskTextInputFormatter(
     mask: _tenDigitsMask,
@@ -76,8 +79,10 @@ class DSPhoneInput extends StatelessWidget {
                   _dropdownValue.value = await DSBottomSheetCountries.show();
 
                   updatePhoneMask(
-                    phoneNumber: _inputController.text,
+                    phoneNumber: controller.text,
                   );
+
+                  onChangeCountry?.call(_dropdownValue.value);
                 },
               ),
             ),
@@ -93,7 +98,7 @@ class DSPhoneInput extends StatelessWidget {
                   left: 8.0,
                 ),
                 child: TextFormField(
-                  controller: _inputController,
+                  controller: controller,
                   onChanged: (value) => updatePhoneMask(
                     phoneNumber: value,
                   ),
@@ -124,7 +129,7 @@ class DSPhoneInput extends StatelessWidget {
   void updatePhoneMask({
     required String phoneNumber,
   }) =>
-      _inputController.value = maskFormatter.updateMask(
+      controller.value = maskFormatter.updateMask(
         mask: _dropdownValue.value.code != _brazilCode
             ? _defaultMask
             : phoneNumber.replaceAll(RegExp('[^0-9]'), '').length <= 10
