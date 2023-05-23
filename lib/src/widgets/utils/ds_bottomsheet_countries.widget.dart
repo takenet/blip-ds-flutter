@@ -95,43 +95,45 @@ abstract class DSBottomSheetCountries {
   }
 
   static Widget _builderCountries() {
-    return Obx(
-      () => ListView.builder(
-        itemBuilder: (_, index) {
-          final country = _filterCountries[index];
-          return Obx(
-            () => Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
-              child: Column(
-                children: [
-                  DSRadioTile<DSCountry>(
-                    value: country,
-                    onChanged: (value) {
-                      selectedCountry.value = value!;
-                      Get.back(result: selectedCountry.value);
-                    },
-                    title: Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/flags/${country.flag}.svg',
-                          width: 22.0,
-                          package: DSUtils.packageName,
-                        ),
-                        DSBodyText(' ${country.name} '),
-                        DSBodyText(country.code),
-                      ],
+    return SafeArea(
+      child: Obx(
+        () => ListView.builder(
+          itemBuilder: (_, index) {
+            final country = _filterCountries[index];
+            return Obx(
+              () => Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
+                child: Column(
+                  children: [
+                    DSRadioTile<DSCountry>(
+                      value: country,
+                      onChanged: (value) {
+                        selectedCountry.value = value!;
+                        Get.back(result: selectedCountry.value);
+                      },
+                      title: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/svg/flags/${country.flag}.svg',
+                            width: 22.0,
+                            package: DSUtils.packageName,
+                          ),
+                          DSBodyText(' ${country.name} '),
+                          DSBodyText(country.code),
+                        ],
+                      ),
+                      groupValue: selectedCountry.value,
                     ),
-                    groupValue: selectedCountry.value,
-                  ),
-                  const DSDivider(),
-                ],
+                    const DSDivider(),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-        itemCount: _filterCountries.length,
+            );
+          },
+          itemCount: _filterCountries.length,
+        ),
       ),
     );
   }
