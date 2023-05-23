@@ -14,6 +14,7 @@ abstract class DSBottomSheetCountries {
   static show() {
     _filterCountries.assignAll(DSUtils.countriesList);
     selectedCountry.value ??= _filterCountries.first;
+    _onClear();
     return _bottomSheetCountries();
   }
 
