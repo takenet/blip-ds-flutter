@@ -4,8 +4,7 @@ class DSMessageBubbleAvatarConfig {
   final Uri? sentAvatar;
   final String? sentName;
   final bool hideSentAvatar;
-  final Uri? customerSentAvatar;
-  final String? customerSentName;
+  final bool hideReceivedAvatar;
 
   const DSMessageBubbleAvatarConfig({
     this.receivedAvatar,
@@ -13,11 +12,11 @@ class DSMessageBubbleAvatarConfig {
     this.sentAvatar,
     this.sentName,
     this.hideSentAvatar = false,
-    this.customerSentAvatar,
-    this.customerSentName,
+    this.hideReceivedAvatar = false,
   });
 
   bool get showReceivedAvatar =>
+      !hideReceivedAvatar &&
       (receivedAvatar != null || (receivedName?.isNotEmpty ?? false));
   bool get showSentAvatar =>
       !hideSentAvatar &&
