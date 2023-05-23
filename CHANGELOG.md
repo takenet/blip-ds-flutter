@@ -1,3 +1,7 @@
+## 0.0.54
+
+- [DSPhoneInput] Add country callback and text editing controller.
+
 ## 0.0.53
 
 - [DSPhoneInput] Add phone input widget with selectable country.
