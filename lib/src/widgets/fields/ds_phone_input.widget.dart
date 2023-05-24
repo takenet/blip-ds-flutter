@@ -13,17 +13,24 @@ import '../buttons/ds_tertiary_button.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
-class DSPhoneInput extends StatelessWidget {
+class DSPhoneInput extends StatefulWidget {
   final String? hintText;
   final TextEditingController controller;
   final void Function(DSCountry)? onChangeCountry;
 
-  DSPhoneInput({
+  const DSPhoneInput({
     super.key,
     this.hintText,
     required this.controller,
     this.onChangeCountry,
   });
+
+  @override
+  State<DSPhoneInput> createState() => _DSPhoneInputState();
+}
+
+class _DSPhoneInputState extends State<DSPhoneInput> {
+  final _dropdownValue = Rx<DSCountry>(DSUtils.countriesList.first);
 
   // TODO: get masks considering selected country.
   static const _defaultMask = '#################';
@@ -31,14 +38,19 @@ class DSPhoneInput extends StatelessWidget {
   static const _elevenDigitsMask = '(##) #####-####';
   static const _brazilCode = '+55';
 
-  final _dropdownValue = Rx<DSCountry>(DSUtils.countriesList.first);
-
   late final maskFormatter = MaskTextInputFormatter(
     mask: _tenDigitsMask,
     filter: {"#": RegExp(r'[0-9]')},
   );
 
   // TODO: check if can use DSTextField or DSInputContainer
+  @override
+  void initState() {
+    super.initState();
+    DSBottomSheetCountries.selectedCountry.value = null;
+    widget.onChangeCountry?.call(_dropdownValue.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -77,13 +89,19 @@ class DSPhoneInput extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  _dropdownValue.value = await DSBottomSheetCountries.show();
+                  final result = await DSBottomSheetCountries.show();
+
+                  if (result == null) {
+                    return;
+                  }
+
+                  _dropdownValue.value = result;
 
                   updatePhoneMask(
-                    phoneNumber: controller.text,
+                    phoneNumber: widget.controller.text,
                   );
 
-                  onChangeCountry?.call(_dropdownValue.value);
+                  widget.onChangeCountry?.call(_dropdownValue.value);
                 },
               ),
             ),
@@ -99,7 +117,7 @@ class DSPhoneInput extends StatelessWidget {
                   left: 8.0,
                 ),
                 child: TextFormField(
-                  controller: controller,
+                  controller: widget.controller,
                   onChanged: (value) => updatePhoneMask(
                     phoneNumber: value,
                   ),
@@ -113,7 +131,7 @@ class DSPhoneInput extends StatelessWidget {
                   cursorColor: DSColors.primaryMain,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: hintText ?? 'Número de telefone',
+                    hintText: widget.hintText ?? 'Número de telefone',
                     hintStyle: const DSBodyTextStyle(
                         color: DSColors.neutralMediumWave),
                   ),
@@ -130,7 +148,7 @@ class DSPhoneInput extends StatelessWidget {
   void updatePhoneMask({
     required String phoneNumber,
   }) =>
-      controller.value = maskFormatter.updateMask(
+      widget.controller.value = maskFormatter.updateMask(
         mask: _dropdownValue.value.code != _brazilCode
             ? _defaultMask
             : phoneNumber.replaceAll(RegExp('[^0-9]'), '').length <= 10
