@@ -24,6 +24,7 @@ class DSSearchInput extends StatelessWidget {
   final String? hintText;
   final Color color;
 
+  // TODO: check if can use DSTextField or DSInputContainer
   @override
   Widget build(BuildContext context) {
     return SizedBox(

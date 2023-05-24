@@ -38,6 +38,7 @@ class DSPhoneInput extends StatelessWidget {
     filter: {"#": RegExp(r'[0-9]')},
   );
 
+  // TODO: check if can use DSTextField or DSInputContainer
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
