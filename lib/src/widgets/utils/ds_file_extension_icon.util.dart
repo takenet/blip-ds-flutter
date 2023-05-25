@@ -5,11 +5,13 @@ import '../../../blip_ds.dart';
 class DSFileExtensionIcon extends StatelessWidget {
   final String filename;
   final double size;
+  final Color defaultColor;
 
   const DSFileExtensionIcon({
     super.key,
     required this.filename,
     required this.size,
+    this.defaultColor = DSColors.neutralDarkRooftop,
   });
 
   @override
@@ -59,7 +61,7 @@ class DSFileExtensionIcon extends StatelessWidget {
 
       default:
         icon = DSIcons.file_empty_file_outline;
-        color = DSColors.neutralDarkRooftop;
+        color = defaultColor;
     }
 
     return Icon(

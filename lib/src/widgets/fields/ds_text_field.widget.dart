@@ -10,8 +10,8 @@ import 'ds_input_container.widget.dart';
 class DSTextField extends StatefulWidget {
   const DSTextField({
     super.key,
-    required this.controller,
     required this.hint,
+    this.controller,
     this.onChanged,
     this.textInputAction = TextInputAction.send,
     this.onTap,
@@ -25,7 +25,7 @@ class DSTextField extends StatefulWidget {
     this.shape = DSInputContainerShape.rectangle,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hint;
   final void Function(String)? onChanged;
   final TextInputAction textInputAction;
