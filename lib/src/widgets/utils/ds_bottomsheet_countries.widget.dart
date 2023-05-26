@@ -63,7 +63,7 @@ abstract class DSBottomSheetCountries {
             ),
             child: Obx(
               () => DSSearchInput(
-                color: DSColors.neutralLightSnow,
+                iconBackgroundColor: Colors.transparent,
                 hintText: 'Buscar por nome do país ou código',
                 onSearch: _onSearch,
                 onClear: _onClear,
