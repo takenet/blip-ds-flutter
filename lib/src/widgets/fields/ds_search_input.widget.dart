@@ -13,7 +13,8 @@ class DSSearchInput extends StatelessWidget {
     this.controller,
     this.showSuffixIcon = true,
     this.hintText,
-    this.color = DSColors.disabledBg,
+    this.iconBackgroundColor = DSColors.disabledBg,
+    this.iconForegroundColor = DSColors.primaryNight,
   });
 
   final void Function(String term) onSearch;
@@ -22,7 +23,8 @@ class DSSearchInput extends StatelessWidget {
   final TextEditingController? controller;
   final bool showSuffixIcon;
   final String? hintText;
-  final Color color;
+  final Color iconBackgroundColor;
+  final Color iconForegroundColor;
 
   // TODO: check if can use DSTextField or DSInputContainer
   @override
@@ -59,15 +61,15 @@ class DSSearchInput extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(2.0),
               decoration: BoxDecoration(
-                color: color,
+                color: iconBackgroundColor,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(8.0),
                 ),
               ),
-              child: const Icon(
+              child: Icon(
                 DSIcons.search_outline,
                 size: 21.0,
-                color: DSColors.primaryNight,
+                color: iconForegroundColor,
               ),
             ),
           ),

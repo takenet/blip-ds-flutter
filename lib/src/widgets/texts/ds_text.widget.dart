@@ -19,6 +19,7 @@ class DSText extends StatelessWidget {
   final int? maxLines;
   final bool shouldLinkify;
   final bool isSelectable;
+  final double? height;
 
   /// Creates a Design System's [Text].
   const DSText(
@@ -35,6 +36,7 @@ class DSText extends StatelessWidget {
     this.maxLines,
     this.shouldLinkify = true,
     this.isSelectable = false,
+    this.height,
   }) : span = null;
 
   const DSText.rich(
@@ -51,6 +53,7 @@ class DSText extends StatelessWidget {
     this.maxLines,
     this.shouldLinkify = true,
     this.isSelectable = false,
+    this.height,
   }) : text = null;
 
   @override

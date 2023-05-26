@@ -13,8 +13,8 @@ class DSBodyTextStyle extends DSTextStyle {
     super.color,
     super.decoration,
     super.overflow,
+    super.height = 1.5,
   }) : super(
           fontSize: 16.0,
-          height: 1.5,
         );
 }
