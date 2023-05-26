@@ -12,9 +12,9 @@ class DSButtonTextStyle extends DSTextStyle {
     required super.color,
     super.overflow,
     super.fontStyle,
+    super.height = 1.5,
   }) : super(
           fontSize: 16.0,
           fontWeight: DSFontWeights.bold,
-          height: 1.5,
         );
 }
