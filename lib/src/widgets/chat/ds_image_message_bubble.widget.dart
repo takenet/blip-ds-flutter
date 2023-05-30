@@ -1,7 +1,5 @@
+import 'package:blip_ds/src/widgets/utils/ds_expand_image.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
@@ -9,12 +7,9 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../utils/ds_utils.util.dart';
-import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
-import '../utils/ds_header.widget.dart';
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -102,21 +97,23 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                 children: [
                   Visibility(
                     visible: !isLoadingImage,
-                    replacement: _buildLoading(),
+                    replacement: DSExpandImage.buildLoading(
+                      style: widget.style,
+                      align: widget.align,
+                    ),
                     child: GestureDetector(
                       onTap: () {
                         if (!_controller.error.value) {
                           _controller.appBarVisible.value = true;
 
-                          showGeneralDialog(
+                          DSExpandImage.expandImage(
                             context: context,
-                            barrierDismissible: false,
-                            transitionDuration:
-                                DSUtils.defaultAnimationDuration,
-                            transitionBuilder: (_, animation, __, child) =>
-                                _buildTransition(animation, child),
-                            pageBuilder: (context, _, __) =>
-                                _buildPage(context),
+                            isAppBarVisible: _controller.appBarVisible,
+                            appBarText: widget.appBarText,
+                            onTap: () => _controller.showAppBar(),
+                            url: widget.url,
+                            align: widget.align,
+                            style: widget.style,
                           );
                         }
                       },
@@ -128,7 +125,10 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                           fit: BoxFit.cover,
                           width: width,
                           url: widget.url,
-                          placeholder: (_, __) => _buildLoading(),
+                          placeholder: (_, __) => DSExpandImage.buildLoading(
+                            style: widget.style,
+                            align: widget.align,
+                          ),
                           onError: _controller.setError,
                           align: widget.align,
                           style: widget.style,
@@ -181,76 +181,6 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
           );
         },
       ),
-    );
-  }
-
-  Widget _buildTransition(Animation<double> animation, Widget? child) {
-    return FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        scale: animation,
-        child: child,
-      ),
-    );
-  }
-
-  Widget _buildPage(BuildContext context) {
-    const overlayStyle = DSSystemOverlayStyle.light;
-
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: overlayStyle,
-      child: Obx(
-        () => Scaffold(
-          backgroundColor: Colors.black,
-          extendBodyBehindAppBar: true,
-          appBar: DSHeader(
-            showBorder: false,
-            visible: _controller.appBarVisible.value,
-            title: widget.appBarText,
-            customerUri: widget.appBarPhotoUri,
-            customerName: widget.appBarText,
-            backgroundColor: Colors.black.withOpacity(.7),
-            onBackButtonPressed: Get.back,
-            systemUiOverlayStyle: overlayStyle,
-          ),
-          body: GestureDetector(
-            onTap: () => _controller.showAppBar(),
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: PinchZoom(
-                child: DSCachedNetworkImageView(
-                  url: widget.url,
-                  fit: BoxFit.contain,
-                  align: widget.align,
-                  style: widget.style,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoading() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
-          ),
-          child: Center(
-            child: DSSpinnerLoading(
-              color: widget.style.isLightBubbleBackground(widget.align)
-                  ? DSColors.primaryNight
-                  : DSColors.neutralLightSnow,
-              size: 32.0,
-              lineWidth: 4.0,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
