@@ -209,7 +209,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
             title: widget.appBarText,
             customerUri: widget.appBarPhotoUri,
             customerName: widget.appBarText,
-            backgroundColor: Colors.black.withOpacity(.7),
+            backgroundColor: Colors.black.withOpacity(0.7),
             onBackButtonPressed: Get.back,
             systemUiOverlayStyle: overlayStyle,
           ),

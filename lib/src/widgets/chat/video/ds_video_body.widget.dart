@@ -13,12 +13,14 @@ class DSVideoBody extends StatelessWidget {
     required this.uniqueId,
     required this.thumbnail,
   });
+
   final DSAlign align;
   final String appBarText;
   final Uri? appBarPhotoUri;
   final String url;
   final String uniqueId;
   final Widget thumbnail;
+
   @override
   Widget build(BuildContext context) {
     return Stack(

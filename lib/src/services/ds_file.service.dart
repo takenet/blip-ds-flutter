@@ -1,13 +1,12 @@
-import 'dart:io' as io;
+import 'dart:io';
 
+import 'package:blip_ds/blip_ds.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import 'package:blip_ds/blip_ds.dart';
 
 abstract class DSFileService {
   static Future<void> open(
@@ -48,7 +47,7 @@ abstract class DSFileService {
       final savedFilePath = path_utils.join(
           path ?? (await getTemporaryDirectory()).path, fileName);
 
-      if (await io.File(savedFilePath).exists()) {
+      if (await File(savedFilePath).exists()) {
         return savedFilePath;
       }
 
