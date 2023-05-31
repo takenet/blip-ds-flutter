@@ -1,5 +1,6 @@
 import 'package:blip_ds/src/widgets/utils/ds_expand_image.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../controllers/chat/ds_image_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
@@ -101,37 +102,40 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                       style: widget.style,
                       align: widget.align,
                     ),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (!_controller.error.value) {
-                          _controller.appBarVisible.value = true;
+                    child: Obx(
+                      () => GestureDetector(
+                        onTap: () {
+                          if (!_controller.error.value) {
+                            _controller.appBarVisible.value = true;
 
-                          DSExpandImage.expandImage(
-                            context: context,
-                            isAppBarVisible: _controller.appBarVisible,
-                            appBarText: widget.appBarText,
-                            onTap: () => _controller.showAppBar(),
-                            url: widget.url,
-                            align: widget.align,
-                            style: widget.style,
-                          );
-                        }
-                      },
-                      child: Container(
-                        constraints: const BoxConstraints(
-                          maxHeight: DSUtils.bubbleMaxSize,
-                        ),
-                        child: DSCachedNetworkImageView(
-                          fit: BoxFit.cover,
-                          width: width,
-                          url: widget.url,
-                          placeholder: (_, __) => DSExpandImage.buildLoading(
-                            style: widget.style,
-                            align: widget.align,
+                            DSExpandImage.expandImage(
+                              context: context,
+                              isAppBarVisible: _controller.appBarVisible.value,
+                              appBarText: widget.appBarText,
+                              appBarPhotoUri: widget.appBarPhotoUri,
+                              onTap: () => _controller.showAppBar(),
+                              url: widget.url,
+                              align: widget.align,
+                              style: widget.style,
+                            );
+                          }
+                        },
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxHeight: DSUtils.bubbleMaxSize,
                           ),
-                          onError: _controller.setError,
-                          align: widget.align,
-                          style: widget.style,
+                          child: DSCachedNetworkImageView(
+                            fit: BoxFit.cover,
+                            width: width,
+                            url: widget.url,
+                            placeholder: (_, __) => DSExpandImage.buildLoading(
+                              style: widget.style,
+                              align: widget.align,
+                            ),
+                            onError: _controller.setError,
+                            align: widget.align,
+                            style: widget.style,
+                          ),
                         ),
                       ),
                     ),

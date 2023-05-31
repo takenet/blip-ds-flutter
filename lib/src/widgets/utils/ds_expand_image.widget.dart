@@ -6,33 +6,33 @@ import 'package:pinch_zoom/pinch_zoom.dart';
 import '../../../blip_ds.dart';
 
 abstract class DSExpandImage {
-  static expandImage({
+  static Future<T?> expandImage<T>({
     required BuildContext context,
-    required Rx<bool> isAppBarVisible,
+    required bool isAppBarVisible,
     required String appBarText,
     required VoidCallback onTap,
     required String url,
     required DSAlign align,
     required DSMessageBubbleStyle style,
     Uri? appBarPhotoUri,
-  }) {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      transitionDuration: DSUtils.defaultAnimationDuration,
-      transitionBuilder: (_, animation, __, child) =>
-          _buildTransition(animation, child),
-      pageBuilder: (context, _, __) => _buildPage(
+  }) =>
+      showGeneralDialog<T>(
         context: context,
-        isAppBarVisible: isAppBarVisible,
-        appBarText: appBarText,
-        onTap: onTap,
-        url: url,
-        align: align,
-        style: style,
-      ),
-    );
-  }
+        barrierDismissible: false,
+        transitionDuration: DSUtils.defaultAnimationDuration,
+        transitionBuilder: (_, animation, __, child) =>
+            _buildTransition(animation, child),
+        pageBuilder: (context, _, __) => _buildPage(
+          context: context,
+          isAppBarVisible: isAppBarVisible,
+          appBarText: appBarText,
+          appBarPhotoUri: appBarPhotoUri,
+          onTap: onTap,
+          url: url,
+          align: align,
+          style: style,
+        ),
+      );
 
   static Widget _buildTransition(Animation<double> animation, Widget? child) {
     return FadeTransition(
@@ -46,7 +46,7 @@ abstract class DSExpandImage {
 
   static Widget _buildPage({
     required BuildContext context,
-    required Rx<bool> isAppBarVisible,
+    required bool isAppBarVisible,
     required String appBarText,
     required VoidCallback onTap,
     required String url,
@@ -58,35 +58,33 @@ abstract class DSExpandImage {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle,
-      child: Obx(
-        () => Scaffold(
-          backgroundColor: Colors.black,
-          extendBodyBehindAppBar: true,
-          appBar: DSHeader(
-            showBorder: false,
-            visible: isAppBarVisible.value,
-            title: appBarText,
-            customerUri: appBarPhotoUri,
-            customerName: appBarText,
-            backgroundColor: Colors.black.withOpacity(0.7),
-            onBackButtonPressed: Get.back,
-            systemUiOverlayStyle: overlayStyle,
-          ),
-          body: GestureDetector(
-            onTap: onTap,
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: PinchZoom(
-                child: DSCachedNetworkImageView(
-                  url: url,
-                  fit: BoxFit.contain,
-                  placeholder: (context, _) => buildLoading(
-                    style: style,
-                    align: align,
-                  ),
-                  align: align,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        extendBodyBehindAppBar: true,
+        appBar: DSHeader(
+          showBorder: false,
+          visible: isAppBarVisible,
+          title: appBarText,
+          customerUri: appBarPhotoUri,
+          customerName: appBarText,
+          backgroundColor: Colors.black.withOpacity(0.7),
+          onBackButtonPressed: Get.back,
+          systemUiOverlayStyle: overlayStyle,
+        ),
+        body: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: PinchZoom(
+              child: DSCachedNetworkImageView(
+                url: url,
+                fit: BoxFit.contain,
+                placeholder: (context, _) => buildLoading(
                   style: style,
+                  align: align,
                 ),
+                align: align,
+                style: style,
               ),
             ),
           ),
