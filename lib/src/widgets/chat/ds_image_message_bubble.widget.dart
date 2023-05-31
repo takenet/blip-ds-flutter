@@ -110,7 +110,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
 
                             DSExpandImage.expandImage(
                               context: context,
-                              isAppBarVisible: _controller.appBarVisible.value,
+                              isAppBarVisible: _controller.appBarVisible,
                               appBarText: widget.appBarText,
                               appBarPhotoUri: widget.appBarPhotoUri,
                               onTap: () => _controller.showAppBar(),

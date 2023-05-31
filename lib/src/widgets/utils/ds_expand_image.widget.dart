@@ -8,7 +8,7 @@ import '../../../blip_ds.dart';
 abstract class DSExpandImage {
   static Future<T?> expandImage<T>({
     required BuildContext context,
-    required bool isAppBarVisible,
+    required Rx<bool> isAppBarVisible,
     required String appBarText,
     required VoidCallback onTap,
     required String url,
@@ -46,7 +46,7 @@ abstract class DSExpandImage {
 
   static Widget _buildPage({
     required BuildContext context,
-    required bool isAppBarVisible,
+    required Rx<bool> isAppBarVisible,
     required String appBarText,
     required VoidCallback onTap,
     required String url,
@@ -58,33 +58,35 @@ abstract class DSExpandImage {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle,
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        extendBodyBehindAppBar: true,
-        appBar: DSHeader(
-          showBorder: false,
-          visible: isAppBarVisible,
-          title: appBarText,
-          customerUri: appBarPhotoUri,
-          customerName: appBarText,
-          backgroundColor: Colors.black.withOpacity(0.7),
-          onBackButtonPressed: Get.back,
-          systemUiOverlayStyle: overlayStyle,
-        ),
-        body: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: PinchZoom(
-              child: DSCachedNetworkImageView(
-                url: url,
-                fit: BoxFit.contain,
-                placeholder: (context, _) => buildLoading(
-                  style: style,
+      child: Obx(
+        () => Scaffold(
+          backgroundColor: Colors.black,
+          extendBodyBehindAppBar: true,
+          appBar: DSHeader(
+            showBorder: false,
+            visible: isAppBarVisible.value,
+            title: appBarText,
+            customerUri: appBarPhotoUri,
+            customerName: appBarText,
+            backgroundColor: Colors.black.withOpacity(0.7),
+            onBackButtonPressed: Get.back,
+            systemUiOverlayStyle: overlayStyle,
+          ),
+          body: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: PinchZoom(
+                child: DSCachedNetworkImageView(
+                  url: url,
+                  fit: BoxFit.contain,
+                  placeholder: (context, _) => buildLoading(
+                    style: style,
+                    align: align,
+                  ),
                   align: align,
+                  style: style,
                 ),
-                align: align,
-                style: style,
               ),
             ),
           ),
