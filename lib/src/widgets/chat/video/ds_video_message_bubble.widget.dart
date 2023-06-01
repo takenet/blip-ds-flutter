@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:blip_ds/src/widgets/chat/video/ds_video_body.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +13,7 @@ import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
+import 'ds_video_body.widget.dart';
 
 class DSVideoMessageBubble extends StatefulWidget {
   /// Aligns the card to the right or left according to the value assigned to [align] which can be [DSAlign.right] or [DSAlign.left].
