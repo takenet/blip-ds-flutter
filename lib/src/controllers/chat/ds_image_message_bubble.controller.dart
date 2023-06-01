@@ -4,19 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DSImageMessageBubbleController extends GetxController {
-  final error = RxBool(false);
-  final appBarVisible = RxBool(true);
-
-  void setError() {
-    error.value = true;
-  }
-
-  void showAppBar() {
-    appBarVisible.value
-        ? appBarVisible.value = false
-        : appBarVisible.value = true;
-  }
-
   Future<ImageInfo> getImageInfo(final String url) async {
     final Image img = Image.network(url);
 

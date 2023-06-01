@@ -10,9 +10,11 @@ class DSDashedBorder extends StatelessWidget {
     this.borderColor = DSColors.neutralMediumWave,
     this.strokeWidth = 1.0,
   });
+
   final Color borderColor;
   final double strokeWidth;
   final Widget child;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

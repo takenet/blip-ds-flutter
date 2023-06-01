@@ -20,8 +20,9 @@ class DSBottomSheetService {
     final window = WidgetsBinding.instance.window;
 
     return Container(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       margin: EdgeInsets.only(
         top: MediaQueryData.fromWindow(window).padding.top + 10,
       ),

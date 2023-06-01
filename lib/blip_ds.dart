@@ -136,10 +136,10 @@ export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
 export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
+export 'src/widgets/utils/ds_expanded_image.widget.dart' show DSExpandedImage;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
     show DSFileExtensionIcon;
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/utils/ds_expand_image.widget.dart' show DSExpandImage;
