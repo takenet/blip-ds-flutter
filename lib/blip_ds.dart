@@ -136,3 +136,5 @@ export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 export 'src/widgets/chat/ds_survey_card.widget.dart' show DSSurveyCard;
+export 'src/enums/ds_survey_scale.enum.dart' show DSSurveyScale;
+export 'src/enums/ds_survey_type.enum.dart' show DSSurveyType;

@@ -7,7 +7,6 @@ import '../../enums/ds_survey_type.enum.dart';
 class DSSurveyCard extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
-  final String? text;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
   final DSSurveyType type;
@@ -18,7 +17,6 @@ class DSSurveyCard extends StatelessWidget {
     DSMessageBubbleStyle? style,
     required this.align,
     this.leftWidget,
-    this.text,
     this.borderRadius = const [DSBorderRadius.all],
     this.type = DSSurveyType.recomendation,
     this.scale = DSSurveyScale.numeric5,
@@ -121,14 +119,4 @@ class DSSurveyCard extends StatelessWidget {
           : 'Negative';
     }
   }
-
-  // changeScale: function () {
-  //   this.isStarIcon = this.scale.includes(STAR)
-  //   this.isScoredActivated = false
-  //   this.numberOfIcons = parseInt(
-  //     this.scale.indexOf(NUMERIC) !== -1
-  //       ? this.scale.split(NUMERIC)[1]
-  //       : this.scale.split(STAR)[1]
-  //   )
-  // },
 }
