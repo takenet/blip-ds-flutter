@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:blip_ds/blip_ds.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../themes/colors/ds_colors.theme.dart';
 
 abstract class DSFileService {
   static Future<void> open(

@@ -1,7 +1,7 @@
-import 'package:blip_ds/src/enums/ds_input_container_shape.enum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../enums/ds_input_container_shape.enum.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';

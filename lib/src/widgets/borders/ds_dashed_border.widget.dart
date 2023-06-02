@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import '../../../blip_ds.dart';
+import '../../themes/colors/ds_colors.theme.dart';
 
 class DSDashedBorder extends StatelessWidget {
   const DSDashedBorder({
