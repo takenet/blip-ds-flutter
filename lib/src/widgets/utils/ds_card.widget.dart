@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/widgets/chat/ds_contact_message_bubble.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -62,6 +63,8 @@ class DSCard extends StatelessWidget {
           style: style,
         );
 
+      case DSMessageContentType.contact:
+        return _buildContact();
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
 
@@ -167,6 +170,18 @@ class DSCard extends StatelessWidget {
             onSelected: onSelected,
             style: style,
           );
+  }
+
+  Widget _buildContact() {
+    return DSContactMessageBubble(
+      name: content['name'],
+      phone: content['phoneNumber'],
+      address: content['address'],
+      email: content['email'],
+      align: align,
+      style: style,
+      borderRadius: borderRadius,
+    );
   }
 
   Widget _buildMediaLink() {
