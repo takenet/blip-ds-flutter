@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:blip_ds/blip_ds.dart';
 
-import '../../enums/ds_survey_scale.enum.dart';
-import '../../enums/ds_survey_type.enum.dart';
-
 class DSSurveyCard extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
