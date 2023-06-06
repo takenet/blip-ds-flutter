@@ -11,7 +11,7 @@ class DSContactMessageBubble extends StatefulWidget {
   final DSMessageBubbleStyle style;
 
   DSContactMessageBubble({
-    Key? key,
+    super.key,
     required this.name,
     required this.phone,
     required this.address,
@@ -19,8 +19,7 @@ class DSContactMessageBubble extends StatefulWidget {
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   State<DSContactMessageBubble> createState() => _DSContactMessageBubbleState();
@@ -43,40 +42,48 @@ class _DSContactMessageBubbleState extends State<DSContactMessageBubble> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.name != null)
-          DSBodyText(
+        Visibility(
+          visible: widget.name != null,
+          child: DSBodyText(
             widget.name,
             fontWeight: DSFontWeights.semiBold,
           ),
+        ),
         const SizedBox(height: 16.0),
-        if (widget.phone != null)
-          Padding(
+        Visibility(
+          visible: widget.phone != null,
+          child: Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'Telefone',
               body: widget.phone!,
             ),
           ),
-        if (widget.email != null)
-          Padding(
+        ),
+        Visibility(
+          visible: widget.email != null,
+          child: Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'E-mail',
               body: widget.email!,
             ),
           ),
-        if (widget.address != null)
-          _buildContactField(
+        ),
+        Visibility(
+          visible: widget.address != null,
+          child: _buildContactField(
             title: 'Endereço',
             body: widget.address!,
           ),
+        ),
       ],
     );
   }
 
   Widget _buildContactField({
-    required String title,
-    required String body,
+    required final String title,
+    required final String body,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
