@@ -9,16 +9,17 @@ class DSSurveyCard extends StatelessWidget {
   final DSSurveyType type;
   final DSSurveyScale scale;
 
+  //TODO: there are fields named 'question' and 'score' in desk web without 
+
   DSSurveyCard({
-    Key? key,
+    super.key,
     DSMessageBubbleStyle? style,
     required this.align,
     this.leftWidget,
     this.borderRadius = const [DSBorderRadius.all],
-    this.type = DSSurveyType.recomendation,
+    this.type = DSSurveyType.recommendation,
     this.scale = DSSurveyScale.numeric5,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -96,24 +97,20 @@ class DSSurveyCard extends StatelessWidget {
 
   _getTitlePreview() {
     switch (type) {
-      case DSSurveyType.recomendation:
+      case DSSurveyType.recommendation:
         return 'Would you recommend our Chatbot?';
       case DSSurveyType.solution:
         return 'How did you feel about the service on this channel?';
       case DSSurveyType.chatbot:
         return 'How did you feel about the chatbot assistance?';
-      default:
-        return 'How did you feel about the service on this channel?';
     }
   }
 
-  _getDescriptionPreview(bool positiveLabel) {
-    if (positiveLabel == true) {
-      return type == DSSurveyType.recomendation ? 'Recommend' : 'Positive';
-    } else {
-      return type == DSSurveyType.recomendation
+  _getDescriptionPreview(bool positiveLabel) => positiveLabel
+      ? type == DSSurveyType.recommendation
+          ? 'Recommend'
+          : 'Positive'
+      : type == DSSurveyType.recommendation
           ? "Don't Recommend"
           : 'Negative';
-    }
-  }
 }

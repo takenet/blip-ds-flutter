@@ -1,5 +1,5 @@
 enum DSSurveyType {
-  recomendation,
+  recommendation,
   solution,
   chatbot,
 }
