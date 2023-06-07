@@ -1,7 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-class DSContactMessageBubble extends StatefulWidget {
+class DSContactMessageBubble extends StatelessWidget {
   final String? name;
   final String? phone;
   final String? email;
@@ -22,18 +22,12 @@ class DSContactMessageBubble extends StatefulWidget {
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
-  State<DSContactMessageBubble> createState() => _DSContactMessageBubbleState();
-}
-
-class _DSContactMessageBubbleState extends State<DSContactMessageBubble> {
-  @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
-      align: widget.align,
-      borderRadius: widget.borderRadius,
+      align: align,
+      borderRadius: borderRadius,
       padding: const EdgeInsets.all(16.0),
-      style: widget.style,
-      hasSpacer: true,
+      style: style,
       child: _buildContactCard(),
     );
   }
@@ -43,38 +37,38 @@ class _DSContactMessageBubbleState extends State<DSContactMessageBubble> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Visibility(
-          visible: widget.name != null,
+          visible: name != null,
           child: DSBodyText(
-            widget.name,
+            name,
             fontWeight: DSFontWeights.semiBold,
           ),
         ),
         const SizedBox(height: 16.0),
         Visibility(
-          visible: widget.phone != null,
+          visible: phone != null,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'Telefone',
-              body: widget.phone!,
+              body: phone!,
             ),
           ),
         ),
         Visibility(
-          visible: widget.email != null,
+          visible: email != null,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'E-mail',
-              body: widget.email!,
+              body: email!,
             ),
           ),
         ),
         Visibility(
-          visible: widget.address != null,
+          visible: address != null,
           child: _buildContactField(
             title: 'Endereço',
-            body: widget.address!,
+            body: address!,
           ),
         ),
       ],

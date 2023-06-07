@@ -1,4 +1,3 @@
-import 'package:blip_ds/src/widgets/chat/ds_contact_message_bubble.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -10,6 +9,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
+import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
