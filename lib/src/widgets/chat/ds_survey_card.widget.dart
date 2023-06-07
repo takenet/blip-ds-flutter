@@ -9,7 +9,7 @@ class DSSurveyCard extends StatelessWidget {
   final DSSurveyType type;
   final DSSurveyScale scale;
 
-  //TODO: there are fields named 'question' and 'score' in desk web without 
+  //TODO: there are fields named 'question' and 'score' in desk web that were not used here 
 
   DSSurveyCard({
     super.key,
