@@ -17,26 +17,31 @@ class DSBottomSheetService {
     ScrollController? controller,
     final bool hideGrabber = false,
   }) {
-    final window = WidgetsBinding.instance.window;
+    final window = View.of(context);
 
-    return Container(
-      margin: EdgeInsets.only(
-        top: MediaQueryData.fromWindow(window).padding.top + 10,
-      ),
-      decoration: _border(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Visibility(
-            visible: !hideGrabber,
-            replacement: Container(
-              decoration: _border(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        margin: EdgeInsets.only(
+          top: MediaQueryData.fromView(window).padding.top + 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        decoration: _border(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Visibility(
+              visible: !hideGrabber,
+              replacement: Container(
+                decoration: _border(),
+              ),
+              child: _grabber(),
             ),
-            child: _grabber(),
-          ),
-          fixedHeader ?? const SizedBox.shrink(),
-          _buildChild(controller),
-        ],
+            fixedHeader ?? const SizedBox.shrink(),
+            _buildChild(controller),
+          ],
+        ),
       ),
     );
   }
