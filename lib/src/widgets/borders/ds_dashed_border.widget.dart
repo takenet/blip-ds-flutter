@@ -18,13 +18,16 @@ class DSDashedBorder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(1.0),
       child: DottedBorder(
         color: borderColor,
         strokeWidth: strokeWidth,
-        radius: const Radius.circular(8),
+        radius: const Radius.circular(8.0),
         borderType: BorderType.RRect,
-        dashPattern: const [3, 3],
+        dashPattern: const [
+          3.0,
+          3.0,
+        ],
         padding: EdgeInsets.zero,
         child: child,
       ),
