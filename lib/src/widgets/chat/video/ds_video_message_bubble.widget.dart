@@ -9,13 +9,11 @@ import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
-import '../../../utils/ds_utils.util.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
-import '../../buttons/ds_rounded_play_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
-import 'ds_video_player.widget.dart';
+import 'ds_video_body.widget.dart';
 
 class DSVideoMessageBubble extends StatefulWidget {
   /// Aligns the card to the right or left according to the value assigned to [align] which can be [DSAlign.right] or [DSAlign.left].
@@ -161,44 +159,22 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                   ),
                                 ),
                               )
-                            : Stack(
-                                children: [
-                                  Center(
-                                    child: Image.file(
-                                      File(
-                                        _controller.thumbnail.value,
-                                      ),
-                                      width: 240,
-                                      height: 240,
-                                      fit: BoxFit.cover,
+                            : DSVideoBody(
+                                align: widget.align,
+                                appBarPhotoUri: widget.appBarPhotoUri,
+                                appBarText: widget.appBarText,
+                                uniqueId: widget.uniqueId,
+                                url: widget.url,
+                                thumbnail: Center(
+                                  child: Image.file(
+                                    File(
+                                      _controller.thumbnail.value,
                                     ),
+                                    width: 240,
+                                    height: 240,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Center(
-                                    child: DSRoundedPlayButton(
-                                      align: widget.align,
-                                      onPressed: () async {
-                                        await showGeneralDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          transitionDuration:
-                                              DSUtils.defaultAnimationDuration,
-                                          transitionBuilder:
-                                              (_, animation, __, child) =>
-                                                  _buildTransition(
-                                                      animation, child),
-                                          pageBuilder: (context, _, __) =>
-                                              DSVideoPlayer(
-                                            appBarText: widget.appBarText,
-                                            appBarPhotoUri:
-                                                widget.appBarPhotoUri,
-                                            url: widget.url,
-                                            uniqueId: widget.uniqueId,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
               ),
             ),
@@ -217,16 +193,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
               ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildTransition(Animation<double> animation, Widget? child) {
-    return FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        scale: animation,
-        child: child,
       ),
     );
   }

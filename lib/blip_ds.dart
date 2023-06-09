@@ -4,6 +4,8 @@ export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
+export 'src/enums/ds_input_container_shape.enum.dart'
+    show DSInputContainerShape;
 export 'src/enums/ds_ticket_message_type.enum.dart' show DSTicketMessageType;
 export 'src/enums/ds_toast_action_type.enum.dart' show DSToastActionType;
 export 'src/extensions/ds_border_radius.extension.dart'
@@ -18,6 +20,7 @@ export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
@@ -55,6 +58,7 @@ export 'src/widgets/animations/ds_record_status.widget.dart'
 export 'src/widgets/animations/ds_ring_loading.widget.dart' show DSRingLoading;
 export 'src/widgets/animations/ds_spinner_loading.widget.dart'
     show DSSpinnerLoading;
+export 'src/widgets/borders/ds_dashed_border.widget.dart' show DSDashedBorder;
 export 'src/widgets/buttons/audio/ds_audio_cancel_button.widget.dart'
     show DSAudioCancelButton;
 export 'src/widgets/buttons/audio/ds_audio_icon_button.widget.dart'
@@ -98,15 +102,18 @@ export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
     show DSTypingDotAnimation;
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'
     show DSTypingAnimationMessageBubble;
+export 'src/widgets/chat/video/ds_video_body.widget.dart' show DSVideoBody;
+export 'src/widgets/chat/video/ds_video_error.dialog.dart'
+    show DSVideoErrorDialog;
 export 'src/widgets/chat/video/ds_video_message_bubble.widget.dart'
     show DSVideoMessageBubble;
 export 'src/widgets/chat/video/ds_video_player.widget.dart' show DSVideoPlayer;
-export 'src/widgets/fields/ds_input_decoration.widget.dart'
-    show DSInputDecoration;
+export 'src/widgets/fields/ds_input_container.widget.dart'
+    show DSInputContainer;
 export 'src/widgets/fields/ds_phone_input.widget.dart' show DSPhoneInput;
 export 'src/widgets/fields/ds_search_input.widget.dart' show DSSearchInput;
 export 'src/widgets/fields/ds_select_input.widget.dart' show DSSelectInput;
-export 'src/widgets/fields/ds_text_form_field.widget.dart' show DSTextFormField;
+export 'src/widgets/fields/ds_text_field.widget.dart' show DSTextField;
 export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
 export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
 export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
@@ -129,6 +136,7 @@ export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
 export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
+export 'src/widgets/utils/ds_expanded_image.widget.dart' show DSExpandedImage;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
     show DSFileExtensionIcon;
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;

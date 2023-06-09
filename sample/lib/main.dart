@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
             const Divider(color: DSColors.neutralDarkCity),
             const SampleHeaderShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
-            const SampleBottomSheethowcase(),
+            const SampleBottomSheetShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             const SampleTicketMessage(),
             const Divider(color: DSColors.neutralDarkCity),
