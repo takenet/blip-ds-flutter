@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:blip_ds/blip_ds.dart';
+import 'package:flutter/material.dart';
 
-class DSSurveyCard extends StatelessWidget {
+class DSSurveyMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
   final List<DSBorderRadius> borderRadius;
@@ -9,9 +9,9 @@ class DSSurveyCard extends StatelessWidget {
   final DSSurveyType type;
   final DSSurveyScale scale;
 
-  //TODO: there are fields named 'question' and 'score' in desk web that were not used here 
+  //TODO: there are fields named 'question' and 'score' in desk web that were not used here
 
-  DSSurveyCard({
+  DSSurveyMessageBubble({
     super.key,
     DSMessageBubbleStyle? style,
     required this.align,

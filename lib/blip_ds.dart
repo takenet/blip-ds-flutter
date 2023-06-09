@@ -6,6 +6,8 @@ export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
 export 'src/enums/ds_input_container_shape.enum.dart'
     show DSInputContainerShape;
+export 'src/enums/ds_survey_scale.enum.dart' show DSSurveyScale;
+export 'src/enums/ds_survey_type.enum.dart' show DSSurveyType;
 export 'src/enums/ds_ticket_message_type.enum.dart' show DSTicketMessageType;
 export 'src/enums/ds_toast_action_type.enum.dart' show DSToastActionType;
 export 'src/extensions/ds_border_radius.extension.dart'
@@ -92,6 +94,8 @@ export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
     show DSMessageBubbleDetail;
+export 'src/widgets/chat/ds_survey_message_bubble.widget.dart'
+    show DSSurveyMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
     show DSTextMessageBubble;
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
@@ -143,6 +147,3 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/chat/ds_survey_card.widget.dart' show DSSurveyCard;
-export 'src/enums/ds_survey_scale.enum.dart' show DSSurveyScale;
-export 'src/enums/ds_survey_type.enum.dart' show DSSurveyType;

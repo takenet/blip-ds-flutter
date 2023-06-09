@@ -277,6 +277,9 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             uniqueId: 'video4',
             mediaSize: 10000,
           ),
+          DSSurveyMessageBubble(
+            align: DSAlign.center,
+          ),
         ],
       ),
     );
