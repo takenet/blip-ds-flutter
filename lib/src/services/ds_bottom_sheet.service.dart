@@ -27,6 +27,7 @@ class DSBottomSheetService {
         top: MediaQueryData.fromWindow(window).padding.top + 10,
       ),
       decoration: _border(),
+      clipBehavior: Clip.hardEdge,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

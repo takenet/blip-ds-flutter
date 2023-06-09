@@ -124,7 +124,7 @@ class _DSTextFieldState extends State<DSTextField> {
           /// TODO: Implement to open emoji keyboard!!
           onPressed: () {},
           padding: EdgeInsets.zero,
-          splashRadius: 15,
+          splashRadius: 15.0,
           constraints: const BoxConstraints(),
           icon: Image.asset(
             'assets/images/emoji.png',
