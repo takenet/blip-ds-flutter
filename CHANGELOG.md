@@ -1,3 +1,8 @@
+## 0.0.55
+
+- [DSPhoneInput] Somes adjustment
+- [DSMessageBubbleAvatarConfig] Create hideReceivedAvatar param
+
 ## 0.0.54
 
 - [DSPhoneInput] Add country callback and text editing controller.
