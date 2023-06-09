@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:sample/widgets/showcase/sample_survey_card.showcase.dart';
 
 import 'widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'widgets/showcase/sample_button.showcase.dart';
@@ -82,6 +83,8 @@ class HomePage extends StatelessWidget {
             const SampleWeblinkShowcase(),
             const Divider(color: DSColors.neutralDarkCity),
             SampleInputShowcase(),
+            const Divider(color: DSColors.neutralDarkCity),
+            const SampleSurveyShowcase(),
           ],
         ),
       ),
