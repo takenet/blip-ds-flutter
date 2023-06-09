@@ -1,5 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class SampleSurveyShowcase extends StatelessWidget {
   const SampleSurveyShowcase({super.key});
