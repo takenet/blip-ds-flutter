@@ -2,8 +2,8 @@ import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
-class SampleBottomSheethowcase extends StatelessWidget {
-  const SampleBottomSheethowcase({Key? key}) : super(key: key);
+class SampleBottomSheetShowcase extends StatelessWidget {
+  const SampleBottomSheetShowcase({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

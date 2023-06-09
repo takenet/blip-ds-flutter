@@ -20,10 +20,14 @@ class DSBottomSheetService {
     final window = WidgetsBinding.instance.window;
 
     return Container(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       margin: EdgeInsets.only(
         top: MediaQueryData.fromWindow(window).padding.top + 10,
       ),
       decoration: _border(),
+      clipBehavior: Clip.hardEdge,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -1,3 +1,21 @@
+## 0.0.56
+
+- [DSDashedBorder] New widget that creates a dashed border container.
+- [DSExpandedImage] New widget that show an imagem and opens up an image visualizer when tapped.
+- [DSInputContainerShape] New enum that represents the shape of an input container.
+- [DSVideoBody] New widget to video display (same layout as DSVideoMessageBubble, but without the bubble).
+- [DSSurveyMessageBubble] New widget to display survey bubble.
+- [Typography] Added line height props to all styles 
+- [Typography] Fixed text height distribution behavior.
+- [Typography] Fixed linkify when using WidgetSpan.
+- [DSBottomSheetCountries] Fixed icon background color.
+- [DSSearchInput] Improved color props.
+- [DSFileExtensionIcon] Added defaultColor prop.
+- [DSTextField] Removed requirement of controller prop.
+- [DSInputContainer] Added shape selector prop.
+- [Sample] Fixed sample bottom sheet showcase name.
+- [DSTextField] Changed from DSTextFormField to DSTextField.
+
 ## 0.0.55
 
 - [DSPhoneInput] Somes adjustment

@@ -43,6 +43,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
     filter: {"#": RegExp(r'[0-9]')},
   );
 
+  // TODO: check if can use DSTextField or DSInputContainer
   @override
   void initState() {
     super.initState();

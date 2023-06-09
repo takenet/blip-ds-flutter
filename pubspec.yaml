@@ -1,6 +1,6 @@
 name: blip_ds
 description: Blip Design System for Flutter.
-version: 0.0.55
+version: 0.0.56
 homepage: https://github.com/takenet/blip-ds-flutter#readme
 repository: https://github.com/takenet/blip-ds-flutter
 
@@ -36,6 +36,7 @@ dependencies:
   file_sizes: ^1.0.6
   intl_phone_number_input: ^0.7.3+1
   mask_text_input_formatter: ^2.4.0
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
