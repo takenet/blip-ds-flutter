@@ -61,6 +61,7 @@ class _DSTextFieldState extends State<DSTextField> {
         onChanged: widget.onChanged,
         style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
         autofocus: false,
+        enabled: widget.isEnabled,
         decoration: InputDecoration(
           fillColor: widget.isEnabled
               ? DSColors.neutralLightSnow

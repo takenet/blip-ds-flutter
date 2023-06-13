@@ -56,90 +56,95 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-              width: 1.0,
-              color: DSColors.neutralMediumWave,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            color: DSColors.neutralLightSnow),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 8.0,
-              ),
-              child: DSTertiaryButton(
-                leadingIcon: Obx(
-                  () => SvgPicture.asset(
-                    'assets/svg/flags/${_dropdownValue.value.flag}.svg',
-                    width: 22.0,
-                    package: DSUtils.packageName,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1.0,
+                  color: DSColors.neutralMediumWave,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                color: DSColors.neutralLightSnow),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 8.0,
+                  ),
+                  child: DSTertiaryButton(
+                    leadingIcon: Obx(
+                      () => SvgPicture.asset(
+                        'assets/svg/flags/${_dropdownValue.value.flag}.svg',
+                        width: 22.0,
+                        package: DSUtils.packageName,
+                      ),
+                    ),
+                    trailingIcon: const Padding(
+                      padding: EdgeInsets.only(
+                        left: 4.0,
+                      ),
+                      child: Icon(
+                        DSIcons.arrow_down_outline,
+                        size: 16.0,
+                      ),
+                    ),
+                    onPressed: () async {
+                      final result = await DSBottomSheetCountries.show();
+
+                      if (result == null) {
+                        return;
+                      }
+
+                      _dropdownValue.value = result;
+
+                      updatePhoneMask(
+                        phoneNumber: widget.controller.text,
+                      );
+
+                      widget.onChangeCountry?.call(_dropdownValue.value);
+                    },
                   ),
                 ),
-                trailingIcon: const Padding(
-                  padding: EdgeInsets.only(
-                    left: 4.0,
-                  ),
-                  child: Icon(
-                    DSIcons.arrow_down_outline,
-                    size: 16.0,
+                Obx(
+                  () => DSBodyText(
+                    _dropdownValue.value.code,
+                    color: DSColors.neutralMediumElephant,
                   ),
                 ),
-                onPressed: () async {
-                  final result = await DSBottomSheetCountries.show();
-
-                  if (result == null) {
-                    return;
-                  }
-
-                  _dropdownValue.value = result;
-
-                  updatePhoneMask(
-                    phoneNumber: widget.controller.text,
-                  );
-
-                  widget.onChangeCountry?.call(_dropdownValue.value);
-                },
-              ),
-            ),
-            Obx(
-              () => DSBodyText(
-                _dropdownValue.value.code,
-                color: DSColors.neutralMediumElephant,
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                    ),
+                    child: TextFormField(
+                      controller: widget.controller,
+                      onChanged: (value) => updatePhoneMask(
+                        phoneNumber: value,
+                      ),
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: DSColors.neutralDarkCity,
+                        fontFamily: DSFontFamilies.nunitoSans,
+                      ),
+                      keyboardType: TextInputType.number,
+                      showCursor: true,
+                      cursorColor: DSColors.primaryMain,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: widget.hintText ?? 'Número de telefone',
+                        hintStyle: const DSBodyTextStyle(
+                            color: DSColors.neutralMediumWave),
+                      ),
+                      inputFormatters: [maskFormatter],
+                    ),
+                  ),
                 ),
-                child: TextFormField(
-                  controller: widget.controller,
-                  onChanged: (value) => updatePhoneMask(
-                    phoneNumber: value,
-                  ),
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: DSColors.neutralDarkCity,
-                    fontFamily: DSFontFamilies.nunitoSans,
-                  ),
-                  keyboardType: TextInputType.number,
-                  showCursor: true,
-                  cursorColor: DSColors.primaryMain,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: widget.hintText ?? 'Número de telefone',
-                    hintStyle: const DSBodyTextStyle(
-                        color: DSColors.neutralMediumWave),
-                  ),
-                  inputFormatters: [maskFormatter],
-                ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+          
+        ],
       ),
     );
   }
