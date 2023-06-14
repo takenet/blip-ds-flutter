@@ -9,7 +9,7 @@ class DSTextField extends StatefulWidget {
     this.controller,
     this.hintText,
     this.isEnabled = true,
-    this.isError = false,
+    this.errorText,
   });
 
   final void Function(String term)? onChanged;
@@ -17,7 +17,7 @@ class DSTextField extends StatefulWidget {
   final String? hintText;
   final TextInputType textInputType;
   final bool isEnabled;
-  final bool isError;
+  final String? errorText;
 
   @override
   State<DSTextField> createState() => _DSTextFieldState();
@@ -45,42 +45,65 @@ class _DSTextFieldState extends State<DSTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(12, 6, 4, 6),
-      decoration: BoxDecoration(
-        color: widget.isEnabled
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralLightWhisper,
-        border: Border.all(color: _borderColor),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextFormField(
-        keyboardType: TextInputType.name,
-        focusNode: focusNode,
-        controller: widget.controller,
-        onChanged: widget.onChanged,
-        style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
-        autofocus: false,
-        enabled: widget.isEnabled,
-        decoration: InputDecoration(
-          fillColor: widget.isEnabled
-              ? DSColors.neutralLightSnow
-              : DSColors.neutralLightWhisper,
-          contentPadding: EdgeInsets.zero,
-          border: InputBorder.none,
-          labelText: widget.hintText,
-          labelStyle: const DSCaptionSmallTextStyle(
-            fontWeight: DSFontWeights.bold,
-            color: DSColors.neutralMediumCloud,
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(12, 6, 4, 6),
+          decoration: BoxDecoration(
+            color: widget.isEnabled
+                ? DSColors.neutralLightSnow
+                : DSColors.neutralLightWhisper,
+            border: Border.all(color: _borderColor),
+            borderRadius: BorderRadius.circular(8),
           ),
-          filled: true,
-          hintText: widget.hintText,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintStyle: const DSBodyTextStyle(
-            color: DSColors.neutralMediumElephant,
+          child: TextFormField(
+            keyboardType: widget.textInputType,
+            focusNode: focusNode,
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
+            autofocus: false,
+            enabled: widget.isEnabled,
+            decoration: InputDecoration(
+              fillColor: widget.isEnabled
+                  ? DSColors.neutralLightSnow
+                  : DSColors.neutralLightWhisper,
+              contentPadding: EdgeInsets.zero,
+              border: InputBorder.none,
+              labelText: widget.hintText,
+              labelStyle: const DSCaptionSmallTextStyle(
+                fontWeight: DSFontWeights.bold,
+                color: DSColors.neutralMediumCloud,
+              ),
+              filled: true,
+              hintText: widget.hintText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintStyle: const DSBodyTextStyle(
+                color: DSColors.neutralMediumElephant,
+              ),
+            ),
           ),
         ),
-      ),
+        Visibility(
+          visible: widget.errorText != null,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Row(
+              children: [
+                const Icon(
+                  DSIcons.error_solid,
+                  color: DSColors.extendRedsDelete,
+                ),
+                const SizedBox(width: 6),
+                DSCaptionSmallText(
+                  widget.errorText,
+                  color: DSColors.extendRedsDelete,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -89,8 +112,8 @@ class _DSTextFieldState extends State<DSTextField> {
       return DSColors.primaryNight;
     } else if (widget.isEnabled) {
       return DSColors.neutralMediumWave;
-    } else if (widget.isError) {
-      return DSColors.extendRedsDragon;
+    } else if (widget.errorText != null) {
+      return DSColors.extendRedsDelete;
     } else {
       return DSColors.neutralLightBox;
     }

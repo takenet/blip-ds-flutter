@@ -1,21 +1,17 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../models/ds_country.model.dart';
-import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/icons/ds_icons.dart';
-import '../../themes/texts/styles/ds_body_text_style.theme.dart';
-import '../../themes/texts/utils/ds_font_families.theme.dart';
-import '../../utils/ds_utils.util.dart';
-import '../buttons/ds_tertiary_button.widget.dart';
-import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
 class DSPhoneInput extends StatefulWidget {
   final String? hintText;
   final TextEditingController controller;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
   final void Function(DSCountry)? onChangeCountry;
 
   const DSPhoneInput({
@@ -23,6 +19,8 @@ class DSPhoneInput extends StatefulWidget {
     this.hintText,
     required this.controller,
     this.onChangeCountry,
+    this.errorText,
+    this.onChanged,
   });
 
   @override
@@ -119,9 +117,14 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                     ),
                     child: TextFormField(
                       controller: widget.controller,
-                      onChanged: (value) => updatePhoneMask(
-                        phoneNumber: value,
-                      ),
+                      onChanged: (value) {
+                        updatePhoneMask(
+                          phoneNumber: value,
+                        );
+                        if (widget.onChanged != null) {
+                          widget.onChanged!(value);
+                        }
+                      },
                       style: const TextStyle(
                         fontSize: 16.0,
                         color: DSColors.neutralDarkCity,
@@ -143,7 +146,21 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
               ],
             ),
           ),
-          
+          if (widget.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Row(
+                children: [
+                  const Icon(DSIcons.error_solid,
+                      color: DSColors.extendRedsDelete),
+                  const SizedBox(width: 6),
+                  DSCaptionSmallText(
+                    'Insira um número válido com pelo menos 10 dígitos.',
+                    color: DSColors.extendRedsDelete,
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
