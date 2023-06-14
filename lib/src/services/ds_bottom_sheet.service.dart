@@ -25,7 +25,6 @@ class DSBottomSheetService {
       child: Container(
         margin: EdgeInsets.only(
           top: MediaQueryData.fromView(window).padding.top + 10,
-          bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         decoration: _border(),
         child: Column(
