@@ -155,7 +155,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                       color: DSColors.extendRedsDelete),
                   const SizedBox(width: 6),
                   DSCaptionSmallText(
-                    'Insira um número válido com pelo menos 10 dígitos.',
+                    widget.errorText,
                     color: DSColors.extendRedsDelete,
                   ),
                 ],
