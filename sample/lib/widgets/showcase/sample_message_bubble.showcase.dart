@@ -283,6 +283,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             email: 'emial@email.com',
             name: 'Name Name name',
             phone: '99 9999-9999',
+          ),
           DSSurveyMessageBubble(
             align: DSAlign.center,
           ),
