@@ -6,10 +6,12 @@ class DSBottomSheetService {
   final BuildContext context;
   final Widget Function(ScrollController?) builder;
   final Widget? fixedHeader;
+  final bool hasBottomInsets;
 
   DSBottomSheetService({
     required this.context,
     required this.builder,
+    this.hasBottomInsets = true,
     this.fixedHeader,
   });
 
@@ -23,9 +25,11 @@ class DSBottomSheetService {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.translucent,
       child: Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
+        padding: hasBottomInsets
+            ? EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              )
+            : null,
         margin: EdgeInsets.only(
           top: MediaQueryData.fromView(window).padding.top + 10,
         ),
