@@ -27,6 +27,7 @@ class DSContactMessageBubble extends StatelessWidget {
       align: align,
       borderRadius: borderRadius,
       padding: const EdgeInsets.all(16.0),
+      shouldUseDefaultSize: true,
       style: style,
       child: _buildContactCard(),
     );
@@ -44,33 +45,27 @@ class DSContactMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16.0),
-        Visibility(
-          visible: phone != null,
-          child: Padding(
+        if (phone != null)
+          Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'Telefone',
               body: phone!,
             ),
           ),
-        ),
-        Visibility(
-          visible: email != null,
-          child: Padding(
+        if (email != null)
+          Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
               title: 'E-mail',
               body: email!,
             ),
           ),
-        ),
-        Visibility(
-          visible: address != null,
-          child: _buildContactField(
+        if (address != null)
+          _buildContactField(
             title: 'Endereço',
             body: address!,
           ),
-        ),
       ],
     );
   }
@@ -79,13 +74,20 @@ class DSContactMessageBubble extends StatelessWidget {
     required final String title,
     required final String body,
   }) {
+    final foregroundColor = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DSCaptionSmallText(title),
+        DSCaptionSmallText(
+          title,
+          color: foregroundColor,
+        ),
         DSBodyText(
           body,
           shouldLinkify: false,
+          color: foregroundColor,
         ),
       ],
     );

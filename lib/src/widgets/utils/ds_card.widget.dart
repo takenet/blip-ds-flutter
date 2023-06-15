@@ -175,7 +175,7 @@ class DSCard extends StatelessWidget {
   Widget _buildContact() {
     return DSContactMessageBubble(
       name: content['name'],
-      phone: content['phoneNumber'],
+      phone: content['cellPhoneNumber'],
       address: content['address'],
       email: content['email'],
       align: align,
