@@ -34,6 +34,9 @@ class DSContactMessageBubble extends StatelessWidget {
   }
 
   Widget _buildContactCard() {
+    final foregroundColor = style.isLightBubbleBackground(align)
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,29 +45,33 @@ class DSContactMessageBubble extends StatelessWidget {
           child: DSBodyText(
             name,
             fontWeight: DSFontWeights.semiBold,
+            color: foregroundColor,
+            overflow: TextOverflow.visible,
           ),
         ),
         const SizedBox(height: 16.0),
+        /// TODO(format): Format phone number
         if (phone != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
-              title: 'Telefone',
-              body: phone!,
-            ),
+                title: 'Telefone',
+                body: phone!,
+                foregroundColor: foregroundColor),
           ),
         if (email != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: _buildContactField(
-              title: 'E-mail',
-              body: email!,
-            ),
+                title: 'E-mail',
+                body: email!,
+                foregroundColor: foregroundColor),
           ),
         if (address != null)
           _buildContactField(
             title: 'Endereço',
             body: address!,
+            foregroundColor: foregroundColor,
           ),
       ],
     );
@@ -73,10 +80,8 @@ class DSContactMessageBubble extends StatelessWidget {
   Widget _buildContactField({
     required final String title,
     required final String body,
+    required final Color foregroundColor,
   }) {
-    final foregroundColor = style.isLightBubbleBackground(align)
-        ? DSColors.neutralDarkCity
-        : DSColors.neutralLightSnow;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -88,6 +93,7 @@ class DSContactMessageBubble extends StatelessWidget {
           body,
           shouldLinkify: false,
           color: foregroundColor,
+          overflow: TextOverflow.visible,
         ),
       ],
     );
