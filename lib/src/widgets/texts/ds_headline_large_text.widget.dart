@@ -19,12 +19,14 @@ class DSHeadlineLargeText extends DSText {
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super(
           style: DSHeadlineLargeTextStyle(
             color: color,
             overflow: overflow,
             fontWeight: fontWeight,
             fontStyle: fontStyle,
+            height: height,
           ),
         );
 
@@ -40,12 +42,14 @@ class DSHeadlineLargeText extends DSText {
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super.rich(
           style: DSHeadlineLargeTextStyle(
             color: color,
             overflow: overflow,
             fontWeight: fontWeight,
             fontStyle: fontStyle,
+            height: height,
           ),
         );
 }

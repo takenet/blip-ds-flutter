@@ -10,8 +10,8 @@ class DSCaptionTextStyle extends DSTextStyle {
     super.color,
     super.decoration,
     super.overflow,
+    super.height = 1.57,
   }) : super(
           fontSize: 14.0,
-          height: 1.57,
         );
 }

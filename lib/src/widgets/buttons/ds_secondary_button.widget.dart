@@ -18,8 +18,8 @@ class DSSecondaryButton extends DSButton {
     super.isLoading,
     super.autoSize,
     super.contentAlignment,
+    super.backgroundColor = DSColors.neutralLightSnow,
   }) : super(
-          backgroundColor: DSColors.neutralLightSnow,
           foregroundColor: isEnabled
               ? DSColors.primaryNight
               : DSColors.neutralMediumElephant,
