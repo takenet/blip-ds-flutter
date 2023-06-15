@@ -1,121 +1,137 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../enums/ds_input_container_shape.enum.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import 'ds_input_container.widget.dart';
 
 class DSTextField extends StatefulWidget {
   const DSTextField({
     super.key,
-    required this.textInputType,
-    this.onChanged,
+    required this.hint,
     this.controller,
-    this.hintText,
+    this.onChanged,
+    this.textInputAction = TextInputAction.send,
+    this.onTap,
+    this.onTapOutside,
+    this.maxLines,
+    this.textCapitalization = TextCapitalization.sentences,
+    this.showEmojiButton = false,
+    this.obscureText = false,
+    this.focusNode,
     this.isEnabled = true,
-    this.errorText,
+    this.shape = DSInputContainerShape.rectangle,
   });
 
-  final void Function(String term)? onChanged;
   final TextEditingController? controller;
-  final String? hintText;
-  final TextInputType textInputType;
+  final String hint;
+  final void Function(String)? onChanged;
+  final TextInputAction textInputAction;
+  final VoidCallback? onTap;
+  final void Function(PointerDownEvent)? onTapOutside;
+  final int? maxLines;
+  final TextCapitalization textCapitalization;
+  final bool showEmojiButton;
+  final bool obscureText;
+  final FocusNode? focusNode;
   final bool isEnabled;
-  final String? errorText;
+  final DSInputContainerShape shape;
 
   @override
   State<DSTextField> createState() => _DSTextFieldState();
 }
 
 class _DSTextFieldState extends State<DSTextField> {
-  late Color _borderColor;
-  final FocusNode focusNode = FocusNode();
-  @override
-  void initState() {
-    super.initState();
-    _borderColor = _color();
-    focusNode.addListener(() {
-      setState(() {
-        _borderColor = _color();
-      });
-    });
-  }
+  final _scrollController = ScrollController();
+  final hasFocus = RxBool(false);
 
   @override
-  void dispose() {
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 6, 4, 6),
-          decoration: BoxDecoration(
-            color: widget.isEnabled
-                ? DSColors.neutralLightSnow
-                : DSColors.neutralLightWhisper,
-            border: Border.all(color: _borderColor),
-            borderRadius: BorderRadius.circular(8),
+  Widget build(BuildContext context) => Obx(
+        () => Focus(
+          focusNode: widget.focusNode,
+          onFocusChange: hasFocus,
+          child: DSInputContainer(
+            shape: widget.shape,
+            hasFocus: hasFocus.value,
+            padding: const EdgeInsets.only(
+              left: 12.0,
+              right: 6.0,
+              top: 10.0,
+              bottom: 10.0,
+            ),
+            child: Scrollbar(
+              controller: _scrollController,
+              radius: const Radius.circular(5),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 6.0,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTextField(),
+                    _buildEmojiButton(),
+                  ],
+                ),
+              ),
+            ),
           ),
-          child: TextFormField(
-            keyboardType: widget.textInputType,
-            focusNode: focusNode,
+        ),
+      );
+
+  Widget _buildTextField() => Flexible(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 100.0,
+          ),
+          child: TextField(
             controller: widget.controller,
-            onChanged: widget.onChanged,
-            style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
-            autofocus: false,
+            scrollController: _scrollController,
             enabled: widget.isEnabled,
+            obscureText: widget.obscureText,
+            style: const DSBodyTextStyle(),
+            cursorColor: DSColors.primaryMain,
+            cursorHeight: 20.0,
+            textCapitalization: widget.textCapitalization,
+            textInputAction: widget.textInputAction,
+            maxLines: widget.obscureText ? 1 : widget.maxLines,
+            onChanged: widget.onChanged,
+            onTap: widget.onTap,
+            onTapOutside: widget.onTapOutside,
             decoration: InputDecoration(
-              fillColor: widget.isEnabled
-                  ? DSColors.neutralLightSnow
-                  : DSColors.neutralLightWhisper,
+              isDense: true,
               contentPadding: EdgeInsets.zero,
               border: InputBorder.none,
-              labelText: widget.hintText,
-              labelStyle: const DSCaptionSmallTextStyle(
-                fontWeight: DSFontWeights.bold,
-                color: DSColors.neutralMediumCloud,
-              ),
-              filled: true,
-              hintText: widget.hintText,
-              floatingLabelBehavior: FloatingLabelBehavior.always,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              hintText: widget.hint,
               hintStyle: const DSBodyTextStyle(
-                color: DSColors.neutralMediumElephant,
+                color: DSColors.neutralMediumSilver,
               ),
             ),
           ),
         ),
-        Visibility(
-          visible: widget.errorText != null,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Row(
-              children: [
-                const Icon(
-                  DSIcons.error_solid,
-                  color: DSColors.extendRedsDelete,
-                ),
-                const SizedBox(width: 6),
-                DSCaptionSmallText(
-                  widget.errorText,
-                  color: DSColors.extendRedsDelete,
-                )
-              ],
-            ),
+      );
+
+  Widget _buildEmojiButton() => Visibility(
+        visible: widget.showEmojiButton,
+        child: IconButton(
+          /// TODO: Implement to open emoji keyboard!!
+          onPressed: () {},
+          padding: EdgeInsets.zero,
+          splashRadius: 15.0,
+          constraints: const BoxConstraints(),
+          icon: Image.asset(
+            'assets/images/emoji.png',
+            package: DSUtils.packageName,
+            height: 20.5,
+            width: 20.5,
           ),
         ),
-      ],
-    );
-  }
-
-  Color _color() {
-    if (focusNode.hasFocus) {
-      return DSColors.primaryNight;
-    } else if (widget.isEnabled) {
-      return DSColors.neutralMediumWave;
-    } else if (widget.errorText != null) {
-      return DSColors.extendRedsDelete;
-    } else {
-      return DSColors.neutralLightBox;
-    }
-  }
+      );
 }

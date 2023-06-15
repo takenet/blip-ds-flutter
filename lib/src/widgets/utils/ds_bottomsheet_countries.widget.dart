@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../blip_ds.dart';
 import '../../models/ds_country.model.dart';
+import '../../services/ds_bottom_sheet.service.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
+import '../buttons/ds_icon_button.widget.dart';
+import '../fields/ds_search_input.widget.dart';
+import '../radio/ds_radio_tile.widget.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_headline_large_text.widget.dart';
+import 'ds_divider.widget.dart';
 
 abstract class DSBottomSheetCountries {
   static final showClearButton = RxBool(false);
@@ -54,7 +63,7 @@ abstract class DSBottomSheetCountries {
             ),
             child: Obx(
               () => DSSearchInput(
-                color: DSColors.neutralLightSnow,
+                iconBackgroundColor: Colors.transparent,
                 hintText: 'Buscar por nome do país ou código',
                 onSearch: _onSearch,
                 onClear: _onClear,

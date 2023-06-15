@@ -18,12 +18,14 @@ class DSCaptionSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
             fontStyle: fontStyle,
             color: color,
             overflow: overflow,
+            height: height,
           ),
         );
 
@@ -39,12 +41,14 @@ class DSCaptionSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super.rich(
           style: DSCaptionSmallTextStyle(
             fontWeight: fontWeight,
             fontStyle: fontStyle,
             color: color,
             overflow: overflow,
+            height: height,
           ),
         );
 }

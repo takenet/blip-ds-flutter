@@ -17,11 +17,13 @@ class DSHeadlineSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super(
           style: DSHeadlineSmallTextStyle(
             color: color,
             overflow: overflow,
             fontStyle: fontStyle,
+            height: height,
           ),
         );
 
@@ -36,11 +38,13 @@ class DSHeadlineSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super.rich(
           style: DSHeadlineSmallTextStyle(
             color: color,
             overflow: overflow,
             fontStyle: fontStyle,
+            height: height,
           ),
         );
 }

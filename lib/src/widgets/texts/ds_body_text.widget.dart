@@ -19,6 +19,7 @@ class DSBodyText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
@@ -26,6 +27,7 @@ class DSBodyText extends DSText {
             color: color,
             decoration: decoration,
             overflow: overflow,
+            height: height,
           ),
         );
 
@@ -42,6 +44,7 @@ class DSBodyText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
+    super.height,
   }) : super.rich(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
@@ -49,6 +52,7 @@ class DSBodyText extends DSText {
             color: color,
             decoration: decoration,
             overflow: overflow,
+            height: height,
           ),
         );
 }

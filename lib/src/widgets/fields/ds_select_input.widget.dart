@@ -15,6 +15,9 @@ class DSSelectInput extends StatelessWidget {
     this.hintText,
     this.padding = EdgeInsets.zero,
     this.scrollPhysics = const NeverScrollableScrollPhysics(),
+    this.textInputType = TextInputType.none,
+    this.showCursor = false,
+    this.absorbing = true,
   });
 
   final void Function(String term)? onChanged;
@@ -25,7 +28,11 @@ class DSSelectInput extends StatelessWidget {
   final String? hintText;
   final EdgeInsets padding;
   final ScrollPhysics scrollPhysics;
+  final TextInputType textInputType;
+  final bool showCursor;
+  final bool absorbing;
 
+  // TODO: check if can use DSTextField or DSInputContainer
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,11 +40,12 @@ class DSSelectInput extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AbsorbPointer(
+          absorbing: absorbing,
           child: SizedBox(
             height: 44.0,
             child: TextField(
-              keyboardType: TextInputType.none,
-              showCursor: false,
+              keyboardType: textInputType,
+              showCursor: showCursor,
               focusNode: focusNode,
               controller: controller,
               onChanged: onChanged,

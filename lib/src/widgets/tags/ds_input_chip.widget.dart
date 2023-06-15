@@ -4,9 +4,9 @@ import 'package:get/state_manager.dart';
 import '/src/themes/colors/ds_colors.theme.dart';
 import '/src/themes/icons/ds_icons.dart';
 import '/src/themes/texts/styles/ds_body_text_style.theme.dart';
+import '/src/widgets/tags/tag_editor/tag_editor.dart';
 import '/src/widgets/texts/ds_headline_small_text.widget.dart';
 import '/src/widgets/utils/ds_chip.widget.dart';
-import '/src/widgets/tags/tag_editor/tag_editor.dart';
 
 class DSInputChip extends StatefulWidget {
   final RxList<String> values;
@@ -94,7 +94,7 @@ class _DSInputChipState extends State<DSInputChip> {
           ),
           text: DSHeadlineSmallText(widget.values[index]),
           background: DSColors.primaryLight,
-          deleteIcon: SizedBox(
+          leadingIcon: SizedBox(
             width: 35.0,
             child: IconButton(
               padding: EdgeInsets.zero,

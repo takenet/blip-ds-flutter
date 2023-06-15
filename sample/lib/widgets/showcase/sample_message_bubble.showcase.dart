@@ -57,6 +57,26 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             text: _longText,
             align: DSAlign.left,
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: DSColors.neutralLightBox,
+              ),
+              child: DSDashedBorder(
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.transparent,
+                  ),
+                  height: 312,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+          ),
           DSTextMessageBubble(
             align: DSAlign.left,
             text: 'Testando ',
@@ -256,6 +276,9 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             appBarText: 'Unknown User',
             uniqueId: 'video4',
             mediaSize: 10000,
+          ),
+          DSSurveyMessageBubble(
+            align: DSAlign.center,
           ),
         ],
       ),

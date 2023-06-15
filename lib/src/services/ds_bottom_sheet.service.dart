@@ -23,6 +23,9 @@ class DSBottomSheetService {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.translucent,
       child: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         margin: EdgeInsets.only(
           top: MediaQueryData.fromView(window).padding.top + 10,
         ),
