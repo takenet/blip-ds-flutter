@@ -277,6 +277,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             uniqueId: 'video4',
             mediaSize: 10000,
           ),
+          DSContactMessageBubble(
+            address: null,
+            align: DSAlign.right,
+            email: 'emial@email.com',
+            name: 'Name Name name',
+            phone: '99 9999-9999',
+          ),
           DSSurveyMessageBubble(
             align: DSAlign.center,
           ),

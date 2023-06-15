@@ -8,4 +8,5 @@ abstract class DSMessageContentType {
   static const String webLink = 'application/vnd.lime.web-link+json';
   static const String collection = 'application/vnd.lime.collection+json';
   static const String ticket = 'application/vnd.iris.ticket+json';
+  static const String contact = 'application/vnd.lime.contact+json';
 }
