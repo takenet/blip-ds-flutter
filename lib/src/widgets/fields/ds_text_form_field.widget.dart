@@ -1,5 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../themes/texts/styles/ds_caption_small_text_style.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../texts/ds_caption_small_text.widget.dart';
 
 class DSTextFormField extends StatefulWidget {
   const DSTextFormField({
