@@ -118,6 +118,7 @@ export 'src/widgets/fields/ds_phone_input.widget.dart' show DSPhoneInput;
 export 'src/widgets/fields/ds_search_input.widget.dart' show DSSearchInput;
 export 'src/widgets/fields/ds_select_input.widget.dart' show DSSelectInput;
 export 'src/widgets/fields/ds_text_field.widget.dart' show DSTextField;
+export 'src/widgets/fields/ds_text_form_field.widget.dart' show DSTextFormField;
 export 'src/widgets/radio/ds_radio.widget.dart' show DSRadio;
 export 'src/widgets/radio/ds_radio_tile.widget.dart' show DSRadioTile;
 export 'src/widgets/switch/ds_switch.widget.dart' show DSSwitch;
