@@ -6,10 +6,12 @@ class DSBottomSheetService {
   final BuildContext context;
   final Widget Function(ScrollController?) builder;
   final Widget? fixedHeader;
+  final bool hasBottomInsets;
 
   DSBottomSheetService({
     required this.context,
     required this.builder,
+    this.hasBottomInsets = true,
     this.fixedHeader,
   });
 
@@ -17,30 +19,35 @@ class DSBottomSheetService {
     ScrollController? controller,
     final bool hideGrabber = false,
   }) {
-    final window = WidgetsBinding.instance.window;
+    final window = View.of(context);
 
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      margin: EdgeInsets.only(
-        top: MediaQueryData.fromWindow(window).padding.top + 10,
-      ),
-      decoration: _border(),
-      clipBehavior: Clip.hardEdge,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Visibility(
-            visible: !hideGrabber,
-            replacement: Container(
-              decoration: _border(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        padding: hasBottomInsets
+            ? EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              )
+            : null,
+        margin: EdgeInsets.only(
+          top: MediaQueryData.fromView(window).padding.top + 10,
+        ),
+        decoration: _border(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Visibility(
+              visible: !hideGrabber,
+              replacement: Container(
+                decoration: _border(),
+              ),
+              child: _grabber(),
             ),
-            child: _grabber(),
-          ),
-          fixedHeader ?? const SizedBox.shrink(),
-          _buildChild(controller),
-        ],
+            fixedHeader ?? const SizedBox.shrink(),
+            _buildChild(controller),
+          ],
+        ),
       ),
     );
   }

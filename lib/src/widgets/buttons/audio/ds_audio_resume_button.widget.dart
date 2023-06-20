@@ -1,3 +1,4 @@
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../themes/colors/ds_colors.theme.dart';
@@ -13,7 +14,10 @@ class DSAudioResumeButton extends DSTertiaryButton {
           leadingIcon: SvgPicture.asset(
             'assets/images/microphone.svg',
             package: DSUtils.packageName,
-            color: DSColors.neutralDarkRooftop,
+            colorFilter: const ColorFilter.mode(
+              DSColors.neutralDarkRooftop,
+              BlendMode.srcIn,
+            ),
             height: 24.0,
           ),
         );

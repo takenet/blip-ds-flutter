@@ -9,6 +9,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
+import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
@@ -62,6 +63,8 @@ class DSCard extends StatelessWidget {
           style: style,
         );
 
+      case DSMessageContentType.contact:
+        return _buildContact();
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
 
@@ -167,6 +170,18 @@ class DSCard extends StatelessWidget {
             onSelected: onSelected,
             style: style,
           );
+  }
+
+  Widget _buildContact() {
+    return DSContactMessageBubble(
+      name: content['name'],
+      phone: content['cellPhoneNumber'],
+      address: content['address'],
+      email: content['email'],
+      align: align,
+      style: style,
+      borderRadius: borderRadius,
+    );
   }
 
   Widget _buildMediaLink() {

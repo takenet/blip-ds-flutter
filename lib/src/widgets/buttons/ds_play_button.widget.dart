@@ -16,7 +16,10 @@ class DSPlayButton extends DSIconButton {
           icon: SvgPicture.asset(
             'assets/images/play.svg',
             package: DSUtils.packageName,
-            color: color,
+            colorFilter: ColorFilter.mode(
+              color,
+              BlendMode.srcIn,
+            ),
             height: 24.0,
           ),
         );

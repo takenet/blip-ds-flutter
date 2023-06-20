@@ -65,7 +65,10 @@ class DSDeliveryReportIcon extends StatelessWidget {
   Widget _getIcon(final String path, final Color color) {
     return SvgPicture.asset(
       path,
-      color: color,
+      colorFilter: ColorFilter.mode(
+        color,
+        BlendMode.srcIn,
+      ),
       package: DSUtils.packageName,
       height: 10.0,
     );

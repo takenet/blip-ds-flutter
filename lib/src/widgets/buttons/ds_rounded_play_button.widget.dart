@@ -36,9 +36,12 @@ class DSRoundedPlayButton extends InkWell {
               child: SvgPicture.asset(
                 'assets/images/play.svg',
                 package: DSUtils.packageName,
-                color: align == DSAlign.right
-                    ? DSColors.neutralLightSnow
-                    : DSColors.neutralDarkCity,
+                colorFilter: ColorFilter.mode(
+                  align == DSAlign.right
+                      ? DSColors.neutralLightSnow
+                      : DSColors.neutralDarkCity,
+                  BlendMode.srcIn,
+                ),
                 height: 32,
               ),
             ),
