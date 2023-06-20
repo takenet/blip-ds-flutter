@@ -45,7 +45,7 @@ DEPENDENCIES:
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
   - open_filex (from `.symlinks/plugins/open_filex/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
@@ -71,7 +71,7 @@ EXTERNAL SOURCES:
   open_filex:
     :path: ".symlinks/plugins/open_filex/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
@@ -99,4 +99,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: da491a8b7d2d8eef05b8be02236cf916620dd0f4
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1

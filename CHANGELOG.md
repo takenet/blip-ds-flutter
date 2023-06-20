@@ -1,3 +1,7 @@
+## 0.0.57
+
+- Upgraded major version of some packages
+
 ## 0.0.56
 
 - [DSDashedBorder] New widget that creates a dashed border container.
