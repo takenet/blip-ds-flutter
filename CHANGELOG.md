@@ -1,6 +1,8 @@
 ## 0.0.57
 
 - Upgraded major version of some packages
+- [DSTextFormField] New widget to use inside a [Form]
+- [DSContactMessageBubble] New widget to show the content of a WhatsApp contact message [Form]
 
 ## 0.0.56
 
