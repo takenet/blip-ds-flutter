@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -16,6 +17,7 @@ class DSTextFormField extends StatefulWidget {
     this.hintText,
     this.isEnabled = true,
     this.errorText,
+    this.inputFormatters,
   });
 
   final void Function(String term)? onChanged;
@@ -24,24 +26,14 @@ class DSTextFormField extends StatefulWidget {
   final TextInputType textInputType;
   final bool isEnabled;
   final String? errorText;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<DSTextFormField> createState() => _DSTextFormFieldState();
 }
 
 class _DSTextFormFieldState extends State<DSTextFormField> {
-  late Color _borderColor;
   final FocusNode focusNode = FocusNode();
-  @override
-  void initState() {
-    super.initState();
-    _borderColor = _color();
-    focusNode.addListener(() {
-      setState(() {
-        _borderColor = _color();
-      });
-    });
-  }
 
   @override
   void dispose() {
@@ -59,7 +51,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             color: widget.isEnabled
                 ? DSColors.neutralLightSnow
                 : DSColors.neutralLightWhisper,
-            border: Border.all(color: _borderColor),
+            border: Border.all(color: _color()),
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
@@ -67,9 +59,14 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             focusNode: focusNode,
             controller: widget.controller,
             onChanged: widget.onChanged,
-            style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
+            style: DSBodyTextStyle(
+              color: widget.isEnabled
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralMediumSilver,
+            ),
             autofocus: false,
             enabled: widget.isEnabled,
+            inputFormatters: widget.inputFormatters,
             decoration: InputDecoration(
               fillColor: widget.isEnabled
                   ? DSColors.neutralLightSnow
@@ -77,13 +74,15 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
               contentPadding: EdgeInsets.zero,
               border: InputBorder.none,
               labelText: widget.hintText,
-              labelStyle: const DSCaptionSmallTextStyle(
+              labelStyle: DSCaptionSmallTextStyle(
                 fontWeight: DSFontWeights.bold,
-                color: DSColors.neutralMediumCloud,
+                color: widget.isEnabled
+                    ? DSColors.neutralMediumCloud
+                    : DSColors.neutralMediumSilver,
               ),
               filled: true,
               hintText: widget.hintText,
-              floatingLabelBehavior: FloatingLabelBehavior.always,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
               hintStyle: const DSBodyTextStyle(
                 color: DSColors.neutralMediumElephant,
               ),
@@ -114,12 +113,12 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   }
 
   Color _color() {
-    if (focusNode.hasFocus) {
+    if (widget.errorText != null) {
+      return DSColors.extendRedsDelete;
+    } else if (focusNode.hasFocus) {
       return DSColors.primaryNight;
     } else if (widget.isEnabled) {
       return DSColors.neutralMediumWave;
-    } else if (widget.errorText != null) {
-      return DSColors.extendRedsDelete;
     } else {
       return DSColors.neutralLightBox;
     }
