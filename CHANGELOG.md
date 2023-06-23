@@ -1,3 +1,7 @@
+## 0.0.58
+
+- [DSInputChip] Fix text padding
+
 ## 0.0.57
 
 - Upgraded major version of some packages
