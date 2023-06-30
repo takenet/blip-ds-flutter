@@ -88,7 +88,9 @@ class _DSInputChipState extends State<DSInputChip> {
       child: SizedBox(
         height: 32.0,
         child: DSChip(
-          textPadding: const EdgeInsets.only(left: 12.0),
+          textPadding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+          ),
           borderRadius: const BorderRadius.all(
             Radius.circular(16.0),
           ),
