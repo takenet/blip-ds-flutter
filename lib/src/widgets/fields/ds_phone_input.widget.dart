@@ -1,4 +1,3 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/themes/texts/styles/ds_text_style.theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +5,15 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../models/ds_country.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../themes/texts/utils/ds_font_families.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import '../texts/ds_text.widget.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
 class DSPhoneInput extends StatefulWidget {
