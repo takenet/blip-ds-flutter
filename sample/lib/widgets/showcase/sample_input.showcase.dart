@@ -24,9 +24,8 @@ class SampleInputShowcase extends StatelessWidget {
             onClear: () {},
             onSearch: (_) {},
           ),
-          DSTextFormField(
+          const DSTextFormField(
             textInputType: TextInputType.name,
-            focusNode: FocusNode(),
           ),
         ],
       ),

@@ -13,7 +13,6 @@ class DSTextFormField extends StatefulWidget {
   const DSTextFormField({
     super.key,
     required this.textInputType,
-    required this.focusNode,
     this.onChanged,
     this.controller,
     this.hintText,
@@ -29,7 +28,6 @@ class DSTextFormField extends StatefulWidget {
   final bool isEnabled;
   final String? errorText;
   final List<TextInputFormatter>? inputFormatters;
-  final FocusNode focusNode;
 
   @override
   State<DSTextFormField> createState() => _DSTextFormFieldState();
@@ -37,9 +35,10 @@ class DSTextFormField extends StatefulWidget {
 
 class _DSTextFormFieldState extends State<DSTextFormField> {
   final Rx<Color> _borderColor = Rx(DSColors.neutralLightBox);
+  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
-    widget.focusNode.addListener(() {
+    _focusNode.addListener(() {
       _borderColor.value = _color();
     });
     super.initState();
@@ -47,7 +46,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
 
   @override
   void dispose() {
-    widget.focusNode.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -67,7 +66,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             ),
             child: TextFormField(
               keyboardType: widget.textInputType,
-              focusNode: widget.focusNode,
+              focusNode: _focusNode,
               controller: widget.controller,
               onChanged: widget.onChanged,
               style: DSBodyTextStyle(
@@ -127,7 +126,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   Color _color() {
     if (widget.errorText != null) {
       return DSColors.extendRedsDelete;
-    } else if (widget.focusNode.hasFocus) {
+    } else if (_focusNode.hasFocus) {
       return DSColors.primaryNight;
     } else if (widget.isEnabled) {
       return DSColors.neutralMediumWave;
