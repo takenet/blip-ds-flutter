@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
@@ -21,16 +23,14 @@ class SampleInputShowcase extends StatelessWidget {
           ),
           DSPhoneInput(
             controller: controller,
-            // ignore: avoid_print
-            onChangeCountry: (country) => print(country.code),
+            onChangeCountry: (country) => log(country.code),
             shouldFocus: true,
             hintText: '(54) 99209-9544',
             labelText: 'Telefone',
           ),
           DSPhoneInput(
             controller: controller,
-            // ignore: avoid_print
-            onChangeCountry: (country) => print(country.code),
+            onChangeCountry: (country) => log(country.code),
             hintText: 'Telefone',
           ),
           const DSTextFormField(
