@@ -76,11 +76,11 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
         FocusScope.of(context).requestFocus(_focusNode);
       },
       child: Container(
-        padding: const EdgeInsets.fromLTRB(12, 0, 4, 0),
+        padding: const EdgeInsets.fromLTRB(12.0, 0.0, 4.0, 0.0),
         decoration: BoxDecoration(
           color: DSColors.neutralLightSnow,
           border: Border.all(color: _color()),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,15 +89,15 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
             Visibility(
               visible: widget.shouldShowHint && _focusNode.hasFocus,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
                 child: DSText(
                   widget.hintText,
                   style: const DSTextStyle(
-                    fontSize: 8,
+                    fontSize: 8.0,
                     fontWeight: DSFontWeights.bold,
                     color: DSColors.neutralMediumCloud,
                   ),
-                  height: 0,
+                  height: 0.0,
                 ),
               ),
             ),
@@ -199,7 +199,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                   children: [
                     const Icon(DSIcons.error_solid,
                         color: DSColors.extendRedsDelete),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 6.0),
                     DSCaptionSmallText(
                       widget.errorText,
                       color: DSColors.extendRedsDelete,

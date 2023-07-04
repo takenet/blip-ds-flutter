@@ -56,7 +56,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
       children: [
         Obx(
           () => Container(
-            padding: const EdgeInsets.fromLTRB(12, 6, 4, 6),
+            padding: const EdgeInsets.fromLTRB(12.0, 6.0, 4.0, 6.0),
             decoration: BoxDecoration(
               color: widget.isEnabled
                   ? DSColors.neutralLightSnow
@@ -103,14 +103,14 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
         Visibility(
           visible: widget.errorText != null,
           child: Padding(
-            padding: const EdgeInsets.only(top: 4),
+            padding: const EdgeInsets.only(top: 4.0),
             child: Row(
               children: [
                 const Icon(
                   DSIcons.error_solid,
                   color: DSColors.extendRedsDelete,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 6.0),
                 DSCaptionSmallText(
                   widget.errorText,
                   color: DSColors.extendRedsDelete,
