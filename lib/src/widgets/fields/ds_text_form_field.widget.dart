@@ -16,15 +16,17 @@ class DSTextFormField extends StatefulWidget {
     this.onChanged,
     this.controller,
     this.hintText,
+    this.labelText,
     this.isEnabled = true,
     this.errorText,
     this.inputFormatters,
   });
 
+  final TextInputType textInputType;
   final void Function(String term)? onChanged;
   final TextEditingController? controller;
   final String? hintText;
-  final TextInputType textInputType;
+  final String? labelText;
   final bool isEnabled;
   final String? errorText;
   final List<TextInputFormatter>? inputFormatters;
@@ -36,12 +38,13 @@ class DSTextFormField extends StatefulWidget {
 class _DSTextFormFieldState extends State<DSTextFormField> {
   final Rx<Color> _borderColor = Rx(DSColors.neutralLightBox);
   final FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
+    super.initState();
     _focusNode.addListener(() {
       _borderColor.value = _color();
     });
-    super.initState();
   }
 
   @override
@@ -52,6 +55,8 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+    _borderColor.value = _color();
+
     return Column(
       children: [
         Obx(
@@ -83,7 +88,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
                     : DSColors.neutralLightWhisper,
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
-                labelText: widget.hintText,
+                labelText: widget.labelText,
                 labelStyle: DSCaptionSmallTextStyle(
                   fontWeight: DSFontWeights.bold,
                   color: widget.isEnabled
@@ -91,7 +96,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
                       : DSColors.neutralMediumSilver,
                 ),
                 filled: true,
-                hintText: widget.hintText,
+                hintText: widget.hintText ?? widget.labelText,
                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                 hintStyle: const DSBodyTextStyle(
                   color: DSColors.neutralMediumElephant,

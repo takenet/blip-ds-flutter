@@ -15,17 +15,27 @@ class SampleInputShowcase extends StatelessWidget {
       child: Wrap(
         runSpacing: 8.0,
         children: [
-          DSPhoneInput(
-            controller: controller,
-            // ignore: avoid_print
-            onChangeCountry: (country) => print(country.code),
-          ),
           DSSearchInput(
             onClear: () {},
             onSearch: (_) {},
           ),
+          DSPhoneInput(
+            controller: controller,
+            // ignore: avoid_print
+            onChangeCountry: (country) => print(country.code),
+            shouldFocus: true,
+            hintText: '(54) 99209-9544',
+            labelText: 'Telefone',
+          ),
+          DSPhoneInput(
+            controller: controller,
+            // ignore: avoid_print
+            onChangeCountry: (country) => print(country.code),
+            hintText: 'Telefone',
+          ),
           const DSTextFormField(
             textInputType: TextInputType.name,
+            labelText: 'Name',
           ),
         ],
       ),
