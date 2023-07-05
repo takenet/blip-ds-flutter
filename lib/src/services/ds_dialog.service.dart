@@ -143,9 +143,14 @@ class DSDialogService {
               size: 32,
               color: DSColors.neutralDarkCity,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: DSHeadlineSmallText(title),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: DSHeadlineSmallText(
+                  title,
+                  overflow: TextOverflow.visible,
+                ),
+              ),
             ),
           ],
         ),
