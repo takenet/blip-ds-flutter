@@ -1,3 +1,7 @@
+## 0.0.60
+
+- [DSDialogService] fixing overflow of title on dialog 
+
 ## 0.0.59
 
 - [DSTextFormField] fixing border color when focus change 
