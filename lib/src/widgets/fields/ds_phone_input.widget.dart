@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -7,28 +7,34 @@ import '../../models/ds_country.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
+import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../themes/texts/utils/ds_font_families.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../utils/ds_utils.util.dart';
-import '../buttons/ds_tertiary_button.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_small_text.widget.dart';
+import '../texts/ds_text.widget.dart';
 import '../utils/ds_bottomsheet_countries.widget.dart';
 
 class DSPhoneInput extends StatefulWidget {
-  final String? hintText;
-  final TextEditingController controller;
-  final String? errorText;
-  final ValueChanged<String>? onChanged;
-  final void Function(DSCountry)? onChangeCountry;
-
   const DSPhoneInput({
     super.key,
-    this.hintText,
     required this.controller,
+    this.hintText,
+    this.labelText,
     this.onChangeCountry,
     this.errorText,
     this.onChanged,
+    this.shouldFocus = false,
   });
+
+  final TextEditingController controller;
+  final String? hintText;
+  final String? labelText;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
+  final bool shouldFocus;
+  final void Function(DSCountry)? onChangeCountry;
 
   @override
   State<DSPhoneInput> createState() => _DSPhoneInputState();
@@ -36,6 +42,8 @@ class DSPhoneInput extends StatefulWidget {
 
 class _DSPhoneInputState extends State<DSPhoneInput> {
   final _dropdownValue = Rx<DSCountry>(DSUtils.countriesList.first);
+  final _borderColor = Rx(DSColors.neutralLightBox);
+  final _focusNode = FocusNode();
 
   // TODO: get masks considering selected country.
   static const _defaultMask = '#################';
@@ -52,106 +60,168 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(() {
+      _borderColor.value = _color();
+    });
+
     DSBottomSheetCountries.selectedCountry.value = null;
     widget.onChangeCountry?.call(_dropdownValue.value);
   }
 
   @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _borderColor.value = _color();
+
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
+        FocusScope.of(context).requestFocus(_focusNode);
       },
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.0,
-                  color: DSColors.neutralMediumWave,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                color: DSColors.neutralLightSnow),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 8.0,
-                  ),
-                  child: DSTertiaryButton(
-                    leadingIcon: Obx(
-                      () => SvgPicture.asset(
-                        'assets/svg/flags/${_dropdownValue.value.flag}.svg',
-                        width: 22.0,
-                        package: DSUtils.packageName,
+          Obx(
+            () => Container(
+              padding: const EdgeInsets.fromLTRB(12.0, 0.0, 4.0, 0.0),
+              decoration: BoxDecoration(
+                color: DSColors.neutralLightSnow,
+                border: Border.all(color: _borderColor.value),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Visibility(
+                    visible: widget.labelText?.isNotEmpty ?? false,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                      ),
+                      child: DSText(
+                        widget.labelText,
+                        style: const DSTextStyle(
+                          fontSize: 9.0,
+                          fontWeight: DSFontWeights.bold,
+                          color: DSColors.neutralMediumCloud,
+                        ),
+                        height: 0.0,
                       ),
                     ),
-                    trailingIcon: const Padding(
-                      padding: EdgeInsets.only(
-                        left: 4.0,
-                      ),
-                      child: Icon(
-                        DSIcons.arrow_down_outline,
-                        size: 16.0,
-                      ),
-                    ),
-                    onPressed: () async {
-                      final result = await DSBottomSheetCountries.show();
-
-                      if (result == null) {
-                        return;
-                      }
-
-                      _dropdownValue.value = result;
-
-                      updatePhoneMask(
-                        phoneNumber: widget.controller.text,
-                      );
-
-                      widget.onChangeCountry?.call(_dropdownValue.value);
-                    },
                   ),
-                ),
-                Obx(
-                  () => DSBodyText(
-                    _dropdownValue.value.code,
-                    color: DSColors.neutralMediumElephant,
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8.0,
-                    ),
-                    child: TextFormField(
-                      controller: widget.controller,
-                      onChanged: (value) {
-                        updatePhoneMask(
-                          phoneNumber: value,
-                        );
-                        if (widget.onChanged != null) {
-                          widget.onChanged!(value);
-                        }
-                      },
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: DSColors.neutralDarkCity,
-                        fontFamily: DSFontFamilies.nunitoSans,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 8.0,
+                              ),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final result =
+                                      await DSBottomSheetCountries.show();
+
+                                  if (result == null) {
+                                    return;
+                                  }
+
+                                  _dropdownValue.value = result;
+
+                                  updatePhoneMask(
+                                    phoneNumber: widget.controller.text,
+                                  );
+
+                                  widget.onChangeCountry
+                                      ?.call(_dropdownValue.value);
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Obx(
+                                      () => SvgPicture.asset(
+                                        'assets/svg/flags/${_dropdownValue.value.flag}.svg',
+                                        width: 22.0,
+                                        package: DSUtils.packageName,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 4.0,
+                                      ),
+                                      child: Icon(
+                                        DSIcons.arrow_down_outline,
+                                        size: 16.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3.0),
+                              child: Obx(
+                                () => DSBodyText(
+                                  _dropdownValue.value.code,
+                                  color: DSColors.neutralMediumElephant,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      keyboardType: TextInputType.number,
-                      showCursor: true,
-                      cursorColor: DSColors.primaryMain,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: widget.hintText ?? 'Número de telefone',
-                        hintStyle: const DSBodyTextStyle(
-                            color: DSColors.neutralMediumWave),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 7.0,
+                            bottom: 8.0,
+                          ),
+                          child: TextFormField(
+                            controller: widget.controller,
+                            focusNode: _focusNode,
+                            onChanged: (value) {
+                              updatePhoneMask(
+                                phoneNumber: value,
+                              );
+                              if (widget.onChanged != null) {
+                                widget.onChanged!(value);
+                              }
+                            },
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: DSColors.neutralDarkCity,
+                              fontFamily: DSFontFamilies.nunitoSans,
+                            ),
+                            keyboardType: TextInputType.number,
+                            showCursor: true,
+                            cursorColor: DSColors.primaryMain,
+                            decoration: InputDecoration(
+                              isCollapsed: true,
+                              border: InputBorder.none,
+                              hintText: widget.hintText ??
+                                  widget.labelText ??
+                                  'Número de telefone',
+                              hintStyle: const DSBodyTextStyle(
+                                color: DSColors.neutralMediumWave,
+                              ),
+                            ),
+                            inputFormatters: [maskFormatter],
+                          ),
+                        ),
                       ),
-                      inputFormatters: [maskFormatter],
-                    ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           if (widget.errorText != null)
@@ -161,7 +231,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                 children: [
                   const Icon(DSIcons.error_solid,
                       color: DSColors.extendRedsDelete),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 6.0),
                   DSCaptionSmallText(
                     widget.errorText,
                     color: DSColors.extendRedsDelete,
@@ -184,4 +254,14 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                 ? _tenDigitsMask
                 : _elevenDigitsMask,
       );
+
+  Color _color() {
+    if (widget.errorText != null) {
+      return DSColors.extendRedsDelete;
+    } else if (_focusNode.hasFocus && widget.shouldFocus) {
+      return DSColors.primaryNight;
+    } else {
+      return DSColors.neutralMediumWave;
+    }
+  }
 }
