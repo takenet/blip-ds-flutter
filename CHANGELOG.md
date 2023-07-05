@@ -1,3 +1,8 @@
+## 0.0.59
+
+- [DSTextFormField] fixing border color when focus change 
+- [DSPhoneInput] Add a flag to show label text, and always show de flag 
+
 ## 0.0.58
 
 - [DSInputChip] Fix text padding
