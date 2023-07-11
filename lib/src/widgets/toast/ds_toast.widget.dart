@@ -133,46 +133,53 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
             ),
           ),
           Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
+            ),
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                if (icon != null) icon!,
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (icon != null) icon!,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 16.0,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (props.title != null)
+                              DSHeadlineSmallText(
+                                props.title,
+                                overflow: TextOverflow.visible,
+                              ),
+                            if (props.message != null)
+                              DSBodyText(
+                                props.message,
+                                overflow: TextOverflow.visible,
+                              ),
+                          ],
+                        ),
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (props.title != null)
-                          DSHeadlineSmallText(
-                            props.title,
-                            overflow: TextOverflow.visible,
-                          ),
-                        if (props.message != null)
-                          DSBodyText(
-                            props.message,
-                            overflow: TextOverflow.visible,
-                          ),
-                      ],
-                    ),
-                  ),
+                    if (props.actionType == DSToastActionType.icon)
+                      DSIconButton(
+                        size: 40.0,
+                        icon: const Icon(DSIcons.close_outline),
+                        onPressed: () => state!(_closeToast),
+                      ),
+                  ],
                 ),
-                if (props.actionType == DSToastActionType.icon)
-                  DSIconButton(
-                    size: 40.0,
-                    icon: const Icon(DSIcons.close_outline),
-                    onPressed: () => state!(_closeToast),
-                  ),
                 if (props.actionType == DSToastActionType.button)
                   DSTertiaryButton(
                     label: props.buttonText,
