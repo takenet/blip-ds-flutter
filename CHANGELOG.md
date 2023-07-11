@@ -1,3 +1,7 @@
+## 0.0.61
+
+- [DSToast] Fixed rendering of toast when action type was 'none'.
+
 ## 0.0.60
 
 - [DSDialogService] fixing overflow of title on dialog 
