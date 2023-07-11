@@ -125,8 +125,8 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
       child: Stack(
         children: [
           Positioned(
-            left: -30.0,
-            top: -10.0,
+            left: -15.0,
+            top: -2.0,
             child: SvgPicture.asset(
               'assets/images/blip_balloon.svg',
               package: DSUtils.packageName,
