@@ -74,6 +74,13 @@ class SampleButtonShowcase extends StatelessWidget {
             // isLoading: true,
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: DSLocationButton(
+            onPressed: () => {},
+            label: 'Send Location',
+          ),
+        ),
       ],
     );
   }

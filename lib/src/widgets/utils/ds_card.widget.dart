@@ -1,3 +1,4 @@
+import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -101,6 +102,9 @@ class DSCard extends StatelessWidget {
           ticketId: content['formattedTicketId'],
           chatbotIdentity: content['ownerIdentity'],
         );
+
+      case DSMessageContentType.location:
+        return DSLocationButton();
 
       default:
         return DSUnsupportedContentMessageBubble(
