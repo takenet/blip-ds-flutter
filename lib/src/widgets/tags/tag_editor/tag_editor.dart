@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:developer' as developer;
+import 'dart:math';
+
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
-import 'package:debounce_throttle/debounce_throttle.dart';
 
 import '/src/widgets/tags/tag_editor/suggestions_box_controller.dart';
 import './tag_editor_layout_delegate.dart';
@@ -446,26 +447,29 @@ class TagsEditorState<T> extends State<TagEditor<T>> {
     final decoration = widget.hasAddButton
         ? widget.inputDecoration.copyWith(
             suffixIcon: CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              _onTagChanged(_textFieldController.text);
-            },
-            child: const Icon(Icons.add),
-          ))
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                _onTagChanged(_textFieldController.text);
+              },
+              child: const Icon(Icons.add),
+            ),
+          )
         : widget.inputDecoration;
 
     final tagEditorArea = Container(
       constraints: const BoxConstraints(maxHeight: 200.0),
       padding: widget.padding ?? EdgeInsets.zero,
       decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.all(Radius.circular(widget.borderRadius ?? 0)),
-          border: Border.all(
-              width: widget.borderSize ?? (_isFocused ? 1 : 0.5),
-              color: _isFocused
-                  ? widget.focusedBorderColor ?? Colors.transparent
-                  : widget.enableBorderColor ?? Colors.transparent),
-          color: widget.backgroundColor ?? Colors.transparent),
+        borderRadius:
+            BorderRadius.all(Radius.circular(widget.borderRadius ?? 0)),
+        border: Border.all(
+          width: widget.borderSize ?? (_isFocused ? 1 : 0.5),
+          color: _isFocused
+              ? widget.focusedBorderColor ?? Colors.transparent
+              : widget.enableBorderColor ?? Colors.transparent,
+        ),
+        color: widget.backgroundColor ?? Colors.transparent,
+      ),
       child: SingleChildScrollView(
         controller: widget.scrollController,
         padding: const EdgeInsets.only(
