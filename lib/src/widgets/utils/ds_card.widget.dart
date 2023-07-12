@@ -103,7 +103,7 @@ class DSCard extends StatelessWidget {
           chatbotIdentity: content['ownerIdentity'],
         );
 
-      case DSMessageContentType.location:
+      case DSMessageContentType.input:
         return DSLocationButton();
 
       default:

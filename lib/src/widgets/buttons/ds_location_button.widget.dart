@@ -1,8 +1,6 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-import '../../enums/ds_button_shape.enum.dart';
-
 class DSLocationButton extends DSButton {
   DSLocationButton({
     super.key,
@@ -13,7 +11,7 @@ class DSLocationButton extends DSButton {
     Color backgroundColor = DSColors.primaryLight,
     Color foregroundColor = DSColors.neutralDarkCity,
   }) : super(
-          shape: DSButtonShape.rounded,
+          borderRadius: 20.0,
           leadingIcon: const Icon(
             DSIcons.localization_outline,
           ),

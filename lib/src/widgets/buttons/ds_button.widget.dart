@@ -21,6 +21,7 @@ class DSButton extends StatelessWidget {
   final DSButtonShape shape;
   final bool autoSize;
   final MainAxisAlignment contentAlignment;
+  final double borderRadius;
 
   final List<Widget> _contentList = [];
 
@@ -42,6 +43,7 @@ class DSButton extends StatelessWidget {
     this.shape = DSButtonShape.rectangular,
     this.autoSize = true,
     this.contentAlignment = MainAxisAlignment.center,
+    this.borderRadius = 8.0,
   });
 
   @override
@@ -65,7 +67,7 @@ class DSButton extends StatelessWidget {
         shape: shape == DSButtonShape.rounded
             ? const CircleBorder()
             : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
         side: BorderSide(
           color: borderColor ?? backgroundColor,
