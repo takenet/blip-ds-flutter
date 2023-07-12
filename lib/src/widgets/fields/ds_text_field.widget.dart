@@ -69,7 +69,6 @@ class _DSTextFieldState extends State<DSTextField> {
                   right: 6.0,
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildTextField(),
