@@ -1,3 +1,9 @@
+## 0.0.62
+
+- [DSInputChip] Changed remove button icon from leading to trailing.
+- [DSTextField] Removed Row CrossAxisAlignment
+- [TagEditor] Formated file
+
 ## 0.0.61
 
 - [DSToast] Fixed rendering of toast when action type was 'none'.
