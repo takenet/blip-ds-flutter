@@ -49,7 +49,7 @@ class DSLocationMessageBubble extends StatelessWidget {
               placeholder: (_, __) => _buildLoading(),
               align: align,
               style: style,
-              height: 240,
+              height: 240.0,
             ),
             if (title?.isNotEmpty ?? false)
               Padding(
