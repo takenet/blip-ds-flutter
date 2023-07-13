@@ -12,6 +12,7 @@ import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
+import '../chat/ds_location_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
@@ -95,6 +96,14 @@ class DSCard extends StatelessWidget {
           style: style,
         );
 
+      case DSMessageContentType.location:
+        return DSLocationMessageBubble(
+          title: content['text'],
+          latitude: content['latitude'].toString(),
+          longitude: content['longitude'].toString(),
+          align: align,
+          style: style,
+        );
       case DSMessageContentType.ticket:
         return DSTicketMessage(
           messageType: DSTicketMessageType.forwardedTicket,
