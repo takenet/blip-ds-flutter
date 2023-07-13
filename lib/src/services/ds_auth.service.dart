@@ -6,7 +6,7 @@ abstract class DSAuthService {
     required final String userAccessToken,
   }) {
     assert(userAccessToken.isNotEmpty, 'The token must not be empty.');
-    assert(_token != null, 'The DSAuthService was already initialized.');
+    assert(_token == null, 'The DSAuthService was already initialized.');
 
     _token = userAccessToken;
   }
