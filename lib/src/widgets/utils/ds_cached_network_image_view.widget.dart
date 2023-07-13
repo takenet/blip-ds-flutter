@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../blip_ds.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../services/ds_auth.service.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
 
 class DSCachedNetworkImageView extends StatelessWidget {
   final String url;
