@@ -99,9 +99,11 @@ class _DSTextFieldState extends State<DSTextField> {
                         color: DSColors.extendRedsDelete,
                       ),
                       const SizedBox(width: 6.0),
-                      DSCaptionSmallText(
-                        widget.errorText,
-                        color: DSColors.extendRedsDelete,
+                      Flexible(
+                        child: DSCaptionSmallText(
+                          widget.errorText,
+                          color: DSColors.extendRedsDelete,
+                        ),
                       )
                     ],
                   ),
