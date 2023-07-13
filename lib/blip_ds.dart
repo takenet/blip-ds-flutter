@@ -85,12 +85,16 @@ export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
+export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
+    show DSContactMessageBubble;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
+export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
+    show DSLocationMessageBubble;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
     show DSMessageBubbleDetail;
@@ -148,4 +152,3 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/chat/ds_contact_message_bubble.widget.dart' show DSContactMessageBubble;

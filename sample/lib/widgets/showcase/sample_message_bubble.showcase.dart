@@ -287,6 +287,11 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           DSSurveyMessageBubble(
             align: DSAlign.center,
           ),
+          DSLocationMessageBubble(
+            align: DSAlign.left,
+            latitude: '47.5951518',
+            longitude: '122.3316393',
+          ),
         ],
       ),
     );
