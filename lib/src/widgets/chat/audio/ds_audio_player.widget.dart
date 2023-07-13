@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../services/ds_file.service.dart';
+import '../../../utils/ds_auth.util.dart';
 import '../../buttons/ds_pause_button.widget.dart';
 import '../../buttons/ds_play_button.widget.dart';
 import 'ds_audio_seek_bar.widget.dart';
@@ -26,6 +27,7 @@ class DSAudioPlayer extends StatefulWidget {
   final Color controlForegroundColor;
   final Color speedForegroundColor;
   final Color speedBorderColor;
+  final bool shouldAuthenticate;
 
   DSAudioPlayer({
     super.key,
@@ -39,6 +41,7 @@ class DSAudioPlayer extends StatefulWidget {
     required this.controlForegroundColor,
     required this.speedForegroundColor,
     required this.speedBorderColor,
+    this.shouldAuthenticate = false,
     final String? uniqueId,
   }) : uniqueId = uniqueId ?? DateTime.now().toIso8601String();
 
@@ -111,7 +114,10 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     Platform.isIOS && widget.audioType.contains('ogg')
         ? await _transcoder()
         : await _controller.player.setAudioSource(
-            AudioSource.uri(widget.uri),
+            AudioSource.uri(
+              widget.uri,
+              headers: widget.shouldAuthenticate ? DSAuth.httpHeaders : null,
+            ),
           );
   }
 
@@ -121,6 +127,7 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     final inputFilePath = await DSFileService.download(
       widget.uri.toString(),
       inputFileName,
+      httpHeaders: widget.shouldAuthenticate ? DSAuth.httpHeaders : null,
     );
 
     final temporaryPath = (await getTemporaryDirectory()).path;

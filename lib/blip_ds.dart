@@ -49,6 +49,7 @@ export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;
 export 'src/themes/texts/utils/ds_font_weights.theme.dart' show DSFontWeights;
 export 'src/utils/ds_animate.util.dart' show DSAnimate;
+export 'src/utils/ds_auth.util.dart' show DSAuth;
 export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/animations/ds_animated_size.widget.dart'
@@ -85,6 +86,8 @@ export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
+export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
+    show DSContactMessageBubble;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
@@ -148,4 +151,3 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/chat/ds_contact_message_bubble.widget.dart' show DSContactMessageBubble;

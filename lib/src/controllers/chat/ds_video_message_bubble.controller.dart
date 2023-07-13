@@ -13,11 +13,13 @@ class DSVideoMessageBubbleController {
   final String uniqueId;
   final String url;
   final int mediaSize;
+  final Map<String, String?>? httpHeaders;
 
   DSVideoMessageBubbleController({
     required this.uniqueId,
     required this.url,
     required this.mediaSize,
+    this.httpHeaders,
   }) {
     setThumbnail();
   }
@@ -56,7 +58,11 @@ class DSVideoMessageBubbleController {
     final outputFile = File('$temporaryPath/VIDEO-$uniqueId.mp4');
 
     if (!await outputFile.exists()) {
-      final inputFilePath = await DSFileService.download(url, fileName);
+      final inputFilePath = await DSFileService.download(
+        url,
+        fileName,
+        httpHeaders: httpHeaders,
+      );
 
       final session = await FFmpegKit.execute(
           '-hide_banner -y -i $inputFilePath ${outputFile.path}');
@@ -65,7 +71,11 @@ class DSVideoMessageBubbleController {
 
       if (!ReturnCode.isSuccess(returnCode)) {
         hasError.value = true;
-        await DSVideoErrorDialog.show(fileName, url);
+        await DSVideoErrorDialog.show(
+          filename: fileName,
+          url: url,
+          httpHeaders: httpHeaders,
+        );
       }
     }
 

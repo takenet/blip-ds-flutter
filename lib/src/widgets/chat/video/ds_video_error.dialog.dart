@@ -6,7 +6,11 @@ import '../../buttons/ds_primary_button.widget.dart';
 import '../../buttons/ds_secondary_button.widget.dart';
 
 abstract class DSVideoErrorDialog {
-  static Future<void> show(final String fileName, final String url) async {
+  static Future<void> show({
+    required final String filename,
+    required final String url,
+    final Map<String, String?>? httpHeaders,
+  }) async {
     await DSDialogService(
       title: 'Erro ao reproduzir o vídeo',
       text:
@@ -14,7 +18,11 @@ abstract class DSVideoErrorDialog {
       primaryButton: DSPrimaryButton(
         onPressed: () async {
           Get.back();
-          await DSFileService.open(fileName, url);
+          await DSFileService.open(
+            filename,
+            url,
+            httpHeaders: httpHeaders,
+          );
         },
         label: 'Sim',
       ),

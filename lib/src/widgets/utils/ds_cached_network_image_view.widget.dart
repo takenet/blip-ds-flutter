@@ -1,15 +1,17 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../blip_ds.dart';
+
 class DSCachedNetworkImageView extends StatelessWidget {
   final String url;
+  final DSAlign align;
   final double? width;
   final double? height;
   final BoxFit? fit;
   final void Function()? onError;
-  final DSAlign align;
   final DSMessageBubbleStyle style;
+  final bool shouldAuthenticate;
 
   final Widget Function(
     BuildContext context,
@@ -25,13 +27,14 @@ class DSCachedNetworkImageView extends StatelessWidget {
   DSCachedNetworkImageView({
     Key? key,
     required this.url,
+    required this.align,
     this.width,
     this.height,
     this.fit = BoxFit.cover,
     this.placeholder,
     this.errorWidget,
     this.onError,
-    required this.align,
+    this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key);
@@ -46,6 +49,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
           : CachedNetworkImage(
               fit: fit,
               imageUrl: url,
+              httpHeaders: shouldAuthenticate ? DSAuth.httpHeaders : null,
               placeholder: placeholder,
               errorWidget: (context, _, __) => _buildError(context),
             ),
