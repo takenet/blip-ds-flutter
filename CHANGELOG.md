@@ -2,6 +2,7 @@
 
 - [DSAuthService] New service that handles HTTP Requests authentication.
 - Added ```shouldAuthenticate``` prop to media widgets so they can use the new HTTP authorization header.
+- Improved exception handling of all media widgets, services and utils.
 
 ## 0.0.62
 
