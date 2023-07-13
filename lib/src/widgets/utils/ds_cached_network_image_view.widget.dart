@@ -49,7 +49,8 @@ class DSCachedNetworkImageView extends StatelessWidget {
           : CachedNetworkImage(
               fit: fit,
               imageUrl: url,
-              httpHeaders: shouldAuthenticate ? DSAuth.httpHeaders : null,
+              httpHeaders:
+                  shouldAuthenticate ? DSAuthService.httpHeaders : null,
               placeholder: placeholder,
               errorWidget: (context, _, __) => _buildError(context),
             ),

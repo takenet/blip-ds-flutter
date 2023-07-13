@@ -20,6 +20,7 @@ export 'src/models/ds_message_bubble_style.model.dart'
     show DSMessageBubbleStyle;
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
+export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
 export 'src/services/ds_file.service.dart' show DSFileService;
@@ -49,7 +50,6 @@ export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;
 export 'src/themes/texts/utils/ds_font_weights.theme.dart' show DSFontWeights;
 export 'src/utils/ds_animate.util.dart' show DSAnimate;
-export 'src/utils/ds_auth.util.dart' show DSAuth;
 export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/animations/ds_animated_size.widget.dart'

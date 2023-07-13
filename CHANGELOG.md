@@ -1,3 +1,8 @@
+## 0.0.63
+
+- [DSAuthService] New service that handles HTTP Requests authentication.
+- Added ```shouldAuthenticate``` prop to media widgets so they can use the new HTTP authorization header.
+
 ## 0.0.62
 
 - [DSInputChip] Changed remove button icon from leading to trailing.

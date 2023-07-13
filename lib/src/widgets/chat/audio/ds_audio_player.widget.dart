@@ -8,8 +8,10 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
+import '../../../models/ds_toast_props.model.dart';
+import '../../../services/ds_auth.service.dart';
 import '../../../services/ds_file.service.dart';
-import '../../../utils/ds_auth.util.dart';
+import '../../../services/ds_toast.service.dart';
 import '../../buttons/ds_pause_button.widget.dart';
 import '../../buttons/ds_play_button.widget.dart';
 import 'ds_audio_seek_bar.widget.dart';
@@ -104,21 +106,35 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
   }
 
   Future<void> _init() async {
-    _controller.player.playerStateStream.listen((event) {
-      if (event.processingState == ProcessingState.completed) {
-        _controller.player.seek(Duration.zero);
-        _controller.player.stop();
-      }
-    });
+    try {
+      _controller.player.playerStateStream.listen(
+        (event) {
+          if (event.processingState == ProcessingState.completed) {
+            _controller.player.seek(Duration.zero);
+            _controller.player.stop();
+          }
+        },
+      );
 
-    Platform.isIOS && widget.audioType.contains('ogg')
-        ? await _transcoder()
-        : await _controller.player.setAudioSource(
-            AudioSource.uri(
-              widget.uri,
-              headers: widget.shouldAuthenticate ? DSAuth.httpHeaders : null,
-            ),
-          );
+      Platform.isIOS && widget.audioType.contains('ogg')
+          ? await _transcoder()
+          : await _controller.player.setAudioSource(
+              AudioSource.uri(
+                widget.uri,
+                headers: widget.shouldAuthenticate
+                    ? DSAuthService.httpHeaders
+                    : null,
+              ),
+            );
+    } catch (_) {
+      // TODO: translate
+      DSToastService.error(
+        DSToastProps(
+          title: 'Erro ao reproduzir áudio',
+          message: 'Ops! Houve um erro ao carregar o áudio para reprodução.',
+        ),
+      );
+    }
   }
 
   Future<void> _transcoder() async {
@@ -127,7 +143,7 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     final inputFilePath = await DSFileService.download(
       widget.uri.toString(),
       inputFileName,
-      httpHeaders: widget.shouldAuthenticate ? DSAuth.httpHeaders : null,
+      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
     );
 
     final temporaryPath = (await getTemporaryDirectory()).path;

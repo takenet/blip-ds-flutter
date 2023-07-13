@@ -4,8 +4,8 @@ import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../services/ds_auth.service.dart';
 import '../themes/colors/ds_colors.theme.dart';
-import '../utils/ds_auth.util.dart';
 import '../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoPlayerController extends GetxController {
@@ -54,8 +54,9 @@ class DSVideoPlayerController extends GetxController {
     try {
       _videoPlayerController = VideoPlayerController.network(
         url,
-        httpHeaders:
-            shouldAuthenticate ? DSAuth.httpHeaders : const <String, String>{},
+        httpHeaders: shouldAuthenticate
+            ? DSAuthService.httpHeaders
+            : const <String, String>{},
       );
 
       await _videoPlayerController!.initialize();
@@ -76,7 +77,7 @@ class DSVideoPlayerController extends GetxController {
     await DSVideoErrorDialog.show(
       filename: filename,
       url: url,
-      httpHeaders: shouldAuthenticate ? DSAuth.httpHeaders : null,
+      httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
     );
   }
 

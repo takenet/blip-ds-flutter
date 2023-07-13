@@ -11,6 +11,7 @@ abstract class DSVideoErrorDialog {
     required final String url,
     final Map<String, String?>? httpHeaders,
   }) async {
+    // TODO: translate
     await DSDialogService(
       title: 'Erro ao reproduzir o vídeo',
       text:

@@ -5,8 +5,8 @@ import '../../controllers/chat/ds_file_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../../utils/ds_auth.util.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_small_text.widget.dart';
@@ -42,7 +42,7 @@ class DSFileMessageBubble extends StatelessWidget {
       onTap: () => controller.openFile(
         filename: filename,
         url: url,
-        httpHeaders: shouldAuthenticate ? DSAuth.httpHeaders : null,
+        httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       ),
       child: DSMessageBubble(
         borderRadius: borderRadius,

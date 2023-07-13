@@ -7,9 +7,9 @@ import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
-import '../../../utils/ds_auth.util.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
 import '../ds_message_bubble.widget.dart';
@@ -82,7 +82,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       uniqueId: widget.uniqueId,
       url: widget.url,
       mediaSize: widget.mediaSize,
-      httpHeaders: widget.shouldAuthenticate ? DSAuth.httpHeaders : null,
+      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
     );
   }
 
@@ -161,8 +161,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                     foregroundColor: buttonForegroundColor,
                                     borderColor: buttonBorderColor,
                                     label: _controller.size(),
-                                    onPressed: () async =>
-                                        await _controller.downloadVideo(),
+                                    onPressed: _controller.downloadVideo,
                                   ),
                                 ),
                               )

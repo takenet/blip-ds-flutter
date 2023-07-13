@@ -6,9 +6,6 @@ import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../models/ds_toast_props.model.dart';
-import 'ds_toast.service.dart';
-
 abstract class DSFileService {
   static Future<void> open(
     final String filename,
@@ -22,6 +19,7 @@ abstract class DSFileService {
       onDownloadStateChange: onDownloadStateChange,
       httpHeaders: httpHeaders,
     );
+
     if (path?.isEmpty ?? true) {
       return;
     }
@@ -32,10 +30,13 @@ abstract class DSFileService {
       case ResultType.done:
         break;
       case ResultType.noAppToOpen:
-        launchUrlString(url, mode: LaunchMode.externalApplication);
+        launchUrlString(
+          url,
+          mode: LaunchMode.externalApplication,
+        );
         break;
       default:
-        _showAlert('Erro', 'Visualização indisponível');
+        throw Exception(result.message);
     }
   }
 
@@ -64,23 +65,10 @@ abstract class DSFileService {
       );
 
       if (response.statusCode == 200) return savedFilePath;
-    } catch (e) {
-      _showAlert('Erro', 'Download indisponível');
     } finally {
       onDownloadStateChange?.call(false);
     }
 
     return null;
   }
-
-  static void _showAlert(
-    final String title,
-    final String message,
-  ) =>
-      DSToastService.error(
-        DSToastProps(
-          title: title,
-          message: message,
-        ),
-      );
 }
