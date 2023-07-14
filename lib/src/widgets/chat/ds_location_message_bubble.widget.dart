@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
@@ -13,8 +13,8 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
-  final String latitude;
-  final String longitude;
+  final double latitude;
+  final double longitude;
 
   DSLocationMessageBubble({
     super.key,
@@ -34,11 +34,14 @@ class DSLocationMessageBubble extends StatelessWidget {
         : DSColors.neutralLightSnow;
 
     return GestureDetector(
-      onTap: () => launchUrl(
-        Uri.parse(
-          'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude',
-        ),
-      ),
+      onTap: () async {
+        final availableMaps = await MapLauncher.installedMaps;
+
+        await availableMaps.first.showMarker(
+          coords: Coords(latitude, longitude),
+          title: "Ocean Beach",
+        );
+      },
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
         defaultMaxSize: 240.0,
@@ -52,7 +55,7 @@ class DSLocationMessageBubble extends StatelessWidget {
           children: [
             DSCachedNetworkImageView(
               url:
-                  'https://maps.googleapis.com/maps/api/staticmap?&size=240x240&markers=$latitude,$longitude&key=$appKey',
+                  'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=$appKey',
               placeholder: (_, __) => _buildLoading(),
               align: align,
               style: style,
