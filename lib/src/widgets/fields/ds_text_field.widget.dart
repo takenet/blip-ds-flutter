@@ -103,6 +103,7 @@ class _DSTextFieldState extends State<DSTextField> {
                         child: DSCaptionSmallText(
                           widget.errorText,
                           color: DSColors.extendRedsDelete,
+                          overflow: TextOverflow.visible,
                         ),
                       )
                     ],
