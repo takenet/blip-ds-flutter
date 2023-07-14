@@ -1,3 +1,7 @@
+## 0.0.63
+
+- Fixed line height for all DSTexts subtypes.
+
 ## 0.0.62
 
 - [DSInputChip] Changed remove button icon from leading to trailing.
