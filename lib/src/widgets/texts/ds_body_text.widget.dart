@@ -19,7 +19,7 @@ class DSBodyText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
@@ -44,7 +44,7 @@ class DSBodyText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super.rich(
           style: DSBodyTextStyle(
             fontWeight: fontWeight,
