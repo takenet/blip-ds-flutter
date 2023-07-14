@@ -14,6 +14,7 @@ class DSAudioMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final String? uniqueId;
   final String audioType;
+  final bool shouldAuthenticate;
 
   DSAudioMessageBubble({
     super.key,
@@ -22,6 +23,7 @@ class DSAudioMessageBubble extends StatelessWidget {
     required this.audioType,
     this.uniqueId,
     this.borderRadius = const [DSBorderRadius.all],
+    this.shouldAuthenticate = false,
     final DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -44,6 +46,7 @@ class DSAudioMessageBubble extends StatelessWidget {
         uri: uri,
         uniqueId: uniqueId,
         audioType: audioType,
+        shouldAuthenticate: shouldAuthenticate,
         controlForegroundColor: isLightBubbleBackground
             ? DSColors.neutralDarkRooftop
             : DSColors.neutralLightSnow,

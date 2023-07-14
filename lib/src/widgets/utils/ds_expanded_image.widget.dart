@@ -15,6 +15,7 @@ class DSExpandedImage extends StatelessWidget {
   final Uri? appBarPhotoUri;
   final DSMessageBubbleStyle style;
   final DSAlign align;
+  final bool shouldAuthenticate;
 
   final _error = RxBool(false);
   final _isAppBarVisible = RxBool(false);
@@ -28,6 +29,7 @@ class DSExpandedImage extends StatelessWidget {
     this.maxHeight = double.infinity,
     this.isLoading = false,
     this.appBarPhotoUri,
+    this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
     DSAlign? align,
   })  : style = style ?? DSMessageBubbleStyle(),
@@ -56,6 +58,7 @@ class DSExpandedImage extends StatelessWidget {
               onError: () => _error.value = true,
               align: align,
               style: style,
+              shouldAuthenticate: shouldAuthenticate,
             ),
           ),
         ),

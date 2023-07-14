@@ -5,6 +5,7 @@ import '../../controllers/chat/ds_file_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
@@ -20,6 +21,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final DSFileMessageBubbleController controller;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
+  final bool shouldAuthenticate;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -29,6 +31,7 @@ class DSFileMessageBubble extends StatelessWidget {
     required this.size,
     required this.filename,
     this.borderRadius = const [DSBorderRadius.all],
+    this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         controller = DSFileMessageBubbleController();
@@ -36,7 +39,11 @@ class DSFileMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.openFile(filename, url),
+      onTap: () => controller.openFile(
+        filename: filename,
+        url: url,
+        httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
+      ),
       child: DSMessageBubble(
         borderRadius: borderRadius,
         padding: EdgeInsets.zero,
