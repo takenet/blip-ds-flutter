@@ -1,6 +1,13 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../animations/ds_spinner_loading.widget.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../utils/ds_cached_network_image_view.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -34,8 +41,8 @@ class DSLocationMessageBubble extends StatelessWidget {
       ),
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
-        defaultMaxSize: 400.0,
-        defaultMinSize: 400.0,
+        defaultMaxSize: 240.0,
+        defaultMinSize: 240.0,
         padding: EdgeInsets.zero,
         align: align,
         style: style,
@@ -45,11 +52,10 @@ class DSLocationMessageBubble extends StatelessWidget {
           children: [
             DSCachedNetworkImageView(
               url:
-                  'https://maps.googleapis.com/maps/api/staticmap?&size=400x300&markers=$latitude,$longitude&key=$appKey',
+                  'https://maps.googleapis.com/maps/api/staticmap?&size=240x240&markers=$latitude,$longitude&key=$appKey',
               placeholder: (_, __) => _buildLoading(),
               align: align,
               style: style,
-              height: 240.0,
             ),
             if (title?.isNotEmpty ?? false)
               Padding(
@@ -63,6 +69,7 @@ class DSLocationMessageBubble extends StatelessWidget {
                     title!,
                     color: foregroundColor,
                     isSelectable: true,
+                    overflow: TextOverflow.visible,
                   ),
                 ),
               ),
