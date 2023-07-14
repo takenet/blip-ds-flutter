@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:chewie/chewie.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../services/ds_auth.service.dart';
 import '../themes/colors/ds_colors.theme.dart';
 import '../widgets/chat/video/ds_video_error.dialog.dart';
 
@@ -15,12 +14,16 @@ class DSVideoPlayerController extends GetxController {
   DSVideoPlayerController({
     required this.url,
     required this.uniqueId,
+    this.shouldAuthenticate = false,
   });
 
   // External URL containing the video to be played
   final String url;
 
   final String uniqueId;
+
+  /// Indicates if the HTTP Requests should be authenticated or not.
+  final bool shouldAuthenticate;
 
   VideoPlayerController? _videoPlayerController;
   ChewieController? chewieController;
@@ -48,29 +51,34 @@ class DSVideoPlayerController extends GetxController {
   }
 
   Future<void> _initializePlayer() async {
-    final fileName = url.substring(url.lastIndexOf('/')).substring(1);
-
     try {
-      final temporaryPath = (await getTemporaryDirectory()).path;
-      final outputFile = File("$temporaryPath/VIDEO-$uniqueId.mp4");
-
-      _videoPlayerController =
-          VideoPlayerController.file(File(outputFile.path));
+      _videoPlayerController = VideoPlayerController.network(
+        url,
+        httpHeaders: shouldAuthenticate
+            ? DSAuthService.httpHeaders
+            : const <String, String>{},
+      );
 
       await _videoPlayerController!.initialize();
       _createChewieController();
-
-      isLoading.value = false;
     } catch (e) {
+      _showErrorDialog();
+    } finally {
       isLoading.value = false;
-      _showErrorDialog(fileName);
     }
   }
 
-  Future<void> _showErrorDialog(final fileName) async {
+  Future<void> _showErrorDialog() async {
     Get.back();
     Get.delete<DSVideoPlayerController>();
-    await DSVideoErrorDialog.show(fileName, url);
+
+    final filename = url.substring(url.lastIndexOf('/')).substring(1);
+
+    await DSVideoErrorDialog.show(
+      filename: filename,
+      url: url,
+      httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
+    );
   }
 
   void _createChewieController() {

@@ -6,18 +6,22 @@ import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
+import '../../services/ds_toast.service.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
   final String uniqueId;
   final String url;
   final int mediaSize;
+  final Map<String, String?>? httpHeaders;
 
   DSVideoMessageBubbleController({
     required this.uniqueId,
     required this.url,
     required this.mediaSize,
+    this.httpHeaders,
   }) {
     setThumbnail();
   }
@@ -32,6 +36,7 @@ class DSVideoMessageBubbleController {
             mediaSize,
             precision: PrecisionValue.One,
           )
+        // TODO: translate
         : 'Download';
   }
 
@@ -50,32 +55,53 @@ class DSVideoMessageBubbleController {
   Future<void> downloadVideo() async {
     isDownloading.value = true;
 
-    final fileName = url.substring(url.lastIndexOf('/')).substring(1);
+    try {
+      final fileName = url.substring(url.lastIndexOf('/')).substring(1);
 
-    final temporaryPath = (await getTemporaryDirectory()).path;
-    final outputFile = File('$temporaryPath/VIDEO-$uniqueId.mp4');
+      final temporaryPath = (await getTemporaryDirectory()).path;
+      final outputFile = File('$temporaryPath/VIDEO-$uniqueId.mp4');
 
-    if (!await outputFile.exists()) {
-      final inputFilePath = await DSFileService.download(url, fileName);
+      if (!await outputFile.exists()) {
+        final inputFilePath = await DSFileService.download(
+          url,
+          fileName,
+          httpHeaders: httpHeaders,
+        );
 
-      final session = await FFmpegKit.execute(
-          '-hide_banner -y -i $inputFilePath ${outputFile.path}');
+        final session = await FFmpegKit.execute(
+            '-hide_banner -y -i $inputFilePath ${outputFile.path}');
 
-      final returnCode = await session.getReturnCode();
+        final returnCode = await session.getReturnCode();
 
-      if (!ReturnCode.isSuccess(returnCode)) {
-        hasError.value = true;
-        await DSVideoErrorDialog.show(fileName, url);
+        if (!ReturnCode.isSuccess(returnCode)) {
+          hasError.value = true;
+          await DSVideoErrorDialog.show(
+            filename: fileName,
+            url: url,
+            httpHeaders: httpHeaders,
+          );
+        }
       }
+
+      final thumbnailPath = await getFullThumbnailPath();
+      final command =
+          '-ss 00:00:3 -i ${outputFile.path} -frames:v 1 $thumbnailPath';
+
+      await FFmpegKit.execute(command);
+
+      thumbnail.value = thumbnailPath;
+    } catch (_) {
+      hasError.value = true;
+
+      // TODO: translate
+      DSToastService.error(
+        DSToastProps(
+          title: 'Erro ao baixar vídeo',
+          message: 'Ops! Houve um erro ao baixar o vídeo para reprodução.',
+        ),
+      );
+    } finally {
+      isDownloading.value = false;
     }
-
-    final thumbnailPath = await getFullThumbnailPath();
-    final command =
-        '-ss 00:00:3 -i ${outputFile.path} -frames:v 1 $thumbnailPath';
-
-    await FFmpegKit.execute(command);
-
-    thumbnail.value = thumbnailPath;
-    isDownloading.value = false;
   }
 }

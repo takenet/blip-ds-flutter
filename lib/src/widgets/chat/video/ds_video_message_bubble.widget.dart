@@ -7,6 +7,7 @@ import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../animations/ds_fading_circle_loading.widget.dart';
@@ -44,6 +45,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// The video size
   final int mediaSize;
 
+  /// Indicates if the HTTP Requests should be authenticated or not.
+  final bool shouldAuthenticate;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -54,12 +58,13 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.align,
     required this.url,
     required this.appBarText,
+    required this.uniqueId,
+    required this.mediaSize,
     this.appBarPhotoUri,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
+    this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
-    required this.uniqueId,
-    required this.mediaSize,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -74,9 +79,11 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
   void initState() {
     super.initState();
     _controller = DSVideoMessageBubbleController(
-        uniqueId: widget.uniqueId,
-        url: widget.url,
-        mediaSize: widget.mediaSize);
+      uniqueId: widget.uniqueId,
+      url: widget.url,
+      mediaSize: widget.mediaSize,
+      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
+    );
   }
 
   @override
@@ -154,8 +161,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                     foregroundColor: buttonForegroundColor,
                                     borderColor: buttonBorderColor,
                                     label: _controller.size(),
-                                    onPressed: () async =>
-                                        await _controller.downloadVideo(),
+                                    onPressed: _controller.downloadVideo,
                                   ),
                                 ),
                               )
@@ -165,6 +171,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                 appBarText: widget.appBarText,
                                 uniqueId: widget.uniqueId,
                                 url: widget.url,
+                                shouldAuthenticate: widget.shouldAuthenticate,
                                 thumbnail: Center(
                                   child: Image.file(
                                     File(

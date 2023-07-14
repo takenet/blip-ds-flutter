@@ -18,6 +18,9 @@ class DSVideoPlayer extends StatelessWidget {
 
   final String uniqueId;
 
+  /// Indicates if the HTTP Requests should be authenticated or not.
+  final bool shouldAuthenticate;
+
   /// Video player widget
   ///
   /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
@@ -25,9 +28,10 @@ class DSVideoPlayer extends StatelessWidget {
   DSVideoPlayer({
     Key? key,
     required this.appBarText,
-    this.appBarPhotoUri,
     required String url,
     required this.uniqueId,
+    this.appBarPhotoUri,
+    this.shouldAuthenticate = false,
   })  : controller = Get.put(
           DSVideoPlayerController(
             url: url,
