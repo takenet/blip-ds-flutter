@@ -12,6 +12,7 @@ class DSVideoBody extends StatelessWidget {
     required this.url,
     required this.uniqueId,
     required this.thumbnail,
+    this.shouldAuthenticate = false,
   });
 
   final DSAlign align;
@@ -20,6 +21,7 @@ class DSVideoBody extends StatelessWidget {
   final String url;
   final String uniqueId;
   final Widget thumbnail;
+  final bool shouldAuthenticate;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class DSVideoBody extends StatelessWidget {
                   appBarPhotoUri: appBarPhotoUri,
                   url: url,
                   uniqueId: uniqueId,
+                  shouldAuthenticate: shouldAuthenticate,
                 ),
               );
             },
