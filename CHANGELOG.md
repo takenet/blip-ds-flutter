@@ -1,3 +1,7 @@
+## 0.0.64
+
+- [DSLocationMessageBubble] New widget to show the content of location card
+
 ## 0.0.63
 
 - [DSAuthService] New service that handles HTTP Requests authentication.
