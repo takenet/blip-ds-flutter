@@ -40,7 +40,7 @@ class DSLocationMessageBubble extends StatelessWidget {
 
         await availableMaps.first.showMarker(
           coords: Coords(latitude, longitude),
-          title: "Ocean Beach",
+          title: title ?? '',
         );
       },
       child: DSMessageBubble(
