@@ -70,22 +70,12 @@ class _DSTextFieldState extends State<DSTextField> {
                   top: 10.0,
                   bottom: 10.0,
                 ),
-                child: Scrollbar(
-                  controller: _scrollController,
-                  radius: const Radius.circular(5),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 6.0,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildTextField(),
-                        _buildEmojiButton(),
-                      ],
-                    ),
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTextField(),
+                    _buildEmojiButton(),
+                  ],
                 ),
               ),
               Visibility(

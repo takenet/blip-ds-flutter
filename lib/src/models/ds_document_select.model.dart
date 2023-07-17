@@ -25,7 +25,7 @@ class DSDocumentSelectModel {
 
 class DSDocumentSelectHeaderModel {
   String type;
-  DSMediaLinkModel mediaLink;
+  DSMediaLink mediaLink;
 
   DSDocumentSelectHeaderModel({
     required this.type,
@@ -33,7 +33,7 @@ class DSDocumentSelectHeaderModel {
   });
 
   factory DSDocumentSelectHeaderModel.fromJson(Map<String, dynamic> json) {
-    DSMediaLinkModel mediaLink = DSMediaLinkModel.fromJson(json['value']);
+    DSMediaLink mediaLink = DSMediaLink.fromJson(json['value']);
 
     final header =
         DSDocumentSelectHeaderModel(type: json['type'], mediaLink: mediaLink);

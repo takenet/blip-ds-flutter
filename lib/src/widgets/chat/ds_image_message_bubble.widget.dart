@@ -29,6 +29,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.showSelect = false,
     this.onSelected,
     this.onOpenLink,
+    this.shouldAuthenticate = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
@@ -44,6 +45,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final bool showSelect;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
+  final bool shouldAuthenticate;
 
   @override
   State<StatefulWidget> createState() => _DSImageMessageBubbleState();
@@ -102,6 +104,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                     align: widget.align,
                     style: widget.style,
                     isLoading: isLoadingImage,
+                    shouldAuthenticate: widget.shouldAuthenticate,
                   ),
                   if ((widget.title?.isNotEmpty ?? false) ||
                       (widget.text?.isNotEmpty ?? false))
