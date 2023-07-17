@@ -52,8 +52,8 @@ class DSVideoPlayerController extends GetxController {
 
   Future<void> _initializePlayer() async {
     try {
-      _videoPlayerController = VideoPlayerController.network(
-        url,
+      _videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(url),
         httpHeaders: shouldAuthenticate
             ? DSAuthService.httpHeaders
             : const <String, String>{},
