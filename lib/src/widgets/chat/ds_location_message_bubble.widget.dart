@@ -25,6 +25,7 @@ class DSLocationMessageBubble extends StatelessWidget {
     this.title,
   }) : style = style ?? DSMessageBubbleStyle();
 
+  /// TODO: Use another method do get this tokey, e.g: firebase remote config.
   final appKey = 'AIzaSyAlC3a3DZZBscR0QIbQpee13Op9Y05m_wc';
 
   @override
