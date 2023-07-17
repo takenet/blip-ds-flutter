@@ -1,4 +1,3 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -7,7 +6,9 @@ import '../../enums/ds_ticket_message_type.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../utils/ds_bubble.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
+import '../buttons/ds_request_location_button.widget.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
@@ -104,7 +105,7 @@ class DSCard extends StatelessWidget {
         );
 
       case DSMessageContentType.input:
-        return DSLocationButton();
+        return _buildRequestLocation();
 
       default:
         return DSUnsupportedContentMessageBubble(
@@ -243,5 +244,39 @@ class DSCard extends StatelessWidget {
         style: style,
       );
     }
+  }
+
+  Widget _buildRequestLocation() {
+    final label = content['label'];
+    final type = label['type'];
+    final value = label['value'];
+
+    return Row(
+      children: DSBubbleUtils.addSpacer(
+        align: align,
+        child: Column(
+          crossAxisAlignment: align == DSAlign.right
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
+          children: [
+            if (label != null && type == DSMessageContentType.textPlain)
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 3.0,
+                ),
+                child: DSTextMessageBubble(
+                  text: value,
+                  align: align,
+                  borderRadius: borderRadius,
+                  style: style,
+                ),
+              ),
+            DSRequestLocationButton(
+              label: 'Send Location', // TODO: translate
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
