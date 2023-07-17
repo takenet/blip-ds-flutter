@@ -2,27 +2,19 @@ abstract class DSAuthService {
   static String? _token;
   static String? get token => _token;
 
-  static void init({
-    required final String userAccessToken,
+  static void setUser({
+    required final String accessToken,
   }) {
-    assert(userAccessToken.isNotEmpty, 'The token must not be empty.');
-    assert(_token == null, 'The DSAuthService was already initialized.');
-
-    _token = userAccessToken;
+    _token = accessToken;
   }
 
-  static void dispose() {
+  static void clearUser() {
     _token = null;
   }
 
-  static Map<String, String> get httpHeaders {
-    assert(
-      token?.isNotEmpty ?? false,
-      'The DSAuthService must be initialized.',
-    );
-
-    return {
-      'Authorization': 'Key $token',
-    };
-  }
+  static Map<String, String> get httpHeaders => token?.isNotEmpty ?? false
+      ? {
+          'Authorization': 'Key $token',
+        }
+      : const {};
 }
