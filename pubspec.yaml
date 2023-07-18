@@ -66,6 +66,3 @@ flutter:
     - family: DSIcons
       fonts:
         - asset: assets/fonts/DSIcons.ttf
-
-false_secrets:
-    - /lib/src/widgets/chat/ds_location_message_bubble.widget.dart
