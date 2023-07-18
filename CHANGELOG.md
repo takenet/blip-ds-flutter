@@ -1,7 +1,3 @@
-## 0.0.65
-
-- [DSLocationMessageBubble] Removing key from DS
-
 ## 0.0.64
 
 - [DSLocationMessageBubble] New widget to show the content of location card
