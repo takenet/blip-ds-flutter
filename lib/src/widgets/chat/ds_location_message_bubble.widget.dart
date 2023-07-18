@@ -3,6 +3,7 @@ import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
@@ -24,9 +25,6 @@ class DSLocationMessageBubble extends StatelessWidget {
     DSMessageBubbleStyle? style,
     this.title,
   }) : style = style ?? DSMessageBubbleStyle();
-
-  /// TODO: Use another method do get this tokey, e.g: firebase remote config.
-  final appKey = 'AIzaSyAlC3a3DZZBscR0QIbQpee13Op9Y05m_wc';
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +54,7 @@ class DSLocationMessageBubble extends StatelessWidget {
           children: [
             DSCachedNetworkImageView(
               url:
-                  'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=$appKey',
+                  'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
               placeholder: (_, __) => _buildLoading(),
               align: align,
               style: style,
