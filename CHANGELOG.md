@@ -1,6 +1,8 @@
 ## 0.0.64
 
 - [DSLocationMessageBubble] New widget to show the content of location card
+- [DSTextField] Altered to show the error message on input validation
+- [DSInputContainer] Added a hasError param to show an error border
 
 ## 0.0.63
 
