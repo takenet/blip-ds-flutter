@@ -78,7 +78,10 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       hasSpacer: widget.hasSpacer,
       style: widget.style,
       child: FutureBuilder(
-        future: _controller.getImageInfo(widget.url),
+        future: _controller.getImageInfo(
+          url: widget.url,
+          shouldAuthenticate: widget.shouldAuthenticate,
+        ),
         builder: (buildContext, snapshot) {
           final isLoadingImage = !(snapshot.hasData || snapshot.hasError);
 

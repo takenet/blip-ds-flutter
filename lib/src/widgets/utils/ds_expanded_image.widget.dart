@@ -105,6 +105,7 @@ class DSExpandedImage extends StatelessWidget {
                     placeholder: (context, _) => _buildLoading(),
                     align: align,
                     style: style,
+                    shouldAuthenticate: shouldAuthenticate,
                   ),
                 ),
               ),
