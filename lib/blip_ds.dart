@@ -49,7 +49,6 @@ export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;
 export 'src/themes/texts/utils/ds_font_weights.theme.dart' show DSFontWeights;
 export 'src/utils/ds_animate.util.dart' show DSAnimate;
-export 'src/utils/ds_bubble.util.dart' show DSBubbleUtils;
 export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/animations/ds_animated_size.widget.dart'
@@ -77,8 +76,6 @@ export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_pause_button.widget.dart' show DSPauseButton;
 export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
-export 'src/widgets/buttons/ds_request_location_button.widget.dart'
-    show DSRequestLocationButton;
 export 'src/widgets/buttons/ds_secondary_button.widget.dart'
     show DSSecondaryButton;
 export 'src/widgets/buttons/ds_send_button.widget.dart' show DSSendButton;
