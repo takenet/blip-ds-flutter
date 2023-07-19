@@ -1,3 +1,7 @@
+## 0.0.65
+
+- [DSLocationMessageBubble] fixing parse when latitude and longitude value is large
+
 ## 0.0.64
 
 - [DSLocationMessageBubble] New widget to show the content of location card
