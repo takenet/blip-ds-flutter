@@ -1,6 +1,6 @@
 ## 0.0.65
 
-- [DSLocationMessageBubble] fixing parse when latitude and longitude value is large
+- [DSLocationMessageBubble] Fixed parse when latitude and longitude value is large.
 
 ## 0.0.64
 
