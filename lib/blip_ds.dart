@@ -79,7 +79,8 @@ export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
 export 'src/widgets/buttons/ds_secondary_button.widget.dart'
     show DSSecondaryButton;
-export 'src/widgets/buttons/ds_request_location_button.widget.dart';
+export 'src/widgets/buttons/ds_request_location_button.widget.dart'
+    show DSRequestLocationButton;
 export 'src/widgets/buttons/ds_send_button.widget.dart' show DSSendButton;
 export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
     show DSTertiaryButton;
