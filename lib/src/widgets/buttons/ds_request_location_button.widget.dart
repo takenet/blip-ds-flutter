@@ -19,7 +19,7 @@ class DSRequestLocationButton extends DSButton {
           //       },
           //     );
           //   }
-          // }, //TODO: pegar geolocation
+          // }, //TODO: get geolocation
           borderRadius: 20.0,
           leadingIcon: const Icon(
             DSIcons.localization_outline,
