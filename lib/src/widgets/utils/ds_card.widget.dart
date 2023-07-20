@@ -36,6 +36,7 @@ class DSCard extends StatelessWidget {
     DSMessageBubbleStyle? style,
     this.messageId,
     this.showQuickReplyOptions = false,
+    this.showRequestLocationButton = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -48,6 +49,7 @@ class DSCard extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final String? messageId;
   final bool showQuickReplyOptions;
+  final bool showRequestLocationButton;
 
   @override
   Widget build(BuildContext context) {
@@ -271,9 +273,10 @@ class DSCard extends StatelessWidget {
                   style: style,
                 ),
               ),
-            DSRequestLocationButton(
-              label: 'Send Location', // TODO: translate
-            ),
+            if (showRequestLocationButton)
+              DSRequestLocationButton(
+                label: 'Send Location', // TODO: translate
+              ),
           ],
         ),
       ),
