@@ -10,5 +10,5 @@ abstract class DSMessageContentType {
   static const String ticket = 'application/vnd.iris.ticket+json';
   static const String contact = 'application/vnd.lime.contact+json';
   static const String input = 'application/vnd.lime.input+json';
-  
+  static const String location = 'application/vnd.lime.location+json';
 }

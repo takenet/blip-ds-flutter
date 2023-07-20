@@ -10,13 +10,15 @@ class DSFileMessageBubbleController extends GetxController {
     return size > 0 ? filesize(size, 1) : '';
   }
 
-  Future<void> openFile(
-    final String filename,
-    final String url,
-  ) =>
+  Future<void> openFile({
+    required final String filename,
+    required final String url,
+    final Map<String, String?>? httpHeaders,
+  }) =>
       DSFileService.open(
         filename,
         url,
         onDownloadStateChange: (loading) => isDownloading.value = loading,
+        httpHeaders: httpHeaders,
       );
 }

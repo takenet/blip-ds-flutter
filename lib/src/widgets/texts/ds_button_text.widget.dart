@@ -15,7 +15,7 @@ class DSButtonText extends DSText {
     super.textAlign,
     super.maxLines,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super(
           style: DSButtonTextStyle(
             color: color,
@@ -35,7 +35,7 @@ class DSButtonText extends DSText {
     super.textAlign,
     super.maxLines,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super.rich(
           style: DSButtonTextStyle(
             color: color,

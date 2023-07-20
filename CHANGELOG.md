@@ -1,3 +1,22 @@
+## 0.0.64
+
+- [DSLocationMessageBubble] New widget to show the content of location card
+- [DSTextField] Altered to show the error message on input validation
+- [DSInputContainer] Added a hasError param to show an error border
+
+## 0.0.63
+
+- [DSAuthService] New service that handles HTTP Requests authentication.
+- Added ```shouldAuthenticate``` prop to media widgets so they can use the new HTTP authorization header.
+- Improved exception handling of all media widgets, services and utils.
+- Fixed line height for all DSTexts subtypes.
+
+## 0.0.62
+
+- [DSInputChip] Changed remove button icon from leading to trailing.
+- [DSTextField] Removed Row CrossAxisAlignment
+- [TagEditor] Formated file
+
 ## 0.0.61
 
 - [DSToast] Fixed rendering of toast when action type was 'none'.

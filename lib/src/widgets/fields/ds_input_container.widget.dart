@@ -10,6 +10,7 @@ class DSInputContainer extends StatelessWidget {
   final bool isEnabled;
   final bool? hasFocus;
   final DSInputContainerShape shape;
+  final bool hasError;
 
   const DSInputContainer({
     super.key,
@@ -18,6 +19,7 @@ class DSInputContainer extends StatelessWidget {
     this.hasFocus,
     this.isEnabled = true,
     this.shape = DSInputContainerShape.rectangle,
+    this.hasError = false,
   });
 
   @override
@@ -32,11 +34,13 @@ class DSInputContainer extends StatelessWidget {
             ),
             border: Border.all(
               width: 1.0,
-              color: hasFocus ?? false
-                  ? DSColors.primaryMain
-                  : isEnabled
-                      ? DSColors.neutralMediumSilver
-                      : DSColors.neutralLightBox,
+              color: hasError
+                  ? DSColors.extendRedsDelete
+                  : hasFocus ?? false
+                      ? DSColors.primaryMain
+                      : isEnabled
+                          ? DSColors.neutralMediumSilver
+                          : DSColors.neutralLightBox,
             ),
             color: isEnabled
                 ? DSColors.neutralLightSnow

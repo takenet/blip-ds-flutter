@@ -4,6 +4,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../enums/ds_ticket_message_type.enum.dart';
 import '../../models/ds_document_select.model.dart';
+import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_bubble.util.dart';
@@ -14,6 +15,7 @@ import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
+import '../chat/ds_location_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
@@ -69,6 +71,7 @@ class DSCard extends StatelessWidget {
 
       case DSMessageContentType.contact:
         return _buildContact();
+
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
 
@@ -99,6 +102,14 @@ class DSCard extends StatelessWidget {
           style: style,
         );
 
+      case DSMessageContentType.location:
+        return DSLocationMessageBubble(
+          title: content['text'],
+          latitude: content['latitude'],
+          longitude: content['longitude'],
+          align: align,
+          style: style,
+        );
       case DSMessageContentType.ticket:
         return DSTicketMessage(
           messageType: DSTicketMessageType.forwardedTicket,
@@ -192,20 +203,25 @@ class DSCard extends StatelessWidget {
   }
 
   Widget _buildMediaLink() {
-    final String contentType = content['type'];
+    final media = DSMediaLink.fromJson(content);
+    final size = media.size ?? 0;
 
-    if (contentType.contains('audio')) {
+    final shouldAuthenticate =
+        media.authorizationRealm?.toLowerCase() == 'blip';
+
+    if (media.type.contains('audio')) {
       return DSAudioMessageBubble(
-        uri: Uri.parse(content['uri']),
+        uri: Uri.parse(media.uri),
         align: align,
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId,
-        audioType: content['type'],
+        audioType: media.type,
+        shouldAuthenticate: shouldAuthenticate,
       );
-    } else if (contentType.contains('image')) {
+    } else if (media.type.contains('image')) {
       return DSImageMessageBubble(
-        url: content['uri'],
+        url: media.uri,
         align: align,
         appBarText: (align == DSAlign.left
                 ? avatarConfig.receivedName
@@ -214,14 +230,15 @@ class DSCard extends StatelessWidget {
         appBarPhotoUri: align == DSAlign.left
             ? avatarConfig.receivedAvatar
             : avatarConfig.sentAvatar,
-        text: content['text'],
-        title: content['title'],
+        text: media.text,
+        title: media.title,
         borderRadius: borderRadius,
         style: style,
+        shouldAuthenticate: shouldAuthenticate,
       );
-    } else if (contentType.contains('video')) {
+    } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
-        url: content['uri'],
+        url: media.uri,
         align: align,
         appBarText: (align == DSAlign.left
                 ? avatarConfig.receivedName
@@ -230,20 +247,22 @@ class DSCard extends StatelessWidget {
         appBarPhotoUri: align == DSAlign.left
             ? avatarConfig.receivedAvatar
             : avatarConfig.sentAvatar,
-        text: content['text'],
+        text: media.text,
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId ?? DateTime.now().toIso8601String(),
-        mediaSize: content.containsKey('size') ? content['size'] : 0,
+        mediaSize: size,
+        shouldAuthenticate: shouldAuthenticate,
       );
     } else {
       return DSFileMessageBubble(
         align: align,
-        url: content['uri'],
-        size: content.containsKey('size') ? content['size'] : 0,
-        filename: content['title'],
+        url: media.uri,
+        size: size,
+        filename: media.title!,
         borderRadius: borderRadius,
         style: style,
+        shouldAuthenticate: shouldAuthenticate,
       );
     }
   }

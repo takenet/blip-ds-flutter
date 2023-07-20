@@ -7,6 +7,7 @@ import '/src/themes/texts/styles/ds_body_text_style.theme.dart';
 import '/src/widgets/tags/tag_editor/tag_editor.dart';
 import '/src/widgets/texts/ds_headline_small_text.widget.dart';
 import '/src/widgets/utils/ds_chip.widget.dart';
+import '../buttons/ds_icon_button.widget.dart';
 
 class DSInputChip extends StatefulWidget {
   final RxList<String> values;
@@ -19,9 +20,9 @@ class DSInputChip extends StatefulWidget {
   const DSInputChip({
     Key? key,
     required this.values,
+    required this.controller,
     this.hintText,
     this.onTextChanged,
-    required this.controller,
     this.onDeleted,
     this.scrollController,
   }) : super(key: key);
@@ -88,22 +89,22 @@ class _DSInputChipState extends State<DSInputChip> {
       child: SizedBox(
         height: 32.0,
         child: DSChip(
-          textPadding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          textPadding: const EdgeInsets.only(
+            left: 12.0,
+            right: 8.0,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(16.0),
           ),
           text: DSHeadlineSmallText(widget.values[index]),
           background: DSColors.primaryLight,
-          leadingIcon: SizedBox(
-            width: 35.0,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              iconSize: 20,
+          trailingIcon: SizedBox(
+            child: DSIconButton(
+              size: 32.0,
               icon: Icon(
                 DSIcons.error_solid,
-                color: DSColors.neutralDarkCity.withOpacity(0.7),
+                color: DSColors.neutralDarkCity.withOpacity(0.6),
               ),
               onPressed: () => widget.onDeleted?.call(index),
             ),

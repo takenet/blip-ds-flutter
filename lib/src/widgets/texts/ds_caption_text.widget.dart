@@ -19,7 +19,7 @@ class DSCaptionText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.57,
   }) : super(
           style: DSCaptionTextStyle(
             fontWeight: fontWeight,
@@ -44,7 +44,7 @@ class DSCaptionText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.57,
   }) : super.rich(
           style: DSCaptionTextStyle(
             fontWeight: fontWeight,

@@ -20,6 +20,7 @@ export 'src/models/ds_message_bubble_style.model.dart'
     show DSMessageBubbleStyle;
 export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
+export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
 export 'src/services/ds_file.service.dart' show DSFileService;
@@ -94,6 +95,8 @@ export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
+export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
+    show DSLocationMessageBubble;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
     show DSMessageBubbleDetail;

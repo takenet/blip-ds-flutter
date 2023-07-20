@@ -17,7 +17,7 @@ class DSHeadlineSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super(
           style: DSHeadlineSmallTextStyle(
             color: color,
@@ -38,7 +38,7 @@ class DSHeadlineSmallText extends DSText {
     super.maxLines,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.5,
   }) : super.rich(
           style: DSHeadlineSmallTextStyle(
             color: color,

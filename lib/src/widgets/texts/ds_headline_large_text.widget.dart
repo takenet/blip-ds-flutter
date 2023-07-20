@@ -19,7 +19,7 @@ class DSHeadlineLargeText extends DSText {
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.4,
   }) : super(
           style: DSHeadlineLargeTextStyle(
             color: color,
@@ -42,7 +42,7 @@ class DSHeadlineLargeText extends DSText {
     super.fontStyle,
     super.shouldLinkify,
     super.isSelectable,
-    super.height,
+    super.height = 1.4,
   }) : super.rich(
           style: DSHeadlineLargeTextStyle(
             color: color,
