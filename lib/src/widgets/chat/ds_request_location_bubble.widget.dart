@@ -19,9 +19,9 @@ class DSRequestLocationBubble extends StatelessWidget {
 
   DSRequestLocationBubble({
     super.key,
-    this.label,
-    this.type,
-    this.value,
+    required this.label,
+    this.type = DSMessageContentType.textPlain,
+    required this.value,
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     this.showRequestLocationButton = false,

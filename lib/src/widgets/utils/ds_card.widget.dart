@@ -267,10 +267,18 @@ class DSCard extends StatelessWidget {
   }
 
   Widget _buildRequestLocation() {
+    final label = content['label'];
+    final type = label['type'];
+    final value = label['value'];
+
     return DSRequestLocationBubble(
+      label: 'Send location',
+      type: type,
+      value: value,
       align: align,
       borderRadius: borderRadius,
       style: style,
+      showRequestLocationButton: showRequestLocationButton,
     );
   }
 }
