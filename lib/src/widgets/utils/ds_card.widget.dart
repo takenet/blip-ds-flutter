@@ -7,9 +7,7 @@ import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
-import '../../utils/ds_bubble.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
-import '../buttons/ds_request_location_button.widget.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
@@ -17,6 +15,7 @@ import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_location_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
+import '../chat/ds_request_location_bubble.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
 import '../chat/ds_weblink.widget.dart';
@@ -268,37 +267,10 @@ class DSCard extends StatelessWidget {
   }
 
   Widget _buildRequestLocation() {
-    final label = content['label'];
-    final type = label['type'];
-    final value = label['value'];
-
-    return Row(
-      children: DSBubbleUtils.addSpacer(
-        align: align,
-        child: Column(
-          crossAxisAlignment: align == DSAlign.right
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.start,
-          children: [
-            if (label != null && type == DSMessageContentType.textPlain)
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 3.0,
-                ),
-                child: DSTextMessageBubble(
-                  text: value,
-                  align: align,
-                  borderRadius: borderRadius,
-                  style: style,
-                ),
-              ),
-            if (showRequestLocationButton)
-              DSRequestLocationButton(
-                label: 'Send Location', // TODO: translate
-              ),
-          ],
-        ),
-      ),
+    return DSRequestLocationBubble(
+      align: align,
+      borderRadius: borderRadius,
+      style: style,
     );
   }
 }
