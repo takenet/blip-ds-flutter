@@ -3,9 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../services/ds_auth.service.dart';
+
 class DSImageMessageBubbleController extends GetxController {
-  Future<ImageInfo> getImageInfo(final String url) async {
-    final Image img = Image.network(url);
+  Future<ImageInfo> getImageInfo({
+    required final String url,
+    final bool shouldAuthenticate = false,
+  }) async {
+    final Image img = Image.network(
+      url,
+      headers: shouldAuthenticate ? DSAuthService.httpHeaders : null,
+    );
 
     final completer = Completer<ImageInfo>();
 

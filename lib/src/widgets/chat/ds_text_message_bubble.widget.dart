@@ -5,7 +5,6 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_linkify.util.dart';
-
 import 'ds_message_bubble.widget.dart';
 import 'ds_select_menu.widget.dart';
 import 'ds_show_more_text.widget.dart';
