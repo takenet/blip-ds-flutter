@@ -79,6 +79,8 @@ export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
 export 'src/widgets/buttons/ds_secondary_button.widget.dart'
     show DSSecondaryButton;
+export 'src/widgets/buttons/ds_request_location_button.widget.dart'
+    show DSRequestLocationButton;
 export 'src/widgets/buttons/ds_send_button.widget.dart' show DSSendButton;
 export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
     show DSTertiaryButton;
@@ -153,3 +155,5 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
+export 'src/widgets/chat/ds_request_location_bubble.widget.dart'
+    show DSRequestLocationBubble;

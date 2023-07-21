@@ -292,6 +292,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             latitude: 47.5951518,
             longitude: 122.3316393,
           ),
+          DSRequestLocationBubble(
+            label: 'Send location',
+            value: 'Send location title',
+            align: DSAlign.right,
+            showRequestLocationButton: true,
+          ),
         ],
       ),
     );

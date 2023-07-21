@@ -15,6 +15,7 @@ import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_location_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
+import '../chat/ds_request_location_bubble.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
 import '../chat/ds_weblink.widget.dart';
@@ -36,6 +37,7 @@ class DSCard extends StatelessWidget {
     DSMessageBubbleStyle? style,
     this.messageId,
     this.showQuickReplyOptions = false,
+    this.showRequestLocationButton = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -48,6 +50,7 @@ class DSCard extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final String? messageId;
   final bool showQuickReplyOptions;
+  final bool showRequestLocationButton;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +115,9 @@ class DSCard extends StatelessWidget {
           ticketId: content['formattedTicketId'],
           chatbotIdentity: content['ownerIdentity'],
         );
+
+      case DSMessageContentType.input:
+        return _buildRequestLocation();
 
       default:
         return DSUnsupportedContentMessageBubble(
@@ -258,5 +264,21 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
       );
     }
+  }
+
+  Widget _buildRequestLocation() {
+    final label = content['label'];
+    final type = label['type'];
+    final value = label['value'];
+
+    return DSRequestLocationBubble(
+      label: 'Send location',
+      type: type,
+      value: value,
+      align: align,
+      borderRadius: borderRadius,
+      style: style,
+      showRequestLocationButton: showRequestLocationButton,
+    );
   }
 }
