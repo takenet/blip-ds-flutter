@@ -1,3 +1,8 @@
+## 0.0.67
+
+- [DSColors] Added new color.
+- [DSVideoMessageBubble] Fix to play videos from instagram.
+
 ## 0.0.66
 
 - [DSRequestLocationButton] New widget to show the button of request of location.
