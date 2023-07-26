@@ -19,7 +19,7 @@ abstract class DSAuthService {
 
   static Map<String, String> get httpHeaders => token?.isNotEmpty ?? false
       ? {
-          'Authorization': 'Key $token',
+          'Authorization': 'Bearer $token',
         }
       : const {};
 }
