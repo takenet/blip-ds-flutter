@@ -7,6 +7,8 @@ import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
@@ -119,13 +121,8 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.input:
         return _buildRequestLocation();
 
-      case DSMessageContentType.threadActiveMessage:
-        return DSTextMessageBubble(
-          align: align,
-          text: content['text'],
-          borderRadius: borderRadius,
-          style: style,
-        );
+      case DSMessageContentType.applicationJson:
+        return _buildApplicationJson();
 
       default:
         return DSUnsupportedContentMessageBubble(
@@ -287,6 +284,36 @@ class DSCard extends StatelessWidget {
       borderRadius: borderRadius,
       style: style,
       showRequestLocationButton: showRequestLocationButton,
+    );
+  }
+
+  Widget _buildApplicationJson() {
+    if (content['type'] == 'template') {
+      return DSUnsupportedContentMessageBubble(
+        text: 'Modelo de Messagem: ${content['template']['name']}',
+        align: align,
+        borderRadius: borderRadius,
+        style: style,
+        leftWidget: Icon(
+          DSIcons.megaphone_outline,
+          color: style.isLightBubbleBackground(align)
+              ? DSColors.neutralDarkCity
+              : DSColors.neutralLightSnow,
+          size: 20.0,
+        ),
+      );
+      // DSTextMessageBubble(
+      //   align: align,
+      //   text: 'Modelo de Messagem:${content['template']['name']}',
+      //   borderRadius: borderRadius,
+      //   style: style,
+      // );
+    }
+
+    return DSUnsupportedContentMessageBubble(
+      align: align,
+      borderRadius: borderRadius,
+      style: style,
     );
   }
 }

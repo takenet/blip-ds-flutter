@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/widgets/chat/ds_show_more_text.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -48,9 +49,12 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
               ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: DSBodyText(
-              text ?? 'Unsupported content', // TODO: Need localized translate.
-              color: color,
+            child: DSShowMoreText(
+              align: align,
+              style: style,
+              maxWidth: 200.0,
+              text: text ??
+                  'Unsupported content', // TODO: Need localized translate.
             ),
           ),
         ],
