@@ -1,3 +1,9 @@
+## 0.0.66
+
+- [DSRequestLocationButton] New widget to show the button of request of location.
+- [DSRequestLocationMessageBubble] New widget to show the request of location.
+- [DSBubbleUtils] New widget to utils bubble.
+
 ## 0.0.65
 
 - [DSLocationMessageBubble] Fixed parse when latitude and longitude value is large.
