@@ -11,4 +11,6 @@ abstract class DSMessageContentType {
   static const String contact = 'application/vnd.lime.contact+json';
   static const String input = 'application/vnd.lime.input+json';
   static const String location = 'application/vnd.lime.location+json';
+  static const String threadActiveMessage =
+      'application/vnd.iris.thread-active-message+json';
 }

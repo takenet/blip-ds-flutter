@@ -119,6 +119,14 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.input:
         return _buildRequestLocation();
 
+      case DSMessageContentType.threadActiveMessage:
+        return DSTextMessageBubble(
+          align: align,
+          text: content['text'],
+          borderRadius: borderRadius,
+          style: style,
+        );
+
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
