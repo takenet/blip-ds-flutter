@@ -56,7 +56,13 @@ class DSVideoMessageBubbleController {
     isDownloading.value = true;
 
     try {
-      final fileName = url.substring(url.lastIndexOf('/')).substring(1);
+      final path = Uri.parse(url).path;
+
+      var fileName = path.substring(path.lastIndexOf('/')).substring(1);
+
+      if (fileName.isEmpty) {
+        fileName = DateTime.now().toIso8601String();
+      }
 
       final temporaryPath = (await getTemporaryDirectory()).path;
       final outputFile = File('$temporaryPath/VIDEO-$uniqueId.mp4');
