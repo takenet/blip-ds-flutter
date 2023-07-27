@@ -34,9 +34,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           overflow: TextOverflow.visible,
-          text: 'Modelo de Messagem: ${content['template']['name']}',
-
-          /// TODO: Translate
+          text: content['template']['name'],
           leftWidget: Icon(
             DSIcons.megaphone_outline,
             color: style.isLightBubbleBackground(align)
