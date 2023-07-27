@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../enums/ds_delivery_report_status.enum.dart';
 import '../../enums/ds_ticket_message_type.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
-import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
+import '../chat/ds_application_json_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
@@ -33,6 +33,7 @@ class DSCard extends StatelessWidget {
     required this.content,
     required this.align,
     required this.borderRadius,
+    this.status,
     this.onSelected,
     this.onOpenLink,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
@@ -46,6 +47,7 @@ class DSCard extends StatelessWidget {
   final dynamic content;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final DSDeliveryReportStatus? status;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final DSMessageBubbleAvatarConfig avatarConfig;
@@ -122,7 +124,13 @@ class DSCard extends StatelessWidget {
         return _buildRequestLocation();
 
       case DSMessageContentType.applicationJson:
-        return _buildApplicationJson();
+        return DSApplicationJsonMessageBubble(
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+          content: content,
+          status: status,
+        );
 
       default:
         return DSUnsupportedContentMessageBubble(
@@ -284,36 +292,6 @@ class DSCard extends StatelessWidget {
       borderRadius: borderRadius,
       style: style,
       showRequestLocationButton: showRequestLocationButton,
-    );
-  }
-
-  Widget _buildApplicationJson() {
-    if (content['type'] == 'template') {
-      return DSUnsupportedContentMessageBubble(
-        text: 'Modelo de Messagem: ${content['template']['name']}',
-        align: align,
-        borderRadius: borderRadius,
-        style: style,
-        leftWidget: Icon(
-          DSIcons.megaphone_outline,
-          color: style.isLightBubbleBackground(align)
-              ? DSColors.neutralDarkCity
-              : DSColors.neutralLightSnow,
-          size: 20.0,
-        ),
-      );
-      // DSTextMessageBubble(
-      //   align: align,
-      //   text: 'Modelo de Messagem:${content['template']['name']}',
-      //   borderRadius: borderRadius,
-      //   style: style,
-      // );
-    }
-
-    return DSUnsupportedContentMessageBubble(
-      align: align,
-      borderRadius: borderRadius,
-      style: style,
     );
   }
 }

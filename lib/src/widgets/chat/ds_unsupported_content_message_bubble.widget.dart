@@ -1,4 +1,3 @@
-import 'package:blip_ds/src/widgets/chat/ds_show_more_text.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -13,6 +12,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
   final String? text;
+  final TextOverflow overflow;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
 
@@ -21,6 +21,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
     required this.align,
     this.leftWidget,
     this.text,
+    this.overflow = TextOverflow.ellipsis,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
@@ -47,14 +48,15 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
                     : DSColors.neutralLightSnow,
                 size: 20.0,
               ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: DSShowMoreText(
-              align: align,
-              style: style,
-              maxWidth: 200.0,
-              text: text ??
-                  'Unsupported content', // TODO: Need localized translate.
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: DSBodyText(
+                text ??
+                    'Unsupported content', // TODO: Need localized translate.
+                color: color,
+                overflow: overflow,
+              ),
             ),
           ),
         ],
