@@ -1,3 +1,9 @@
+## 0.0.67
+
+- [DSApplicationJsonMessageBubble] New widget to support DSUnsupportedContentMessageBubble;
+- Fix overflow on DSUnsupportedContentMessageBubble;
+- Add DSApplicationJsonMessageBubble in DSCard;
+
 ## 0.0.66
 
 - [DSRequestLocationButton] New widget to show the button of request of location.
