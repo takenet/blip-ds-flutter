@@ -1,3 +1,9 @@
+## 0.0.68
+
+- [DSApplicationJsonMessageBubble] New widget to support DSUnsupportedContentMessageBubble;
+- Fix overflow on DSUnsupportedContentMessageBubble;
+- Add DSApplicationJsonMessageBubble in DSCard;
+
 ## 0.0.67
 
 - [DSColors] Added new color.
