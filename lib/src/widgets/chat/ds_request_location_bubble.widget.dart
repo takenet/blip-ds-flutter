@@ -9,24 +9,24 @@ import '../buttons/ds_request_location_button.widget.dart';
 import 'ds_text_message_bubble.widget.dart';
 
 class DSRequestLocationBubble extends StatelessWidget {
+  DSRequestLocationBubble({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.align,
+    this.type = DSMessageContentType.textPlain,
+    this.borderRadius = const [DSBorderRadius.all],
+    this.showRequestLocationButton = false,
+    DSMessageBubbleStyle? style,
+  }) : style = style ?? DSMessageBubbleStyle();
+
   final String? label;
-  final String? type;
+  final String type;
   final String? value;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final bool showRequestLocationButton;
   final DSMessageBubbleStyle style;
-
-  DSRequestLocationBubble({
-    super.key,
-    required this.label,
-    this.type = DSMessageContentType.textPlain,
-    required this.value,
-    required this.align,
-    this.borderRadius = const [DSBorderRadius.all],
-    this.showRequestLocationButton = false,
-    DSMessageBubbleStyle? style,
-  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

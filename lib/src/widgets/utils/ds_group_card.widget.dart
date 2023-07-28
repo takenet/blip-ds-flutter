@@ -253,6 +253,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             content: message.content,
             align: message.align,
             borderRadius: borderRadius,
+            status: message.status,
             onSelected: widget.onSelected,
             avatarConfig: widget.avatarConfig,
             style: widget.style,
