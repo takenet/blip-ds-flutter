@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../enums/ds_delivery_report_status.enum.dart';
 import '../../enums/ds_ticket_message_type.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
@@ -9,6 +10,7 @@ import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
+import '../chat/ds_application_json_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
@@ -31,6 +33,7 @@ class DSCard extends StatelessWidget {
     required this.content,
     required this.align,
     required this.borderRadius,
+    this.status,
     this.onSelected,
     this.onOpenLink,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
@@ -44,6 +47,7 @@ class DSCard extends StatelessWidget {
   final dynamic content;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
+  final DSDeliveryReportStatus? status;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final DSMessageBubbleAvatarConfig avatarConfig;
@@ -118,6 +122,15 @@ class DSCard extends StatelessWidget {
 
       case DSMessageContentType.input:
         return _buildRequestLocation();
+
+      case DSMessageContentType.applicationJson:
+        return DSApplicationJsonMessageBubble(
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+          content: content,
+          status: status,
+        );
 
       default:
         return DSUnsupportedContentMessageBubble(
