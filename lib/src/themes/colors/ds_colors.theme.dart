@@ -45,6 +45,7 @@ abstract class DSColors {
   static const Color system = Color(0xFFB2DFFD);
   static const Color success = Color(0xFF84EBBC);
   static const Color error = Color(0xFFF99F9F);
+  static const Color surface1 = Color(0xFFF6F6F6);
   static const Color surface3 = Color(0xFFC7C7C7);
 
   static const Color disabledText = Color(0xFF637798);
