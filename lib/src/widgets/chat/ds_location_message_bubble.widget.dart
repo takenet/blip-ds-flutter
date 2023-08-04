@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -16,12 +17,14 @@ class DSLocationMessageBubble extends StatelessWidget {
   final String? title;
   final String latitude;
   final String longitude;
+  final List<DSBorderRadius> borderRadius;
 
   DSLocationMessageBubble({
     super.key,
     required this.align,
     required this.latitude,
     required this.longitude,
+    this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -48,6 +51,7 @@ class DSLocationMessageBubble extends StatelessWidget {
         shouldUseDefaultSize: true,
         defaultMaxSize: 240.0,
         defaultMinSize: 240.0,
+        borderRadius: borderRadius,
         padding: EdgeInsets.zero,
         align: align,
         style: style,

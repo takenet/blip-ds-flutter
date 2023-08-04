@@ -110,6 +110,7 @@ class DSCard extends StatelessWidget {
           title: content['text'],
           latitude: content['latitude'].toString(),
           longitude: content['longitude'].toString(),
+          borderRadius: borderRadius,
           align: align,
           style: style,
         );
