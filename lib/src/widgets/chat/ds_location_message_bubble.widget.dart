@@ -38,11 +38,12 @@ class DSLocationMessageBubble extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         final availableMaps = await MapLauncher.installedMaps;
-
-        if (double.tryParse(latitude) != null &&
-            double.tryParse(latitude) != null) {
+        final lat = double.tryParse(latitude);
+        final long = double.tryParse(longitude);
+        
+        if (lat != null && long != null) {
           await availableMaps.first.showMarker(
-            coords: Coords(double.parse(latitude), double.parse(longitude)),
+            coords: Coords(lat, long),
             title: title ?? '',
           );
         }
