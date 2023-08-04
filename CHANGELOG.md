@@ -1,3 +1,7 @@
+## 0.0.69
+
+- [DSTextField] Added new param to set autofocus;
+
 ## 0.0.68
 
 - [DSApplicationJsonMessageBubble] New widget to support DSUnsupportedContentMessageBubble;
