@@ -42,7 +42,7 @@ abstract class DSColors {
   static const Color extendGraysMoon = Color(0xFFD1D3D4);
   static const Color extendBrownsWood = Color(0xFF845D37);
 
-  static const Color system = Color(0xFFB2DFFD);
+  static const Color system = Color(0xFF0096FA);
   static const Color success = Color(0xFF84EBBC);
   static const Color error = Color(0xFFF99F9F);
   static const Color surface1 = Color(0xFFF6F6F6);
