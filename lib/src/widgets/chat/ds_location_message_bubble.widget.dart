@@ -14,8 +14,8 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
-  final double latitude;
-  final double longitude;
+  final String latitude;
+  final String longitude;
 
   DSLocationMessageBubble({
     super.key,
@@ -36,10 +36,13 @@ class DSLocationMessageBubble extends StatelessWidget {
       onTap: () async {
         final availableMaps = await MapLauncher.installedMaps;
 
-        await availableMaps.first.showMarker(
-          coords: Coords(latitude, longitude),
-          title: title ?? '',
-        );
+        if (double.tryParse(latitude) != null &&
+            double.tryParse(latitude) != null) {
+          await availableMaps.first.showMarker(
+            coords: Coords(double.parse(latitude), double.parse(longitude)),
+            title: title ?? '',
+          );
+        }
       },
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
