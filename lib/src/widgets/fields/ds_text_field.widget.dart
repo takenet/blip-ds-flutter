@@ -27,6 +27,7 @@ class DSTextField extends StatefulWidget {
     this.shape = DSInputContainerShape.rectangle,
     this.errorText,
     this.textInputType,
+    this.autofocus = false,
   });
 
   final TextEditingController? controller;
@@ -44,6 +45,7 @@ class DSTextField extends StatefulWidget {
   final DSInputContainerShape shape;
   final String? errorText;
   final TextInputType? textInputType;
+  final bool autofocus;
 
   @override
   State<DSTextField> createState() => _DSTextFieldState();
@@ -120,6 +122,7 @@ class _DSTextFieldState extends State<DSTextField> {
             maxHeight: 100.0,
           ),
           child: TextField(
+            autofocus: widget.autofocus,
             keyboardType: widget.textInputType,
             controller: widget.controller,
             scrollController: _scrollController,
