@@ -1,3 +1,7 @@
+## 0.0.70
+
+- [DSLocationMessageBubble] Fixed card when latitude or longitude have invalid values;
+
 ## 0.0.69
 
 - [DSTextField] Added new param to set autofocus;
