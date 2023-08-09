@@ -1,3 +1,7 @@
+## 0.0.71
+
+- [DSGroupCard] Changed to check date difference in seconds;
+
 ## 0.0.70
 
 - [DSLocationMessageBubble] Fixed card when latitude or longitude have invalid values;

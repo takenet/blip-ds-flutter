@@ -35,12 +35,12 @@ final _defaultCompareMessageFuntion =
 
   final dateDifference = DateTime.parse(firstMsg.date)
       .difference(DateTime.parse(secondMsg.date))
-      .inMinutes;
+      .inSeconds;
 
   final hasSameStatus = firstMsg.status == secondMsg.status;
   final hasSameAlign = firstMsg.align == secondMsg.align;
 
-  return dateDifference <= 1 &&
+  return dateDifference <= 60 &&
       hasSameStatus &&
       hasSameAlign &&
       shouldGroupSelect;
