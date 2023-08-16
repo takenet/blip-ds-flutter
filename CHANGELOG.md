@@ -1,3 +1,8 @@
+## 0.0.72
+
+- [DSColors] Fixed system color;
+- [DSAnimate] Added check to see if scrollController has clients.
+
 ## 0.0.71
 
 - [DSGroupCard] Changed to check date difference in seconds;
