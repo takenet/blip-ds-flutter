@@ -108,8 +108,9 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.location:
         return DSLocationMessageBubble(
           title: content['text'],
-          latitude: double.parse(content['latitude'].toString()),
-          longitude: double.parse(content['longitude'].toString()),
+          latitude: content['latitude'].toString(),
+          longitude: content['longitude'].toString(),
+          borderRadius: borderRadius,
           align: align,
           style: style,
         );

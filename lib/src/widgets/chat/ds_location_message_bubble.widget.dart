@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -14,14 +15,16 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
-  final double latitude;
-  final double longitude;
+  final String latitude;
+  final String longitude;
+  final List<DSBorderRadius> borderRadius;
 
   DSLocationMessageBubble({
     super.key,
     required this.align,
     required this.latitude,
     required this.longitude,
+    this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -35,16 +38,21 @@ class DSLocationMessageBubble extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         final availableMaps = await MapLauncher.installedMaps;
-
-        await availableMaps.first.showMarker(
-          coords: Coords(latitude, longitude),
-          title: title ?? '',
-        );
+        final lat = double.tryParse(latitude);
+        final long = double.tryParse(longitude);
+        
+        if (lat != null && long != null) {
+          await availableMaps.first.showMarker(
+            coords: Coords(lat, long),
+            title: title ?? '',
+          );
+        }
       },
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
         defaultMaxSize: 240.0,
         defaultMinSize: 240.0,
+        borderRadius: borderRadius,
         padding: EdgeInsets.zero,
         align: align,
         style: style,

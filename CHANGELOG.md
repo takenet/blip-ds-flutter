@@ -1,3 +1,20 @@
+## 0.0.72
+
+- [DSColors] Fixed system color;
+- [DSAnimate] Added check to see if scrollController has clients.
+
+## 0.0.71
+
+- [DSGroupCard] Changed to check date difference in seconds;
+
+## 0.0.70
+
+- [DSLocationMessageBubble] Fixed card when latitude or longitude have invalid values;
+
+## 0.0.69
+
+- [DSTextField] Added new param to set autofocus;
+
 ## 0.0.68
 
 - [DSApplicationJsonMessageBubble] New widget to support DSUnsupportedContentMessageBubble;
