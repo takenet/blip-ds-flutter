@@ -51,7 +51,8 @@ abstract class DSColors {
 
   static const Color disabledText = Color(0xFF637798);
   static const Color disabledBg = Color(0xFFE8F2FF);
-  static const Color contentDisable = Color(0xFF666666);
+  static const Color contentDisable = Color(0xFF636363);
+  static const Color border1 = Color(0xFF616161);
 
   static Gradient gradientOcean = DSLinearGradient(
     colors: const [
