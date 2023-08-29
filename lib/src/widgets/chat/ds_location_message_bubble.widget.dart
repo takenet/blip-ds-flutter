@@ -36,15 +36,19 @@ class DSLocationMessageBubble extends StatelessWidget {
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
+    final hasValidCoordinates =
+        double.tryParse(latitude) != null && double.tryParse(longitude) != null;
+
     return GestureDetector(
       onTap: () async {
         final availableMaps = await MapLauncher.installedMaps;
-        final lat = double.tryParse(latitude);
-        final long = double.tryParse(longitude);
 
-        if (lat != null && long != null) {
+        if (hasValidCoordinates) {
           await availableMaps.first.showMarker(
-            coords: Coords(lat, long),
+            coords: Coords(
+              double.tryParse(latitude)!,
+              double.tryParse(longitude)!,
+            ),
             title: title ?? '',
           );
         }
@@ -61,8 +65,7 @@ class DSLocationMessageBubble extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            double.tryParse(latitude) != null &&
-                    double.tryParse(longitude) != null
+            hasValidCoordinates
                 ? DSCachedNetworkImageView(
                     url:
                         'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
@@ -70,13 +73,15 @@ class DSLocationMessageBubble extends StatelessWidget {
                     align: align,
                     style: style,
                   )
-                : const SizedBox(
+                : SizedBox(
                     width: 240,
                     height: 240,
                     child: Icon(
                       DSIcons.file_image_broken_outline,
                       size: 80,
-                      color: DSColors.neutralMediumCloud,
+                      color: style.isLightBubbleBackground(align)
+                          ? DSColors.neutralMediumElephant
+                          : DSColors.neutralMediumCloud,
                     ),
                   ),
             if (title?.isNotEmpty ?? false)
