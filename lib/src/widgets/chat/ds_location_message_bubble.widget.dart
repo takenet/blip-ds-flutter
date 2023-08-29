@@ -6,6 +6,7 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
@@ -40,7 +41,7 @@ class DSLocationMessageBubble extends StatelessWidget {
         final availableMaps = await MapLauncher.installedMaps;
         final lat = double.tryParse(latitude);
         final long = double.tryParse(longitude);
-        
+
         if (lat != null && long != null) {
           await availableMaps.first.showMarker(
             coords: Coords(lat, long),
@@ -60,13 +61,24 @@ class DSLocationMessageBubble extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            DSCachedNetworkImageView(
-              url:
-                  'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
-              placeholder: (_, __) => _buildLoading(),
-              align: align,
-              style: style,
-            ),
+            double.tryParse(latitude) != null &&
+                    double.tryParse(longitude) != null
+                ? DSCachedNetworkImageView(
+                    url:
+                        'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
+                    placeholder: (_, __) => _buildLoading(),
+                    align: align,
+                    style: style,
+                  )
+                : const SizedBox(
+                    width: 240,
+                    height: 240,
+                    child: Icon(
+                      DSIcons.file_image_broken_outline,
+                      size: 80,
+                      color: DSColors.neutralMediumCloud,
+                    ),
+                  ),
             if (title?.isNotEmpty ?? false)
               Padding(
                 padding: const EdgeInsets.symmetric(
