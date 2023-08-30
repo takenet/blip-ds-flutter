@@ -36,19 +36,17 @@ class DSLocationMessageBubble extends StatelessWidget {
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
-    final hasValidCoordinates =
-        double.tryParse(latitude) != null && double.tryParse(longitude) != null;
+    final lat = double.tryParse(latitude);
+    final long = double.tryParse(longitude);
 
+    final hasValidCoordinates = lat != null && long != null;
     return GestureDetector(
       onTap: () async {
         final availableMaps = await MapLauncher.installedMaps;
 
         if (hasValidCoordinates) {
           await availableMaps.first.showMarker(
-            coords: Coords(
-              double.tryParse(latitude)!,
-              double.tryParse(longitude)!,
-            ),
+            coords: Coords(lat, long),
             title: title ?? '',
           );
         }
