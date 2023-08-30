@@ -1,3 +1,8 @@
+## 0.0.74
+
+- [DSChip] Set shape to circle when text is null;
+- [DSLocationMessageBubble] Add a broken file image when receive invalid coordinates
+
 ## 0.0.73
 
 - [DSColors] Fixed system color;
