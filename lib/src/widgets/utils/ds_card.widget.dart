@@ -39,6 +39,7 @@ class DSCard extends StatelessWidget {
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
     this.messageId,
+    this.customer,
     this.showQuickReplyOptions = false,
     this.showRequestLocationButton = false,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -53,6 +54,7 @@ class DSCard extends StatelessWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final DSMessageBubbleStyle style;
   final String? messageId;
+  final Map<String, dynamic>? customer;
   final bool showQuickReplyOptions;
   final bool showRequestLocationButton;
 
@@ -221,6 +223,11 @@ class DSCard extends StatelessWidget {
 
     final shouldAuthenticate =
         media.authorizationRealm?.toLowerCase() == 'blip';
+
+    if (shouldAuthenticate &&
+        (customer?['domain']?.contains('tunnel.msging.net') ?? false)) {
+      media.uri = '${media.uri}?tunnel=${customer!['id']}';
+    }
 
     if (media.type.contains('audio')) {
       return DSAudioMessageBubble(

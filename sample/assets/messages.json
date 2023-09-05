@@ -144,7 +144,6 @@
     "align": "right",
     "type": "application/vnd.lime.media-link+json",
     "status": "consumed",
-    "customerName": "André Rossi",
     "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbb"
   },
   {
@@ -259,7 +258,6 @@
     "align": "right",
     "type": "application/vnd.lime.media-link+json",
     "status": "consumed",
-    "customerName": "André Rossi",
     "id": "c37b66a6-b60f-4bc0-af30-7c9b28874cbc"
   },
   {
@@ -437,7 +435,6 @@
     "align": "right",
     "type": "application/vnd.lime.media-link+json",
     "status": "consumed",
-    "customerName": "André Rossi",
     "id": "c37b66a6-b60f-4bc0-af30-7c9b28874dbd"
   },
   {
@@ -455,7 +452,6 @@
     "align": "left",
     "type": "application/vnd.lime.media-link+json",
     "status": "consumed",
-    "customerName": "André Rossi",
     "id": "c37b66a6-b60f-4bc0-af30-7c9b28874fbd"
   },
   {
