@@ -1,3 +1,7 @@
+## 0.0.75
+
+- [DSChip] Added a new height param to widget
+
 ## 0.0.74
 
 - [DSChip] Set shape to circle when text is null;
