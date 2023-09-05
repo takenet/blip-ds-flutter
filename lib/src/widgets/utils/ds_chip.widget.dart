@@ -11,7 +11,7 @@ class DSChip extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? trailingIcon;
   final EdgeInsetsGeometry? textPadding;
-  final double? width;
+  final double? size;
 
   const DSChip({
     super.key,
@@ -24,7 +24,7 @@ class DSChip extends StatelessWidget {
     this.border,
     this.onTap,
     this.textPadding,
-    this.width,
+    this.size,
   });
 
   @override
@@ -32,7 +32,8 @@ class DSChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width,
+        height: size,
+        width: size,
         padding: padding,
         decoration: text == null
             ? BoxDecoration(
@@ -55,10 +56,7 @@ class DSChip extends StatelessWidget {
                       vertical: 2.0,
                       horizontal: 8.0,
                     ),
-                child: text ??
-                    SizedBox(
-                      height: width,
-                    ),
+                child: text ?? const SizedBox.shrink(),
               ),
             ),
             Flexible(
