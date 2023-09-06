@@ -23,11 +23,8 @@ class DSMessageItemModel {
   /// The message content
   dynamic content;
 
-  /// Used to display a user name and avatar at an image preview in image bubble
-  String? customerName;
-
-  /// Used to display a user name and avatar at an image preview in image bubble
-  Uri? customerAvatar;
+  /// Customer data
+  Map<String, dynamic>? customer;
 
   /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
   bool? hideMessageDetail;
@@ -41,8 +38,7 @@ class DSMessageItemModel {
     required this.type,
     required this.status,
     this.content,
-    this.customerName,
-    this.customerAvatar,
+    this.customer,
     this.hideMessageDetail,
   });
 
@@ -58,12 +54,8 @@ class DSMessageItemModel {
       hideMessageDetail: json['hideMessageDetail'],
     );
 
-    if (json.containsKey('customerName')) {
-      messageItem.customerName = json['customerName'];
-    }
-
-    if (json.containsKey('customerAvatar')) {
-      messageItem.customerAvatar = json['customerAvatar'];
+    if (json.containsKey('customer')) {
+      messageItem.customer = json['customer'];
     }
 
     if (json.containsKey('hideMessageDetail')) {

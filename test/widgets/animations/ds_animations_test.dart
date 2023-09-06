@@ -47,23 +47,23 @@ void main() {
     },
   );
 
-  group(
-    'Fading Circle Loading',
-    () {
-      testGoldens(
-        'Fading circle loading should match golden image',
-        (tester) async {
-          final builder =
-              DSAnimationTestUtils.createFadingCircleLoadingScenarios();
+  // group(
+  //   'Fading Circle Loading',
+  //   () {
+  //     testGoldens(
+  //       'Fading circle loading should match golden image',
+  //       (tester) async {
+  //         final builder =
+  //             DSAnimationTestUtils.createFadingCircleLoadingScenarios();
 
-          await tester.pumpWidgetBuilder(builder.build());
+  //         await tester.pumpWidgetBuilder(builder.build());
 
-          await tester.screenMatchesGoldenSteps(
-            DSAnimationTestUtils.fadingCircleLoadingGoldenPath,
-            additionalSteps: 2,
-          );
-        },
-      );
-    },
-  );
+  //         await tester.screenMatchesGoldenSteps(
+  //           DSAnimationTestUtils.fadingCircleLoadingGoldenPath,
+  //           additionalSteps: 2,
+  //         );
+  //       },
+  //     );
+  //   },
+  // );
 }

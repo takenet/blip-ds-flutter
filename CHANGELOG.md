@@ -1,3 +1,9 @@
+## 0.0.75
+
+- [DSChip] Added a new height param to widget
+- [DSMessageItemModel] Added new customer map property
+- [DSCard] Added new customer map property; Improve Media view for tunnel users
+
 ## 0.0.74
 
 - [DSChip] Set shape to circle when text is null;

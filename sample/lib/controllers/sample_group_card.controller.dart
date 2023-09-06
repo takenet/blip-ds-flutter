@@ -21,7 +21,6 @@ class SampleGroupCardController {
               "type": doc["type"],
               "status": doc["status"],
               "content": doc["content"],
-              "customerName": "User Name",
             },
           ),
         )
