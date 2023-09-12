@@ -1,3 +1,9 @@
+## 0.0.76
+
+- [DSColors] Added a new color
+- [DSDeliveryStatusReport] Added new status report
+- [DSDeliveryReportIcon] Add new icon to new status report type
+
 ## 0.0.75
 
 - [DSChip] Added a new height param to widget
