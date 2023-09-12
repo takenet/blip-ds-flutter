@@ -46,6 +46,13 @@ class DSChatTestUtils {
       ),
     );
 
+    builder.addScenario(
+      'DSDeliveryReportStatus - Sending',
+      buildDeliveryReportIcon(
+        deliveryStatus: DSDeliveryReportStatus.sending,
+      ),
+    );
+
     return builder;
   }
 
