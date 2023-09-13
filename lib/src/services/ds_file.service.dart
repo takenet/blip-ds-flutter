@@ -71,4 +71,7 @@ abstract class DSFileService {
 
     return null;
   }
+
+  static String getFileExtensionFromMimeType(String? mimeType) =>
+      RegExp(r'((?<=\/)[a-zA-Z0-9]+)').firstMatch(mimeType ?? '')?[0] ?? '';
 }
