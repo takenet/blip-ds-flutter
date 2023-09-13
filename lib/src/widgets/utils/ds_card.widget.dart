@@ -281,7 +281,7 @@ class DSCard extends StatelessWidget {
         url: media.uri,
         size: size,
         filename: media.title ??
-            '${media.uri.hashCode}.${DSFileService.getFileExtensionFromMimeType(media.type)}',
+            '${media.uri.hashCode}.${DSFileService.getFileExtensionFromMime(media.type)}',
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
