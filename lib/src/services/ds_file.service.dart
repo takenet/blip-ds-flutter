@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
@@ -71,4 +72,7 @@ abstract class DSFileService {
 
     return null;
   }
+
+  static String getFileExtensionFromMime(String? mimeType) =>
+      extensionFromMime(mimeType ?? '');
 }

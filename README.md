@@ -1,7 +1,7 @@
 [![pub version](https://img.shields.io/pub/v/blip_ds.svg)](https://pub.dev/packages/blip_ds)
 [![Test Status](https://github.com/takenet/blip-ds-flutter/actions/workflows/tests.yml/badge.svg)](https://github.com/takenet/blip-ds-flutter/actions)
 
-# BliP DS for Flutter
+# Blip DS for Flutter
 
 This project was born based on the need to create a Design System to be used within Take. The components are written using the Flutter Framework.
 

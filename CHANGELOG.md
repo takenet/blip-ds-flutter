@@ -1,3 +1,9 @@
+## 0.0.77
+
+- [DSFileService] Created new `getFileExtensionFromMimeType` method
+- [DSFileMessageBubble] Removed `shouldLinkify` prop from `DSText`
+- [DSCard] Added fallback to filename when it's null
+
 ## 0.0.76
 
 - [DSColors] Added a new color
