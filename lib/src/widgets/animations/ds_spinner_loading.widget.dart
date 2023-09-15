@@ -1,11 +1,12 @@
 import 'dart:math';
+
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
 class DSSpinnerLoading extends StatefulWidget {
   const DSSpinnerLoading({
     Key? key,
-    required this.color,
+    this.color = DSColors.primary,
     this.lineWidth = 5.0,
     this.size = 30.0,
     this.duration = const Duration(milliseconds: 500),

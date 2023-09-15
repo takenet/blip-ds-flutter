@@ -1,3 +1,7 @@
+## 0.0.78
+
+- [DSSpinnerLoading] Set a default color
+
 ## 0.0.77
 
 - [DSFileService] Created new `getFileExtensionFromMimeType` method
