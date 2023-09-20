@@ -1,3 +1,7 @@
+## 0.0.79
+
+- [FFMPEG] Downgraded ffmpeg dependency version from 6.0.2 to 5.1.0
+
 ## 0.0.78
 
 - [DSSpinnerLoading] Set a default color
