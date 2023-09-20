@@ -10,6 +10,7 @@ class DSSendButton extends DSButton {
     super.key,
     super.onPressed,
     super.isEnabled = true,
+    super.isLoading,
     Color backgroundColor = DSColors.primaryNight,
     Color foregroundColor = DSColors.neutralLightSnow,
   }) : super(
