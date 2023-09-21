@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_toast.service.dart';
+import '../../utils/ds_utils.util.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
@@ -75,7 +76,8 @@ class DSVideoMessageBubbleController {
         );
 
         final session = await FFmpegKit.execute(
-            '-hide_banner -y -i $inputFilePath ${outputFile.path}');
+          '-hide_banner -y -i $inputFilePath ${DSUtils.compressVideoArgs} ${outputFile.path}',
+        );
 
         final returnCode = await session.getReturnCode();
 
@@ -90,10 +92,10 @@ class DSVideoMessageBubbleController {
       }
 
       final thumbnailPath = await getFullThumbnailPath();
-      final command =
-          '-ss 00:00:3 -i ${outputFile.path} -frames:v 1 $thumbnailPath';
 
-      await FFmpegKit.execute(command);
+      await FFmpegKit.execute(
+        '-ss 00:00:03 -i ${outputFile.path} -frames:v 1 $thumbnailPath',
+      );
 
       thumbnail.value = thumbnailPath;
     } catch (_) {

@@ -153,7 +153,8 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       await _controller.player.setFilePath(outputFile.path);
     } else {
       final session = await FFmpegKit.execute(
-          '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}');
+        '-hide_banner -y -i $inputFilePath -c:a libmp3lame -qscale:a 2 ${outputFile.path}',
+      );
 
       final returnCode = await session.getReturnCode();
 
