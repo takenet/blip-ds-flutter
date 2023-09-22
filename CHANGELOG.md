@@ -1,4 +1,4 @@
-## 0.0.79
+## 0.0.80
 
 - [FFMPEG] Upgraded ffmpeg dependency version from 5.1.0 to 6.0.3
 - [FFMPEG] Added double quotes in commands
