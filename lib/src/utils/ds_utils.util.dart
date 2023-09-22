@@ -7,16 +7,6 @@ abstract class DSUtils {
   static const bubbleMaxSize = 480.0;
   static const defaultAnimationDuration = Duration(milliseconds: 300);
 
-  static String get compressVideoArgs {
-    const resolution = '-vf scale=-2:480';
-    const codec = '-c:v libx264';
-    const preset = '-preset veryfast';
-    const quality = '-crf 18';
-    const audio = '-c:a copy';
-
-    return '$resolution $codec $preset $quality $audio';
-  }
-
   static const countriesList = <DSCountry>[
     DSCountry(
       code: '+55',

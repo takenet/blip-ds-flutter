@@ -1,15 +1,13 @@
 import 'dart:io';
 
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../models/ds_toast_props.model.dart';
+import '../../services/ds_ffmpeg.service.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_toast.service.dart';
-import '../../utils/ds_utils.util.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
@@ -75,13 +73,12 @@ class DSVideoMessageBubbleController {
           httpHeaders: httpHeaders,
         );
 
-        final session = await FFmpegKit.execute(
-          '-hide_banner -y -i "$inputFilePath" ${DSUtils.compressVideoArgs} "${outputFile.path}"',
+        final isSuccess = await DSFFMpegService.formatVideo(
+          input: inputFilePath!,
+          output: outputFile.path,
         );
 
-        final returnCode = await session.getReturnCode();
-
-        if (!ReturnCode.isSuccess(returnCode)) {
+        if (!isSuccess) {
           hasError.value = true;
           await DSVideoErrorDialog.show(
             filename: fileName,
@@ -93,8 +90,9 @@ class DSVideoMessageBubbleController {
 
       final thumbnailPath = await getFullThumbnailPath();
 
-      await FFmpegKit.execute(
-        '-hide_banner -y -i "${outputFile.path}" -vframes 1 "$thumbnailPath"',
+      await DSFFMpegService.getVideoThumbnail(
+        input: outputFile.path,
+        output: thumbnailPath,
       );
 
       thumbnail.value = thumbnailPath;

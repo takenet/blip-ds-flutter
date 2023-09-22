@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -10,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../models/ds_toast_props.model.dart';
 import '../../../services/ds_auth.service.dart';
+import '../../../services/ds_ffmpeg.service.dart';
 import '../../../services/ds_file.service.dart';
 import '../../../services/ds_toast.service.dart';
 import '../../buttons/ds_pause_button.widget.dart';
@@ -152,13 +151,12 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     if (await outputFile.exists()) {
       await _controller.player.setFilePath(outputFile.path);
     } else {
-      final session = await FFmpegKit.execute(
-        '-hide_banner -y -i "$inputFilePath" -c:a libmp3lame -qscale:a 2 "${outputFile.path}"',
+      final isSuccess = await DSFFMpegService.transcodeAudio(
+        input: inputFilePath!,
+        output: outputFile.path,
       );
 
-      final returnCode = await session.getReturnCode();
-
-      if (ReturnCode.isSuccess(returnCode)) {
+      if (isSuccess) {
         await _controller.player.setFilePath(outputFile.path);
       }
     }
