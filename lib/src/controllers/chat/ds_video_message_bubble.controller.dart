@@ -75,7 +75,7 @@ class DSVideoMessageBubbleController {
         );
 
         final session = await FFmpegKit.execute(
-            '-hide_banner -y -i $inputFilePath ${outputFile.path}');
+            '-hide_banner -y -i "$inputFilePath" "${outputFile.path}"');
 
         final returnCode = await session.getReturnCode();
 
@@ -90,10 +90,10 @@ class DSVideoMessageBubbleController {
       }
 
       final thumbnailPath = await getFullThumbnailPath();
-      final command =
-          '-ss 00:00:3 -i ${outputFile.path} -frames:v 1 $thumbnailPath';
 
-      await FFmpegKit.execute(command);
+      await FFmpegKit.execute(
+        '-hide_banner -y -i "${outputFile.path}" -vframes 1 "$thumbnailPath"',
+      );
 
       thumbnail.value = thumbnailPath;
     } catch (_) {
