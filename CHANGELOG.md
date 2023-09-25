@@ -1,3 +1,7 @@
+## 0.0.81
+
+- [FFMPEG] Downgraded ffmpeg dependency version from 6.0.2 to 5.1.0
+
 ## 0.0.80
 
 - [FFMPEG] Upgraded ffmpeg dependency version from 5.1.0 to 6.0.3
