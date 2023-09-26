@@ -23,6 +23,7 @@ export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
+export 'src/services/ds_ffmpeg.service.dart' show DSFFMpegService;
 export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
@@ -77,10 +78,10 @@ export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_pause_button.widget.dart' show DSPauseButton;
 export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
-export 'src/widgets/buttons/ds_secondary_button.widget.dart'
-    show DSSecondaryButton;
 export 'src/widgets/buttons/ds_request_location_button.widget.dart'
     show DSRequestLocationButton;
+export 'src/widgets/buttons/ds_secondary_button.widget.dart'
+    show DSSecondaryButton;
 export 'src/widgets/buttons/ds_send_button.widget.dart' show DSSendButton;
 export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
     show DSTertiaryButton;
@@ -101,6 +102,8 @@ export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
     show DSMessageBubbleDetail;
+export 'src/widgets/chat/ds_request_location_bubble.widget.dart'
+    show DSRequestLocationBubble;
 export 'src/widgets/chat/ds_survey_message_bubble.widget.dart'
     show DSSurveyMessageBubble;
 export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
@@ -155,5 +158,3 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
-export 'src/widgets/chat/ds_request_location_bubble.widget.dart'
-    show DSRequestLocationBubble;
