@@ -1,7 +1,55 @@
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 
-abstract class DSFFMpegService {
+abstract class DSFFmpegService {
+  static Future<bool> formatVideo({
+    required final String input,
+    required final String output,
+    final bool shouldCompress = true,
+  }) =>
+      _executeCommand(
+        command:
+            '-i "$input" ${shouldCompress ? '$_compressVideoArgs ' : ''}"$output"',
+      );
+
+  static Future<bool> getVideoThumbnail({
+    required final String input,
+    required final String output,
+  }) =>
+      _executeCommand(
+        command: '-i "$input" $_thumbnailArgs "$output"',
+      );
+
+  static Future<bool> transcodeAudio({
+    required final String input,
+    required final String output,
+  }) =>
+      _executeCommand(
+        command: '-i "$input" $_transcodeAudioArgs "$output"',
+      );
+
+  static Future<bool> mergeAudio({
+    required final String firstInput,
+    required final String secondInput,
+    required final String output,
+  }) =>
+      _executeCommand(
+        command:
+            '-i "$firstInput" -i "$secondInput" $_mergeAudioArgs "$output"',
+      );
+
+  static Future<bool> _executeCommand({
+    required final String command,
+  }) async {
+    final session = await FFmpegKit.execute(
+      '$_defaultArgs $command',
+    );
+
+    return ReturnCode.isSuccess(
+      await session.getReturnCode(),
+    );
+  }
+
   static String get _defaultArgs {
     const hideInfoBanner = '-hide_banner';
     const answerYes = '-y';
@@ -32,41 +80,12 @@ abstract class DSFFMpegService {
     return '$codec $quality';
   }
 
-  static Future<bool> _executeCommand({
-    required final String command,
-  }) async {
-    final session = await FFmpegKit.execute(
-      '$_defaultArgs $command',
-    );
+  static String get _mergeAudioArgs {
+    const filter = '-filter_complex';
+    const firstInput = '[0:0]';
+    const secondInput = '[1:0]';
+    const audioConcat = 'concat=n=2:v=0:a=1';
 
-    return ReturnCode.isSuccess(
-      await session.getReturnCode(),
-    );
+    return '$filter "$firstInput$secondInput$audioConcat"';
   }
-
-  static Future<bool> formatVideo({
-    required final String input,
-    required final String output,
-    final bool shouldCompress = true,
-  }) =>
-      _executeCommand(
-        command:
-            '-i "$input" ${shouldCompress ? '$_compressVideoArgs ' : ''}"$output"',
-      );
-
-  static Future<bool> getVideoThumbnail({
-    required final String input,
-    required final String output,
-  }) =>
-      _executeCommand(
-        command: '-i "$input" $_thumbnailArgs "$output"',
-      );
-
-  static Future<bool> transcodeAudio({
-    required final String input,
-    required final String output,
-  }) =>
-      _executeCommand(
-        command: '-i "$input" $_transcodeAudioArgs "$output"',
-      );
 }

@@ -23,7 +23,7 @@ export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
-export 'src/services/ds_ffmpeg.service.dart' show DSFFMpegService;
+export 'src/services/ds_ffmpeg.service.dart' show DSFFmpegService;
 export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;

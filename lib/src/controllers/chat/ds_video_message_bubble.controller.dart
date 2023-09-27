@@ -73,7 +73,7 @@ class DSVideoMessageBubbleController {
           httpHeaders: httpHeaders,
         );
 
-        final isSuccess = await DSFFMpegService.formatVideo(
+        final isSuccess = await DSFFmpegService.formatVideo(
           input: inputFilePath!,
           output: outputFile.path,
         );
@@ -90,7 +90,7 @@ class DSVideoMessageBubbleController {
 
       final thumbnailPath = await getFullThumbnailPath();
 
-      await DSFFMpegService.getVideoThumbnail(
+      await DSFFmpegService.getVideoThumbnail(
         input: outputFile.path,
         output: thumbnailPath,
       );

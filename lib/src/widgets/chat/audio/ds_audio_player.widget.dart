@@ -151,7 +151,7 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     if (await outputFile.exists()) {
       await _controller.player.setFilePath(outputFile.path);
     } else {
-      final isSuccess = await DSFFMpegService.transcodeAudio(
+      final isSuccess = await DSFFmpegService.transcodeAudio(
         input: inputFilePath!,
         output: outputFile.path,
       );
