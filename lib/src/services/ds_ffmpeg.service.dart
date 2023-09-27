@@ -58,7 +58,7 @@ abstract class DSFFmpegService {
   }
 
   static String get _compressVideoArgs {
-    const resolution = '-vf scale=-2:480';
+    const resolution = '-vf scale=-2:720';
     const codec = '-c:v libx264';
     const preset = '-preset veryfast';
     const quality = '-crf 18';
