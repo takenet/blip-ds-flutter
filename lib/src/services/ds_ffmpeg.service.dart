@@ -1,4 +1,6 @@
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/ffprobe_kit.dart';
+import 'package:ffmpeg_kit_flutter_full_gpl/media_information.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 
 abstract class DSFFmpegService {
@@ -38,6 +40,31 @@ abstract class DSFFmpegService {
             '-i "$firstInput" -i "$secondInput" $_mergeAudioArgs "$output"',
       );
 
+  static Future<(int?, int?)> getMediaResolution({
+    required final String path,
+  }) async {
+    int? width;
+    int? height;
+
+    final info = await _getMediaInfo(
+      path: path,
+    );
+
+    final streams = info?.getStreams();
+
+    if (streams?.isNotEmpty ?? false) {
+      width = streams!.first.getWidth();
+      height = streams.first.getHeight();
+    }
+
+    return (width, height);
+  }
+
+  static Future<MediaInformation?> _getMediaInfo({
+    required final String path,
+  }) async =>
+      (await FFprobeKit.getMediaInformation(path)).getMediaInformation();
+
   static Future<bool> _executeCommand({
     required final String command,
   }) async {
@@ -58,10 +85,10 @@ abstract class DSFFmpegService {
   }
 
   static String get _compressVideoArgs {
-    const resolution = '-vf scale=-2:720';
+    const resolution = '-vf scale=720x1280';
     const codec = '-c:v libx264';
-    const preset = '-preset veryfast';
-    const quality = '-crf 18';
+    const preset = '-preset faster';
+    const quality = '-crf 23';
     const audio = '-c:a copy';
 
     return '$resolution $codec $preset $quality $audio';
