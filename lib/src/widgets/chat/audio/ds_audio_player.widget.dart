@@ -63,7 +63,10 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
 
   @override
   void dispose() {
-    _controller.player.dispose();
+    if (_controller.player.playerState.processingState !=
+        ProcessingState.idle) {
+      _controller.player.dispose();
+    }
     _controller.dispose();
     super.dispose();
   }
@@ -126,8 +129,8 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
                     : null,
               ),
             );
-    } catch (_) {
-      // TODO: translate
+    } on PlayerInterruptedException catch (_) {
+    } catch (e) {
       DSToastService.error(
         DSToastProps(
           title: 'Erro ao reproduzir áudio',
