@@ -61,15 +61,19 @@ class DSCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _resolveWidget();
+    return _resolveWidget(messageType: type);
   }
 
-  Widget _resolveWidget() {
-    switch (type) {
+  Widget _resolveWidget({required String messageType}) {
+    switch (messageType) {
       case DSMessageContentType.textPlain:
       case DSMessageContentType.sensitive:
         return DSTextMessageBubble(
-          text: content is String ? content : '**********',
+          text: type == DSMessageContentType.reply
+              ? content['replied']['value']
+              : content is String
+                  ? content
+                  : '**********',
           align: align,
           borderRadius: borderRadius,
           style: style,
@@ -77,6 +81,9 @@ class DSCard extends StatelessWidget {
 
       case DSMessageContentType.contact:
         return _buildContact();
+
+      case DSMessageContentType.reply:
+        return _resolveWidget(messageType: content['replied']['type']);
 
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
@@ -144,6 +151,26 @@ class DSCard extends StatelessWidget {
         );
     }
   }
+
+  // Widget _buildReply() {
+  //   switch (content['replied']['type']) {
+  //     case DSMessageContentType.textPlain:
+  //       return DSTextMessageBubble(
+  //         text: content['replied']['value'],
+  //         align: align,
+  //         borderRadius: borderRadius,
+  //         style: style,
+  //       );
+
+  //     default:
+  //     return DSTextMessageBubble(
+  //         text: content['replied']['value'],
+  //         align: align,
+  //         borderRadius: borderRadius,
+  //         style: style,
+  //       );
+  //   }
+  // }
 
   Widget _buildDocumentSelect() {
     final documentSelectModel = DSDocumentSelectModel.fromJson(content);
@@ -219,7 +246,11 @@ class DSCard extends StatelessWidget {
   }
 
   Widget _buildMediaLink() {
-    final media = DSMediaLink.fromJson(content);
+    final media = DSMediaLink.fromJson(
+      type == DSMessageContentType.reply
+          ? content['replied']['value']
+          : content,
+    );
     final size = media.size ?? 0;
 
     final shouldAuthenticate =
