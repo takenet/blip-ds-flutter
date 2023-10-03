@@ -87,12 +87,13 @@ class DSVideoMessageBubbleController {
         final inputFilePath = await DSFileService.download(
           url,
           fileName,
-          path: mediaPath,
           httpHeaders: httpHeaders,
         );
 
         final session = await FFmpegKit.execute(
             '-hide_banner -y -i "$inputFilePath" "${outputFile.path}"');
+
+        File(inputFilePath!).delete();  
 
         final returnCode = await session.getReturnCode();
 
