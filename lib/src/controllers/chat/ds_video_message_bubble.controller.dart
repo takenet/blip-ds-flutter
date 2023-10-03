@@ -87,6 +87,7 @@ class DSVideoMessageBubbleController {
         final inputFilePath = await DSFileService.download(
           url,
           fileName,
+          path: mediaPath,
           httpHeaders: httpHeaders,
         );
 
