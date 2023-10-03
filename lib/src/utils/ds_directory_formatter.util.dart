@@ -13,11 +13,7 @@ abstract class DSDirectoryFormatter {
     required String fileName,
   }) async {
     String dir = path.dirname(filePath);
-    final String formattedDir = _formatDir(type: type, dir: dir);
-    final dirExists = await Directory(formattedDir).exists();
-    if (!dirExists) {
-      await Directory(formattedDir).create(recursive: true);
-    }
+    final String formattedDir = await _formatDir(type: type, dir: dir);
     String newName = path.join(formattedDir, fileName);
     await File(filePath).rename(newName);
     return newName;
@@ -29,10 +25,16 @@ abstract class DSDirectoryFormatter {
     return mediaPath;
   }
 
-  static String _formatDir({required DSFileType type, required String dir}) {
-    return dir.replaceAll(
+  static Future<String> _formatDir(
+      {required DSFileType type, required String dir}) async {
+    final formattedDir = dir.replaceAll(
       dir.split('/').last,
       'BlipDesk/Media/${type.name.capitalizeFirst}',
     );
+    final dirExists = await Directory(formattedDir).exists();
+    if (!dirExists) {
+      await Directory(formattedDir).create(recursive: true);
+    }
+    return formattedDir;
   }
 }
