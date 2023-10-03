@@ -4,11 +4,12 @@ import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
+import '../../enums/ds_file_type.enum.dart';
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_toast.service.dart';
+import '../../utils/ds_directory_formatter.util.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
@@ -52,17 +53,18 @@ class DSVideoMessageBubbleController {
   }
 
   Future<void> getVideoAndSetThumbnail() async {
-    final temporaryPath = (await getTemporaryDirectory()).path;
-    final localPath = temporaryPath.replaceAll('cache', 'files');
-    final file = File('$localPath/$fileName');
+    final mediaPath =
+        await DSDirectoryFormatter.getPath(type: DSFileType.videos);
+    final file = File('$mediaPath/$fileName');
     if (await file.exists()) {
       _generateThumbnail(file.path);
     }
   }
 
   Future<String> getFullThumbnailPath() async {
-    final temporaryPath = (await getTemporaryDirectory()).path;
-    return "$temporaryPath/VIDEO-Thumbnail-$uniqueId.png";
+    final mediaPath =
+        await DSDirectoryFormatter.getPath(type: DSFileType.videos);
+    return "$mediaPath/VIDEO-Thumbnail-$uniqueId.png";
   }
 
   Future<void> downloadVideo() async {
@@ -77,8 +79,9 @@ class DSVideoMessageBubbleController {
         fileName = DateTime.now().toIso8601String();
       }
 
-      final temporaryPath = (await getTemporaryDirectory()).path;
-      final outputFile = File('$temporaryPath/VIDEO-$uniqueId.mp4');
+      final mediaPath =
+          await DSDirectoryFormatter.getPath(type: DSFileType.videos);
+      final outputFile = File('$mediaPath/VIDEO-$uniqueId.mp4');
 
       if (!await outputFile.exists()) {
         final inputFilePath = await DSFileService.download(
