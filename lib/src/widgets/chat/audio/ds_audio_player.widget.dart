@@ -8,10 +8,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
-import '../../../models/ds_toast_props.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../services/ds_file.service.dart';
-import '../../../services/ds_toast.service.dart';
+import '../../../themes/colors/ds_colors.theme.dart';
 import '../../buttons/ds_pause_button.widget.dart';
 import '../../buttons/ds_play_button.widget.dart';
 import 'ds_audio_seek_bar.widget.dart';
@@ -106,16 +105,16 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
   }
 
   Future<void> _init() async {
-    try {
-      _controller.player.playerStateStream.listen(
-        (event) {
-          if (event.processingState == ProcessingState.completed) {
-            _controller.player.seek(Duration.zero);
-            _controller.player.stop();
-          }
-        },
-      );
+    _controller.player.playerStateStream.listen(
+      (event) {
+        if (event.processingState == ProcessingState.completed) {
+          _controller.player.seek(Duration.zero);
+          _controller.player.stop();
+        }
+      },
+    );
 
+    try {
       Platform.isIOS && widget.audioType.contains('ogg')
           ? await _transcoder()
           : await _controller.player.setAudioSource(
@@ -126,14 +125,10 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
                     : null,
               ),
             );
+
+      _controller.isInitialized = true;
     } catch (_) {
-      // TODO: translate
-      DSToastService.error(
-        DSToastProps(
-          title: 'Erro ao reproduzir áudio',
-          message: 'Ops! Houve um erro ao carregar o áudio para reprodução.',
-        ),
-      );
+      _controller.isInitialized = false;
     }
   }
 
@@ -182,10 +177,14 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
           final playing = playerState?.playing;
           if (playing != true) {
             return DSPlayButton(
-              onPressed: _controller.player.play,
+              onPressed: _controller.isInitialized
+                  ? _controller.player.play
+                  : () => {},
               isLoading: [ProcessingState.loading, ProcessingState.buffering]
                   .contains(processingState),
-              color: widget.controlForegroundColor,
+              color: _controller.isInitialized
+                  ? widget.controlForegroundColor
+                  : DSColors.contentDisable,
             );
           } else if (processingState != ProcessingState.completed) {
             return DSPauseButton(
@@ -207,8 +206,9 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
           duration: positionData?.duration ?? Duration.zero,
           position: positionData?.position ?? Duration.zero,
           bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-          onChangeEnd: _controller.player.play,
-          onChanged: _controller.player.seek,
+          onChangeEnd:
+              _controller.isInitialized ? _controller.player.play : null,
+          onChanged: _controller.isInitialized ? _controller.player.seek : null,
           onChangeStart: _controller.player.pause,
           labelColor: widget.labelColor,
           bufferActiveTrackColor: widget.bufferActiveTrackColor,
