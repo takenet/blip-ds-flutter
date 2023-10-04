@@ -12,8 +12,8 @@ abstract class DSDirectoryFormatter {
     required DSFileType type,
     required String fileName,
   }) async {
-    String dir = path.dirname(filePath);
-    final String formattedDir = await _formatDir(type: type, dir: dir);
+    String directory = path.dirname(filePath);
+    final String formattedDir = await _formatDirectory(type: type, directory: directory);
     String newName = path.join(formattedDir, fileName);
     await File(filePath).rename(newName);
     return newName;
@@ -21,20 +21,20 @@ abstract class DSDirectoryFormatter {
 
   static Future<String> getPath({required DSFileType type}) async {
     final temporaryPath = (await getTemporaryDirectory()).path;
-    final mediaPath = _formatDir(type: type, dir: temporaryPath);
+    final mediaPath = _formatDirectory(type: type, directory: temporaryPath);
     return mediaPath;
   }
 
-  static Future<String> _formatDir(
-      {required DSFileType type, required String dir}) async {
-    final formattedDir = dir.replaceAll(
-      dir.split('/').last,
+  static Future<String> _formatDirectory(
+      {required DSFileType type, required String directory}) async {
+    final formattedDirectory = directory.replaceAll(
+      directory.split('/').last,
       'BlipDesk/Media/${type.name.capitalizeFirst}',
     );
-    final dirExists = await Directory(formattedDir).exists();
+    final dirExists = await Directory(formattedDirectory).exists();
     if (!dirExists) {
-      await Directory(formattedDir).create(recursive: true);
+      await Directory(formattedDirectory).create(recursive: true);
     }
-    return formattedDir;
+    return formattedDirectory;
   }
 }
