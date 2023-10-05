@@ -48,9 +48,6 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
-  /// The title of the video
-  final String? title;
-
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -63,7 +60,6 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.appBarText,
     required this.uniqueId,
     required this.mediaSize,
-    this.title,
     this.appBarPhotoUri,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
@@ -83,11 +79,10 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
   void initState() {
     super.initState();
     _controller = DSVideoMessageBubbleController(
-      uniqueId: widget.uniqueId,
       url: widget.url,
       mediaSize: widget.mediaSize,
       httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
-      fileName: widget.title ?? '',
+      uniqueId: widget.uniqueId,
     );
   }
 

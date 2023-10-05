@@ -17,16 +17,14 @@ class DSVideoMessageBubbleController {
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
-  final String fileName;
 
   DSVideoMessageBubbleController({
     required this.uniqueId,
     required this.url,
     required this.mediaSize,
-    required this.fileName,
     this.httpHeaders,
   }) {
-    setThumbnail();
+    getVideoAndSetThumbnail();
   }
 
   final isDownloading = RxBool(false);
@@ -43,19 +41,10 @@ class DSVideoMessageBubbleController {
         : 'Download';
   }
 
-  Future<void> setThumbnail() async {
-    final thumbnailFile = File(await getFullThumbnailPath());
-    if (await thumbnailFile.exists()) {
-      thumbnail.value = thumbnailFile.path;
-    } else {
-      getVideoAndSetThumbnail();
-    }
-  }
-
   Future<void> getVideoAndSetThumbnail() async {
     final mediaPath =
         await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    final file = File('$mediaPath/$fileName');
+    final file = File('$mediaPath/VID_$uniqueId.mp4');
     if (await file.exists()) {
       _generateThumbnail(file.path);
     }
@@ -64,24 +53,18 @@ class DSVideoMessageBubbleController {
   Future<String> getFullThumbnailPath() async {
     final mediaPath =
         await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    return "$mediaPath/VIDEO-Thumbnail-$uniqueId.png";
+    return "$mediaPath/VID_$uniqueId.png";
   }
 
   Future<void> downloadVideo() async {
     isDownloading.value = true;
 
     try {
-      final path = Uri.parse(url).path;
-
-      var fileName = path.substring(path.lastIndexOf('/')).substring(1);
-
-      if (fileName.isEmpty) {
-        fileName = DateTime.now().toIso8601String();
-      }
+      final fileName = DateTime.now().toIso8601String();
 
       final mediaPath =
           await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-      final outputFile = File('$mediaPath/VIDEO-$uniqueId.mp4');
+      final outputFile = File('$mediaPath/VID_$uniqueId.mp4');
 
       if (!await outputFile.exists()) {
         final inputFilePath = await DSFileService.download(
@@ -93,7 +76,7 @@ class DSVideoMessageBubbleController {
         final session = await FFmpegKit.execute(
             '-hide_banner -y -i "$inputFilePath" "${outputFile.path}"');
 
-        File(inputFilePath!).delete();  
+        File(inputFilePath!).delete();
 
         final returnCode = await session.getReturnCode();
 

@@ -15,7 +15,8 @@ abstract class DSDirectoryFormatter {
     String directory = path.dirname(filePath);
     final String formattedDir =
         await _formatDirectory(type: type, directory: directory);
-    String newName = path.join(formattedDir, fileName);
+    String newName =
+        '${path.join(formattedDir, fileName)}.${filePath.split('.').last}';
     await File(filePath).rename(newName);
     return newName;
   }
