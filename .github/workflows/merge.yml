@@ -14,6 +14,8 @@ jobs:
       - name: Merge command
         run: |
             git fetch
+            git checkout main
+            git pull
             git checkout develop
             git pull
             git merge main -m "build: merge main back to develop"
