@@ -4,8 +4,9 @@ import 'package:rxdart/rxdart.dart' as rx_dart;
 
 class DSAudioPlayerController extends GetxController {
   final audioSpeed = RxDouble(1.0);
-
   final player = AudioPlayer();
+
+  bool isInitialized = false;
 
   /// Collects the data useful for displaying in a SeekBar widget.
   ///

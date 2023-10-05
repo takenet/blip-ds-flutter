@@ -1,0 +1,20 @@
+name: Merge
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  merge-main-to-develop:
+    name: Merge main back to develop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Merge command
+        run: |
+            git fetch
+            git checkout develop
+            git pull
+            git merge main -m "build: merge main back to develop"
+            git push
