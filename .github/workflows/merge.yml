@@ -18,10 +18,8 @@ jobs:
 
       - name: Merge command
         run: |
-            git fetch
-            git checkout main
-            git pull
+            git fetch --unshallow
             git checkout develop
             git pull
-            git merge main -m "build: merge main back to develop" --allow-unrelated-histories
+            git merge --no-ff main -m "build: merge main back to develop"
             git push
