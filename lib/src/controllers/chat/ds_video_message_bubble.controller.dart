@@ -13,13 +13,13 @@ import '../../utils/ds_directory_formatter.util.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
-  final String uniqueId;
+  final String fileName;
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
 
   DSVideoMessageBubbleController({
-    required this.uniqueId,
+    required this.fileName,
     required this.url,
     required this.mediaSize,
     this.httpHeaders,
@@ -30,6 +30,7 @@ class DSVideoMessageBubbleController {
   final isDownloading = RxBool(false);
   final thumbnail = RxString('');
   final hasError = RxBool(false);
+  final loadingThumbnail = RxBool(true);
 
   String size() {
     return mediaSize > 0
@@ -42,18 +43,23 @@ class DSVideoMessageBubbleController {
   }
 
   Future<void> getVideoAndSetThumbnail() async {
+    loadingThumbnail.value = true;
     final mediaPath =
         await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    final file = File('$mediaPath/VID_$uniqueId.mp4');
+    final bool containsVid = fileName.contains('VID');
+    final file = containsVid
+        ? File('$mediaPath/$fileName.mp4')
+        : File('$mediaPath/VID-$fileName.mp4');
     if (await file.exists()) {
-      _generateThumbnail(file.path);
+      await _generateThumbnail(file.path);
     }
+    loadingThumbnail.value = false;
   }
 
   Future<String> getFullThumbnailPath() async {
     final mediaPath =
         await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    return "$mediaPath/VID_$uniqueId.png";
+    return "$mediaPath/VID-$fileName.png";
   }
 
   Future<void> downloadVideo() async {
@@ -64,7 +70,7 @@ class DSVideoMessageBubbleController {
 
       final mediaPath =
           await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-      final outputFile = File('$mediaPath/VID_$uniqueId.mp4');
+      final outputFile = File('$mediaPath/VID-$fileName.mp4');
 
       if (!await outputFile.exists()) {
         final inputFilePath = await DSFileService.download(

@@ -18,8 +18,6 @@ class DSVideoPlayer extends StatelessWidget {
   /// Avatar to be displayed in the appBarr
   final Uri? appBarPhotoUri;
 
-  final String uniqueId;
-
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
@@ -31,13 +29,11 @@ class DSVideoPlayer extends StatelessWidget {
     Key? key,
     required this.appBarText,
     required String url,
-    required this.uniqueId,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
   })  : controller = Get.put(
           DSVideoPlayerController(
             url: url,
-            uniqueId: uniqueId,
           ),
         ),
         super(key: key);

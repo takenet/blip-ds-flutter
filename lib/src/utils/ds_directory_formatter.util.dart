@@ -13,10 +13,13 @@ abstract class DSDirectoryFormatter {
     required String fileName,
   }) async {
     String directory = path.dirname(filePath);
-    final String formattedDir =
+    final String formattedDirectory =
         await _formatDirectory(type: type, directory: directory);
-    String newName =
-        '${path.join(formattedDir, fileName)}.${filePath.split('.').last}';
+    final String newName = await _formatNewName(
+      formattedDirectory: formattedDirectory,
+      fileName: fileName,
+      filePath: filePath,
+    );
     await File(filePath).rename(newName);
     return newName;
   }
@@ -38,5 +41,27 @@ abstract class DSDirectoryFormatter {
       await Directory(formattedDirectory).create(recursive: true);
     }
     return formattedDirectory;
+  }
+
+  static Future<String> _formatNewName({
+    required String formattedDirectory,
+    required String fileName,
+    required String filePath,
+  }) async {
+    int numberOfFiles = 0;
+    final String extension = filePath.split('.').last;
+    final directory = Directory(formattedDirectory).listSync();
+
+    for (FileSystemEntity files in directory) {
+      if (files.path.contains(fileName) &&
+          (files.path.split('.').last == extension)) {
+        numberOfFiles++;
+      }
+    }
+
+    String newName =
+        '${path.join(formattedDirectory, fileName)}-BA$numberOfFiles.$extension';
+
+    return newName;
   }
 }

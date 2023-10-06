@@ -258,6 +258,7 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
       );
     } else if (media.type.contains('video')) {
+      final fileName = media.title?.split('.').first;
       return DSVideoMessageBubble(
         url: media.uri,
         align: align,
@@ -271,7 +272,7 @@ class DSCard extends StatelessWidget {
         text: media.text,
         borderRadius: borderRadius,
         style: style,
-        uniqueId: messageId ?? DateTime.now().toIso8601String(),
+        fileName: fileName ?? messageId ?? DateTime.now().toIso8601String(),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );
