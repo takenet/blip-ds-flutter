@@ -66,8 +66,6 @@ class DSVideoMessageBubbleController {
     isDownloading.value = true;
 
     try {
-      final fileName = DateTime.now().toIso8601String();
-
       final mediaPath =
           await DSDirectoryFormatter.getPath(type: DSFileType.videos);
       final outputFile = File('$mediaPath/VID-$fileName.mp4');
