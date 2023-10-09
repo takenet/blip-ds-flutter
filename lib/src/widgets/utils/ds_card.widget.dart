@@ -61,19 +61,15 @@ class DSCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _resolveWidget(messageType: type);
+    return _resolveWidget();
   }
 
-  Widget _resolveWidget({required String messageType}) {
-    switch (messageType) {
+  Widget _resolveWidget() {
+    switch (type) {
       case DSMessageContentType.textPlain:
       case DSMessageContentType.sensitive:
         return DSTextMessageBubble(
-          text: type == DSMessageContentType.reply
-              ? content['replied']['value']
-              : content is String
-                  ? content
-                  : '**********',
+          text: content is String ? content : '**********',
           align: align,
           borderRadius: borderRadius,
           style: style,
@@ -83,7 +79,12 @@ class DSCard extends StatelessWidget {
         return _buildContact();
 
       case DSMessageContentType.reply:
-        return _resolveWidget(messageType: content['replied']['type']);
+        return DSCard(
+          type: content['replied']['type'],
+          content: content['replied']['value'],
+          align: align,
+          borderRadius: borderRadius,
+        );
 
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
@@ -151,26 +152,6 @@ class DSCard extends StatelessWidget {
         );
     }
   }
-
-  // Widget _buildReply() {
-  //   switch (content['replied']['type']) {
-  //     case DSMessageContentType.textPlain:
-  //       return DSTextMessageBubble(
-  //         text: content['replied']['value'],
-  //         align: align,
-  //         borderRadius: borderRadius,
-  //         style: style,
-  //       );
-
-  //     default:
-  //     return DSTextMessageBubble(
-  //         text: content['replied']['value'],
-  //         align: align,
-  //         borderRadius: borderRadius,
-  //         style: style,
-  //       );
-  //   }
-  // }
 
   Widget _buildDocumentSelect() {
     final documentSelectModel = DSDocumentSelectModel.fromJson(content);
@@ -247,9 +228,7 @@ class DSCard extends StatelessWidget {
 
   Widget _buildMediaLink() {
     final media = DSMediaLink.fromJson(
-      type == DSMessageContentType.reply
-          ? content['replied']['value']
-          : content,
+      content,
     );
     final size = media.size ?? 0;
 
