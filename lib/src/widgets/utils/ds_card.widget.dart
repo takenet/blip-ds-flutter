@@ -84,6 +84,13 @@ class DSCard extends StatelessWidget {
           content: content['replied']['value'],
           align: align,
           borderRadius: borderRadius,
+          status: status,
+          onSelected: onSelected,
+          avatarConfig: avatarConfig,
+          style: style,
+          onOpenLink: onOpenLink,
+          messageId: messageId,
+          customer: customer,
         );
 
       case DSMessageContentType.mediaLink:
