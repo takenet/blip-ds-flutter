@@ -1,3 +1,8 @@
+## 0.0.83
+
+- [DSCard] Accept reply messages
+- [DSMessageContentType] Add reply as content type 
+
 ## 0.0.82
 
 - [DSAudioPlayer] Improved the audio player initialization 

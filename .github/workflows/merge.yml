@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Git config
+        run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "Github Actions"
+
       - name: Merge command
         run: |
-            git fetch
+            git fetch --unshallow
             git checkout develop
             git pull
-            git merge main -m "build: merge main back to develop"
+            git merge --no-ff origin/main -m "build: merge main back to develop"
             git push
