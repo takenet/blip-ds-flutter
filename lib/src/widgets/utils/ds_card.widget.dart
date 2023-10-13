@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -258,7 +261,6 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
       );
     } else if (media.type.contains('video')) {
-      final fileName = media.title?.split('.').first;
       return DSVideoMessageBubble(
         url: media.uri,
         align: align,
@@ -272,7 +274,7 @@ class DSCard extends StatelessWidget {
         text: media.text,
         borderRadius: borderRadius,
         style: style,
-        fileName: fileName ?? messageId ?? DateTime.now().toIso8601String(),
+        fileName: _formatFileName(media: media),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );
@@ -288,6 +290,17 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
       );
     }
+  }
+
+  String _formatFileName({required DSMediaLink media}) {
+    final fileName = media.title?.split('.').first;
+
+    if (fileName != null) {
+      return fileName;
+    } else if (messageId != null) {
+      return md5.convert(utf8.encode(messageId!)).toString();
+    }
+    return DateTime.now().toIso8601String();
   }
 
   Widget _buildRequestLocation() {

@@ -5,7 +5,6 @@ import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 
-import '../../enums/ds_file_type.enum.dart';
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_toast.service.dart';
@@ -17,11 +16,13 @@ class DSVideoMessageBubbleController {
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
+  final String type;
 
   DSVideoMessageBubbleController({
     required this.fileName,
     required this.url,
     required this.mediaSize,
+    required this.type,
     this.httpHeaders,
   }) {
     getVideoAndSetThumbnail();
@@ -44,12 +45,11 @@ class DSVideoMessageBubbleController {
 
   Future<void> getVideoAndSetThumbnail() async {
     loadingThumbnail.value = true;
-    final mediaPath =
-        await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    final bool containsVid = fileName.contains('VID');
-    final file = containsVid
-        ? File('$mediaPath/$fileName.mp4')
-        : File('$mediaPath/VID-$fileName.mp4');
+    final fullPath = await DSDirectoryFormatter.getPath(
+      type: type,
+      fileName: fileName,
+    );
+    final file = File(fullPath);
     if (await file.exists()) {
       await _generateThumbnail(file.path);
     }
@@ -57,18 +57,22 @@ class DSVideoMessageBubbleController {
   }
 
   Future<String> getFullThumbnailPath() async {
-    final mediaPath =
-        await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-    return "$mediaPath/VID-$fileName.png";
+    final mediaPath = await DSDirectoryFormatter.getPath(
+      type: 'image/png',
+      fileName: '$fileName-thumbnail',
+    );
+    return mediaPath;
   }
 
   Future<void> downloadVideo() async {
     isDownloading.value = true;
 
     try {
-      final mediaPath =
-          await DSDirectoryFormatter.getPath(type: DSFileType.videos);
-      final outputFile = File('$mediaPath/VID-$fileName.mp4');
+      final fullPath = await DSDirectoryFormatter.getPath(
+        type: 'video/mp4',
+        fileName: fileName,
+      );
+      final outputFile = File(fullPath);
 
       if (!await outputFile.exists()) {
         final inputFilePath = await DSFileService.download(

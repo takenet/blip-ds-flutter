@@ -45,6 +45,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// The video size
   final int mediaSize;
 
+  /// The video type
+  final String type;
+
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
@@ -61,6 +64,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.fileName,
     required this.mediaSize,
     this.appBarPhotoUri,
+    this.type = 'video/mp4',
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
@@ -83,6 +87,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       mediaSize: widget.mediaSize,
       httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
       fileName: widget.fileName,
+      type: widget.type,
     );
   }
 
