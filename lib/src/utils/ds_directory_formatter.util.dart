@@ -5,31 +5,42 @@ import 'package:path_provider/path_provider.dart';
 
 abstract class DSDirectoryFormatter {
   static Future<String> getPath({
-    required String type,
-    required String fileName,
+    required final String type,
+    required final String fileName,
   }) async {
     final temporaryPath = (await getTemporaryDirectory()).path;
-    final typeName = '${type.split('/').first.capitalizeFirst}';
-    final prefix = fileName.contains(typeName.substring(0, 3).toUpperCase())
-        ? ''
-        : '${typeName.substring(0, 3).toUpperCase()}-';
+
+    final typeFolder = '${type.split('/').first.capitalizeFirst}';
     final extension = type.split('/').last;
-    final path =
-        await _formatDirectory(typeName: typeName, directory: temporaryPath);
-    final fullPath = '$path/$prefix$fileName.$extension';
-    return fullPath;
+
+    final typePrefix = '${typeFolder.substring(0, 3).toUpperCase()}-';
+
+    final newFileName =
+        '${!fileName.startsWith(typePrefix) ? typePrefix : ''}$fileName';
+
+    final path = await _formatDirectory(
+      type: typeFolder,
+      directory: temporaryPath,
+    );
+
+    return '$path/$newFileName.$extension';
   }
 
-  static Future<String> _formatDirectory(
-      {required String typeName, required String directory}) async {
+  static Future<String> _formatDirectory({
+    required final String type,
+    required final String directory,
+  }) async {
     final formattedDirectory = directory.replaceAll(
       directory.split('/').last,
-      'Blip Desk/Media/$typeName',
+      'Blip Desk/Media/$type',
     );
+
     final directoryExists = await Directory(formattedDirectory).exists();
+
     if (!directoryExists) {
       await Directory(formattedDirectory).create(recursive: true);
     }
+
     return formattedDirectory;
   }
 }
