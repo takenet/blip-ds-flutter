@@ -12,4 +12,5 @@ abstract class DSMessageContentType {
   static const String input = 'application/vnd.lime.input+json';
   static const String location = 'application/vnd.lime.location+json';
   static const String applicationJson = 'application/json';
+  static const String reply = 'application/vnd.lime.reply+json';
 }

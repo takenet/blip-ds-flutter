@@ -1,3 +1,12 @@
+## 0.0.83
+
+- [DSCard] Accept reply messages
+- [DSMessageContentType] Add reply as content type 
+
+## 0.0.82
+
+- [DSAudioPlayer] Improved the audio player initialization 
+
 ## 0.0.81
 
 - [FFMPEG] Downgraded ffmpeg dependency version from 6.0.2 to 5.1.0
