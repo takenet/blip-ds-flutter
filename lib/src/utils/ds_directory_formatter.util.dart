@@ -8,7 +8,9 @@ abstract class DSDirectoryFormatter {
     required final String type,
     required final String fileName,
   }) async {
-    final temporaryPath = (await getExternalCacheDirectories())?.first.path;
+    final String? temporaryPath = Platform.isAndroid
+        ? (await getExternalCacheDirectories())?.first.path
+        : (await getApplicationCacheDirectory()).path;
     final typeName = '${type.split('/').first.capitalizeFirst}';
     final prefix = fileName.contains(typeName.substring(0, 3).toUpperCase())
         ? ''
