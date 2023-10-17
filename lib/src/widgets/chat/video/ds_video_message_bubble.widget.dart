@@ -39,9 +39,6 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Style for bubble
   final DSMessageBubbleStyle style;
 
-  // Unique id to message bubble
-  final String fileName;
-
   /// The video size
   final int mediaSize;
 
@@ -61,7 +58,6 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.align,
     required this.url,
     required this.appBarText,
-    required this.fileName,
     required this.mediaSize,
     this.appBarPhotoUri,
     this.type = 'video/mp4',
@@ -86,7 +82,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       url: widget.url,
       mediaSize: widget.mediaSize,
       httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
-      fileName: widget.fileName,
       type: widget.type,
     );
   }

@@ -250,7 +250,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _srcsVideo[0],
             text: '.mov',
             appBarText: 'Unknown User',
-            fileName: 'video1',
             mediaSize: 10000,
           ),
           DSVideoMessageBubble(
@@ -258,7 +257,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _srcsVideo[1],
             text: '.avi!',
             appBarText: 'Unknown User',
-            fileName: 'video2',
             mediaSize: 10000,
           ),
           DSVideoMessageBubble(
@@ -266,7 +264,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _srcsVideo[2],
             text: '.mpeg',
             appBarText: 'Unknown User',
-            fileName: 'video3',
             mediaSize: 10000,
           ),
           DSVideoMessageBubble(
@@ -274,7 +271,6 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             url: _srcsVideo[3],
             text: '.mpg',
             appBarText: 'Unknown User',
-            fileName: 'video4',
             mediaSize: 10000,
           ),
           DSContactMessageBubble(

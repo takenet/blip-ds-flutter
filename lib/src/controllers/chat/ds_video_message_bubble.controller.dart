@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
@@ -12,14 +14,12 @@ import '../../utils/ds_directory_formatter.util.dart';
 import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
-  final String fileName;
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
   final String type;
 
   DSVideoMessageBubbleController({
-    required this.fileName,
     required this.url,
     required this.mediaSize,
     required this.type,
@@ -44,6 +44,7 @@ class DSVideoMessageBubbleController {
   }
 
   Future<void> getVideoAndSetThumbnail() async {
+    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
     loadingThumbnail.value = true;
     final fullPath = await DSDirectoryFormatter.getPath(
       type: type,
@@ -57,6 +58,7 @@ class DSVideoMessageBubbleController {
   }
 
   Future<String> getFullThumbnailPath() async {
+    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
     final mediaPath = await DSDirectoryFormatter.getPath(
       type: 'image/png',
       fileName: '$fileName-thumbnail',
@@ -65,6 +67,7 @@ class DSVideoMessageBubbleController {
   }
 
   Future<void> downloadVideo() async {
+    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
     isDownloading.value = true;
 
     try {

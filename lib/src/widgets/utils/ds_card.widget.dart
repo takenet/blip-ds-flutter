@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -274,7 +271,6 @@ class DSCard extends StatelessWidget {
         text: media.text,
         borderRadius: borderRadius,
         style: style,
-        fileName: _formatFileName(media: media),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );
@@ -290,10 +286,6 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
       );
     }
-  }
-
-  String _formatFileName({required DSMediaLink media}) {
-    return md5.convert(utf8.encode(Uri.parse(media.uri).path)).toString();
   }
 
   Widget _buildRequestLocation() {
