@@ -8,33 +8,21 @@ abstract class DSDirectoryFormatter {
     required final String type,
     required final String fileName,
   }) async {
-    final temporaryPath = (await getTemporaryDirectory()).path;
-
-    final typeFolder = '${type.split('/').first.capitalizeFirst}';
+    final temporaryPath = (await getExternalCacheDirectories())?.first.path;
+    final typeName = '${type.split('/').first.capitalizeFirst}';
+    final prefix = fileName.contains(typeName.substring(0, 3).toUpperCase())
+        ? ''
+        : '${typeName.substring(0, 3).toUpperCase()}-';
     final extension = type.split('/').last;
-
-    final typePrefix = '${typeFolder.substring(0, 3).toUpperCase()}-';
-
-    final newFileName =
-        '${!fileName.startsWith(typePrefix) ? typePrefix : ''}$fileName';
-
-    final path = await _formatDirectory(
-      type: typeFolder,
-      directory: temporaryPath,
-    );
-
-    return '$path/$newFileName.$extension';
+    final path =
+        await _formatDirectory(typeName: typeName, directory: temporaryPath!);
+    final fullPath = '$path/$prefix$fileName.$extension';
+    return fullPath;
   }
 
-  static Future<String> _formatDirectory({
-    required final String type,
-    required final String directory,
-  }) async {
-    final formattedDirectory = directory.replaceAll(
-      directory.split('/').last,
-      'Blip Desk/Media/$type',
-    );
-
+  static Future<String> _formatDirectory(
+      {required String typeName, required String directory}) async {
+    final formattedDirectory = '$directory/$typeName';
     final directoryExists = await Directory(formattedDirectory).exists();
 
     if (!directoryExists) {

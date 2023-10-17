@@ -293,14 +293,7 @@ class DSCard extends StatelessWidget {
   }
 
   String _formatFileName({required DSMediaLink media}) {
-    final fileName = media.title?.split('.').first;
-
-    if (fileName != null) {
-      return fileName;
-    } else if (messageId != null) {
-      return md5.convert(utf8.encode(messageId!)).toString();
-    }
-    return DateTime.now().toIso8601String();
+    return md5.convert(utf8.encode(Uri.parse(media.uri).path)).toString();
   }
 
   Widget _buildRequestLocation() {
