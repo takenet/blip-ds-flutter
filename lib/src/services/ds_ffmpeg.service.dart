@@ -6,48 +6,24 @@ import '../models/ds_media_info.model.dart';
 
 abstract class DSFFmpegService {
   static const _maxSize = 10485760; // 10 MB
-  static const _targetResolution = 720; // 720p
+  static const _targetResolution = 480; // 480p
 
   static Future<bool> formatVideo({
     required final String input,
     required final String output,
     final bool shouldCompress = true,
   }) async {
-    final info = await _getMediaInfo(
-      path: input,
+    final args = shouldCompress
+        ? await _getCompressVideoArgs(
+            path: input,
+          )
+        : null;
+
+    final command = '-i "$input" ${args != null ? '$args ' : ''}"$output"';
+
+    return _executeCommand(
+      command: command,
     );
-
-    if (info.hasDimensions) {
-      final isOversized =
-          info.size == null || (info.size != null && info.size! > _maxSize);
-
-      final isOverdimensioned =
-          info.width! > _targetResolution && info.height! > _targetResolution;
-
-      final shouldCompress = isOversized && isOverdimensioned;
-
-      if (shouldCompress) {
-        final compressedResolution =
-            (info.aspectRatio! * _targetResolution).ceil();
-
-        final compressedWidth =
-            info.isWidescreen ? compressedResolution : _targetResolution;
-
-        final compressedHeight =
-            info.isWidescreen ? _targetResolution : compressedResolution;
-
-        final args = _compressVideoArgs(
-          width: compressedWidth,
-          height: compressedHeight,
-        );
-
-        return _executeCommand(
-          command: '-i "$input" ${shouldCompress ? '$args ' : ''}"$output"',
-        );
-      }
-    }
-
-    return true;
   }
 
   static Future<bool> getVideoThumbnail({
@@ -76,12 +52,13 @@ abstract class DSFFmpegService {
             '-i "$firstInput" -i "$secondInput" $_mergeAudioArgs "$output"',
       );
 
-  static Future<DSMediaInfo> _getMediaInfo({
+  static Future<DSMediaInfo> getMediaInfo({
     required final String path,
   }) async {
     int? width;
     int? height;
     int? size;
+    int? rotation;
 
     final session = await FFprobeKit.getMediaInformation(path);
     final info = session.getMediaInformation();
@@ -92,16 +69,56 @@ abstract class DSFFmpegService {
       final streams = info.getStreams();
 
       if (streams.isNotEmpty) {
-        width = streams.first.getWidth();
-        height = streams.first.getHeight();
+        final properties = streams.first.getAllProperties();
+        final List? sideData = properties?['side_data_list'];
+
+        width = properties?['width'];
+        height = properties?['height'];
+        rotation = sideData?.first['rotation'];
       }
     }
 
+    final isFlipped = rotation != null && rotation != 0;
+
     return DSMediaInfo(
-      width: width,
-      height: height,
+      width: isFlipped ? height : width,
+      height: isFlipped ? width : height,
       size: size,
     );
+  }
+
+  static Future<String?> _getCompressVideoArgs({
+    required final String path,
+  }) async {
+    final info = await getMediaInfo(
+      path: path,
+    );
+
+    if (info.hasDimensions) {
+      final isOversized =
+          info.size == null || (info.size != null && info.size! > _maxSize);
+
+      final isOverdimensioned =
+          info.width! > _targetResolution && info.height! > _targetResolution;
+
+      if (isOversized && isOverdimensioned) {
+        final compressedResolution =
+            (info.aspectRatio! * _targetResolution).ceil();
+
+        final compressedWidth =
+            info.isWidescreen ? compressedResolution : _targetResolution;
+
+        final compressedHeight =
+            info.isWidescreen ? _targetResolution : compressedResolution;
+
+        return _compressVideoArgs(
+          width: compressedWidth,
+          height: compressedHeight,
+        );
+      }
+    }
+
+    return null;
   }
 
   static Future<bool> _executeCommand({
@@ -150,11 +167,12 @@ abstract class DSFFmpegService {
     required final int height,
   }) {
     final resolution = '-vf scale=${width}x$height';
+    const pixelFormat = '-pix_fmt yuv420p';
     const codec = '-c:v libx264';
-    const preset = '-preset faster';
+    const preset = '-preset veryfast';
     const quality = '-crf 23';
-    const audio = '-c:a copy';
+    const audio = '-c:a aac';
 
-    return '$resolution $codec $preset $quality $audio';
+    return '$resolution $pixelFormat $codec $preset $quality $audio';
   }
 }
