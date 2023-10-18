@@ -7,7 +7,6 @@ import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_utils.util.dart';
 import '../utils/ds_card.widget.dart';
-
 import 'ds_image_message_bubble.widget.dart';
 
 /// A Design System widget used to display multiple cards.
@@ -95,6 +94,7 @@ class DSCarrousel extends StatelessWidget {
               onSelected: onSelected,
               onOpenLink: onOpenLink,
               style: style,
+              mediaType: header["value"]["type"],
             ),
           ),
         );
