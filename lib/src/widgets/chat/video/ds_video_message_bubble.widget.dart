@@ -136,13 +136,14 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         color: DSColors.neutralDarkRooftop,
                       )
                     : (_controller.isDownloading.value ||
-                            _controller.loadingThumbnail.value)
+                            _controller.isLoadingThumbnail.value)
                         ? Center(
                             child: Container(
                               height: 50.0,
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: foregroundColor),
+                                shape: BoxShape.circle,
+                                color: foregroundColor,
+                              ),
                               child: DSFadingCircleLoading(
                                 color: backgroundLoadingColor,
                                 size: 45.0,

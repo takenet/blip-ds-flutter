@@ -25,13 +25,13 @@ class DSVideoMessageBubbleController {
     required this.type,
     this.httpHeaders,
   }) {
-    getVideoAndSetThumbnail();
+    getStoredVideo();
   }
 
   final isDownloading = RxBool(false);
   final thumbnail = RxString('');
   final hasError = RxBool(false);
-  final loadingThumbnail = RxBool(true);
+  final isLoadingThumbnail = RxBool(false);
 
   String size() {
     return mediaSize > 0
@@ -43,18 +43,28 @@ class DSVideoMessageBubbleController {
         : 'Download';
   }
 
-  Future<void> getVideoAndSetThumbnail() async {
-    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
-    loadingThumbnail.value = true;
-    final fullPath = await DSDirectoryFormatter.getPath(
-      type: type,
-      fileName: fileName,
-    );
-    final file = File(fullPath);
-    if (await file.exists()) {
-      await _generateThumbnail(file.path);
+  Future<void> getStoredVideo() async {
+    try {
+      isLoadingThumbnail.value = true;
+      final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
+      final fullPath = await DSDirectoryFormatter.getPath(
+        type: type,
+        fileName: fileName,
+      );
+      final fullThumbnailPath = await DSDirectoryFormatter.getPath(
+        type: 'image/png',
+        fileName: '$fileName-thumbnail',
+      );
+      final file = File(fullPath);
+      final thumbnailfile = File(fullThumbnailPath);
+      if (await thumbnailfile.exists()) {
+        thumbnail.value = thumbnailfile.path;
+      } else if (await file.exists() && thumbnail.value.isEmpty) {
+        await _generateThumbnail(file.path);
+      }
+    } finally {
+      isLoadingThumbnail.value = false;
     }
-    loadingThumbnail.value = false;
   }
 
   Future<String> getFullThumbnailPath() async {

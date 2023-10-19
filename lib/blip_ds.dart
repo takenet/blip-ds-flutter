@@ -4,7 +4,6 @@ export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
-export 'src/enums/ds_file_type.enum.dart' show DSFileType;
 export 'src/enums/ds_input_container_shape.enum.dart'
     show DSInputContainerShape;
 export 'src/enums/ds_survey_scale.enum.dart' show DSSurveyScale;
