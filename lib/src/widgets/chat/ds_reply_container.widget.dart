@@ -8,6 +8,7 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_text.widget.dart';
 
 class DSReplyContainer extends StatelessWidget {
   const DSReplyContainer({
@@ -29,46 +30,59 @@ class DSReplyContainer extends StatelessWidget {
         left: 8.0,
         right: 8.0,
       ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          border: Border.all(
-            color: style.isLightBubbleBackground(align)
-                ? DSColors.contentGhost
-                : DSColors.contentDisable,
-          ),
-          color: style.isLightBubbleBackground(align)
-              ? DSColors.surface3
-              : DSColors.contentDefault,
-        ),
-        child: IntrinsicHeight(
-          child: Row(
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                decoration: const ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      bottomLeft: Radius.circular(8.0),
-                    ),
-                  ),
-                  color: DSColors.primary,
-                ),
-                width: 4.0,
-              ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8.0,
-                    left: 8.0,
-                    bottom: 8.0,
-                  ),
-                  child: _replyWidget(replyId, style, align),
-                ),
-              ),
+              const Icon(DSIcons.undo_outline),
+              const SizedBox(width: 8.0),
+              DSCaptionText('Reply', fontStyle: FontStyle.italic),
             ],
           ),
-        ),
+          const SizedBox(height: 4.0),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              border: Border.all(
+                color: style.isLightBubbleBackground(align)
+                    ? DSColors.contentGhost
+                    : DSColors.contentDisable,
+              ),
+              color: style.isLightBubbleBackground(align)
+                  ? DSColors.surface3
+                  : DSColors.contentDefault,
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Container(
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          bottomLeft: Radius.circular(8.0),
+                        ),
+                      ),
+                      color: DSColors.primary,
+                    ),
+                    width: 4.0,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        left: 8.0,
+                        bottom: 8.0,
+                      ),
+                      child: _replyWidget(replyId, style, align),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -86,9 +100,7 @@ Widget _replyWidget(
     case DSMessageContentType.textPlain:
       return DSBodyText(
         message?.content is String ? message?.content : '**********',
-        color: style.isLightBubbleBackground(align)
-            ? DSColors.contentDefault
-            : DSColors.neutralLightSnow,
+        color: _color(align, style),
       );
     default:
       return Row(
@@ -96,21 +108,23 @@ Widget _replyWidget(
         children: [
           Icon(
             DSIcons.warning_outline,
-            color: style.isLightBubbleBackground(align)
-                ? DSColors.contentDefault
-                : DSColors.neutralLightSnow,
+            color: _color(align, style),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 8.0),
           Flexible(
             child: DSBodyText(
-              'Falha ao carregar mensagem',
+              'Failed to load message',
               overflow: TextOverflow.visible,
-              color: style.isLightBubbleBackground(align)
-                  ? DSColors.contentDefault
-                  : DSColors.neutralLightSnow,
+              color: _color(align, style),
             ),
           ),
         ],
       );
   }
+}
+
+Color _color(DSAlign align, DSMessageBubbleStyle style) {
+  return style.isLightBubbleBackground(align)
+      ? DSColors.contentDefault
+      : DSColors.surface1;
 }
