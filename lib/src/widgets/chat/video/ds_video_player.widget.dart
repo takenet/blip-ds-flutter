@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/ds_video_player.controller.dart';
+import '../../../themes/colors/ds_colors.theme.dart';
+import '../../../themes/icons/ds_icons.dart';
 import '../../../themes/system_overlay/ds_system_overlay.style.dart';
 import '../../utils/ds_header.widget.dart';
 
@@ -16,8 +18,6 @@ class DSVideoPlayer extends StatelessWidget {
   /// Avatar to be displayed in the appBarr
   final Uri? appBarPhotoUri;
 
-  final String uniqueId;
-
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
@@ -29,13 +29,11 @@ class DSVideoPlayer extends StatelessWidget {
     Key? key,
     required this.appBarText,
     required String url,
-    required this.uniqueId,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
   })  : controller = Get.put(
           DSVideoPlayerController(
             url: url,
-            uniqueId: uniqueId,
           ),
         ),
         super(key: key);
@@ -73,9 +71,15 @@ class DSVideoPlayer extends StatelessWidget {
                         8.0,
                         8.0 + MediaQuery.of(context).padding.bottom,
                       ),
-                      child: Chewie(
-                        controller: controller.chewieController!,
-                      ),
+                      child: controller.chewieController == null
+                          ? const Icon(
+                              DSIcons.video_broken_outline,
+                              size: 80.0,
+                              color: DSColors.neutralDarkRooftop,
+                            )
+                          : Chewie(
+                              controller: controller.chewieController!,
+                            ),
                     ),
             ),
           ),

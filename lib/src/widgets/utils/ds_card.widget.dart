@@ -288,7 +288,6 @@ class DSCard extends StatelessWidget {
         text: media.text,
         borderRadius: borderRadius,
         style: style,
-        uniqueId: messageId ?? DateTime.now().toIso8601String(),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );
