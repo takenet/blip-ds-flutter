@@ -10,7 +10,6 @@ class DSVideoBody extends StatelessWidget {
     required this.appBarText,
     required this.appBarPhotoUri,
     required this.url,
-    required this.uniqueId,
     required this.thumbnail,
     this.shouldAuthenticate = false,
   });
@@ -19,7 +18,6 @@ class DSVideoBody extends StatelessWidget {
   final String appBarText;
   final Uri? appBarPhotoUri;
   final String url;
-  final String uniqueId;
   final Widget thumbnail;
   final bool shouldAuthenticate;
 
@@ -43,7 +41,6 @@ class DSVideoBody extends StatelessWidget {
                   appBarText: appBarText,
                   appBarPhotoUri: appBarPhotoUri,
                   url: url,
-                  uniqueId: uniqueId,
                   shouldAuthenticate: shouldAuthenticate,
                 ),
               );

@@ -78,6 +78,21 @@ class DSCard extends StatelessWidget {
       case DSMessageContentType.contact:
         return _buildContact();
 
+      case DSMessageContentType.reply:
+        return DSCard(
+          type: content['replied']['type'],
+          content: content['replied']['value'],
+          align: align,
+          borderRadius: borderRadius,
+          status: status,
+          onSelected: onSelected,
+          avatarConfig: avatarConfig,
+          style: style,
+          onOpenLink: onOpenLink,
+          messageId: messageId,
+          customer: customer,
+        );
+
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
 
@@ -220,7 +235,9 @@ class DSCard extends StatelessWidget {
   }
 
   Widget _buildMediaLink() {
-    final media = DSMediaLink.fromJson(content);
+    final media = DSMediaLink.fromJson(
+      content,
+    );
     final size = media.size ?? 0;
 
     final shouldAuthenticate =
@@ -274,7 +291,6 @@ class DSCard extends StatelessWidget {
         text: media.text,
         borderRadius: borderRadius,
         style: style,
-        uniqueId: messageId ?? DateTime.now().toIso8601String(),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );
