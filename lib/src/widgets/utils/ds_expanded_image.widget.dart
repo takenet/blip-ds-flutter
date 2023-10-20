@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ class DSExpandedImage extends StatelessWidget {
   final String url;
   final BoxFit fit;
   final double width;
+  final double minHeight;
   final double maxHeight;
   final bool isLoading;
   final Uri? appBarPhotoUri;
@@ -27,6 +30,7 @@ class DSExpandedImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.width = double.infinity,
     this.maxHeight = double.infinity,
+    this.minHeight = 0.0,
     this.isLoading = false,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
@@ -49,20 +53,51 @@ class DSExpandedImage extends StatelessWidget {
           child: Container(
             constraints: BoxConstraints(
               maxHeight: maxHeight,
+              minHeight: minHeight,
             ),
-            child: DSCachedNetworkImageView(
-              fit: fit,
-              width: width,
-              url: url,
-              placeholder: (_, __) => _buildLoading(),
-              onError: () => _error.value = true,
-              align: align,
-              style: style,
-              shouldAuthenticate: shouldAuthenticate,
-            ),
+            child: url.startsWith('http')
+                ? DSCachedNetworkImageView(
+                    fit: fit,
+                    width: width,
+                    url: url,
+                    placeholder: (_, __) => _buildLoading(),
+                    onError: () => _error.value = true,
+                    align: align,
+                    style: style,
+                    shouldAuthenticate: shouldAuthenticate,
+                  )
+                : Image.file(
+                    File(url),
+                    width: width,
+                    fit: fit,
+                    cacheWidth: 360,
+                    errorBuilder: (_, __, ___) => _defaultErrorWidget(),
+                  ),
           ),
         ),
       );
+
+  Widget _defaultErrorWidget() {
+    _error.value = true;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Icon(
+              DSIcons.file_image_broken_outline,
+              color: style.isLightBubbleBackground(align)
+                  ? DSColors.neutralMediumElephant
+                  : DSColors.neutralMediumCloud,
+              size: 75,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Future<T?> _expandImage<T>() => showGeneralDialog<T>(
         context: Get.context!,
@@ -99,14 +134,19 @@ class DSExpandedImage extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(8.0),
                 child: PinchZoom(
-                  child: DSCachedNetworkImageView(
-                    url: url,
-                    fit: BoxFit.contain,
-                    placeholder: (context, _) => _buildLoading(),
-                    align: align,
-                    style: style,
-                    shouldAuthenticate: shouldAuthenticate,
-                  ),
+                  child: url.startsWith('http')
+                      ? DSCachedNetworkImageView(
+                          url: url,
+                          fit: BoxFit.contain,
+                          placeholder: (context, _) => _buildLoading(),
+                          align: align,
+                          style: style,
+                          shouldAuthenticate: shouldAuthenticate,
+                        )
+                      : Image.file(
+                          File(url),
+                          fit: BoxFit.contain,
+                        ),
                 ),
               ),
             ),

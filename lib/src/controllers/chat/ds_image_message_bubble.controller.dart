@@ -1,34 +1,67 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/utils/ds_directory_formatter.util.dart';
+import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
-import '../../services/ds_auth.service.dart';
-
 class DSImageMessageBubbleController extends GetxController {
-  Future<ImageInfo> getImageInfo({
-    required final String url,
-    final bool shouldAuthenticate = false,
-  }) async {
-    final Image img = Image.network(
-      url,
-      headers: shouldAuthenticate ? DSAuthService.httpHeaders : null,
+  final maximumProgress = RxInt(0);
+  final downloadProgress = RxInt(0);
+  final localPath = RxnString();
+
+  final String url;
+  final String? mediaType;
+  final bool shouldAuthenticate;
+
+  DSImageMessageBubbleController(
+    this.url, {
+    this.mediaType,
+    this.shouldAuthenticate = false,
+  }) {
+    _downloadImage();
+  }
+
+  void _onReceiveProgress(final int currentProgress, final int maxProgres) {
+    downloadProgress.value = currentProgress;
+    maximumProgress.value = maxProgres;
+  }
+
+  Future<void> _downloadImage() async {
+    if (mediaType == null || !url.startsWith('http')) {
+      localPath.value = url;
+      return;
+    }
+
+    final uri = Uri.parse(url);
+
+    final fullPath = await DSDirectoryFormatter.getPath(
+      type: mediaType!,
+      fileName: md5.convert(utf8.encode(uri.path)).toString(),
     );
 
-    final completer = Completer<ImageInfo>();
+    if (await File(fullPath).exists()) {
+      localPath.value = fullPath;
+      return;
+    }
 
-    final ImageStream imageStream =
-        img.image.resolve(const ImageConfiguration());
+    final fileName = fullPath.split('/').last;
+    final path = fullPath.substring(0, fullPath.lastIndexOf('/'));
 
-    imageStream.addListener(
-      ImageStreamListener(
-        (ImageInfo i, bool _) {
-          completer.complete(i);
-        },
-        onError: (exception, stackTrace) => completer.completeError(exception),
-      ),
-    );
+    try {
+      final savedFilePath = await DSFileService.download(
+        url,
+        fileName,
+        path: path,
+        onReceiveProgress: _onReceiveProgress,
+        httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
+      );
 
-    return completer.future;
+      localPath.value = savedFilePath;
+    } catch (_) {
+      localPath.value = url;
+    }
   }
 }
