@@ -35,9 +35,20 @@ class DSReplyContainer extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(DSIcons.undo_outline),
+              Icon(
+                DSIcons.undo_outline,
+                color: style.isLightBubbleBackground(align)
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+              ),
               const SizedBox(width: 8.0),
-              DSCaptionText('Reply', fontStyle: FontStyle.italic),
+              DSCaptionText(
+                'Reply',
+                fontStyle: FontStyle.italic,
+                color: style.isLightBubbleBackground(align)
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+              ),
             ],
           ),
           const SizedBox(height: 4.0),
