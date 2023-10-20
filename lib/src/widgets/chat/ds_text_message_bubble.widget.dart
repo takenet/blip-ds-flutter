@@ -16,6 +16,7 @@ class DSTextMessageBubble extends StatefulWidget {
   final bool hasSpacer;
   final List<DSBorderRadius> borderRadius;
   final dynamic selectContent;
+  final String? replyId;
   final bool showSelect;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;
@@ -24,6 +25,7 @@ class DSTextMessageBubble extends StatefulWidget {
     Key? key,
     required this.text,
     required this.align,
+    this.replyId,
     this.borderRadius = const [DSBorderRadius.all],
     this.selectContent,
     this.hasSpacer = true,
@@ -61,6 +63,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       padding: EdgeInsets.zero,
       style: widget.style,
       hasSpacer: widget.hasSpacer,
+      replyId: widget.replyId,
       child: _buildText(),
     );
   }

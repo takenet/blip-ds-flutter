@@ -11,6 +11,7 @@ import 'ds_message_bubble.widget.dart';
 class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
+  final String? replyId;
   final String? text;
   final TextOverflow overflow;
   final List<DSBorderRadius> borderRadius;
@@ -21,6 +22,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
     required this.align,
     this.leftWidget,
     this.text,
+    this.replyId,
     this.overflow = TextOverflow.ellipsis,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
@@ -37,6 +39,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
       borderRadius: borderRadius,
       align: align,
       style: style,
+      replyId: replyId,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

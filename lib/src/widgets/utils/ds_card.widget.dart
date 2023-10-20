@@ -43,6 +43,7 @@ class DSCard extends StatelessWidget {
     this.customer,
     this.showQuickReplyOptions = false,
     this.showRequestLocationButton = false,
+    this.replyId,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -58,6 +59,7 @@ class DSCard extends StatelessWidget {
   final Map<String, dynamic>? customer;
   final bool showQuickReplyOptions;
   final bool showRequestLocationButton;
+  final String? replyId;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class DSCard extends StatelessWidget {
           align: align,
           borderRadius: borderRadius,
           style: style,
+          replyId: replyId,
         );
 
       case DSMessageContentType.contact:
@@ -91,6 +94,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
+          replyId: content['inReplyTo']['id'],
         );
 
       case DSMessageContentType.mediaLink:
@@ -119,6 +123,7 @@ class DSCard extends StatelessWidget {
           text: content['text'],
           url: content['uri'],
           align: align,
+          replyId: replyId,
           borderRadius: borderRadius,
           style: style,
         );
@@ -131,6 +136,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           align: align,
           style: style,
+          replyId: replyId,
         );
       case DSMessageContentType.ticket:
         return DSTicketMessage(
@@ -154,6 +160,7 @@ class DSCard extends StatelessWidget {
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
+          replyId: replyId,
           borderRadius: borderRadius,
           style: style,
         );
@@ -178,6 +185,7 @@ class DSCard extends StatelessWidget {
       selectOptions: documentSelectModel.options,
       borderRadius: borderRadius,
       style: style,
+      replyId: replyId,
       showSelect: true,
       onSelected: onSelected,
       onOpenLink: onOpenLink,
@@ -195,6 +203,7 @@ class DSCard extends StatelessWidget {
                 child: DSTextMessageBubble(
                   align: align,
                   text: content['text'],
+                  replyId: replyId,
                   borderRadius: borderRadius,
                   style: style,
                 ),
@@ -216,6 +225,7 @@ class DSCard extends StatelessWidget {
             borderRadius: borderRadius,
             selectContent: content,
             showSelect: true,
+            replyId: replyId,
             onSelected: onSelected,
             style: style,
           );
@@ -228,6 +238,7 @@ class DSCard extends StatelessWidget {
       address: content['address'],
       email: content['email'],
       align: align,
+      replyId: replyId,
       style: style,
       borderRadius: borderRadius,
     );
@@ -253,6 +264,7 @@ class DSCard extends StatelessWidget {
         align: align,
         borderRadius: borderRadius,
         style: style,
+        replyId: replyId,
         uniqueId: messageId,
         audioType: media.type,
         shouldAuthenticate: shouldAuthenticate,
@@ -270,6 +282,7 @@ class DSCard extends StatelessWidget {
             : avatarConfig.sentAvatar,
         text: media.text,
         title: media.title,
+        replyId: replyId,
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
@@ -286,6 +299,7 @@ class DSCard extends StatelessWidget {
             ? avatarConfig.receivedAvatar
             : avatarConfig.sentAvatar,
         text: media.text,
+        replyId: replyId,
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId ?? DateTime.now().toIso8601String(),
@@ -296,6 +310,7 @@ class DSCard extends StatelessWidget {
       return DSFileMessageBubble(
         align: align,
         url: media.uri,
+        replyId: replyId,
         size: size,
         filename: media.title ??
             '${media.uri.hashCode}.${DSFileService.getFileExtensionFromMime(media.type)}',
@@ -313,6 +328,7 @@ class DSCard extends StatelessWidget {
 
     return DSRequestLocationBubble(
       label: 'Send location',
+      replyId: replyId,
       type: type,
       value: value,
       align: align,

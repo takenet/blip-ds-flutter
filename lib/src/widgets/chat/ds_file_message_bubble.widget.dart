@@ -22,6 +22,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
   final bool shouldAuthenticate;
+  final String? replyId;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -30,6 +31,7 @@ class DSFileMessageBubble extends StatelessWidget {
     required this.url,
     required this.size,
     required this.filename,
+    this.replyId,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
@@ -46,6 +48,7 @@ class DSFileMessageBubble extends StatelessWidget {
       ),
       child: DSMessageBubble(
         borderRadius: borderRadius,
+        replyId: replyId,
         padding: EdgeInsets.zero,
         align: align,
         style: style,

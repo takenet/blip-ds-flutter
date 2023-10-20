@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/widgets/chat/ds_reply_container.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -10,6 +11,7 @@ import '../animations/ds_animated_size.widget.dart';
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget child;
+  final String? replyId;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
   final bool shouldUseDefaultSize;
@@ -22,6 +24,7 @@ class DSMessageBubble extends StatelessWidget {
     Key? key,
     required this.align,
     required this.child,
+    this.replyId,
     this.borderRadius = const [DSBorderRadius.all],
     this.padding = const EdgeInsets.symmetric(
       vertical: 8.0,
@@ -60,7 +63,19 @@ class DSMessageBubble extends StatelessWidget {
                 : null,
             padding: padding,
             color: style.bubbleBackgroundColor(align),
-            child: child,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (replyId != null)
+                  DSReplyContainer(
+                    replyId: replyId!,
+                    style: style,
+                    align: align,
+                  ),
+                child,
+              ],
+            ),
           ),
         ),
       ),

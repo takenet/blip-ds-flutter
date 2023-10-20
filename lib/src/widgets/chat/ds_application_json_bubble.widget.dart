@@ -15,12 +15,14 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
     required this.borderRadius,
     required this.content,
     this.status,
+    this.replyId,
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final Map<String, dynamic> content;
+  final String? replyId;
   final DSDeliveryReportStatus? status;
   final DSMessageBubbleStyle style;
 
@@ -31,6 +33,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
         opacity: status == DSDeliveryReportStatus.failed ? .3 : 1,
         child: DSUnsupportedContentMessageBubble(
           align: align,
+          replyId: replyId,
           borderRadius: borderRadius,
           style: style,
           overflow: TextOverflow.visible,
@@ -50,6 +53,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
       align: align,
       borderRadius: borderRadius,
       style: style,
+      replyId: replyId,
     );
   }
 }

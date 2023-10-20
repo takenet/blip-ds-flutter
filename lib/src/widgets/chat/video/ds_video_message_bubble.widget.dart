@@ -42,6 +42,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   // Unique id to message bubble
   final String uniqueId;
 
+   // reply id message
+  final String? replyId;
+
   /// The video size
   final int mediaSize;
 
@@ -61,6 +64,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.uniqueId,
     required this.mediaSize,
     this.appBarPhotoUri,
+    this.replyId,
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
@@ -121,6 +125,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
       style: widget.style,
+      replyId: widget.replyId,
       child: LayoutBuilder(
         builder: (_, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,

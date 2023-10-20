@@ -1,3 +1,4 @@
+import 'package:blip_ds/src/controllers/chat/ds_reply.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -89,6 +90,7 @@ class DSGroupCard extends StatefulWidget {
 class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
+  final DSReplyController replyController = Get.put(DSReplyController());
 
   @override
   void initState() {
@@ -210,6 +212,12 @@ class _DSGroupCardState extends State<DSGroupCard> {
           'displayDate': message.displayDate,
         };
       }
+    }
+
+    final listOfDSMessageItemModelList = groups.map((e) => e['msgs']).toList();
+    replyController.messages.clear();
+    for (List<DSMessageItemModel> items in listOfDSMessageItemModelList) {
+      replyController.addMessages(items);
     }
     groups.add(group);
     return groups;

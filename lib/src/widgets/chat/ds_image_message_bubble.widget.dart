@@ -29,6 +29,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.showSelect = false,
     this.onSelected,
     this.onOpenLink,
+    this.replyId,
     this.shouldAuthenticate = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -40,6 +41,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final String? text;
   final String appBarText;
   final Uri? appBarPhotoUri;
+  final String? replyId;
   final DSMessageBubbleStyle style;
   final List<DSDocumentSelectOption> selectOptions;
   final bool showSelect;
@@ -73,6 +75,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       defaultMaxSize: 360.0,
       shouldUseDefaultSize: true,
       align: widget.align,
+      replyId:widget.replyId,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
       hasSpacer: widget.hasSpacer,
