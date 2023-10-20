@@ -176,7 +176,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
         child: CircularProgressIndicator(
           color: foregroundColor,
           backgroundColor: Colors.grey,
-          value: _controller.isDownloading.value ? percent : null,
+          value: percent,
         ),
       ),
     );

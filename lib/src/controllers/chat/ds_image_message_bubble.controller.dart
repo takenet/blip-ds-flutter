@@ -5,15 +5,12 @@ import 'dart:io';
 import 'package:blip_ds/blip_ds.dart';
 import 'package:blip_ds/src/utils/ds_directory_formatter.util.dart';
 import 'package:crypto/crypto.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:get/get.dart';
 
 class DSImageMessageBubbleController extends GetxController {
   final maximumProgress = RxInt(0);
   final downloadProgress = RxInt(0);
   final localPath = RxnString();
-  final isDownloading = RxBool(true);
 
   final String url;
   final String? mediaType;
@@ -50,46 +47,21 @@ class DSImageMessageBubbleController extends GetxController {
       return;
     }
 
+    final fileName = fullPath.split('/').last;
+    final path = fullPath.substring(0, fullPath.lastIndexOf('/'));
+
     try {
-      final path = await DSFileService.download(
+      final savedFilePath = await DSFileService.download(
         url,
-        fullPath.substring(
-          fullPath.lastIndexOf('/') + 1,
-        ),
+        fileName,
+        path: path,
         onReceiveProgress: _onReceiveProgress,
         httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       );
 
-      isDownloading.value = false;
-
-      final success = await _compressImage(
-        input: path!,
-        output: fullPath,
-      );
-
-      if (success) {
-        if (await File(path).exists()) {
-          await File(path).delete();
-        }
-        localPath.value = fullPath;
-      } else {
-        localPath.value = url;
-      }
+      localPath.value = savedFilePath;
     } catch (_) {
       localPath.value = url;
-      isDownloading.value = false;
     }
-  }
-
-  Future<bool> _compressImage({
-    required String input,
-    required String output,
-  }) async {
-    final session = await FFmpegKit.execute(
-        '-hide_banner -y -i "$input" -vf scale=-2:720 "$output"');
-
-    final returnCode = await session.getReturnCode();
-
-    return ReturnCode.isSuccess(returnCode);
   }
 }
