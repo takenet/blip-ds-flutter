@@ -126,9 +126,9 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
               ),
             );
 
-      _controller.isInitialized = true;
+      _controller.isInitialized.value = true;
     } catch (_) {
-      _controller.isInitialized = false;
+      _controller.isInitialized.value = false;
     }
   }
 
@@ -176,15 +176,17 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
           final processingState = playerState?.processingState;
           final playing = playerState?.playing;
           if (playing != true) {
-            return DSPlayButton(
-              onPressed: _controller.isInitialized
-                  ? _controller.player.play
-                  : () => {},
-              isLoading: [ProcessingState.loading, ProcessingState.buffering]
-                  .contains(processingState),
-              color: _controller.isInitialized
-                  ? widget.controlForegroundColor
-                  : DSColors.contentDisable,
+            return Obx(
+              () => DSPlayButton(
+                onPressed: _controller.isInitialized.value
+                    ? _controller.player.play
+                    : () => {},
+                isLoading: [ProcessingState.loading, ProcessingState.buffering]
+                    .contains(processingState),
+                color: _controller.isInitialized.value
+                    ? widget.controlForegroundColor
+                    : DSColors.contentDisable,
+              ),
             );
           } else if (processingState != ProcessingState.completed) {
             return DSPauseButton(
@@ -202,19 +204,24 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       stream: _controller.positionDataStream,
       builder: (context, snapshot) {
         final positionData = snapshot.data;
-        return DSAudioSeekBar(
-          duration: positionData?.duration ?? Duration.zero,
-          position: positionData?.position ?? Duration.zero,
-          bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-          onChangeEnd:
-              _controller.isInitialized ? _controller.player.play : null,
-          onChanged: _controller.isInitialized ? _controller.player.seek : null,
-          onChangeStart: _controller.player.pause,
-          labelColor: widget.labelColor,
-          bufferActiveTrackColor: widget.bufferActiveTrackColor,
-          bufferInactiveTrackColor: widget.bufferInactiveTrackColor,
-          sliderActiveTrackColor: widget.sliderActiveTrackColor,
-          sliderThumbColor: widget.sliderThumbColor,
+        return Obx(
+          () => DSAudioSeekBar(
+            duration: positionData?.duration ?? Duration.zero,
+            position: positionData?.position ?? Duration.zero,
+            bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
+            onChangeEnd: _controller.isInitialized.value
+                ? _controller.player.play
+                : null,
+            onChanged: _controller.isInitialized.value
+                ? _controller.player.seek
+                : null,
+            onChangeStart: _controller.player.pause,
+            labelColor: widget.labelColor,
+            bufferActiveTrackColor: widget.bufferActiveTrackColor,
+            bufferInactiveTrackColor: widget.bufferInactiveTrackColor,
+            sliderActiveTrackColor: widget.sliderActiveTrackColor,
+            sliderThumbColor: widget.sliderThumbColor,
+          ),
         );
       },
     );

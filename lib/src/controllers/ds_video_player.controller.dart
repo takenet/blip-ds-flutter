@@ -13,14 +13,11 @@ class DSVideoPlayerController extends GetxController {
   /// the management of video controls.
   DSVideoPlayerController({
     required this.url,
-    required this.uniqueId,
     this.shouldAuthenticate = false,
   });
 
   // External URL containing the video to be played
   final String url;
-
-  final String uniqueId;
 
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
