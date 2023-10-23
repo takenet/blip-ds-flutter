@@ -53,7 +53,6 @@ abstract class DSColors {
   static const Color contentDefault = Color(0xFF454545);
   static const Color contentGhost = Color(0xFF949494);
 
-
   static const Color disabledText = Color(0xFF637798);
   static const Color disabledBg = Color(0xFFE8F2FF);
   static const Color contentDisable = Color(0xFF636363);
