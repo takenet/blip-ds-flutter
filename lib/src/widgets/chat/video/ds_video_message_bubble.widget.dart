@@ -39,14 +39,14 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Style for bubble
   final DSMessageBubbleStyle style;
 
-  // Unique id to message bubble
-  final String uniqueId;
-
    // reply id message
   final String? replyId;
 
   /// The video size
   final int mediaSize;
+
+  /// The video type
+  final String type;
 
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
@@ -61,10 +61,10 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.align,
     required this.url,
     required this.appBarText,
-    required this.uniqueId,
     required this.mediaSize,
     this.appBarPhotoUri,
     this.replyId,
+    this.type = 'video/mp4',
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
@@ -83,10 +83,10 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
   void initState() {
     super.initState();
     _controller = DSVideoMessageBubbleController(
-      uniqueId: widget.uniqueId,
       url: widget.url,
       mediaSize: widget.mediaSize,
       httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
+      type: widget.type,
     );
   }
 
@@ -140,13 +140,15 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         size: 80.0,
                         color: DSColors.neutralDarkRooftop,
                       )
-                    : _controller.isDownloading.value
+                    : (_controller.isDownloading.value ||
+                            _controller.isLoadingThumbnail.value)
                         ? Center(
                             child: Container(
                               height: 50.0,
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: foregroundColor),
+                                shape: BoxShape.circle,
+                                color: foregroundColor,
+                              ),
                               child: DSFadingCircleLoading(
                                 color: backgroundLoadingColor,
                                 size: 45.0,
@@ -174,7 +176,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                 align: widget.align,
                                 appBarPhotoUri: widget.appBarPhotoUri,
                                 appBarText: widget.appBarText,
-                                uniqueId: widget.uniqueId,
                                 url: widget.url,
                                 shouldAuthenticate: widget.shouldAuthenticate,
                                 thumbnail: Center(

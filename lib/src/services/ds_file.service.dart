@@ -47,6 +47,7 @@ abstract class DSFileService {
     final String? path,
     final void Function(bool)? onDownloadStateChange,
     final Map<String, String?>? httpHeaders,
+    final Function(int, int)? onReceiveProgress,
   }) async {
     try {
       onDownloadStateChange?.call(true);
@@ -63,6 +64,10 @@ abstract class DSFileService {
         options: Options(
           headers: httpHeaders,
         ),
+        onReceiveProgress: onReceiveProgress != null
+            ? (currentProgress, maximumProgress) =>
+                onReceiveProgress(currentProgress, maximumProgress)
+            : null,
       );
 
       if (response.statusCode == 200) return savedFilePath;

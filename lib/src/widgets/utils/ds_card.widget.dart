@@ -189,6 +189,7 @@ class DSCard extends StatelessWidget {
       showSelect: true,
       onSelected: onSelected,
       onOpenLink: onOpenLink,
+      mediaType: documentSelectModel.header.mediaLink.type,
     );
   }
 
@@ -286,6 +287,8 @@ class DSCard extends StatelessWidget {
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
+        mediaType: media.type,
+        imageMaxHeight: 300.0,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -302,7 +305,6 @@ class DSCard extends StatelessWidget {
         replyId: replyId,
         borderRadius: borderRadius,
         style: style,
-        uniqueId: messageId ?? DateTime.now().toIso8601String(),
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
       );

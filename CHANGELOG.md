@@ -1,3 +1,8 @@
+## 0.0.84
+
+- [DSImageMessageBubble] Improved the performance of the image bubble
+- [DSVideoMessageBubble] Improved the video storage
+
 ## 0.0.83
 
 - [DSCard] Accept reply messages
