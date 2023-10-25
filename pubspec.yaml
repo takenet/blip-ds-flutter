@@ -39,7 +39,7 @@ dependencies:
   map_launcher: ^2.5.0+1
   mime: ^1.0.4
   crypto: ^3.0.3
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

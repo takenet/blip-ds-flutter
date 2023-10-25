@@ -19,7 +19,8 @@ abstract class DSFFmpegService {
           )
         : null;
 
-    final command = '-i "$input" ${args != null ? '$args ' : ''}"$output"';
+    final command =
+        '-hwaccel auto -i "$input" ${args != null ? '$args ' : ''}"$output"';
 
     return _executeCommand(
       command: command,
@@ -166,7 +167,7 @@ abstract class DSFFmpegService {
     required final int width,
     required final int height,
   }) {
-    final resolution = '-vf scale=${width}x$height';
+    final resolution = '-s ${width}x$height';
     const pixelFormat = '-pix_fmt yuv420p';
     const codec = '-c:v libx264';
     const preset = '-preset veryfast';
