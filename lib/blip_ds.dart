@@ -51,6 +51,7 @@ export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;
 export 'src/themes/texts/utils/ds_font_weights.theme.dart' show DSFontWeights;
 export 'src/utils/ds_animate.util.dart' show DSAnimate;
+export 'src/utils/ds_directory_formatter.util.dart' show DSDirectoryFormatter;
 export 'src/utils/ds_linkify.util.dart' show DSLinkify;
 export 'src/utils/ds_utils.util.dart' show DSUtils;
 export 'src/widgets/animations/ds_animated_size.widget.dart'
