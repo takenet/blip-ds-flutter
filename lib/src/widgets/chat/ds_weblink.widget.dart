@@ -29,8 +29,8 @@ class DSWeblink extends StatelessWidget {
   /// Card styling to adjust custom colors
   final DSMessageBubbleStyle style;
 
-  /// replyId
-  final String? replyId;
+  /// replyContent
+  final dynamic replyContent;
 
   DSWeblink({
     Key? key,
@@ -38,7 +38,7 @@ class DSWeblink extends StatelessWidget {
     required this.text,
     required this.align,
     required this.url,
-    this.replyId,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
@@ -54,7 +54,7 @@ class DSWeblink extends StatelessWidget {
 
     return DSMessageBubble(
       align: align,
-      replyId: replyId,
+      replyContent: replyContent,
       borderRadius: borderRadius,
       style: style,
       child: Column(

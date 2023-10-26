@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../controllers/chat/ds_reply.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -13,13 +11,13 @@ import '../texts/ds_caption_text.widget.dart';
 class DSReplyContainer extends StatelessWidget {
   const DSReplyContainer({
     super.key,
-    required this.replyId,
+    required this.replyContent,
     required this.style,
     required this.align,
   });
 
   final DSAlign align;
-  final String replyId;
+  final dynamic replyContent;
   final DSMessageBubbleStyle style;
 
   @override
@@ -84,7 +82,7 @@ class DSReplyContainer extends StatelessWidget {
                         left: 8.0,
                         bottom: 8.0,
                       ),
-                      child: _replyWidget(replyId, style, align),
+                      child: _replyWidget(replyContent, style, align),
                     ),
                   ),
                 ],
@@ -98,17 +96,18 @@ class DSReplyContainer extends StatelessWidget {
 }
 
 Widget _replyWidget(
-  String id,
+  dynamic replyContent,
   DSMessageBubbleStyle style,
   DSAlign align,
 ) {
-  final replyController = Get.find<DSReplyController>();
-  final message = replyController.getMessageById(id);
-
-  switch (message?.type) {
+  final replyType =
+      replyContent != '' ? replyContent['content']['replied']['type'] : '';
+  switch (replyType) {
     case DSMessageContentType.textPlain:
       return DSBodyText(
-        message?.content is String ? message?.content : '**********',
+        replyContent['content']['replied']['value'] is String
+            ? replyContent['content']['replied']['value']
+            : '**********',
         color: _color(align, style),
         overflow: TextOverflow.visible,
       );

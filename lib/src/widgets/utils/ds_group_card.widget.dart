@@ -1,4 +1,3 @@
-import 'package:blip_ds/src/controllers/chat/ds_reply.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +53,7 @@ class DSGroupCard extends StatefulWidget {
     super.key,
     required this.documents,
     required this.isComposing,
+    this.ticketId,
     this.sortMessages = true,
     this.onSelected,
     this.onOpenLink,
@@ -73,6 +73,7 @@ class DSGroupCard extends StatefulWidget {
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
   final bool isComposing;
   final bool sortMessages;
+  final String? ticketId;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
@@ -90,7 +91,6 @@ class DSGroupCard extends StatefulWidget {
 class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
-  final DSReplyController replyController = Get.put(DSReplyController());
 
   @override
   void initState() {
@@ -214,11 +214,6 @@ class _DSGroupCardState extends State<DSGroupCard> {
       }
     }
 
-    final listOfDSMessageItemModelList = groups.map((e) => e['msgs']).toList();
-    replyController.messages.clear();
-    for (List<DSMessageItemModel> items in listOfDSMessageItemModelList) {
-      replyController.addMessages(items);
-    }
     groups.add(group);
     return groups;
   }
@@ -268,6 +263,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             onOpenLink: widget.onOpenLink,
             messageId: message.id,
             customer: message.customer,
+            replyContent: message.replyContent,
           );
 
           final isLastMsg = msgCount == length;

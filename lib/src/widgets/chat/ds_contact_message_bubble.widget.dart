@@ -6,7 +6,7 @@ class DSContactMessageBubble extends StatelessWidget {
   final String? phone;
   final String? email;
   final String? address;
-  final String? replyId;
+  final dynamic replyContent;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
@@ -18,7 +18,7 @@ class DSContactMessageBubble extends StatelessWidget {
     required this.address,
     required this.email,
     required this.align,
-    this.replyId,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -31,7 +31,7 @@ class DSContactMessageBubble extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       shouldUseDefaultSize: true,
       style: style,
-      replyId: replyId,
+      replyContent: replyContent,
       child: _buildContactCard(),
     );
   }
@@ -53,6 +53,7 @@ class DSContactMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16.0),
+
         /// TODO(format): Format phone number
         if (phone != null)
           Padding(

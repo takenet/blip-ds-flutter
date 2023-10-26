@@ -11,7 +11,7 @@ import '../animations/ds_animated_size.widget.dart';
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget child;
-  final String? replyId;
+  final dynamic replyContent;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
   final bool shouldUseDefaultSize;
@@ -24,7 +24,7 @@ class DSMessageBubble extends StatelessWidget {
     Key? key,
     required this.align,
     required this.child,
-    this.replyId,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     this.padding = const EdgeInsets.symmetric(
       vertical: 8.0,
@@ -67,9 +67,9 @@ class DSMessageBubble extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (replyId != null)
+                if (replyContent != null)
                   DSReplyContainer(
-                    replyId: replyId!,
+                    replyContent: replyContent!,
                     style: style,
                     align: align,
                   ),

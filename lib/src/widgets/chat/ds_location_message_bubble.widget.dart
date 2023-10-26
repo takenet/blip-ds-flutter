@@ -16,7 +16,7 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
-  final String? replyId;
+  final dynamic replyContent;
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;
@@ -26,7 +26,7 @@ class DSLocationMessageBubble extends StatelessWidget {
     required this.align,
     required this.latitude,
     required this.longitude,
-    this.replyId,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
@@ -58,7 +58,7 @@ class DSLocationMessageBubble extends StatelessWidget {
         defaultMaxSize: 240.0,
         defaultMinSize: 240.0,
         borderRadius: borderRadius,
-        replyId: replyId,
+        replyContent: replyContent,
         padding: EdgeInsets.zero,
         align: align,
         style: style,
