@@ -53,7 +53,6 @@ class DSGroupCard extends StatefulWidget {
     super.key,
     required this.documents,
     required this.isComposing,
-    this.ticketId,
     this.sortMessages = true,
     this.onSelected,
     this.onOpenLink,
@@ -73,7 +72,6 @@ class DSGroupCard extends StatefulWidget {
   final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
   final bool isComposing;
   final bool sortMessages;
-  final String? ticketId;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
