@@ -3,21 +3,22 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart' as path_utils;
 
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_toast.service.dart';
 import '../../utils/ds_directory_formatter.util.dart';
-import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
   final String type;
+  final maximumProgress = RxInt(0);
+  final downloadProgress = RxInt(0);
 
   DSVideoMessageBubbleController({
     required this.url,
@@ -90,28 +91,17 @@ class DSVideoMessageBubbleController {
       if (!await outputFile.exists()) {
         final inputFilePath = await DSFileService.download(
           url,
-          fileName,
+          path_utils.basename(fullPath),
+          path: path_utils.dirname(fullPath),
+          onReceiveProgress: (current, max) {
+            downloadProgress.value = current;
+            maximumProgress.value = max;
+          },
           httpHeaders: httpHeaders,
         );
 
-        final session = await FFmpegKit.execute(
-            '-hide_banner -y -i "$inputFilePath" "${outputFile.path}"');
-
-        File(inputFilePath!).delete();
-
-        final returnCode = await session.getReturnCode();
-
-        if (!ReturnCode.isSuccess(returnCode)) {
-          hasError.value = true;
-          await DSVideoErrorDialog.show(
-            filename: fileName,
-            url: url,
-            httpHeaders: httpHeaders,
-          );
-        }
+        _generateThumbnail(inputFilePath!);
       }
-
-      _generateThumbnail(outputFile.path);
     } catch (_) {
       hasError.value = true;
 
@@ -135,5 +125,14 @@ class DSVideoMessageBubbleController {
     );
 
     thumbnail.value = thumbnailPath;
+  }
+
+  String getDownloadProgress() {
+    String getSize(int value) => FileSize.getSize(
+          value,
+          precision: PrecisionValue.One,
+        );
+
+    return '${getSize(downloadProgress.value)} / ${getSize(maximumProgress.value)}';
   }
 }

@@ -1,3 +1,7 @@
+## 0.0.85
+
+- [DSVideoMessageBubble] Added a progressive loading
+
 ## 0.0.84
 
 - [DSImageMessageBubble] Improved the performance of the image bubble
