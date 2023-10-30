@@ -39,24 +39,20 @@ class DSImageMessageBubbleController extends GetxController {
 
     final uri = Uri.parse(url);
 
-    final fullPath = await DSDirectoryFormatter.getPath(
+    final cachePath = await DSDirectoryFormatter.getCachePath(
       type: mediaType!,
-      fileName: md5.convert(utf8.encode(uri.path)).toString(),
+      filename: md5.convert(utf8.encode(uri.path)).toString(),
     );
 
-    if (await File(fullPath).exists()) {
-      localPath.value = fullPath;
+    if (File(cachePath).existsSync()) {
+      localPath.value = cachePath;
       return;
     }
 
-    final fileName = fullPath.split('/').last;
-    final path = fullPath.substring(0, fullPath.lastIndexOf('/'));
-
     try {
       final savedFilePath = await DSFileService.download(
-        url,
-        fileName,
-        path: path,
+        url: url,
+        path: cachePath,
         onReceiveProgress: _onReceiveProgress,
         httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       );
