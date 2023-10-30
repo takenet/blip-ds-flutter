@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:blip_ds/src/utils/ds_directory_formatter.util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart' as path_utils;
 
 import '../../services/ds_auth.service.dart';
 import '../../services/ds_file.service.dart';
+import '../../utils/ds_directory_formatter.util.dart';
 
 class DSImageMessageBubbleController extends GetxController {
   final maximumProgress = RxInt(0);
@@ -49,14 +50,11 @@ class DSImageMessageBubbleController extends GetxController {
       return;
     }
 
-    final fileName = fullPath.split('/').last;
-    final path = fullPath.substring(0, fullPath.lastIndexOf('/'));
-
     try {
       final savedFilePath = await DSFileService.download(
         url,
-        fileName,
-        path: path,
+        path_utils.basename(fullPath),
+        path: path_utils.dirname(fullPath),
         onReceiveProgress: _onReceiveProgress,
         httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       );
