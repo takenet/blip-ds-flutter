@@ -10,7 +10,7 @@ abstract class DSFFmpegService {
     required final String input,
     required final String output,
   }) async {
-    var video = File(input);
+    var outputVideo = File(output);
 
     if (input != output) {
       final inputExtension = input.substring(
@@ -21,6 +21,8 @@ abstract class DSFFmpegService {
         output.lastIndexOf('.') + 1,
       );
 
+      var inputVideo = File(input);
+
       if (inputExtension != outputExtension) {
         final temp = await VideoCompress.compressVideo(
           input,
@@ -29,16 +31,17 @@ abstract class DSFFmpegService {
         );
 
         if (temp?.file != null) {
-          video.deleteSync();
-          video = temp!.file!.copySync(output);
+          temp!.file!.copySync(output);
           temp.file!.deleteSync();
         }
       } else {
-        video = video.copySync(output);
+        inputVideo.copySync(output);
       }
+
+      inputVideo.deleteSync();
     }
 
-    return video.exists();
+    return outputVideo.exists();
   }
 
   static Future<bool> getVideoThumbnail({
