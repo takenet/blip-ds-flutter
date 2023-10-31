@@ -121,6 +121,16 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
   }
 
   Future<void> _loadAudio() async {
+    if (!widget.uri.scheme.startsWith('http')) {
+      await _controller.player.setAudioSource(
+        AudioSource.uri(
+          widget.uri,
+        ),
+      );
+
+      return;
+    }
+
     final outputPath = await DSDirectoryFormatter.getCachePath(
       type: 'audio/mp4',
       filename: md5.convert(utf8.encode(widget.uri.path)).toString(),
