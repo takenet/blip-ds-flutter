@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:blip_ds/src/utils/ds_directory_formatter.util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
 import '../../services/ds_auth.service.dart';
 import '../../services/ds_file.service.dart';
+import '../../utils/ds_directory_formatter.util.dart';
 
 class DSImageMessageBubbleController extends GetxController {
   final maximumProgress = RxInt(0);

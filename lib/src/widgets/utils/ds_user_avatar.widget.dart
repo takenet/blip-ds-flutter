@@ -1,6 +1,10 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_body_text.widget.dart';
 
 class DSUserAvatar extends StatelessWidget {
   final String? text;

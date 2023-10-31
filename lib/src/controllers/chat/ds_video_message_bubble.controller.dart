@@ -16,6 +16,8 @@ class DSVideoMessageBubbleController {
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
   final String type;
+  final maximumProgress = RxInt(0);
+  final downloadProgress = RxInt(0);
 
   DSVideoMessageBubbleController({
     required this.url,
@@ -92,12 +94,16 @@ class DSVideoMessageBubbleController {
       if (!outputFile.existsSync()) {
         final inputFilePath = await DSFileService.download(
           url: url,
+          onReceiveProgress: (current, max) {
+            downloadProgress.value = current;
+            maximumProgress.value = max;
+          },
           httpHeaders: httpHeaders,
         );
 
         final isSuccess = await DSFFmpegService.formatVideo(
           input: inputFilePath!,
-          output: outputFile.path,
+          output: cachePath,
         );
 
         hasError.value = !isSuccess;
@@ -128,5 +134,14 @@ class DSVideoMessageBubbleController {
     );
 
     thumbnail.value = thumbnailPath;
+  }
+
+  String getDownloadProgress() {
+    String getSize(int value) => FileSize.getSize(
+          value,
+          precision: PrecisionValue.One,
+        );
+
+    return '${getSize(downloadProgress.value)} / ${getSize(maximumProgress.value)}';
   }
 }

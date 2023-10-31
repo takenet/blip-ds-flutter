@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:blip_ds/blip_ds.dart';
+import '../../enums/ds_ticket_message_type.enum.dart';
+import '../texts/ds_body_text.widget.dart';
 
 /// Messages and warnings to be shown in agent and customer actions
 ///

@@ -1,6 +1,3 @@
-import 'package:blip_ds/src/widgets/chat/ds_quick_reply.widget.dart';
-import 'package:blip_ds/src/widgets/chat/ds_select_menu.widget.dart';
-
 /// A Design System select options model used with [DSSelectMenu], [DSQuickReply] to display a options menu
 class DSSelectOptionModel {
   String text;

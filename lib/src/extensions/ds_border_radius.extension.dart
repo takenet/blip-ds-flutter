@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../enums/ds_border_radius.enum.dart';
 
 /// A Design System's extension that adds functionalities to [DSBorderRadius] enum.
 extension DSBorderRadiusExtension on DSBorderRadius {
