@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
+import 'package:path/path.dart' as path_utils;
 import 'package:video_compress/video_compress.dart';
 
 abstract class DSFFmpegService {
@@ -13,17 +14,28 @@ abstract class DSFFmpegService {
     var outputVideo = File(output);
 
     if (input != output) {
+      final inputHasExtension = path_utils.extension(input).isNotEmpty;
+      final outputHasExtension = path_utils.extension(output).isNotEmpty;
+
+      final lastInputDotIndex = inputHasExtension ? input.lastIndexOf('.') : -1;
+
+      final lastOutputDotIndex =
+          outputHasExtension ? output.lastIndexOf('.') : -1;
+
       final inputExtension = input.substring(
-        input.lastIndexOf('.') + 1,
+        lastInputDotIndex + 1,
       );
 
       final outputExtension = output.substring(
-        output.lastIndexOf('.') + 1,
+        lastOutputDotIndex + 1,
       );
 
       var inputVideo = File(input);
 
-      if (inputExtension != outputExtension) {
+      if (lastInputDotIndex >= 0 &&
+          lastOutputDotIndex >= 0 &&
+          inputExtension.isNotEmpty &&
+          inputExtension != outputExtension) {
         final temp = await VideoCompress.compressVideo(
           input,
           quality: VideoQuality.HighestQuality,

@@ -51,10 +51,10 @@ abstract class DSFileService {
     try {
       onDownloadStateChange?.call(true);
 
-      final savedFilePath = path ??
+      var savedFilePath = path ??
           path_utils.join(
             (await getTemporaryDirectory()).path,
-            DateTime.now().toIso8601String(),
+            DateTime.now().toIso8601String().replaceAll('.', ''),
           );
 
       if (File(savedFilePath).existsSync()) {
@@ -73,7 +73,38 @@ abstract class DSFileService {
             : null,
       );
 
-      if (response.statusCode == 200) return savedFilePath;
+      if (response.statusCode == 200) {
+        final newExtension = getFileExtensionFromMime(
+          response.headers.map['content-type']?.first,
+        );
+
+        if (newExtension.isNotEmpty) {
+          final hasExtension = path_utils.extension(savedFilePath).isNotEmpty;
+
+          final lastDotIndex =
+              hasExtension ? savedFilePath.lastIndexOf('.') : -1;
+
+          late final String filename;
+          late final String savedExtension;
+
+          if (lastDotIndex >= 0) {
+            filename = savedFilePath.substring(0, lastDotIndex);
+            savedExtension = savedFilePath.substring(lastDotIndex + 1);
+          } else {
+            filename = savedFilePath.substring(0);
+            savedExtension = '';
+          }
+
+          if (newExtension != savedExtension) {
+            final newFilePath = '$filename.$newExtension';
+
+            File(savedFilePath).renameSync(newFilePath);
+            savedFilePath = newFilePath;
+          }
+        }
+
+        return savedFilePath;
+      }
     } finally {
       onDownloadStateChange?.call(false);
     }
