@@ -100,8 +100,6 @@ class DSVideoMessageBubbleController {
           output: outputFile.path,
         );
 
-        File(inputFilePath).deleteSync();
-
         hasError.value = !isSuccess;
       }
 
