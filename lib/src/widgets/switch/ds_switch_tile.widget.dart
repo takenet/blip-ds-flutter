@@ -1,6 +1,7 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/switch/ds_switch_base.widget.dart';
 import 'package:flutter/material.dart';
+
+import 'ds_switch.widget.dart';
+import 'ds_switch_base.widget.dart';
 
 class DSSwitchTile extends DSSwitchBase {
   /// Create a tile widget with a switch button

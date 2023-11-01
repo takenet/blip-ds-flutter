@@ -69,10 +69,7 @@ class DSVideoPlayerController extends GetxController {
     Get.back();
     Get.delete<DSVideoPlayerController>();
 
-    final filename = url.substring(url.lastIndexOf('/')).substring(1);
-
     await DSVideoErrorDialog.show(
-      filename: filename,
       url: url,
       httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
     );

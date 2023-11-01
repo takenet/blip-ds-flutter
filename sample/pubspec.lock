@@ -208,14 +208,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  filesize:
-    dependency: transitive
-    description:
-      name: filesize
-      sha256: f53df1f27ff60e466eefcd9df239e02d4722d5e2debee92a87dfd99ac66de2af
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -860,6 +852,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  video_compress:
+    dependency: transitive
+    description:
+      name: video_compress
+      sha256: "407693726e674a1e1958801deb2d9daf5a5297707ba6d03375007012dae7389a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   video_player:
     dependency: transitive
     description:

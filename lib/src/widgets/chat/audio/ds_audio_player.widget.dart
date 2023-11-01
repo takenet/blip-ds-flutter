@@ -1,16 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../services/ds_file.service.dart';
+import '../../../services/ds_media_format.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
+import '../../../utils/ds_directory_formatter.util.dart';
 import '../../buttons/ds_pause_button.widget.dart';
 import '../../buttons/ds_play_button.widget.dart';
 import 'ds_audio_seek_bar.widget.dart';
@@ -18,8 +19,6 @@ import 'ds_audio_speed_button.widget.dart';
 
 class DSAudioPlayer extends StatefulWidget {
   final Uri uri;
-  final String uniqueId;
-  final String audioType;
   final Color labelColor;
   final Color bufferActiveTrackColor;
   final Color bufferInactiveTrackColor;
@@ -30,10 +29,9 @@ class DSAudioPlayer extends StatefulWidget {
   final Color speedBorderColor;
   final bool shouldAuthenticate;
 
-  DSAudioPlayer({
+  const DSAudioPlayer({
     super.key,
     required this.uri,
-    required this.audioType,
     required this.labelColor,
     required this.bufferActiveTrackColor,
     required this.bufferInactiveTrackColor,
@@ -43,8 +41,7 @@ class DSAudioPlayer extends StatefulWidget {
     required this.speedForegroundColor,
     required this.speedBorderColor,
     this.shouldAuthenticate = false,
-    final String? uniqueId,
-  }) : uniqueId = uniqueId ?? DateTime.now().toIso8601String();
+  });
 
   @override
   State<DSAudioPlayer> createState() => _DSAudioPlayerState();
@@ -115,16 +112,7 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     );
 
     try {
-      Platform.isIOS && widget.audioType.contains('ogg')
-          ? await _transcoder()
-          : await _controller.player.setAudioSource(
-              AudioSource.uri(
-                widget.uri,
-                headers: widget.shouldAuthenticate
-                    ? DSAuthService.httpHeaders
-                    : null,
-              ),
-            );
+      await _loadAudio();
 
       _controller.isInitialized.value = true;
     } catch (_) {
@@ -132,29 +120,73 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     }
   }
 
-  Future<void> _transcoder() async {
-    final inputFileName = 'AUDIO-${widget.uniqueId}.ogg';
+  Future<void> _loadAudio() async {
+    if (!widget.uri.scheme.startsWith('http')) {
+      await _controller.player.setAudioSource(
+        AudioSource.uri(
+          widget.uri,
+        ),
+      );
 
-    final inputFilePath = await DSFileService.download(
-      widget.uri.toString(),
-      inputFileName,
+      return;
+    }
+
+    final outputPath = await DSDirectoryFormatter.getCachePath(
+      type: 'audio/mp4',
+      filename: md5.convert(utf8.encode(widget.uri.path)).toString(),
+      extension: 'm4a',
+    );
+
+    final outputFile = File(outputPath);
+    var hasCachedFile = outputFile.existsSync();
+
+    if (!hasCachedFile) {
+      await _downloadAudio(
+        outputPath: outputPath,
+      );
+
+      hasCachedFile = outputFile.existsSync();
+    }
+
+    await _controller.player.setAudioSource(
+      hasCachedFile
+          ? AudioSource.file(
+              outputPath,
+            )
+          : AudioSource.uri(
+              widget.uri,
+              headers:
+                  widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
+            ),
+    );
+  }
+
+  Future<void> _downloadAudio({
+    required final String outputPath,
+  }) async {
+    final tempPath = await DSFileService.download(
+      url: widget.uri.toString(),
       httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
     );
 
-    final temporaryPath = (await getTemporaryDirectory()).path;
-    final outputFile = File("$temporaryPath/AUDIO-${widget.uniqueId}.mp3");
-
-    if (await outputFile.exists()) {
-      await _controller.player.setFilePath(outputFile.path);
-    } else {
-      final session = await FFmpegKit.execute(
-        '-hide_banner -y -i "$inputFilePath" -c:a libmp3lame -qscale:a 2 "${outputFile.path}"',
+    if (tempPath?.isNotEmpty ?? false) {
+      final isSuccess = await DSMediaFormatService.transcodeAudio(
+        input: tempPath!,
+        output: outputPath,
       );
 
-      final returnCode = await session.getReturnCode();
+      final tempFile = File(tempPath);
 
-      if (ReturnCode.isSuccess(returnCode)) {
-        await _controller.player.setFilePath(outputFile.path);
+      if (tempFile.existsSync()) {
+        tempFile.deleteSync();
+      }
+
+      if (!isSuccess) {
+        final outputFile = File(outputPath);
+
+        if (outputFile.existsSync()) {
+          outputFile.deleteSync();
+        }
       }
     }
   }

@@ -20,11 +20,14 @@ abstract class DSToastService {
     );
 
     _visibleToasts.insert(0, toast);
-    _controller?.animateTo(
-      0,
-      duration: DSUtils.defaultAnimationDuration,
-      curve: Curves.easeInOut,
-    );
+
+    if (_controller?.hasClients ?? false) {
+      _controller?.animateTo(
+        0,
+        duration: DSUtils.defaultAnimationDuration,
+        curve: Curves.easeInOut,
+      );
+    }
 
     if (_overlayEntry == null) {
       _controller = ScrollController();
