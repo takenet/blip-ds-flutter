@@ -6,7 +6,7 @@ import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:video_compress/video_compress.dart';
 
-abstract class DSFFmpegService {
+abstract class DSMediaFormatService {
   static Future<bool> formatVideo({
     required final String input,
     required final String output,

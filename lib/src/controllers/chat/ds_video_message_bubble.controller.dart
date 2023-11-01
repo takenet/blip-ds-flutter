@@ -6,8 +6,8 @@ import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 
 import '../../models/ds_toast_props.model.dart';
-import '../../services/ds_ffmpeg.service.dart';
 import '../../services/ds_file.service.dart';
+import '../../services/ds_media_format.service.dart';
 import '../../services/ds_toast.service.dart';
 import '../../utils/ds_directory_formatter.util.dart';
 
@@ -101,7 +101,7 @@ class DSVideoMessageBubbleController {
           httpHeaders: httpHeaders,
         );
 
-        final isSuccess = await DSFFmpegService.formatVideo(
+        final isSuccess = await DSMediaFormatService.formatVideo(
           input: inputFilePath!,
           output: cachePath,
         );
@@ -128,7 +128,7 @@ class DSVideoMessageBubbleController {
   Future<void> _generateThumbnail(String path) async {
     final thumbnailPath = await getFullThumbnailPath();
 
-    await DSFFmpegService.getVideoThumbnail(
+    await DSMediaFormatService.getVideoThumbnail(
       input: path,
       output: thumbnailPath,
     );

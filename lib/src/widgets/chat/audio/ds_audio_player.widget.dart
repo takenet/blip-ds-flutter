@@ -8,8 +8,8 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../services/ds_auth.service.dart';
-import '../../../services/ds_ffmpeg.service.dart';
 import '../../../services/ds_file.service.dart';
+import '../../../services/ds_media_format.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../utils/ds_directory_formatter.util.dart';
 import '../../buttons/ds_pause_button.widget.dart';
@@ -170,7 +170,7 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     );
 
     if (tempPath?.isNotEmpty ?? false) {
-      final isSuccess = await DSFFmpegService.transcodeAudio(
+      final isSuccess = await DSMediaFormatService.transcodeAudio(
         input: tempPath!,
         output: outputPath,
       );
