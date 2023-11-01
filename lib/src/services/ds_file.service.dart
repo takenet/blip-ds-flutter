@@ -7,25 +7,27 @@ import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../utils/ds_utils.util.dart';
+
 abstract class DSFileService {
-  static Future<void> open(
-    final String filename,
-    final String url, {
+  static Future<void> open({
+    required final String url,
+    final String? path,
     final void Function(bool)? onDownloadStateChange,
     final Map<String, String?>? httpHeaders,
   }) async {
-    final path = await download(
-      url,
-      filename,
+    final filePath = await download(
+      url: url,
+      path: path,
       onDownloadStateChange: onDownloadStateChange,
       httpHeaders: httpHeaders,
     );
 
-    if (path?.isEmpty ?? true) {
+    if (filePath?.isEmpty ?? true) {
       return;
     }
 
-    final result = await OpenFilex.open(path);
+    final result = await OpenFilex.open(filePath);
 
     switch (result.type) {
       case ResultType.done:
@@ -41,9 +43,8 @@ abstract class DSFileService {
     }
   }
 
-  static Future<String?> download(
-    final String url,
-    final String filename, {
+  static Future<String?> download({
+    required final String url,
     final String? path,
     final void Function(bool)? onDownloadStateChange,
     final Map<String, String?>? httpHeaders,
@@ -51,10 +52,14 @@ abstract class DSFileService {
   }) async {
     try {
       onDownloadStateChange?.call(true);
-      final savedFilePath = path_utils.join(
-          path ?? (await getTemporaryDirectory()).path, filename);
 
-      if (await File(savedFilePath).exists()) {
+      var savedFilePath = path ??
+          path_utils.join(
+            (await getTemporaryDirectory()).path,
+            DSUtils.generateUniqueID(),
+          );
+
+      if (File(savedFilePath).existsSync()) {
         return savedFilePath;
       }
 
@@ -70,7 +75,26 @@ abstract class DSFileService {
             : null,
       );
 
-      if (response.statusCode == 200) return savedFilePath;
+      if (response.statusCode == 200) {
+        final hasExtension = path_utils.extension(savedFilePath).isNotEmpty;
+
+        if (!hasExtension) {
+          final newExtension = getFileExtensionFromMime(
+            response.headers.map['content-type']?.first,
+          );
+
+          if (newExtension.isNotEmpty) {
+            final filename = savedFilePath.substring(0);
+
+            final newFilePath = '$filename.$newExtension';
+
+            File(savedFilePath).renameSync(newFilePath);
+            savedFilePath = newFilePath;
+          }
+        }
+
+        return savedFilePath;
+      }
     } finally {
       onDownloadStateChange?.call(false);
     }

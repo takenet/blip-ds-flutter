@@ -1,4 +1,4 @@
-import 'package:blip_ds/blip_ds.dart';
+import '../enums/ds_delivery_report_status.enum.dart';
 
 extension DSDeliveryReportStatusExtension on DSDeliveryReportStatus {
   DSDeliveryReportStatus getValue(String value) =>

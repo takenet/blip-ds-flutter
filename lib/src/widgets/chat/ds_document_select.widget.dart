@@ -1,8 +1,10 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/buttons/ds_menu_item.widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
 import '../../models/ds_document_select.model.dart';
+import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_message_content_type.util.dart';
+import '../buttons/ds_menu_item.widget.dart';
 
 /// A Design System widget used to display a select menu with image.
 class DSDocumentSelect extends StatelessWidget {

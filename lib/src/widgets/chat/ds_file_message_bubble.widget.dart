@@ -40,7 +40,6 @@ class DSFileMessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => controller.openFile(
-        filename: filename,
         url: url,
         httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       ),

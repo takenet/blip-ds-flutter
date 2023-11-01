@@ -1,6 +1,7 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/widgets/switch/ds_switch_base.widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import 'ds_switch_base.widget.dart';
 
 class DSSwitch extends DSSwitchBase {
   /// Creates a customizable switch for use alone or in conjunction with ListTile

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as path_utils;
 
 import '../../services/ds_auth.service.dart';
 import '../../services/ds_file.service.dart';
@@ -40,21 +39,20 @@ class DSImageMessageBubbleController extends GetxController {
 
     final uri = Uri.parse(url);
 
-    final fullPath = await DSDirectoryFormatter.getPath(
+    final cachePath = await DSDirectoryFormatter.getCachePath(
       type: mediaType!,
-      fileName: md5.convert(utf8.encode(uri.path)).toString(),
+      filename: md5.convert(utf8.encode(uri.path)).toString(),
     );
 
-    if (await File(fullPath).exists()) {
-      localPath.value = fullPath;
+    if (File(cachePath).existsSync()) {
+      localPath.value = cachePath;
       return;
     }
 
     try {
       final savedFilePath = await DSFileService.download(
-        url,
-        path_utils.basename(fullPath),
-        path: path_utils.dirname(fullPath),
+        url: url,
+        path: cachePath,
         onReceiveProgress: _onReceiveProgress,
         httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
       );

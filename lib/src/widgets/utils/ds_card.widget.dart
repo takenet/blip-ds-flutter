@@ -255,7 +255,6 @@ class DSCard extends StatelessWidget {
         borderRadius: borderRadius,
         style: style,
         uniqueId: messageId,
-        audioType: media.type,
         shouldAuthenticate: shouldAuthenticate,
       );
     } else if (media.type.contains('image')) {

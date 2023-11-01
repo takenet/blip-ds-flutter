@@ -1,5 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_delivery_report_status.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import 'ds_delivery_report_icon.widget.dart';
 
 /// A Design System widget used to display a date and a [DSDeliveryReportIcon] at a message.
 class DSMessageBubbleDetail extends StatelessWidget {
