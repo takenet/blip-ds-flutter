@@ -74,28 +74,16 @@ abstract class DSFileService {
       );
 
       if (response.statusCode == 200) {
-        final newExtension = getFileExtensionFromMime(
-          response.headers.map['content-type']?.first,
-        );
+        final hasExtension = path_utils.extension(savedFilePath).isNotEmpty;
 
-        if (newExtension.isNotEmpty) {
-          final hasExtension = path_utils.extension(savedFilePath).isNotEmpty;
+        if (!hasExtension) {
+          final newExtension = getFileExtensionFromMime(
+            response.headers.map['content-type']?.first,
+          );
 
-          final lastDotIndex =
-              hasExtension ? savedFilePath.lastIndexOf('.') : -1;
+          if (newExtension.isNotEmpty) {
+            final filename = savedFilePath.substring(0);
 
-          late final String filename;
-          late final String savedExtension;
-
-          if (lastDotIndex >= 0) {
-            filename = savedFilePath.substring(0, lastDotIndex);
-            savedExtension = savedFilePath.substring(lastDotIndex + 1);
-          } else {
-            filename = savedFilePath.substring(0);
-            savedExtension = '';
-          }
-
-          if (newExtension != savedExtension) {
             final newFilePath = '$filename.$newExtension';
 
             File(savedFilePath).renameSync(newFilePath);

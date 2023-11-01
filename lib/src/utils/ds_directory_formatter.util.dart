@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../services/ds_file.service.dart';
-
 abstract class DSDirectoryFormatter {
   static Future<String> getCachePath({
     required final String type,
@@ -16,7 +14,7 @@ abstract class DSDirectoryFormatter {
     final typeComponents = type.split('/');
 
     final typeFolder = '${typeComponents.first.capitalizeFirst}';
-    extension ??= DSFileService.getFileExtensionFromMime(type);
+    extension ??= typeComponents.last;
 
     final typePrefix = '${typeFolder.substring(0, 3).toUpperCase()}-';
 
