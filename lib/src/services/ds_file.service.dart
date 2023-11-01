@@ -7,6 +7,8 @@ import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../utils/ds_utils.util.dart';
+
 abstract class DSFileService {
   static Future<void> open({
     required final String url,
@@ -54,7 +56,7 @@ abstract class DSFileService {
       var savedFilePath = path ??
           path_utils.join(
             (await getTemporaryDirectory()).path,
-            DateTime.now().toIso8601String().replaceAll('.', ''),
+            DSUtils.generateUniqueID(),
           );
 
       if (File(savedFilePath).existsSync()) {
