@@ -7,17 +7,20 @@ import 'ds_icon_button.widget.dart';
 class DSCustomRepliesIconButton extends StatelessWidget {
   final void Function() onPressed;
   final bool isVisible;
+  final bool isLoading;
 
   const DSCustomRepliesIconButton({
     super.key,
     required this.onPressed,
     this.isVisible = true,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) => Visibility(
         visible: isVisible,
         child: DSIconButton(
+          isLoading: isLoading,
           onPressed: onPressed,
           icon: const Icon(
             DSIcons.message_talk_outline,

@@ -163,7 +163,7 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
                                 props.title,
                                 overflow: TextOverflow.visible,
                               ),
-                            if (props.message != null)
+                            if (props.message?.isNotEmpty ?? false)
                               DSBodyText(
                                 props.message,
                                 overflow: TextOverflow.visible,

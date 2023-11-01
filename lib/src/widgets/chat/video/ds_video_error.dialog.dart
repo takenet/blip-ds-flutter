@@ -1,13 +1,16 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
 import '../../../services/ds_dialog.service.dart';
 import '../../../services/ds_file.service.dart';
+import '../../../utils/ds_directory_formatter.util.dart';
 import '../../buttons/ds_primary_button.widget.dart';
 import '../../buttons/ds_secondary_button.widget.dart';
 
 abstract class DSVideoErrorDialog {
   static Future<void> show({
-    required final String filename,
     required final String url,
     final Map<String, String?>? httpHeaders,
   }) async {
@@ -19,9 +22,15 @@ abstract class DSVideoErrorDialog {
       primaryButton: DSPrimaryButton(
         onPressed: () async {
           Get.back();
+
+          final cachePath = await DSDirectoryFormatter.getCachePath(
+            type: 'video/mp4',
+            filename: md5.convert(utf8.encode(Uri.parse(url).path)).toString(),
+          );
+
           await DSFileService.open(
-            filename,
-            url,
+            url: url,
+            path: cachePath,
             httpHeaders: httpHeaders,
           );
         },

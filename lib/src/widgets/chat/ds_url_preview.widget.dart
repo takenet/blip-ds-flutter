@@ -1,8 +1,16 @@
-import 'package:blip_ds/blip_ds.dart';
-import 'package:blip_ds/src/controllers/chat/ds_url_preview.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../controllers/chat/ds_url_preview.controller.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../animations/ds_animated_size.widget.dart';
+import '../animations/ds_ring_loading.widget.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import '../utils/ds_cached_network_image_view.widget.dart';
 
 /// A Design System's clickable URL previewer that shows some metadata infos about the given [url].
 class DSUrlPreview extends StatefulWidget {

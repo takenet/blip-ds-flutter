@@ -97,11 +97,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
-    final backgroundLoadingColor =
-        widget.style.isLightBubbleBackground(widget.align)
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralDarkCity;
-
     final buttonBorderColor = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.primaryNight
         : DSColors.neutralLightSnow;

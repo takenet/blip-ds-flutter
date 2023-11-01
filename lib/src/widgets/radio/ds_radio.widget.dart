@@ -1,38 +1,8 @@
-// Copyright 2014 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 
-/// A Design System radio button custom.
-///
-/// Used to select between a number of mutually exclusive values. When one radio
-/// button in a group is selected, the other radio buttons in the group cease to
-/// be selected. The values are of type `T`, the type parameter of the [Radio]
-/// class. Enums are commonly used for this purpose.
-///
-/// The radio button itself does not maintain any state. Instead, selecting the
-/// radio invokes the [onChanged] callback, passing [value] as a parameter. If
-/// [groupValue] and [value] match, this radio will be selected. Most widgets
-/// will respond to [onChanged] by calling [State.setState] to update the
-/// radio button's [groupValue].
-///
+import '../../themes/colors/ds_colors.theme.dart';
 
 class DSRadio<T> extends Radio<T> {
-  /// Creates a Design System radio button.
-  ///
-  /// The radio button itself does not maintain any state. Instead, when the
-  /// radio button is selected, the widget calls the [onChanged] callback. Most
-  /// widgets that use a radio button will listen for the [onChanged] callback
-  /// and rebuild the radio button with a new [groupValue] to update the visual
-  /// appearance of the radio button.
-  ///
-  /// The following arguments are required:
-  ///
-  /// * [value] and [groupValue] together determine whether the radio button is
-  ///   selected.
-  /// * [onChanged] is called when the user selects this radio button.
   const DSRadio({
     Key? key,
     required super.value,
@@ -44,7 +14,6 @@ class DSRadio<T> extends Radio<T> {
           key: key,
         );
 
-  /// The [isEnabled] parameter allows disabling the radio button according to its true/false value.
   final bool isEnabled;
 
   bool get _selected => value == groupValue;

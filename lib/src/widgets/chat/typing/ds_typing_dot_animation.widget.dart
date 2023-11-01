@@ -1,6 +1,6 @@
-import 'package:blip_ds/src/utils/ds_utils.util.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/ds_utils.util.dart';
 import 'ds_typing_dot.widget.dart';
 
 class DSTypingDotAnimation extends StatefulWidget {

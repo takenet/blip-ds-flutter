@@ -1,5 +1,6 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../../blip_ds.dart';
 
 class DSRadioTile<T> extends StatelessWidget {
   /// Create a Design System's tile widget with a radio button

@@ -1,6 +1,11 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../enums/ds_delivery_report_status.enum.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_caption_small_text.widget.dart';
 
 /// A Design System widget used to display a delivery report status icon.
 class DSDeliveryReportIcon extends StatelessWidget {

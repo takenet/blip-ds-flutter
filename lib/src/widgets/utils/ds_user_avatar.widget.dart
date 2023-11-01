@@ -1,6 +1,10 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
+import '../texts/ds_body_text.widget.dart';
 
 class DSUserAvatar extends StatelessWidget {
   final String? text;
@@ -46,15 +50,16 @@ class DSUserAvatar extends StatelessWidget {
   String get _initials {
     String initials = '';
 
-    if ((text?.isNotEmpty ?? false) && (int.tryParse(text!) == null)) {
-      initials =
-          RegExp(text!.split(' ').length >= 2 ? r'\b[A-Za-z]' : r'[A-Za-z]')
-              .allMatches(text!)
-              .map((m) => m.group(0))
-              .join()
-              .toUpperCase();
+    if (text?.isNotEmpty ?? false) {
+      initials = RegExp('${text!.split(' ').length >= 2 ? '\\b' : ''}[A-Za-z]')
+          .allMatches(text!)
+          .map((m) => m.group(0))
+          .join()
+          .toUpperCase();
 
-      initials = initials.substring(0, initials.length >= 2 ? 2 : 1);
+      if (initials.isNotEmpty) {
+        initials = initials.substring(0, initials.length >= 2 ? 2 : 1);
+      }
     }
 
     return initials;
@@ -66,7 +71,7 @@ class DSUserAvatar extends StatelessWidget {
           backgroundColor: backgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child: int.tryParse(text!) == null
+            child: _initials.isNotEmpty
                 ? DSBodyText(
                     _initials,
                     color: textColor,

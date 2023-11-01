@@ -1,4 +1,5 @@
-import 'package:blip_ds/blip_ds.dart';
+import '../enums/ds_align.enum.dart';
+import '../enums/ds_delivery_report_status.enum.dart';
 
 /// A Design System message model used with [DSGroupCard] to display grouped bubble
 class DSMessageItemModel {
