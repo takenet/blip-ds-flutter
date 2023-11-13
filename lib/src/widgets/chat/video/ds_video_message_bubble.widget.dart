@@ -11,7 +11,7 @@ import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../buttons/ds_button.widget.dart';
-import '../../utils/ds_progressive_progress.widget.dart';
+import '../../utils/ds_circular_progress.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
 import 'ds_video_body.widget.dart';
@@ -131,7 +131,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         color: DSColors.neutralDarkRooftop,
                       )
                     : _controller.isDownloading.value
-                        ? DSProgressiveProgress(
+                        ? DSCircularProgress(
                             currentProgress: _controller.downloadProgress,
                             maximumProgress: _controller.maximumProgress,
                             foregroundColor: foregroundColor,

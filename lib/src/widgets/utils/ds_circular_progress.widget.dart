@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../texts/ds_caption_small_text.widget.dart';
 
-class DSProgressiveProgress extends StatelessWidget {
+class DSCircularProgress extends StatelessWidget {
   final RxInt maximumProgress;
   final RxInt currentProgress;
   final Color? foregroundColor;
 
-  const DSProgressiveProgress({
+  const DSCircularProgress({
     super.key,
     required this.maximumProgress,
     required this.currentProgress,

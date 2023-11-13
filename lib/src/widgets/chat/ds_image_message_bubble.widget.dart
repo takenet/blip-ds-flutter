@@ -8,8 +8,8 @@ import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../texts/ds_caption_text.widget.dart';
+import '../utils/ds_circular_progress.widget.dart';
 import '../utils/ds_expanded_image.widget.dart';
-import '../utils/ds_progressive_progress.widget.dart';
 import 'ds_document_select.widget.dart';
 import 'ds_message_bubble.widget.dart';
 import 'ds_show_more_text.widget.dart';
@@ -115,7 +115,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
                         isLoading: false,
                         shouldAuthenticate: widget.shouldAuthenticate,
                       )
-                    : DSProgressiveProgress(
+                    : DSCircularProgress(
                         currentProgress: _controller.downloadProgress,
                         maximumProgress: _controller.maximumProgress,
                         foregroundColor: foregroundColor,

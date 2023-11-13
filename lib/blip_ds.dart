@@ -151,6 +151,8 @@ export 'src/widgets/utils/ds_cached_network_image_view.widget.dart'
     show DSCachedNetworkImageView;
 export 'src/widgets/utils/ds_card.widget.dart' show DSCard;
 export 'src/widgets/utils/ds_chip.widget.dart' show DSChip;
+export 'src/widgets/utils/ds_circular_progress.widget.dart'
+    show DSCircularProgress;
 export 'src/widgets/utils/ds_divider.widget.dart' show DSDivider;
 export 'src/widgets/utils/ds_expanded_image.widget.dart' show DSExpandedImage;
 export 'src/widgets/utils/ds_file_extension_icon.util.dart'
@@ -158,6 +160,4 @@ export 'src/widgets/utils/ds_file_extension_icon.util.dart'
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
-export 'src/widgets/utils/ds_progressive_progress.widget.dart'
-    show DSProgressiveProgress;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
