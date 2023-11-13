@@ -48,6 +48,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
+  /// Upload content
+  final Future? upload;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -60,6 +63,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     required this.appBarText,
     required this.mediaSize,
     this.appBarPhotoUri,
+    this.upload,
     this.type = 'video/mp4',
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
@@ -117,71 +121,82 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       padding: EdgeInsets.zero,
       style: widget.style,
       child: LayoutBuilder(
-        builder: (_, constraints) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Obx(
-              () => SizedBox(
-                height: 240,
-                width: 240,
-                child: _controller.hasError.value
-                    ? const Icon(
-                        DSIcons.video_broken_outline,
-                        size: 80.0,
-                        color: DSColors.neutralDarkRooftop,
-                      )
-                    : _controller.isDownloading.value
-                        ? _buildDownloadProgress(foregroundColor)
-                        : _controller.thumbnail.isEmpty
-                            ? Center(
-                                child: SizedBox(
-                                  height: 40,
-                                  child: DSButton(
-                                    leadingIcon: const Icon(
-                                      DSIcons.download_outline,
-                                      size: 20,
-                                    ),
-                                    backgroundColor: buttonBackgroundColor,
-                                    foregroundColor: buttonForegroundColor,
-                                    borderColor: buttonBorderColor,
-                                    label: _controller.size(),
-                                    onPressed: _controller.downloadVideo,
-                                  ),
-                                ),
+        builder: (_, constraints) => FutureBuilder(
+          future: widget.upload,
+          builder: (_, snapshot) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Obx(
+                  () => SizedBox(
+                    height: 240,
+                    width: 240,
+                    child: widget.upload == null || snapshot.hasData
+                        ? _controller.hasError.value
+                            ? const Icon(
+                                DSIcons.video_broken_outline,
+                                size: 80.0,
+                                color: DSColors.neutralDarkRooftop,
                               )
-                            : DSVideoBody(
-                                align: widget.align,
-                                appBarPhotoUri: widget.appBarPhotoUri,
-                                appBarText: widget.appBarText,
-                                url: widget.url,
-                                shouldAuthenticate: widget.shouldAuthenticate,
-                                thumbnail: Center(
-                                  child: Image.file(
-                                    File(
-                                      _controller.thumbnail.value,
-                                    ),
-                                    width: 240,
-                                    height: 240,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-              ),
-            ),
-            if (widget.text?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
+                            : _controller.isDownloading.value
+                                ? _buildDownloadProgress(foregroundColor)
+                                : _controller.thumbnail.isEmpty
+                                    ? Center(
+                                        child: SizedBox(
+                                          height: 40,
+                                          child: DSButton(
+                                            leadingIcon: const Icon(
+                                              DSIcons.download_outline,
+                                              size: 20,
+                                            ),
+                                            backgroundColor:
+                                                buttonBackgroundColor,
+                                            foregroundColor:
+                                                buttonForegroundColor,
+                                            borderColor: buttonBorderColor,
+                                            label: _controller.size(),
+                                            onPressed:
+                                                _controller.downloadVideo,
+                                          ),
+                                        ),
+                                      )
+                                    : DSVideoBody(
+                                        align: widget.align,
+                                        appBarPhotoUri: widget.appBarPhotoUri,
+                                        appBarText: widget.appBarText,
+                                        url: widget.url,
+                                        shouldAuthenticate:
+                                            widget.shouldAuthenticate,
+                                        thumbnail: Center(
+                                          child: Image.file(
+                                            File(
+                                              _controller.thumbnail.value,
+                                            ),
+                                            width: 240,
+                                            height: 240,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                        : const CircularProgressIndicator(),
+                  ),
                 ),
-                child: DSShowMoreText(
-                  text: widget.text!,
-                  align: widget.align,
-                  style: widget.style,
-                  maxWidth: constraints.maxWidth,
-                ),
-              ),
-          ],
+                if (widget.text?.isNotEmpty ?? false)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: DSShowMoreText(
+                      text: widget.text!,
+                      align: widget.align,
+                      style: widget.style,
+                      maxWidth: constraints.maxWidth,
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

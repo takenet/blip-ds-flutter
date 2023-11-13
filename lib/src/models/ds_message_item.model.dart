@@ -30,6 +30,9 @@ class DSMessageItemModel {
   /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
   bool? hideMessageDetail;
 
+  /// Future content
+  Future? upload;
+
   /// Creates a new Design System's [DSMessageItemModel] model
   DSMessageItemModel({
     this.id,
@@ -41,6 +44,7 @@ class DSMessageItemModel {
     this.content,
     this.customer,
     this.hideMessageDetail,
+    this.upload,
   });
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +54,7 @@ class DSMessageItemModel {
       displayDate: json['displayDate'],
       align: json['align'] == "left" ? DSAlign.left : DSAlign.right,
       type: json['type'],
+      upload: json['upload'],
       content: json['content'],
       status: DSDeliveryReportStatus.unknown.getValue(json['status']),
       hideMessageDetail: json['hideMessageDetail'],

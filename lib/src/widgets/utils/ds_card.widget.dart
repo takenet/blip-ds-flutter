@@ -16,6 +16,7 @@ import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
+import '../chat/ds_loading_bubble.widget.dart';
 import '../chat/ds_location_message_bubble.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_request_location_bubble.widget.dart';
@@ -137,6 +138,13 @@ class DSCard extends StatelessWidget {
           messageType: DSTicketMessageType.forwardedTicket,
           ticketId: content['formattedTicketId'],
           chatbotIdentity: content['ownerIdentity'],
+        );
+
+      case DSMessageContentType.loading:
+        return DSLoadingBubbleWidget(
+          style: style,
+          align: align,
+          borderRadius: borderRadius,
         );
 
       case DSMessageContentType.input:
@@ -292,6 +300,7 @@ class DSCard extends StatelessWidget {
         style: style,
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
+        upload: content['upload'],
       );
     } else {
       return DSFileMessageBubble(
