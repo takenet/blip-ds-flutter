@@ -11,7 +11,7 @@ import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../buttons/ds_button.widget.dart';
-import '../../texts/ds_caption_small_text.widget.dart';
+import '../../utils/ds_circular_progress.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
 import 'ds_video_body.widget.dart';
@@ -131,7 +131,11 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         color: DSColors.neutralDarkRooftop,
                       )
                     : _controller.isDownloading.value
-                        ? _buildDownloadProgress(foregroundColor)
+                        ? DSCircularProgress(
+                            currentProgress: _controller.downloadProgress,
+                            maximumProgress: _controller.maximumProgress,
+                            foregroundColor: foregroundColor,
+                          )
                         : _controller.thumbnail.isEmpty
                             ? Center(
                                 child: SizedBox(
@@ -183,34 +187,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
               ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildDownloadProgress(final Color foregroundColor) {
-    final double percent = _controller.maximumProgress.value > 0
-        ? _controller.downloadProgress.value / _controller.maximumProgress.value
-        : 0;
-
-    return AnimatedOpacity(
-      opacity: _controller.maximumProgress.value > 0 ? 1 : 0,
-      duration: const Duration(milliseconds: 250),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircularProgressIndicator(
-              color: foregroundColor,
-              backgroundColor: Colors.grey,
-              value: percent,
-            ),
-          ),
-          DSCaptionSmallText(
-            _controller.getDownloadProgress(),
-            color: foregroundColor,
-          )
-        ],
       ),
     );
   }
