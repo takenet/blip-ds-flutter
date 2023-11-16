@@ -1,3 +1,13 @@
+## 0.0.86
+
+- [DSMediaFormatService] Added service to format all kinds of media, like audios and videos.
+- [DSAudioPlayer] Play audio from local storage when available.
+- [DSFileService] Improved download method to get extension based on mime type.
+
+## 0.0.85
+
+- [DSVideoMessageBubble] Added a progressive loading
+
 ## 0.0.84
 
 - [DSImageMessageBubble] Improved the performance of the image bubble

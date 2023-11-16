@@ -1,5 +1,13 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSContactMessageBubble extends StatelessWidget {
   final String? name;

@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+
 import '../models/ds_country.model.dart';
 
 /// All utility constants that are used by this Design System.
@@ -6,6 +10,9 @@ abstract class DSUtils {
   static const bubbleMinSize = 240.0;
   static const bubbleMaxSize = 480.0;
   static const defaultAnimationDuration = Duration(milliseconds: 300);
+
+  static String generateUniqueID() =>
+      md5.convert(utf8.encode(DateTime.now().toIso8601String())).toString();
 
   static const countriesList = <DSCountry>[
     DSCountry(

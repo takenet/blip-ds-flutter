@@ -2,22 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
+import '../../services/ds_media_format.service.dart';
 import '../../services/ds_toast.service.dart';
 import '../../utils/ds_directory_formatter.util.dart';
-import '../../widgets/chat/video/ds_video_error.dialog.dart';
 
 class DSVideoMessageBubbleController {
   final String url;
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
   final String type;
+  final maximumProgress = RxInt(0);
+  final downloadProgress = RxInt(0);
 
   DSVideoMessageBubbleController({
     required this.url,
@@ -47,19 +47,23 @@ class DSVideoMessageBubbleController {
     try {
       isLoadingThumbnail.value = true;
       final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
-      final fullPath = await DSDirectoryFormatter.getPath(
+
+      final fullPath = await DSDirectoryFormatter.getCachePath(
         type: type,
-        fileName: fileName,
+        filename: fileName,
       );
-      final fullThumbnailPath = await DSDirectoryFormatter.getPath(
+
+      final fullThumbnailPath = await DSDirectoryFormatter.getCachePath(
         type: 'image/png',
-        fileName: '$fileName-thumbnail',
+        filename: '$fileName-thumbnail',
       );
+
       final file = File(fullPath);
       final thumbnailfile = File(fullThumbnailPath);
-      if (await thumbnailfile.exists()) {
+
+      if (thumbnailfile.existsSync()) {
         thumbnail.value = thumbnailfile.path;
-      } else if (await file.exists() && thumbnail.value.isEmpty) {
+      } else if (file.existsSync() && thumbnail.value.isEmpty) {
         await _generateThumbnail(file.path);
       }
     } finally {
@@ -69,46 +73,40 @@ class DSVideoMessageBubbleController {
 
   Future<String> getFullThumbnailPath() async {
     final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
-    final mediaPath = await DSDirectoryFormatter.getPath(
+
+    return DSDirectoryFormatter.getCachePath(
       type: 'image/png',
-      fileName: '$fileName-thumbnail',
+      filename: '$fileName-thumbnail',
     );
-    return mediaPath;
   }
 
   Future<void> downloadVideo() async {
-    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
     isDownloading.value = true;
 
     try {
-      final fullPath = await DSDirectoryFormatter.getPath(
+      final cachePath = await DSDirectoryFormatter.getCachePath(
         type: 'video/mp4',
-        fileName: fileName,
+        filename: md5.convert(utf8.encode(Uri.parse(url).path)).toString(),
       );
-      final outputFile = File(fullPath);
 
-      if (!await outputFile.exists()) {
+      final outputFile = File(cachePath);
+
+      if (!outputFile.existsSync()) {
         final inputFilePath = await DSFileService.download(
-          url,
-          fileName,
+          url: url,
+          onReceiveProgress: (current, max) {
+            downloadProgress.value = current;
+            maximumProgress.value = max;
+          },
           httpHeaders: httpHeaders,
         );
 
-        final session = await FFmpegKit.execute(
-            '-hide_banner -y -i "$inputFilePath" "${outputFile.path}"');
+        final isSuccess = await DSMediaFormatService.formatVideo(
+          input: inputFilePath!,
+          output: cachePath,
+        );
 
-        File(inputFilePath!).delete();
-
-        final returnCode = await session.getReturnCode();
-
-        if (!ReturnCode.isSuccess(returnCode)) {
-          hasError.value = true;
-          await DSVideoErrorDialog.show(
-            filename: fileName,
-            url: url,
-            httpHeaders: httpHeaders,
-          );
-        }
+        hasError.value = !isSuccess;
       }
 
       _generateThumbnail(outputFile.path);
@@ -130,10 +128,20 @@ class DSVideoMessageBubbleController {
   Future<void> _generateThumbnail(String path) async {
     final thumbnailPath = await getFullThumbnailPath();
 
-    await FFmpegKit.execute(
-      '-hide_banner -y -i "$path" -vframes 1 "$thumbnailPath"',
+    await DSMediaFormatService.getVideoThumbnail(
+      input: path,
+      output: thumbnailPath,
     );
 
     thumbnail.value = thumbnailPath;
+  }
+
+  String getDownloadProgress() {
+    String getSize(int value) => FileSize.getSize(
+          value,
+          precision: PrecisionValue.One,
+        );
+
+    return '${getSize(downloadProgress.value)} / ${getSize(maximumProgress.value)}';
   }
 }

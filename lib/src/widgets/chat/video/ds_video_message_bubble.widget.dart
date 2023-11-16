@@ -10,8 +10,8 @@ import '../../../models/ds_message_bubble_style.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
-import '../../animations/ds_fading_circle_loading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
+import '../../utils/ds_circular_progress.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
 import 'ds_video_body.widget.dart';
@@ -101,11 +101,6 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
 
-    final backgroundLoadingColor =
-        widget.style.isLightBubbleBackground(widget.align)
-            ? DSColors.neutralLightSnow
-            : DSColors.neutralDarkCity;
-
     final buttonBorderColor = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.primaryNight
         : DSColors.neutralLightSnow;
@@ -140,20 +135,11 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         size: 80.0,
                         color: DSColors.neutralDarkRooftop,
                       )
-                    : (_controller.isDownloading.value ||
-                            _controller.isLoadingThumbnail.value)
-                        ? Center(
-                            child: Container(
-                              height: 50.0,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: foregroundColor,
-                              ),
-                              child: DSFadingCircleLoading(
-                                color: backgroundLoadingColor,
-                                size: 45.0,
-                              ),
-                            ),
+                    : _controller.isDownloading.value
+                        ? DSCircularProgress(
+                            currentProgress: _controller.downloadProgress,
+                            maximumProgress: _controller.maximumProgress,
+                            foregroundColor: foregroundColor,
                           )
                         : _controller.thumbnail.isEmpty
                             ? Center(

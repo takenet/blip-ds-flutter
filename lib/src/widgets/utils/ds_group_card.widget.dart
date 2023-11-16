@@ -335,7 +335,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             0,
             Padding(
               key: ValueKey<String>(
-                message.id ?? DateTime.now().toIso8601String(),
+                message.id ?? DSUtils.generateUniqueID(),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Table(

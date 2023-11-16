@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/colors/ds_colors.theme.dart';
 
 class DSSpinnerLoading extends StatefulWidget {
   const DSSpinnerLoading({

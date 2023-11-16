@@ -1,5 +1,6 @@
-import 'package:blip_ds/src/themes/colors/ds_linear_gradient.theme.dart';
 import 'package:flutter/material.dart';
+
+import 'ds_linear_gradient.theme.dart';
 
 /// All [Color] constants that are used by this Design System.
 abstract class DSColors {

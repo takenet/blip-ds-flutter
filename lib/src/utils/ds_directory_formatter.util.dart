@@ -4,19 +4,22 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class DSDirectoryFormatter {
-  static Future<String> getPath({
+  static Future<String> getCachePath({
     required final String type,
-    required final String fileName,
+    required final String filename,
+    String? extension,
   }) async {
     final cachePath = (await getApplicationCacheDirectory()).path;
 
-    final typeFolder = '${type.split('/').first.capitalizeFirst}';
-    final extension = type.split('/').last;
+    final typeComponents = type.split('/');
+
+    final typeFolder = '${typeComponents.first.capitalizeFirst}';
+    extension ??= typeComponents.last;
 
     final typePrefix = '${typeFolder.substring(0, 3).toUpperCase()}-';
 
     final newFileName =
-        '${!fileName.startsWith(typePrefix) ? typePrefix : ''}$fileName';
+        '${!filename.startsWith(typePrefix) ? typePrefix : ''}$filename';
 
     final path = await _formatDirectory(
       type: typeFolder,

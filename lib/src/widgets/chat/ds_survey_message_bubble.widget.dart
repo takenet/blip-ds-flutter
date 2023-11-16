@@ -1,5 +1,16 @@
-import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../enums/ds_survey_scale.enum.dart';
+import '../../enums/ds_survey_type.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../texts/ds_button_text.widget.dart';
+import '../texts/ds_caption_text.widget.dart';
+import '../texts/ds_headline_small_text.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSSurveyMessageBubble extends StatelessWidget {
   final DSAlign align;
