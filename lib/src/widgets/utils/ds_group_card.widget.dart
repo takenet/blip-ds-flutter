@@ -261,7 +261,6 @@ class _DSGroupCardState extends State<DSGroupCard> {
             onOpenLink: widget.onOpenLink,
             messageId: message.id,
             customer: message.customer,
-            replyContent: message.replyContent,
           );
 
           final isLastMsg = msgCount == length;

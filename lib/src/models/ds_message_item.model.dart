@@ -27,9 +27,6 @@ class DSMessageItemModel {
   /// Customer data
   Map<String, dynamic>? customer;
 
-  /// The message content
-  dynamic replyContent;
-
   /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
   bool? hideMessageDetail;
 
@@ -44,7 +41,6 @@ class DSMessageItemModel {
     this.content,
     this.customer,
     this.hideMessageDetail,
-    this.replyContent,
   });
 
   factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
@@ -57,7 +53,6 @@ class DSMessageItemModel {
       content: json['content'],
       status: DSDeliveryReportStatus.unknown.getValue(json['status']),
       hideMessageDetail: json['hideMessageDetail'],
-      replyContent: json['replyContent'],
     );
 
     if (json.containsKey('customer')) {

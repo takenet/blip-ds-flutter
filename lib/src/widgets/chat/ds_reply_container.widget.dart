@@ -100,14 +100,10 @@ Widget _replyWidget(
   DSMessageBubbleStyle style,
   DSAlign align,
 ) {
-  final replyType =
-      replyContent != '' ? replyContent['content']['replied']['type'] : '';
-  switch (replyType) {
+  switch (replyContent['type']) {
     case DSMessageContentType.textPlain:
       return DSBodyText(
-        replyContent['content']['replied']['value'] is String
-            ? replyContent['content']['replied']['value']
-            : '**********',
+        replyContent['value'] is String ? replyContent['value'] : '**********',
         color: _color(align, style),
         overflow: TextOverflow.visible,
       );

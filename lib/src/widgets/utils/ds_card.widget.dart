@@ -94,7 +94,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
-          replyContent: replyContent,
+          replyContent: content['inReplyTo'],
         );
 
       case DSMessageContentType.mediaLink:
