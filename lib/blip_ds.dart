@@ -89,6 +89,8 @@ export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
+export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
+    show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
 export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
     show DSContactMessageBubble;

@@ -13,13 +13,12 @@ class DSSelectMenu extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   DSSelectMenu({
-    Key? key,
+    super.key,
     required this.align,
     required this.content,
     this.onSelected,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

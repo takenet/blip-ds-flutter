@@ -53,6 +53,34 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSApplicationJsonMessageBubble(
+            align: DSAlign.left,
+            borderRadius: const [DSBorderRadius.all],
+            content: const {
+              "recipient_type": "individual",
+              "type": "interactive",
+              "interactive": {
+                "type": "list",
+                "body": {"text": "Selecione qual é o seu interesse:"},
+                "action": {
+                  "button": "Selecione uma opção",
+                  "sections": [
+                    {
+                      "rows": [
+                        {"id": "1", "title": "Casas de Festas"},
+                        {"id": "2", "title": "021 Formatura"},
+                        {"id": "3", "title": "Bravo"},
+                        {"id": "4", "title": "Menu anterior"}
+                      ]
+                    }
+                  ]
+                },
+                "footer": {
+                  "text": "Clique no botão abaixo para selecionar uma opção"
+                }
+              }
+            },
+          ),
           DSTextMessageBubble(
             text: _longText,
             align: DSAlign.left,
