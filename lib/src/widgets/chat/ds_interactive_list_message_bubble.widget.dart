@@ -45,7 +45,17 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
         children: [
           DSMessageBubble(
             align: align,
-            borderRadius: borderRadius,
+            borderRadius: [
+              ...(borderRadius.contains(DSBorderRadius.all)
+                  ? [
+                      DSBorderRadius.topLeft,
+                      DSBorderRadius.topRight,
+                    ]
+                  : borderRadius),
+              align == DSAlign.left
+                  ? DSBorderRadius.bottomRight
+                  : DSBorderRadius.bottomLeft,
+            ],
             style: style,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +70,20 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
           ),
           DSMessageBubble(
             align: align,
-            borderRadius: borderRadius,
+            borderRadius: [
+              ...(borderRadius.contains(DSBorderRadius.all)
+                  ? [
+                      DSBorderRadius.bottomLeft,
+                      DSBorderRadius.bottomRight,
+                    ]
+                  : borderRadius),
+              align == DSAlign.left
+                  ? DSBorderRadius.topRight
+                  : DSBorderRadius.topLeft,
+            ],
             style: style,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: _buildList(),
             ),
           ),
@@ -79,17 +100,11 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
           padding: const EdgeInsets.only(
             bottom: bottomPadding,
           ),
-          child: DSBodyText(
-            content.body!.text,
-            overflow: TextOverflow.visible,
-            color: isLightBubbleBackground
-                ? isDefaultBubbleColors
-                    ? DSColors.primaryNight
-                    : DSColors.neutralDarkCity
-                : isDefaultBubbleColors
-                    ? DSColors.primaryLight
-                    : DSColors.neutralLightSnow,
-          ),
+          child: DSBodyText(content.body!.text,
+              overflow: TextOverflow.visible,
+              color: isLightBubbleBackground
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow),
         ),
       );
     }
@@ -105,12 +120,8 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
             fontStyle: FontStyle.italic,
             overflow: TextOverflow.visible,
             color: isLightBubbleBackground
-                ? isDefaultBubbleColors
-                    ? DSColors.primaryNight
-                    : DSColors.neutralDarkCity
-                : isDefaultBubbleColors
-                    ? DSColors.primaryLight
-                    : DSColors.neutralLightSnow,
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
           ),
         ),
       );
@@ -149,12 +160,8 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
               DSIcons.list_outline,
               size: 20.0,
               color: isLightBubbleBackground
-                  ? isDefaultBubbleColors
-                      ? DSColors.primaryNight
-                      : DSColors.neutralDarkCity
-                  : isDefaultBubbleColors
-                      ? DSColors.primaryLight
-                      : DSColors.neutralLightSnow,
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
             ),
           ),
           if (hasButtonText)
@@ -163,12 +170,8 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
               fontWeight: DSFontWeights.bold,
               overflow: TextOverflow.visible,
               color: isLightBubbleBackground
-                  ? isDefaultBubbleColors
-                      ? DSColors.primaryNight
-                      : DSColors.neutralDarkCity
-                  : isDefaultBubbleColors
-                      ? DSColors.primaryLight
-                      : DSColors.neutralLightSnow,
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
             ),
         ],
       );
@@ -179,6 +182,23 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
     if (hasSections) {
       for (final section in content.action!.sections!) {
         var count = 1;
+
+        if (section.title?.isNotEmpty ?? false) {
+          widgets.add(
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 8.0,
+              ),
+              child: DSBodyText(
+                section.title!,
+                overflow: TextOverflow.visible,
+                color: isLightBubbleBackground
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+              ),
+            ),
+          );
+        }
 
         if (section.rows?.isNotEmpty ?? false) {
           for (final row in section.rows!) {

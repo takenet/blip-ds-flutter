@@ -66,6 +66,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
                   "button": "Selecione uma opção",
                   "sections": [
                     {
+                      "title": "Título da Seção",
                       "rows": [
                         {"id": "1", "title": "Casas de Festas"},
                         {"id": "2", "title": "021 Formatura"},
