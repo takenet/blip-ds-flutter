@@ -33,7 +33,6 @@ dependencies:
   pointer_interceptor: ^0.9.1
   debounce_throttle: ^2.0.0
   file_sizes: ^1.0.6
-  intl_phone_number_input: ^0.7.3+1
   mask_text_input_formatter: ^2.4.0
   dotted_border: ^2.0.0+3
   map_launcher: ^2.5.0+1

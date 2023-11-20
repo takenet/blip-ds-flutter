@@ -15,6 +15,7 @@ class DSSearchInput extends StatelessWidget {
     this.hintText,
     this.iconBackgroundColor = DSColors.disabledBg,
     this.iconForegroundColor = DSColors.primaryNight,
+    this.enabled,
   });
 
   final void Function(String term) onSearch;
@@ -25,6 +26,7 @@ class DSSearchInput extends StatelessWidget {
   final String? hintText;
   final Color iconBackgroundColor;
   final Color iconForegroundColor;
+  final bool? enabled;
 
   // TODO: check if can use DSTextField or DSInputContainer
   @override
@@ -32,6 +34,7 @@ class DSSearchInput extends StatelessWidget {
     return SizedBox(
       height: 44.0,
       child: TextField(
+        enabled: enabled ?? true,
         focusNode: focusNode,
         controller: controller,
         onChanged: onSearch,
@@ -81,13 +84,8 @@ class DSSearchInput extends StatelessWidget {
               width: 1.0,
             ),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: DSColors.neutralMediumWave,
-              width: 1.0,
-            ),
-          ),
+          disabledBorder: _getBorder(),
+          enabledBorder: _getBorder(),
           filled: true,
           hintText: hintText,
           hintStyle: const DSBodyTextStyle(
@@ -97,4 +95,12 @@ class DSSearchInput extends StatelessWidget {
       ),
     );
   }
+
+  OutlineInputBorder _getBorder() => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(
+          color: DSColors.neutralMediumWave,
+          width: 1.0,
+        ),
+      );
 }
