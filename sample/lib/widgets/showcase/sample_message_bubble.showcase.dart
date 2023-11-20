@@ -54,7 +54,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSApplicationJsonMessageBubble(
-            align: DSAlign.left,
+            align: DSAlign.right,
             borderRadius: const [DSBorderRadius.all],
             content: const {
               "recipient_type": "individual",
