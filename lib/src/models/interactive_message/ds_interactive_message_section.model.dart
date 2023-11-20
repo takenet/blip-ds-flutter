@@ -11,11 +11,13 @@ class DSInteractiveMessageSection {
 
   DSInteractiveMessageSection.fromJson(Map<String, dynamic> json)
       : title = json['title'],
-        rows = List.from(json['rows'])
-            .map(
-              (e) => DSInteractiveMessageRow.fromJson(e),
-            )
-            .toList();
+        rows = json['rows'] != null
+            ? List.from(json['rows'])
+                .map(
+                  (e) => DSInteractiveMessageRow.fromJson(e),
+                )
+                .toList()
+            : null;
 
   Map<String, dynamic> toJson() => {
         'title': title,

@@ -60,6 +60,38 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               "recipient_type": "individual",
               "type": "interactive",
               "interactive": {
+                "type": "button",
+                "header": {
+                  "type": "video",
+                  "text": "video blip",
+                  "video": {
+                    "link":
+                        "http://techslides.com/demos/sample-videos/small.mp4"
+                  }
+                },
+                "body": {"text": "Button Body Message"},
+                "action": {
+                  "buttons": [
+                    {
+                      "type": "reply",
+                      "reply": {"id": "unique-postback-id", "title": "First"}
+                    },
+                    {
+                      "type": "reply",
+                      "reply": {"id": "unique-id", "title": "Second"}
+                    }
+                  ]
+                }
+              }
+            },
+          ),
+          DSApplicationJsonMessageBubble(
+            align: DSAlign.left,
+            borderRadius: const [DSBorderRadius.all],
+            content: const {
+              "recipient_type": "individual",
+              "type": "interactive",
+              "interactive": {
                 "type": "list",
                 "body": {
                   "text":
@@ -100,12 +132,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
                   "sections": [
                     {
                       "title": "Título da Seção",
-                      // "rows": [
-                      //   {"id": "1", "title": "Casas de Festas"},
-                      //   {"id": "2", "title": "021 Formatura"},
-                      //   {"id": "3", "title": "Bravo"},
-                      //   {"id": "4", "title": "Menu anterior"}
-                      // ]
+                      "rows": [
+                        {"id": "1", "title": "Casas de Festas"},
+                        {"id": "2", "title": "021 Formatura"},
+                        {"id": "3", "title": "Bravo"},
+                        {"id": "4", "title": "Menu anterior"}
+                      ]
                     }
                   ]
                 },

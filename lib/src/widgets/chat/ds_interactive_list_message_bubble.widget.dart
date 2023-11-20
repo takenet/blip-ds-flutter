@@ -19,8 +19,8 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
 
-  final bool isDefaultBubbleColors;
-  final bool isLightBubbleBackground;
+  late final bool isDefaultBubbleColors;
+  late final bool isLightBubbleBackground;
 
   final bool hasBodyText;
   final bool hasFooterText;
@@ -31,63 +31,73 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
     super.key,
     required this.content,
     required this.align,
-    required this.borderRadius,
-    required this.style,
-  })  : isDefaultBubbleColors = style.isDefaultBubbleBackground(align),
-        isLightBubbleBackground = style.isLightBubbleBackground(align),
+    this.borderRadius = const [DSBorderRadius.all],
+    DSMessageBubbleStyle? style,
+  })  : style = style ?? DSMessageBubbleStyle(),
         hasBodyText = content.body?.text?.isNotEmpty ?? false,
         hasFooterText = content.footer?.text?.isNotEmpty ?? false,
         hasButtonText = content.action?.button?.isNotEmpty ?? false,
-        hasSections = content.action?.sections?.isNotEmpty ?? false;
+        hasSections = content.action?.sections?.isNotEmpty ?? false {
+    isDefaultBubbleColors = this.style.isDefaultBubbleBackground(align);
+    isLightBubbleBackground = this.style.isLightBubbleBackground(align);
+  }
+
+  List<DSBorderRadius> get _headerBorderRadius => [
+        ...(borderRadius.contains(DSBorderRadius.all)
+            ? [
+                DSBorderRadius.topLeft,
+                DSBorderRadius.topRight,
+              ]
+            : borderRadius),
+        align == DSAlign.left
+            ? DSBorderRadius.bottomRight
+            : DSBorderRadius.bottomLeft,
+      ];
+
+  List<DSBorderRadius> get _listBorderRadius => [
+        ...(borderRadius.contains(DSBorderRadius.all)
+            ? [
+                DSBorderRadius.bottomLeft,
+                DSBorderRadius.bottomRight,
+              ]
+            : borderRadius),
+        align == DSAlign.left
+            ? DSBorderRadius.topRight
+            : DSBorderRadius.topLeft,
+      ];
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          DSMessageBubble(
-            align: align,
-            borderRadius: [
-              ...(borderRadius.contains(DSBorderRadius.all)
-                  ? [
-                      DSBorderRadius.topLeft,
-                      DSBorderRadius.topRight,
-                    ]
-                  : borderRadius),
-              align == DSAlign.left
-                  ? DSBorderRadius.bottomRight
-                  : DSBorderRadius.bottomLeft,
-            ],
-            style: style,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._buildHeaderText(),
-                _buildHeaderButton(),
-              ],
-            ),
-          ),
+          _buildHeaderBubble(),
           const SizedBox(
             height: 3.0,
           ),
-          DSMessageBubble(
-            align: align,
-            borderRadius: [
-              ...(borderRadius.contains(DSBorderRadius.all)
-                  ? [
-                      DSBorderRadius.bottomLeft,
-                      DSBorderRadius.bottomRight,
-                    ]
-                  : borderRadius),
-              align == DSAlign.left
-                  ? DSBorderRadius.topRight
-                  : DSBorderRadius.topLeft,
-            ],
-            style: style,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _buildList(),
-            ),
-          ),
+          _buildListBubble(),
         ],
+      );
+
+  Widget _buildHeaderBubble() => DSMessageBubble(
+        align: align,
+        borderRadius: _headerBorderRadius,
+        style: style,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ..._buildHeaderText(),
+            _buildHeaderButton(),
+          ],
+        ),
+      );
+
+  Widget _buildListBubble() => DSMessageBubble(
+        align: align,
+        borderRadius: _listBorderRadius,
+        style: style,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _buildList(),
+        ),
       );
 
   List<Widget> _buildHeaderText() {
@@ -181,13 +191,14 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
 
     if (hasSections) {
       for (final section in content.action!.sections!) {
-        var count = 1;
+        final hasRows = section.rows?.isNotEmpty ?? false;
+        final hasSectionTitle = section.title?.isNotEmpty ?? false;
 
-        if (section.title?.isNotEmpty ?? false) {
+        if (hasSectionTitle) {
           widgets.add(
             Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
+              padding: EdgeInsets.only(
+                bottom: hasRows ? 8.0 : 0.0,
               ),
               child: DSBodyText(
                 section.title!,
@@ -200,9 +211,13 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
           );
         }
 
-        if (section.rows?.isNotEmpty ?? false) {
+        if (hasRows) {
+          var count = 1;
+
           for (final row in section.rows!) {
-            if (row.title?.isNotEmpty ?? false) {
+            final hasRowTitle = row.title?.isNotEmpty ?? false;
+
+            if (hasRowTitle) {
               widgets.add(
                 DSMenuItem(
                   text: row.title!,
