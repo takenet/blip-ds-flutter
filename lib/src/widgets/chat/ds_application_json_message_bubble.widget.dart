@@ -4,6 +4,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../enums/ds_delivery_report_status.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/interactive_list_message/ds_interactive_list_message.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import 'ds_interactive_list_message_bubble.widget.dart';
@@ -62,7 +63,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
       };
 
   Widget _buildInteractiveList() => DSInteractiveListMessageBubble(
-        content: interactive,
+        content: DSInteractiveListMessage.fromJson(interactive),
         align: align,
         borderRadius: borderRadius,
         style: style,

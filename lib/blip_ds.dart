@@ -18,7 +18,7 @@ export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
     show DSMessageBubbleStyle;
-export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
+export 'src/models/ds_message_item.model.dart' show DSMessageItem;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;

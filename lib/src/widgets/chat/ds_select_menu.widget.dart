@@ -35,9 +35,8 @@ class DSSelectMenu extends StatelessWidget {
 
     int count = 0;
 
-    List options = content['options']
-        .map((doc) => DSSelectOptionModel.fromJson(doc))
-        .toList();
+    List options =
+        content['options'].map((doc) => DSSelectOption.fromJson(doc)).toList();
 
     for (final option in options) {
       count++;
