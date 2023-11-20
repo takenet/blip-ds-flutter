@@ -54,6 +54,39 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSApplicationJsonMessageBubble(
+            align: DSAlign.left,
+            borderRadius: const [DSBorderRadius.all],
+            content: const {
+              "recipient_type": "individual",
+              "type": "interactive",
+              "interactive": {
+                "type": "list",
+                "body": {
+                  "text":
+                      "Tenho mais algumas perguntas, mas prometo que vamos ser agéis. Gostaríamos de saber: Em qual segmento sua empresa atua? Essa informação nos ajudará a direcioná-lo para o atendimento ideal."
+                },
+                "action": {
+                  "button": "Selecione uma opção",
+                  "sections": [
+                    {
+                      "rows": [
+                        {"id": "1", "title": "Esq. de Alumínio"},
+                        {"id": "2", "title": "Vidraceiro"},
+                        {"id": "3", "title": "Distribuidor"},
+                        {"id": "4", "title": "Sistemista"},
+                        {"id": "5", "title": "Soluções"},
+                        {"id": "6", "title": "Outros"}
+                      ]
+                    }
+                  ]
+                },
+                "footer": {
+                  "text": "Clique no botão abaixo para selecionar uma opção"
+                }
+              }
+            },
+          ),
+          DSApplicationJsonMessageBubble(
             align: DSAlign.right,
             borderRadius: const [DSBorderRadius.all],
             content: const {
@@ -67,12 +100,12 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
                   "sections": [
                     {
                       "title": "Título da Seção",
-                      "rows": [
-                        {"id": "1", "title": "Casas de Festas"},
-                        {"id": "2", "title": "021 Formatura"},
-                        {"id": "3", "title": "Bravo"},
-                        {"id": "4", "title": "Menu anterior"}
-                      ]
+                      // "rows": [
+                      //   {"id": "1", "title": "Casas de Festas"},
+                      //   {"id": "2", "title": "021 Formatura"},
+                      //   {"id": "3", "title": "Bravo"},
+                      //   {"id": "4", "title": "Menu anterior"}
+                      // ]
                     }
                   ]
                 },

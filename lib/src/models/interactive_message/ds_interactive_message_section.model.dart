@@ -1,19 +1,19 @@
-import 'ds_interactive_list_message_row.model.dart';
+import 'ds_interactive_message_row.model.dart';
 
-class DSInteractiveListMessageSection {
+class DSInteractiveMessageSection {
   final String? title;
-  final List<DSInteractiveListMessageRow>? rows;
+  final List<DSInteractiveMessageRow>? rows;
 
-  DSInteractiveListMessageSection({
+  DSInteractiveMessageSection({
     this.title,
     this.rows,
   });
 
-  DSInteractiveListMessageSection.fromJson(Map<String, dynamic> json)
+  DSInteractiveMessageSection.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         rows = List.from(json['rows'])
             .map(
-              (e) => DSInteractiveListMessageRow.fromJson(e),
+              (e) => DSInteractiveMessageRow.fromJson(e),
             )
             .toList();
 

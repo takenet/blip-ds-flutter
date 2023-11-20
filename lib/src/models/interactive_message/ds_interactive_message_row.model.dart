@@ -1,11 +1,11 @@
-class DSInteractiveListMessageRow {
+class DSInteractiveMessageRow {
   final String? title;
 
-  DSInteractiveListMessageRow({
+  DSInteractiveMessageRow({
     this.title,
   });
 
-  DSInteractiveListMessageRow.fromJson(Map<String, dynamic> json)
+  DSInteractiveMessageRow.fromJson(Map<String, dynamic> json)
       : title = json['title'];
 
   Map<String, dynamic> toJson() => {

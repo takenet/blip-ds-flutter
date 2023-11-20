@@ -149,6 +149,7 @@ class DSCard extends StatelessWidget {
           style: style,
           content: content,
           status: status,
+          avatarConfig: avatarConfig,
         );
 
       default:

@@ -1,11 +1,11 @@
-class DSInteractiveListMessageBody {
+class DSInteractiveMessageFooter {
   final String? text;
 
-  DSInteractiveListMessageBody({
+  DSInteractiveMessageFooter({
     this.text,
   });
 
-  DSInteractiveListMessageBody.fromJson(Map<String, dynamic> json)
+  DSInteractiveMessageFooter.fromJson(Map<String, dynamic> json)
       : text = json['text'];
 
   Map<String, dynamic> toJson() => {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
-import '../../models/interactive_list_message/ds_interactive_list_message.model.dart';
+import '../../models/interactive_message/ds_interactive_message.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
@@ -14,7 +14,7 @@ import '../utils/ds_divider.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
 class DSInteractiveListMessageBubble extends StatelessWidget {
-  final DSInteractiveListMessage content;
+  final DSInteractiveMessage content;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
