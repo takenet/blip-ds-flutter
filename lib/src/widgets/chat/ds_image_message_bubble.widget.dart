@@ -32,8 +32,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.onOpenLink,
     this.shouldAuthenticate = false,
     this.mediaType,
-    this.imageMaxHeight,
-    this.imageMinHeight,
+    this.isUploading = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
@@ -51,8 +50,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final void Function(Map<String, dynamic>)? onOpenLink;
   final bool shouldAuthenticate;
   final String? mediaType;
-  final double? imageMaxHeight;
-  final double? imageMinHeight;
+  final bool isUploading;
 
   @override
   State<StatefulWidget> createState() => _DSImageMessageBubbleState();
@@ -82,7 +80,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
         : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
-      defaultMaxSize: 360.0,
+      defaultMaxSize: 240.0,
       shouldUseDefaultSize: true,
       align: widget.align,
       borderRadius: widget.borderRadius,
@@ -94,32 +92,28 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Obx(
-                () => _controller.localPath.value != null
-                    ? DSExpandedImage(
-                        appBarText: widget.appBarText,
-                        appBarPhotoUri: widget.appBarPhotoUri,
-                        url: _controller.localPath.value!,
-                        maxHeight: widget.imageMaxHeight != null
-                            ? widget.imageMaxHeight!
-                            : widget.showSelect
-                                ? 200.0
-                                : double.infinity,
-                        minHeight: widget.imageMinHeight != null
-                            ? widget.imageMinHeight!
-                            : widget.showSelect
-                                ? 200.0
-                                : 0.0,
-                        align: widget.align,
-                        style: widget.style,
-                        isLoading: false,
-                        shouldAuthenticate: widget.shouldAuthenticate,
-                      )
-                    : DSCircularProgress(
-                        currentProgress: _controller.downloadProgress,
-                        maximumProgress: _controller.maximumProgress,
-                        foregroundColor: foregroundColor,
-                      ),
+              SizedBox(
+                width: 240,
+                height: 200,
+                child: Obx(
+                  () => _controller.localPath.value != null
+                      ? DSExpandedImage(
+                          width: 240.0,
+                          appBarText: widget.appBarText,
+                          appBarPhotoUri: widget.appBarPhotoUri,
+                          url: _controller.localPath.value!,
+                          align: widget.align,
+                          style: widget.style,
+                          isLoading: false,
+                          shouldAuthenticate: widget.shouldAuthenticate,
+                          isUploading: widget.isUploading,
+                        )
+                      : DSCircularProgress(
+                          currentProgress: _controller.downloadProgress,
+                          maximumProgress: _controller.maximumProgress,
+                          foregroundColor: foregroundColor,
+                        ),
+                ),
               ),
               if ((widget.title?.isNotEmpty ?? false) ||
                   (widget.text?.isNotEmpty ?? false))
