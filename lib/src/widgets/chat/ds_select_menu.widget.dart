@@ -13,13 +13,12 @@ class DSSelectMenu extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   DSSelectMenu({
-    Key? key,
+    super.key,
     required this.align,
     required this.content,
     this.onSelected,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +35,8 @@ class DSSelectMenu extends StatelessWidget {
 
     int count = 0;
 
-    List options = content['options']
-        .map((doc) => DSSelectOptionModel.fromJson(doc))
-        .toList();
+    List options =
+        content['options'].map((doc) => DSSelectOption.fromJson(doc)).toList();
 
     for (final option in options) {
       count++;

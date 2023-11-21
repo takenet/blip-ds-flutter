@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
-import '../texts/ds_headline_small_text.widget.dart';
+import '../../themes/texts/utils/ds_font_weights.theme.dart';
+import '../texts/ds_body_text.widget.dart';
 
 class DSMenuItem extends StatelessWidget {
   DSMenuItem({
@@ -12,6 +13,7 @@ class DSMenuItem extends StatelessWidget {
     required this.align,
     this.showBorder = false,
     this.onPressed,
+    this.fontWeight = DSFontWeights.bold,
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
         super(key: key) {
@@ -24,6 +26,7 @@ class DSMenuItem extends StatelessWidget {
   final bool showBorder;
   final void Function()? onPressed;
   final DSMessageBubbleStyle style;
+  final FontWeight fontWeight;
 
   late final bool isDefaultBubbleColors;
   late final bool isLightBubbleBackground;
@@ -55,8 +58,9 @@ class DSMenuItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-              child: DSHeadlineSmallText(
+              child: DSBodyText(
                 text,
+                fontWeight: fontWeight,
                 textAlign: TextAlign.center,
                 color: isLightBubbleBackground
                     ? isDefaultBubbleColors

@@ -26,7 +26,7 @@ class SampleGroupCardShowcase extends StatelessWidget {
                   debugPrint('Infos de callback: $text / $payload');
                 },
                 isComposing: false,
-                documents: snapshot.data as List<DSMessageItemModel>,
+                documents: snapshot.data as List<DSMessageItem>,
                 style: DSMessageBubbleStyle(
                   sentBackgroundColor: DSColors.neutralLightSnow,
                   receivedBackgroundColor: const Color(0xff02afff),

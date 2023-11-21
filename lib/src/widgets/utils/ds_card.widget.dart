@@ -13,7 +13,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
-import '../chat/ds_application_json_bubble.widget.dart';
+import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
@@ -153,6 +153,7 @@ class DSCard extends StatelessWidget {
           style: style,
           content: content,
           status: status,
+          avatarConfig: avatarConfig,
         );
 
       default:

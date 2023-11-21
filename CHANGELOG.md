@@ -1,3 +1,12 @@
+## 0.0.88
+
+- [DSApplicationJsonMessageBubble] Added support for interactive lists and buttons.
+
+## 0.0.87
+
+- [DSCircularProgress] Added widget to build circular progress indicator.
+- [DSSearchInput] Added ```enabled``` property.
+
 ## 0.0.86
 
 - [DSMediaFormatService] Added service to format all kinds of media, like audios and videos.
