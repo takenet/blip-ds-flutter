@@ -1,14 +1,6 @@
-class DSInteractiveMessageImage {
-  final String? link;
+import 'ds_interactive_message_media.model.dart';
 
-  DSInteractiveMessageImage({
-    this.link,
-  });
-
+class DSInteractiveMessageImage extends DSInteractiveMessageMedia {
   DSInteractiveMessageImage.fromJson(Map<String, dynamic> json)
-      : link = json['link'];
-
-  Map<String, dynamic> toJson() => {
-        'link': link,
-      };
+      : super.fromJson(json);
 }

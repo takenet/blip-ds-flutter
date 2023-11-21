@@ -1,18 +1,20 @@
-class DSInteractiveMessageDocument {
-  final String? link;
+import 'ds_interactive_message_media.model.dart';
+
+class DSInteractiveMessageDocument extends DSInteractiveMessageMedia {
   final String? filename;
 
   DSInteractiveMessageDocument({
-    this.link,
+    super.link,
     this.filename,
   });
 
   DSInteractiveMessageDocument.fromJson(Map<String, dynamic> json)
-      : link = json['link'],
-        filename = json['filename'];
+      : filename = json['filename'],
+        super.fromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => {
-        'link': link,
+        'link': super.link,
         'filename': filename,
       };
 }
