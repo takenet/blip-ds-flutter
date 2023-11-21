@@ -31,6 +31,7 @@ class DSInteractiveMessage {
             : null;
 
   Map<String, dynamic> toJson() => {
+        'header': header?.toJson(),
         'body': body?.toJson(),
         'action': action?.toJson(),
         'footer': footer?.toJson(),
