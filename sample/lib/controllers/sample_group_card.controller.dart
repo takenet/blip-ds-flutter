@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SampleGroupCardController {
-  Future<List<DSMessageItemModel>> getMessages() async {
+  Future<List<DSMessageItem>> getMessages() async {
     String data = await DefaultAssetBundle.of(Get.context!)
         .loadString("assets/messages.json");
     final jsonResult = jsonDecode(data);
 
     final messages = (jsonResult as List)
         .map(
-          (doc) => DSMessageItemModel.fromJson(
+          (doc) => DSMessageItem.fromJson(
             {
               "id": doc["id"],
               "date": doc["date"],

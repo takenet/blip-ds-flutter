@@ -22,7 +22,7 @@ import 'ds_user_avatar.widget.dart';
 // Default compare message function
 // ignore: prefer_function_declarations_over_variables
 final _defaultCompareMessageFuntion =
-    (DSMessageItemModel firstMsg, DSMessageItemModel secondMsg) {
+    (DSMessageItem firstMsg, DSMessageItem secondMsg) {
   bool shouldGroupSelect = true;
 
   if (firstMsg.type == DSMessageContentType.select ||
@@ -62,14 +62,14 @@ class DSGroupCard extends StatefulWidget {
     this.onInfinitScroll,
     this.shrinkWrap = false,
     DSMessageBubbleStyle? style,
-    bool Function(DSMessageItemModel, DSMessageItemModel)? compareMessages,
+    bool Function(DSMessageItem, DSMessageItem)? compareMessages,
     ScrollController? scrollController,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle(),
         scrollController = scrollController ?? ScrollController();
 
-  final List<DSMessageItemModel> documents;
-  final bool Function(DSMessageItemModel, DSMessageItemModel) compareMessages;
+  final List<DSMessageItem> documents;
+  final bool Function(DSMessageItem, DSMessageItem) compareMessages;
   final bool isComposing;
   final bool sortMessages;
   final void Function(String, Map<String, dynamic>)? onSelected;
@@ -190,9 +190,9 @@ class _DSGroupCardState extends State<DSGroupCard> {
     };
 
     for (int i = 1; i < widget.documents.length; i++) {
-      DSMessageItemModel message = widget.documents[i];
+      DSMessageItem message = widget.documents[i];
 
-      List<DSMessageItemModel> groupMsgs = group['msgs'];
+      List<DSMessageItem> groupMsgs = group['msgs'];
 
       if (widget.compareMessages(message, groupMsgs.last)) {
         group['msgs'].add(message);
@@ -240,10 +240,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
       int msgCount = 1;
 
       final sentMessage = group['align'] == DSAlign.right;
-      DSMessageItemModel? lastMessageQuickReply;
+      DSMessageItem? lastMessageQuickReply;
 
       group['msgs'].forEach(
-        (DSMessageItemModel message) {
+        (DSMessageItem message) {
           final rows = <TableRow>[];
           final int length = group['msgs'].length;
           List<DSBorderRadius> borderRadius =

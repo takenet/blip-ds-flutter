@@ -6,6 +6,8 @@ export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
 export 'src/enums/ds_input_container_shape.enum.dart'
     show DSInputContainerShape;
+export 'src/enums/ds_interactive_message_header_type.enum.dart'
+    show DSInteractiveMessageHeaderType;
 export 'src/enums/ds_survey_scale.enum.dart' show DSSurveyScale;
 export 'src/enums/ds_survey_type.enum.dart' show DSSurveyType;
 export 'src/enums/ds_ticket_message_type.enum.dart' show DSTicketMessageType;
@@ -18,8 +20,32 @@ export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
     show DSMessageBubbleStyle;
-export 'src/models/ds_message_item.model.dart' show DSMessageItemModel;
+export 'src/models/ds_message_item.model.dart' show DSMessageItem;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
+export 'src/models/interactive_message/ds_interactive_message.model.dart'
+    show DSInteractiveMessage;
+export 'src/models/interactive_message/ds_interactive_message_action.model.dart'
+    show DSInteractiveMessageAction;
+export 'src/models/interactive_message/ds_interactive_message_body.model.dart'
+    show DSInteractiveMessageBody;
+export 'src/models/interactive_message/ds_interactive_message_button.model.dart'
+    show DSInteractiveMessageButton;
+export 'src/models/interactive_message/ds_interactive_message_document.model.dart'
+    show DSInteractiveMessageDocument;
+export 'src/models/interactive_message/ds_interactive_message_footer.model.dart'
+    show DSInteractiveMessageFooter;
+export 'src/models/interactive_message/ds_interactive_message_header.model.dart'
+    show DSInteractiveMessageHeader;
+export 'src/models/interactive_message/ds_interactive_message_image.model.dart'
+    show DSInteractiveMessageImage;
+export 'src/models/interactive_message/ds_interactive_message_media.model.dart'
+    show DSInteractiveMessageMedia;
+export 'src/models/interactive_message/ds_interactive_message_row.model.dart'
+    show DSInteractiveMessageRow;
+export 'src/models/interactive_message/ds_interactive_message_section.model.dart'
+    show DSInteractiveMessageSection;
+export 'src/models/interactive_message/ds_interactive_message_video.model.dart'
+    show DSInteractiveMessageVideo;
 export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
@@ -89,6 +115,8 @@ export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
+export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
+    show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
 export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
     show DSContactMessageBubble;
@@ -98,6 +126,10 @@ export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
     show DSImageMessageBubble;
+export 'src/widgets/chat/ds_interactive_button_message_bubble.widget.dart'
+    show DSInteractiveButtonMessageBubble;
+export 'src/widgets/chat/ds_interactive_list_message_bubble.widget.dart'
+    show DSInteractiveListMessageBubble;
 export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
     show DSLocationMessageBubble;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
