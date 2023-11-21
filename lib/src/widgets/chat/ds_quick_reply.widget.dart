@@ -38,9 +38,8 @@ class DSQuickReply extends StatelessWidget {
 
     borderRadius = [];
 
-    List options = content['options']
-        .map((doc) => DSSelectOptionModel.fromJson(doc))
-        .toList();
+    List options =
+        content['options'].map((doc) => DSSelectOption.fromJson(doc)).toList();
 
     for (var option in options) {
       children.add(

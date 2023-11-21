@@ -2,7 +2,7 @@ import '../enums/ds_align.enum.dart';
 import '../enums/ds_delivery_report_status.enum.dart';
 
 /// A Design System message model used with [DSGroupCard] to display grouped bubble
-class DSMessageItemModel {
+class DSMessageItem {
   /// Identifier of message
   String? id;
 
@@ -30,8 +30,8 @@ class DSMessageItemModel {
   /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
   bool? hideMessageDetail;
 
-  /// Creates a new Design System's [DSMessageItemModel] model
-  DSMessageItemModel({
+  /// Creates a new Design System's [DSMessageItem] model
+  DSMessageItem({
     this.id,
     required this.date,
     required this.displayDate,
@@ -43,8 +43,8 @@ class DSMessageItemModel {
     this.hideMessageDetail,
   });
 
-  factory DSMessageItemModel.fromJson(Map<String, dynamic> json) {
-    final messageItem = DSMessageItemModel(
+  factory DSMessageItem.fromJson(Map<String, dynamic> json) {
+    final messageItem = DSMessageItem(
       id: json['id'],
       date: json['date'],
       displayDate: json['displayDate'],
