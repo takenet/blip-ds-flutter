@@ -1,19 +1,19 @@
 /// A Design System select options model used with [DSSelectMenu], [DSQuickReply] to display a options menu
-class DSSelectOptionModel {
+class DSSelectOption {
   String text;
   int? order;
   String? type;
   dynamic value;
 
-  DSSelectOptionModel({
+  DSSelectOption({
     required this.text,
     this.order,
     this.type,
     this.value,
   });
 
-  factory DSSelectOptionModel.fromJson(Map<String, dynamic> json) {
-    final option = DSSelectOptionModel(
+  factory DSSelectOption.fromJson(Map<String, dynamic> json) {
+    final option = DSSelectOption(
       text: json['text'],
     );
 
