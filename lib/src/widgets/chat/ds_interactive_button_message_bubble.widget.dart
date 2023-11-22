@@ -95,7 +95,10 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          if (hasHeaderText) ...[
+          if (hasHeaderText ||
+              hasVideoLink ||
+              hasImageLink ||
+              hasDocumentLink) ...[
             _buildHeaderBubble(),
             const SizedBox(
               height: 3.0,
