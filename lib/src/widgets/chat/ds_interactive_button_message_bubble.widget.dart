@@ -12,6 +12,7 @@ import '../buttons/ds_menu_item.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
+import '../utils/ds_divider.widget.dart';
 import 'ds_file_message_bubble.widget.dart';
 import 'ds_image_message_bubble.widget.dart';
 import 'ds_message_bubble.widget.dart';
@@ -44,52 +45,49 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
   })  : style = style ?? DSMessageBubbleStyle(),
-        hasButtons = content.action?.buttons?.isNotEmpty ?? false,
         hasHeaderText = content.header?.text?.isNotEmpty ?? false,
-        hasBodyText = content.body?.text?.isNotEmpty ?? false,
-        hasFooterText = content.footer?.text?.isNotEmpty ?? false,
         hasImageLink = content.header?.image?.link?.isNotEmpty ?? false,
         hasVideoLink = content.header?.video?.link?.isNotEmpty ?? false,
-        hasDocumentLink = content.header?.document?.link?.isNotEmpty ?? false {
+        hasDocumentLink = content.header?.document?.link?.isNotEmpty ?? false,
+        hasButtons = content.action?.buttons?.isNotEmpty ?? false,
+        hasBodyText = content.body?.text?.isNotEmpty ?? false,
+        hasFooterText = content.footer?.text?.isNotEmpty ?? false {
     isDefaultBubbleColors = this.style.isDefaultBubbleBackground(align);
     isLightBubbleBackground = this.style.isLightBubbleBackground(align);
   }
 
-  List<DSBorderRadius> get _headerBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.topLeft,
-                DSBorderRadius.topRight,
-              ]
-            : borderRadius),
+  List<DSBorderRadius> get _startBorderRadius => [
+        DSBorderRadius.topLeft,
         align == DSAlign.left
             ? DSBorderRadius.bottomRight
             : DSBorderRadius.bottomLeft,
+        if (borderRadius.any((border) => [
+              DSBorderRadius.all,
+              DSBorderRadius.topRight,
+            ].contains(border)))
+          DSBorderRadius.topRight,
       ];
 
-  List<DSBorderRadius> get _bodyBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                align == DSAlign.left
-                    ? DSBorderRadius.topRight
-                    : DSBorderRadius.topLeft,
-              ]
-            : borderRadius),
-        align == DSAlign.left
-            ? DSBorderRadius.bottomRight
-            : DSBorderRadius.bottomLeft,
-      ];
+  List<DSBorderRadius> get _midBorderRadius => align == DSAlign.left
+      ? [
+          DSBorderRadius.topRight,
+          DSBorderRadius.bottomRight,
+        ]
+      : [
+          DSBorderRadius.topLeft,
+          DSBorderRadius.bottomLeft,
+        ];
 
-  List<DSBorderRadius> get _buttonsBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.bottomLeft,
-                DSBorderRadius.bottomRight,
-              ]
-            : borderRadius),
+  List<DSBorderRadius> get _endBorderRadius => [
+        DSBorderRadius.bottomLeft,
         align == DSAlign.left
             ? DSBorderRadius.topRight
             : DSBorderRadius.topLeft,
+        if (borderRadius.any((border) => [
+              DSBorderRadius.all,
+              DSBorderRadius.bottomRight,
+            ].contains(border)))
+          DSBorderRadius.bottomRight,
       ];
 
   @override
@@ -121,7 +119,7 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
       ? DSMessageBubble(
           align: align,
           borderRadius: hasBodyText || hasFooterText || hasButtons
-              ? _headerBorderRadius
+              ? _startBorderRadius
               : borderRadius,
           style: style,
           child: DSHeadlineSmallText(
@@ -143,7 +141,7 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
               '',
           text: content.header?.text,
           align: align,
-          borderRadius: _headerBorderRadius,
+          borderRadius: _startBorderRadius,
           style: style,
         )
       : _buildUnsupportedContent();
@@ -158,7 +156,7 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
           mediaSize: 0,
           text: content.header?.text,
           align: align,
-          borderRadius: _headerBorderRadius,
+          borderRadius: _startBorderRadius,
           style: style,
         )
       : _buildUnsupportedContent();
@@ -171,24 +169,24 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
           size: 0,
           style: style,
           align: align,
-          borderRadius: _headerBorderRadius,
+          borderRadius: _startBorderRadius,
         )
       : _buildUnsupportedContent();
 
   Widget _buildUnsupportedContent() => DSUnsupportedContentMessageBubble(
         align: align,
-        borderRadius: _headerBorderRadius,
+        borderRadius: _startBorderRadius,
         style: style,
       );
 
   Widget _buildBodyBubble() => DSMessageBubble(
         align: align,
         borderRadius: hasHeaderText && hasButtons
-            ? _bodyBorderRadius
+            ? _midBorderRadius
             : hasHeaderText
-                ? _buttonsBorderRadius
+                ? _endBorderRadius
                 : hasButtons
-                    ? _headerBorderRadius
+                    ? _startBorderRadius
                     : borderRadius,
         style: style,
         child: Column(
@@ -218,11 +216,11 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
   Widget _buildButtonsBubble() => DSMessageBubble(
         align: align,
         borderRadius: hasHeaderText || hasBodyText || hasFooterText
-            ? _buttonsBorderRadius
+            ? _endBorderRadius
             : borderRadius,
         style: style,
+        shouldUseDefaultSize: true,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: _buildButtons(),
         ),
       );
@@ -237,13 +235,30 @@ class DSInteractiveButtonMessageBubble extends StatelessWidget {
         final hasTitle = button.title?.isNotEmpty ?? false;
 
         if (hasTitle) {
-          widgets.add(
-            DSMenuItem(
-              text: button.title!,
-              align: align,
-              style: style,
-              showBorder: count != content.action!.buttons!.length,
-            ),
+          widgets.addAll(
+            [
+              DSMenuItem(
+                text: button.title!,
+                align: align,
+                style: style,
+                showDivider: false,
+              ),
+              if (count != content.action!.buttons!.length)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 1.0,
+                  ),
+                  child: DSDivider(
+                    color: isLightBubbleBackground
+                        ? isDefaultBubbleColors
+                            ? DSColors.neutralMediumWave
+                            : DSColors.neutralDarkCity
+                        : isDefaultBubbleColors
+                            ? DSColors.neutralDarkRooftop
+                            : DSColors.neutralLightSnow,
+                  ),
+                ),
+            ],
           );
         }
 

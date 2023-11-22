@@ -45,7 +45,7 @@ class DSSelectMenu extends StatelessWidget {
         DSMenuItem(
           text: option.text,
           align: align,
-          showBorder: count != content['options'].length,
+          showDivider: count != content['options'].length,
           onPressed: () {
             if (onSelected != null) {
               Map<String, dynamic> payload = {};

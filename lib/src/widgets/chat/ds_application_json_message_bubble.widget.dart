@@ -16,8 +16,8 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
   DSApplicationJsonMessageBubble({
     super.key,
     required this.align,
-    required this.borderRadius,
     required this.content,
+    this.borderRadius = const [DSBorderRadius.all],
     this.status,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,

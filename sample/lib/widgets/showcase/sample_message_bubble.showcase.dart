@@ -55,6 +55,42 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
         children: [
           DSApplicationJsonMessageBubble(
             align: DSAlign.right,
+            borderRadius: const [
+              DSBorderRadius.all,
+              // DSBorderRadius.topLeft,
+              // DSBorderRadius.bottomLeft,
+              // DSBorderRadius.bottomRight,
+              // DSBorderRadius.topRight,
+            ],
+            content: const {
+              "recipient_type": "individual",
+              "type": "interactive",
+              "interactive": {
+                "type": "button",
+                "header": {
+                  "text": "Cabeçalho",
+                  "type": "video",
+                  "video": {
+                    "link":
+                        "http://techslides.com/demos/sample-videos/small.mp4"
+                  }
+                },
+                "body": {"text": "Selecione qual é o seu interesse:"},
+                "action": {
+                  "buttons": [
+                    {
+                      "reply": {"title": "Título do Botão"}
+                    }
+                  ]
+                },
+                "footer": {
+                  "text": "Clique no botão abaixo para selecionar uma opção"
+                }
+              }
+            },
+          ),
+          DSApplicationJsonMessageBubble(
+            align: DSAlign.right,
             borderRadius: const [DSBorderRadius.all],
             content: const {
               "recipient_type": "individual",
@@ -74,7 +110,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
                     },
                     {
                       "type": "reply",
-                      "reply": {"id": "2", "title": "Não L'"}
+                      "reply": {"id": "2", "title": "Não"}
                     }
                   ]
                 },

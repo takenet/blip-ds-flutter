@@ -41,29 +41,28 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
     isDefaultBubbleColors = this.style.isDefaultBubbleBackground(align);
     isLightBubbleBackground = this.style.isLightBubbleBackground(align);
   }
-
-  List<DSBorderRadius> get _headerBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.topLeft,
-                DSBorderRadius.topRight,
-              ]
-            : borderRadius),
+  List<DSBorderRadius> get _startBorderRadius => [
+        DSBorderRadius.topLeft,
         align == DSAlign.left
             ? DSBorderRadius.bottomRight
             : DSBorderRadius.bottomLeft,
+        if (borderRadius.any((border) => [
+              DSBorderRadius.all,
+              DSBorderRadius.topRight,
+            ].contains(border)))
+          DSBorderRadius.topRight,
       ];
 
-  List<DSBorderRadius> get _listBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.bottomLeft,
-                DSBorderRadius.bottomRight,
-              ]
-            : borderRadius),
+  List<DSBorderRadius> get _endBorderRadius => [
+        DSBorderRadius.bottomLeft,
         align == DSAlign.left
             ? DSBorderRadius.topRight
             : DSBorderRadius.topLeft,
+        if (borderRadius.any((border) => [
+              DSBorderRadius.all,
+              DSBorderRadius.bottomRight,
+            ].contains(border)))
+          DSBorderRadius.bottomRight,
       ];
 
   @override
@@ -80,7 +79,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
 
   Widget _buildHeaderBubble() => DSMessageBubble(
         align: align,
-        borderRadius: hasSections ? _headerBorderRadius : borderRadius,
+        borderRadius: hasSections ? _startBorderRadius : borderRadius,
         style: style,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +93,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
   Widget _buildListBubble() => DSMessageBubble(
         align: align,
         borderRadius: hasBodyText || hasFooterText || hasButtonText
-            ? _listBorderRadius
+            ? _endBorderRadius
             : borderRadius,
         style: style,
         child: Column(
@@ -228,7 +227,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
                   text: row.title!,
                   align: align,
                   style: style,
-                  showBorder: count != section.rows!.length,
+                  showDivider: count != section.rows!.length,
                 ),
               );
             }
