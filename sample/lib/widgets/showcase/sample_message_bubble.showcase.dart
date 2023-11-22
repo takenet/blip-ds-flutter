@@ -54,7 +54,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSApplicationJsonMessageBubble(
-            align: DSAlign.left,
+            align: DSAlign.right,
             borderRadius: const [DSBorderRadius.all],
             content: const {
               "recipient_type": "individual",
@@ -62,25 +62,58 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
               "interactive": {
                 "type": "button",
                 "header": {
-                  "type": "video",
-                  "text": "video blip",
-                  "video": {
-                    "link":
-                        "http://techslides.com/demos/sample-videos/small.mp4"
-                  }
+                  "type": "text",
+                  "text": "Cabeçalho",
                 },
-                "body": {"text": "Button Body Message"},
+                "body": {"text": "Você já é nosso cliente?"},
                 "action": {
                   "buttons": [
                     {
                       "type": "reply",
-                      "reply": {"id": "unique-postback-id", "title": "First"}
+                      "reply": {"id": "1", "title": "Sim"}
                     },
                     {
                       "type": "reply",
-                      "reply": {"id": "unique-id", "title": "Second"}
+                      "reply": {"id": "2", "title": "Não L'"}
                     }
                   ]
+                },
+                "footer": {"text": "Selecione uma opção abaixo"}
+              }
+            },
+          ),
+          DSApplicationJsonMessageBubble(
+            align: DSAlign.left,
+            borderRadius: const [DSBorderRadius.all],
+            content: const {
+              "recipient_type": "individual",
+              "type": "interactive",
+              "interactive": {
+                "type": "list",
+                "header": {
+                  "text": "Cabeçalho",
+                },
+                "body": {
+                  "text":
+                      "Tenho mais algumas perguntas, mas prometo que vamos ser agéis. Gostaríamos de saber: Em qual segmento sua empresa atua? Essa informação nos ajudará a direcioná-lo para o atendimento ideal."
+                },
+                "action": {
+                  "button": "Selecione uma opção",
+                  "sections": [
+                    {
+                      "rows": [
+                        {"id": "1", "title": "Esq. de Alumínio"},
+                        {"id": "2", "title": "Vidraceiro"},
+                        {"id": "3", "title": "Distribuidor"},
+                        {"id": "4", "title": "Sistemista"},
+                        {"id": "5", "title": "Soluções"},
+                        {"id": "6", "title": "Outros"}
+                      ]
+                    }
+                  ]
+                },
+                "footer": {
+                  "text": "Clique no botão abaixo para selecionar uma opção"
                 }
               }
             },

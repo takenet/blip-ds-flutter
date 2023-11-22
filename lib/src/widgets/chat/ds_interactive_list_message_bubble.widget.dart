@@ -69,17 +69,18 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _buildHeaderBubble(),
+          if (hasBodyText || hasFooterText || hasButtonText)
+            _buildHeaderBubble(),
           const SizedBox(
             height: 3.0,
           ),
-          _buildListBubble(),
+          if (hasSections) _buildListBubble(),
         ],
       );
 
   Widget _buildHeaderBubble() => DSMessageBubble(
         align: align,
-        borderRadius: _headerBorderRadius,
+        borderRadius: hasSections ? _headerBorderRadius : borderRadius,
         style: style,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +93,9 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
 
   Widget _buildListBubble() => DSMessageBubble(
         align: align,
-        borderRadius: _listBorderRadius,
+        borderRadius: hasBodyText || hasFooterText || hasButtonText
+            ? _listBorderRadius
+            : borderRadius,
         style: style,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,11 +113,13 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
           padding: const EdgeInsets.only(
             bottom: bottomPadding,
           ),
-          child: DSBodyText(content.body!.text,
-              overflow: TextOverflow.visible,
-              color: isLightBubbleBackground
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow),
+          child: DSBodyText(
+            content.body!.text,
+            overflow: TextOverflow.visible,
+            color: isLightBubbleBackground
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
+          ),
         ),
       );
     }
