@@ -1,4 +1,3 @@
-import 'package:blip_ds/src/widgets/chat/ds_reply_container.widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -7,6 +6,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../utils/ds_bubble.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_animated_size.widget.dart';
+import 'ds_reply_container.widget.dart';
 
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
@@ -37,12 +37,21 @@ class DSMessageBubble extends StatelessWidget {
     this.hasSpacer = true,
   }) : super(key: key);
 
-  BorderRadius _getBorderRadius() {
-    return borderRadius.getCircularBorderRadius(
-      maxRadius: 22.0,
-      minRadius: 2.0,
-    );
-  }
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          Row(
+            mainAxisAlignment: align == DSAlign.right
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
+            children: DSBubbleUtils.addSpacer(
+              align: align,
+              hasSpacer: hasSpacer,
+              child: _messageContainer(),
+            ),
+          ),
+        ],
+      );
 
   Widget _messageContainer() {
     return DSAnimatedSize(
@@ -82,19 +91,10 @@ class DSMessageBubble extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          Row(
-            mainAxisAlignment: align == DSAlign.right
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            children: DSBubbleUtils.addSpacer(
-              align: align,
-              hasSpacer: hasSpacer,
-              child: _messageContainer(),
-            ),
-          ),
-        ],
-      );
+  BorderRadius _getBorderRadius() {
+    return borderRadius.getCircularBorderRadius(
+      maxRadius: 22.0,
+      minRadius: 2.0,
+    );
+  }
 }

@@ -108,7 +108,6 @@ class DSFileMessageBubble extends StatelessWidget {
               filename,
               color: color,
               textAlign: TextAlign.center,
-              isSelectable: true,
               shouldLinkify: false,
             ),
             Visibility(
