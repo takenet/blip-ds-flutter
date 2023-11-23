@@ -1,3 +1,8 @@
+## 0.0.89
+
+- [DSInteractiveButtonMessageBubble] Fixed border radius behavior.
+- [DSInteractiveListMessageBubble] Fixed border radius behavior.
+
 ## 0.0.88
 
 - [DSApplicationJsonMessageBubble] Added support for interactive lists and buttons.

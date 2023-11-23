@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../enums/ds_align.enum.dart';
-import '../../models/ds_message_bubble_style.model.dart';
-import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/texts/utils/ds_font_weights.theme.dart';
-import '../texts/ds_body_text.widget.dart';
+import '../../../blip_ds.dart';
 
 class DSMenuItem extends StatelessWidget {
   DSMenuItem({
     Key? key,
     required this.text,
     required this.align,
-    this.showBorder = false,
+    this.showDivider = false,
     this.onPressed,
     this.fontWeight = DSFontWeights.bold,
     DSMessageBubbleStyle? style,
@@ -23,7 +19,7 @@ class DSMenuItem extends StatelessWidget {
 
   final String text;
   final DSAlign align;
-  final bool showBorder;
+  final bool showDivider;
   final void Function()? onPressed;
   final DSMessageBubbleStyle style;
   final FontWeight fontWeight;
@@ -32,36 +28,18 @@ class DSMenuItem extends StatelessWidget {
   late final bool isLightBubbleBackground;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        height: 57.0,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          border: showBorder
-              ? Border(
-                  bottom: BorderSide(
-                    color: isLightBubbleBackground
-                        ? isDefaultBubbleColors
-                            ? DSColors.neutralMediumWave
-                            : DSColors.neutralDarkCity
-                        : isDefaultBubbleColors
-                            ? DSColors.neutralDarkRooftop
-                            : DSColors.neutralLightSnow,
-                  ),
-                )
-              : null,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
+  Widget build(BuildContext context) => InkWell(
+        onTap: onPressed,
+        child: Column(
           children: [
-            Flexible(
+            Container(
+              height: 57.0,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DSBodyText(
                 text,
                 fontWeight: fontWeight,
-                textAlign: TextAlign.center,
+                maxLines: 2,
                 color: isLightBubbleBackground
                     ? isDefaultBubbleColors
                         ? DSColors.primaryNight
@@ -71,9 +49,22 @@ class DSMenuItem extends StatelessWidget {
                         : DSColors.neutralLightSnow,
               ),
             ),
+            if (showDivider)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 1.0,
+                ),
+                child: DSDivider(
+                  color: isLightBubbleBackground
+                      ? isDefaultBubbleColors
+                          ? DSColors.neutralMediumWave
+                          : DSColors.neutralDarkCity
+                      : isDefaultBubbleColors
+                          ? DSColors.neutralDarkRooftop
+                          : DSColors.neutralLightSnow,
+                ),
+              )
           ],
         ),
-      ),
-    );
-  }
+      );
 }

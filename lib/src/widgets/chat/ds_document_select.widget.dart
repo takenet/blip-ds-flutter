@@ -57,7 +57,7 @@ class DSDocumentSelect extends StatelessWidget {
               ? option.label.value
               : option.label.value['text'],
           align: align,
-          showBorder: count != options.length,
+          showDivider: count != options.length,
           onPressed: () {
             if (option.label.type == DSMessageContentType.webLink) {
               if (onOpenLink != null) {

@@ -19,13 +19,18 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
 
-  late final bool isDefaultBubbleColors;
-  late final bool isLightBubbleBackground;
+  late final List<DSBorderRadius> _startBorderRadius;
+  late final List<DSBorderRadius> _endBorderRadius;
 
-  final bool hasBodyText;
-  final bool hasFooterText;
-  final bool hasButtonText;
-  final bool hasSections;
+  late final bool _isLeftAligned;
+  late final bool _isDefaultBubbleColors;
+  late final bool _isLightBubbleBackground;
+  late final bool _shouldShowStartBubble;
+  late final bool _shouldShowEndBubble;
+  late final bool _hasBodyText;
+  late final bool _hasFooterText;
+  late final bool _hasButtonText;
+  late final bool _hasSections;
 
   DSInteractiveListMessageBubble({
     super.key,
@@ -33,53 +38,77 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        hasBodyText = content.body?.text?.isNotEmpty ?? false,
-        hasFooterText = content.footer?.text?.isNotEmpty ?? false,
-        hasButtonText = content.action?.button?.isNotEmpty ?? false,
-        hasSections = content.action?.sections?.isNotEmpty ?? false {
-    isDefaultBubbleColors = this.style.isDefaultBubbleBackground(align);
-    isLightBubbleBackground = this.style.isLightBubbleBackground(align);
+  }) : style = style ?? DSMessageBubbleStyle() {
+    _initProperties();
+    _initBorderRadius();
   }
 
-  List<DSBorderRadius> get _headerBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.topLeft,
-                DSBorderRadius.topRight,
-              ]
-            : borderRadius),
-        align == DSAlign.left
-            ? DSBorderRadius.bottomRight
-            : DSBorderRadius.bottomLeft,
-      ];
+  void _initProperties() {
+    _isLeftAligned = align == DSAlign.left;
+    _isDefaultBubbleColors = style.isDefaultBubbleBackground(align);
+    _isLightBubbleBackground = style.isLightBubbleBackground(align);
 
-  List<DSBorderRadius> get _listBorderRadius => [
-        ...(borderRadius.contains(DSBorderRadius.all)
-            ? [
-                DSBorderRadius.bottomLeft,
-                DSBorderRadius.bottomRight,
-              ]
-            : borderRadius),
-        align == DSAlign.left
-            ? DSBorderRadius.topRight
-            : DSBorderRadius.topLeft,
-      ];
+    _hasBodyText = content.body?.text?.isNotEmpty ?? false;
+    _hasFooterText = content.footer?.text?.isNotEmpty ?? false;
+    _hasButtonText = content.action?.button?.isNotEmpty ?? false;
+    _hasSections = content.action?.sections?.isNotEmpty ?? false;
+
+    _shouldShowStartBubble = _hasBodyText || _hasFooterText || _hasButtonText;
+    _shouldShowEndBubble = _hasSections;
+  }
+
+  void _initBorderRadius() {
+    final shouldStartBorder = borderRadius.any(
+      (border) => [
+        DSBorderRadius.all,
+        _isLeftAligned ? DSBorderRadius.topLeft : DSBorderRadius.topRight,
+      ].contains(border),
+    );
+
+    final shouldEndBorder = borderRadius.any(
+      (border) => [
+        DSBorderRadius.all,
+        _isLeftAligned ? DSBorderRadius.bottomLeft : DSBorderRadius.bottomRight,
+      ].contains(border),
+    );
+
+    final defaultBorderRadius = _isLeftAligned
+        ? [
+            DSBorderRadius.topRight,
+            DSBorderRadius.bottomRight,
+          ]
+        : [
+            DSBorderRadius.topLeft,
+            DSBorderRadius.bottomLeft,
+          ];
+
+    _startBorderRadius = [
+      ...defaultBorderRadius,
+      if (shouldStartBorder)
+        _isLeftAligned ? DSBorderRadius.topLeft : DSBorderRadius.topRight,
+    ];
+
+    _endBorderRadius = [
+      ...defaultBorderRadius,
+      if (shouldEndBorder)
+        _isLeftAligned ? DSBorderRadius.bottomLeft : DSBorderRadius.bottomRight,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _buildHeaderBubble(),
+          if (_shouldShowStartBubble) _buildStartBubble(),
           const SizedBox(
             height: 3.0,
           ),
-          _buildListBubble(),
+          if (_shouldShowEndBubble) _buildEndBubble(),
         ],
       );
 
-  Widget _buildHeaderBubble() => DSMessageBubble(
+  Widget _buildStartBubble() => DSMessageBubble(
         align: align,
-        borderRadius: _headerBorderRadius,
+        borderRadius: _shouldShowEndBubble ? _startBorderRadius : borderRadius,
         style: style,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,9 +119,9 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
         ),
       );
 
-  Widget _buildListBubble() => DSMessageBubble(
+  Widget _buildEndBubble() => DSMessageBubble(
         align: align,
-        borderRadius: _listBorderRadius,
+        borderRadius: _shouldShowStartBubble ? _endBorderRadius : borderRadius,
         style: style,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,22 +133,24 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
     const bottomPadding = 8.0;
     final widgets = <Widget>[];
 
-    if (hasBodyText) {
+    if (_hasBodyText) {
       widgets.add(
         Padding(
           padding: const EdgeInsets.only(
             bottom: bottomPadding,
           ),
-          child: DSBodyText(content.body!.text,
-              overflow: TextOverflow.visible,
-              color: isLightBubbleBackground
-                  ? DSColors.neutralDarkCity
-                  : DSColors.neutralLightSnow),
+          child: DSBodyText(
+            content.body!.text,
+            overflow: TextOverflow.visible,
+            color: _isLightBubbleBackground
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
+          ),
         ),
       );
     }
 
-    if (hasFooterText) {
+    if (_hasFooterText) {
       widgets.add(
         Padding(
           padding: const EdgeInsets.only(
@@ -129,7 +160,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
             content.footer!.text,
             fontStyle: FontStyle.italic,
             overflow: TextOverflow.visible,
-            color: isLightBubbleBackground
+            color: _isLightBubbleBackground
                 ? DSColors.neutralDarkCity
                 : DSColors.neutralLightSnow,
           ),
@@ -144,11 +175,11 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
             bottom: bottomPadding,
           ),
           child: DSDivider(
-            color: isLightBubbleBackground
-                ? isDefaultBubbleColors
+            color: _isLightBubbleBackground
+                ? _isDefaultBubbleColors
                     ? DSColors.neutralMediumWave
                     : DSColors.neutralDarkCity
-                : isDefaultBubbleColors
+                : _isDefaultBubbleColors
                     ? DSColors.neutralDarkRooftop
                     : DSColors.neutralLightSnow,
           ),
@@ -164,22 +195,22 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              right: hasButtonText ? 4.0 : 0.0,
+              right: _hasButtonText ? 4.0 : 0.0,
             ),
             child: Icon(
               DSIcons.list_outline,
               size: 20.0,
-              color: isLightBubbleBackground
+              color: _isLightBubbleBackground
                   ? DSColors.neutralDarkCity
                   : DSColors.neutralLightSnow,
             ),
           ),
-          if (hasButtonText)
+          if (_hasButtonText)
             DSCaptionText(
               content.action!.button,
               fontWeight: DSFontWeights.bold,
               overflow: TextOverflow.visible,
-              color: isLightBubbleBackground
+              color: _isLightBubbleBackground
                   ? DSColors.neutralDarkCity
                   : DSColors.neutralLightSnow,
             ),
@@ -189,7 +220,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
   List<Widget> _buildList() {
     final widgets = <Widget>[];
 
-    if (hasSections) {
+    if (_hasSections) {
       for (final section in content.action!.sections!) {
         final hasRows = section.rows?.isNotEmpty ?? false;
         final hasSectionTitle = section.title?.isNotEmpty ?? false;
@@ -203,7 +234,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
               child: DSBodyText(
                 section.title!,
                 overflow: TextOverflow.visible,
-                color: isLightBubbleBackground
+                color: _isLightBubbleBackground
                     ? DSColors.neutralDarkCity
                     : DSColors.neutralLightSnow,
               ),
@@ -223,7 +254,7 @@ class DSInteractiveListMessageBubble extends StatelessWidget {
                   text: row.title!,
                   align: align,
                   style: style,
-                  showBorder: count != section.rows!.length,
+                  showDivider: count != section.rows!.length,
                 ),
               );
             }
