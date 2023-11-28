@@ -7,13 +7,13 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 
 class DSUploading extends StatefulWidget {
-  final double? size;
-  final Color? color;
+  final double size;
+  final Color color;
 
   const DSUploading({
     super.key,
-    this.size,
-    this.color,
+    this.size = 24.0,
+    this.color = DSColors.neutralLightSnow,
   });
 
   @override
@@ -43,8 +43,8 @@ class _DSUploadingState extends State<DSUploading> {
           duration: const Duration(seconds: 1),
           child: Icon(
             DSIcons.upload_outline,
-            color: widget.color ?? DSColors.neutralLightSnow,
-            size: widget.size ?? 24.0,
+            color: widget.color,
+            size: widget.size,
           ),
         ),
       ),
