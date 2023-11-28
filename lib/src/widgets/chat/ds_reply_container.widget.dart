@@ -20,116 +20,110 @@ class DSReplyContainer extends StatelessWidget {
   final dynamic replyContent;
   final DSMessageBubbleStyle style;
 
+  get _foregroundColor => style.isLightBubbleBackground(align)
+      ? DSColors.contentDefault
+      : DSColors.surface1;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(
-        8.0,
-      ),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                DSIcons.undo_outline,
-                color: style.isLightBubbleBackground(align)
-                    ? DSColors.neutralDarkCity
-                    : DSColors.neutralLightSnow,
-              ),
-              const SizedBox(width: 8.0),
-              DSCaptionText(
-                'Reply',
-                fontStyle: FontStyle.italic,
-                color: style.isLightBubbleBackground(align)
-                    ? DSColors.neutralDarkCity
-                    : DSColors.neutralLightSnow,
-              ),
-            ],
-          ),
-          const SizedBox(height: 4.0),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(
-                color: style.isLightBubbleBackground(align)
-                    ? DSColors.contentGhost
-                    : DSColors.contentDisable,
-              ),
-              color: style.isLightBubbleBackground(align)
-                  ? DSColors.surface3
-                  : DSColors.contentDefault,
-            ),
-            child: IntrinsicHeight(
-              child: Row(
-                children: [
-                  Container(
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0),
-                          bottomLeft: Radius.circular(8.0),
-                        ),
-                      ),
-                      color: DSColors.primary,
-                    ),
-                    width: 4.0,
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8.0,
-                        left: 8.0,
-                        bottom: 8.0,
-                      ),
-                      child: _replyWidget(replyContent, style, align),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          _buildTitle(),
+          _buildReplyContainer(),
         ],
       ),
     );
   }
-}
 
-Widget _replyWidget(
-  dynamic replyContent,
-  DSMessageBubbleStyle style,
-  DSAlign align,
-) {
-  switch (replyContent['type']) {
-    case DSMessageContentType.textPlain:
-      return DSBodyText(
+  Widget _buildTitle() => Padding(
+        padding: const EdgeInsets.only(bottom: 4.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              DSIcons.undo_outline,
+              color: style.isLightBubbleBackground(align)
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
+            ),
+            const SizedBox(width: 8.0),
+            DSCaptionText(
+              'Reply',
+              fontStyle: FontStyle.italic,
+              color: style.isLightBubbleBackground(align)
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralLightSnow,
+            ),
+          ],
+        ),
+      );
+
+  Widget _buildReplyContainer() => DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          border: Border.all(
+            color: style.isLightBubbleBackground(align)
+                ? DSColors.contentGhost
+                : DSColors.contentDisable,
+          ),
+          color: style.isLightBubbleBackground(align)
+              ? DSColors.surface3
+              : DSColors.contentDefault,
+        ),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Container(
+                decoration: const ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      bottomLeft: Radius.circular(8.0),
+                    ),
+                  ),
+                  color: DSColors.primary,
+                ),
+                width: 4.0,
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildReply(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildReply() => switch (replyContent['type']) {
+        DSMessageContentType.textPlain => _buildTextPlain(),
+        _ => _buildDefault(),
+      };
+
+  Widget _buildTextPlain() => DSBodyText(
         replyContent['value'] is String ? replyContent['value'] : '**********',
-        color: _color(align, style),
+        color: _foregroundColor,
         overflow: TextOverflow.visible,
       );
-    default:
-      return Row(
+
+  Widget _buildDefault() => Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           Icon(
             DSIcons.warning_outline,
-            color: _color(align, style),
+            color: _foregroundColor,
           ),
           const SizedBox(width: 8.0),
           Flexible(
             child: DSBodyText(
               'Failed to load message',
               overflow: TextOverflow.visible,
-              color: _color(align, style),
+              color: _foregroundColor,
             ),
           ),
         ],
       );
-  }
-}
-
-Color _color(DSAlign align, DSMessageBubbleStyle style) {
-  return style.isLightBubbleBackground(align)
-      ? DSColors.contentDefault
-      : DSColors.surface1;
 }
