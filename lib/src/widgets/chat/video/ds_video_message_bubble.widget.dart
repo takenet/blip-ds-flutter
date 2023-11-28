@@ -10,6 +10,7 @@ import '../../../models/ds_message_bubble_style.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
+import '../../../utils/ds_utils.util.dart';
 import '../../animations/ds_uploading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
 import '../../utils/ds_circular_progress.widget.dart';
@@ -132,8 +133,8 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 240,
-              width: 240,
+              height: DSUtils.bubbleMinSize,
+              width: DSUtils.bubbleMinSize,
               child: widget.isUploading
                   ? Stack(
                       children: [
@@ -142,8 +143,8 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                             widget.url,
                           ),
                           opacity: const AlwaysStoppedAnimation(.3),
-                          width: 240,
-                          height: 240,
+                          width: DSUtils.bubbleMinSize,
+                          height: DSUtils.bubbleMinSize,
                           fit: BoxFit.cover,
                         ),
                         const Positioned(
@@ -212,8 +213,8 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                                   File(
                                                     _controller.thumbnail.value,
                                                   ),
-                                                  width: 240,
-                                                  height: 240,
+                                                  width: DSUtils.bubbleMinSize,
+                                                  height: DSUtils.bubbleMinSize,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),

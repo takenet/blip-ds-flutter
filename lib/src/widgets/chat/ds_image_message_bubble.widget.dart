@@ -7,6 +7,7 @@ import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../utils/ds_utils.util.dart';
 import '../texts/ds_caption_text.widget.dart';
 import '../utils/ds_circular_progress.widget.dart';
 import '../utils/ds_expanded_image.widget.dart';
@@ -80,7 +81,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
         : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
-      defaultMaxSize: 240.0,
+      defaultMaxSize: DSUtils.bubbleMinSize,
       shouldUseDefaultSize: true,
       align: widget.align,
       borderRadius: widget.borderRadius,
@@ -93,12 +94,12 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 240,
+                width: DSUtils.bubbleMinSize,
                 height: 200,
                 child: Obx(
                   () => _controller.localPath.value != null
                       ? DSExpandedImage(
-                          width: 240.0,
+                          width: DSUtils.bubbleMinSize,
                           appBarText: widget.appBarText,
                           appBarPhotoUri: widget.appBarPhotoUri,
                           url: _controller.localPath.value!,
