@@ -26,6 +26,12 @@ class DSDeliveryReportIcon extends StatelessWidget {
     const String path = 'assets/images';
 
     switch (deliveryStatus) {
+      case DSDeliveryReportStatus.accepted:
+        return _getIcon(
+          '$path/check.svg',
+          DSColors.neutralMediumElephant,
+        );
+
       case DSDeliveryReportStatus.failed:
         return DSCaptionSmallText(
           'Falha ao enviar mensagem.',
@@ -67,9 +73,10 @@ class DSDeliveryReportIcon extends StatelessWidget {
         );
 
       default:
-        return _getIcon(
-          '$path/check.svg',
-          DSColors.neutralMediumElephant,
+        return const Icon(
+          DSIcons.clock_outline,
+          size: 16,
+          color: DSColors.contentDefault,
         );
     }
   }

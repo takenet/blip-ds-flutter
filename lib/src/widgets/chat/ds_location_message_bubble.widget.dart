@@ -7,6 +7,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../utils/ds_utils.util.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
@@ -55,8 +56,8 @@ class DSLocationMessageBubble extends StatelessWidget {
       },
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
-        defaultMaxSize: 240.0,
-        defaultMinSize: 240.0,
+        defaultMaxSize: DSUtils.bubbleMinSize,
+        defaultMinSize: DSUtils.bubbleMinSize,
         borderRadius: borderRadius,
         replyContent: replyContent,
         padding: EdgeInsets.zero,

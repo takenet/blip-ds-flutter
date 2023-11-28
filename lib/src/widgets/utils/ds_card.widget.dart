@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -44,6 +46,7 @@ class DSCard extends StatelessWidget {
     this.showQuickReplyOptions = false,
     this.showRequestLocationButton = false,
     this.replyContent,
+    this.isUploading = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -60,6 +63,7 @@ class DSCard extends StatelessWidget {
   final bool showQuickReplyOptions;
   final bool showRequestLocationButton;
   final dynamic replyContent;
+  final bool isUploading;
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +266,9 @@ class DSCard extends StatelessWidget {
 
     if (media.type.contains('audio')) {
       return DSAudioMessageBubble(
-        uri: Uri.parse(media.uri),
+        uri: media.uri.startsWith('http')
+            ? Uri.parse(media.uri)
+            : File(media.uri).uri,
         align: align,
         borderRadius: borderRadius,
         style: style,
@@ -288,7 +294,7 @@ class DSCard extends StatelessWidget {
         style: style,
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
-        imageMaxHeight: 300.0,
+        isUploading: isUploading,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -307,6 +313,7 @@ class DSCard extends StatelessWidget {
         style: style,
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
+        isUploading: isUploading,
       );
     } else {
       return DSFileMessageBubble(
@@ -319,6 +326,7 @@ class DSCard extends StatelessWidget {
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
+        isUploading: isUploading,
       );
     }
   }

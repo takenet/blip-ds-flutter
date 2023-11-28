@@ -8,6 +8,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
+import '../animations/ds_uploading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_small_text.widget.dart';
 import '../utils/ds_file_extension_icon.util.dart';
@@ -22,6 +23,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
   final bool shouldAuthenticate;
+  final bool isUploading;
   final dynamic replyContent;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
@@ -31,34 +33,41 @@ class DSFileMessageBubble extends StatelessWidget {
     required this.url,
     required this.size,
     required this.filename,
-    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
+    this.isUploading = false,
+    this.replyContent,
   })  : style = style ?? DSMessageBubbleStyle(),
         controller = DSFileMessageBubbleController();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.openFile(
-        url: url,
-        httpHeaders: shouldAuthenticate ? DSAuthService.httpHeaders : null,
-      ),
-      child: DSMessageBubble(
-        borderRadius: borderRadius,
-        replyContent: replyContent,
-        padding: EdgeInsets.zero,
-        align: align,
-        style: style,
-        child: SizedBox(
-          height: 80.0,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildIcon(),
-              _buildText(),
-            ],
+      onTap: () => !isUploading
+          ? controller.openFile(
+              url: url,
+              httpHeaders:
+                  shouldAuthenticate ? DSAuthService.httpHeaders : null,
+            )
+          : null,
+      child: Opacity(
+        opacity: !isUploading ? 1 : .5,
+        child: DSMessageBubble(
+          replyContent: replyContent,
+          borderRadius: borderRadius,
+          padding: EdgeInsets.zero,
+          align: align,
+          style: style,
+          child: SizedBox(
+            height: 80.0,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildIcon(),
+                _buildText(),
+              ],
+            ),
           ),
         ),
       ),
@@ -74,15 +83,19 @@ class DSFileMessageBubble extends StatelessWidget {
             ? const DSFadingCircleLoading(
                 color: DSColors.neutralDarkRooftop,
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DSFileExtensionIcon(
-                    filename: filename,
-                    size: 40.0,
+            : !isUploading
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DSFileExtensionIcon(
+                        filename: filename,
+                        size: 40.0,
+                      ),
+                    ],
+                  )
+                : const DSUploading(
+                    color: DSColors.neutralDarkRooftop,
                   ),
-                ],
-              ),
       ),
     );
   }
@@ -108,6 +121,7 @@ class DSFileMessageBubble extends StatelessWidget {
               filename,
               color: color,
               textAlign: TextAlign.center,
+              isSelectable: true,
               shouldLinkify: false,
             ),
             Visibility(
