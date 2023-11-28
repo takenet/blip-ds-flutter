@@ -62,46 +62,51 @@ class DSLocationMessageBubble extends StatelessWidget {
         padding: EdgeInsets.zero,
         align: align,
         style: style,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            hasValidCoordinates
-                ? DSCachedNetworkImageView(
-                    url:
-                        'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
-                    placeholder: (_, __) => _buildLoading(),
-                    align: align,
-                    style: style,
-                  )
-                : SizedBox(
-                    width: 240,
-                    height: 240,
-                    child: Icon(
-                      DSIcons.file_image_broken_outline,
-                      size: 80,
-                      color: style.isLightBubbleBackground(align)
-                          ? DSColors.neutralMediumElephant
-                          : DSColors.neutralMediumCloud,
+        child: Padding(
+          padding: replyContent == null
+              ? EdgeInsets.zero
+              : const EdgeInsets.only(top: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              hasValidCoordinates
+                  ? DSCachedNetworkImageView(
+                      url:
+                          'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
+                      placeholder: (_, __) => _buildLoading(),
+                      align: align,
+                      style: style,
+                    )
+                  : SizedBox(
+                      width: 240,
+                      height: 240,
+                      child: Icon(
+                        DSIcons.file_image_broken_outline,
+                        size: 80,
+                        color: style.isLightBubbleBackground(align)
+                            ? DSColors.neutralMediumElephant
+                            : DSColors.neutralMediumCloud,
+                      ),
+                    ),
+              if (title?.isNotEmpty ?? false)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: DSBodyText(
+                      title!,
+                      color: foregroundColor,
+                      isSelectable: true,
+                      overflow: TextOverflow.visible,
                     ),
                   ),
-            if (title?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
                 ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: DSBodyText(
-                    title!,
-                    color: foregroundColor,
-                    isSelectable: true,
-                    overflow: TextOverflow.visible,
-                  ),
-                ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

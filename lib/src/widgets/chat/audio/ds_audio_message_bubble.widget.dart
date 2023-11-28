@@ -37,43 +37,41 @@ class DSAudioMessageBubble extends StatelessWidget {
       align: align,
       replyContent: replyContent,
       style: style,
-      padding: const EdgeInsets.only(
-        left: 4.0,
-        right: 8.0,
-        top: 8.0,
-        bottom: 8.0,
-      ),
-      child: DSAudioPlayer(
-        uri: uri,
-        shouldAuthenticate: shouldAuthenticate,
-        controlForegroundColor: isLightBubbleBackground
-            ? DSColors.neutralDarkRooftop
-            : DSColors.neutralLightSnow,
-        labelColor: isLightBubbleBackground
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow,
-        bufferActiveTrackColor: isLightBubbleBackground
-            ? DSColors.neutralMediumWave
-            : DSColors.neutralMediumElephant,
-        bufferInactiveTrackColor: isLightBubbleBackground
-            ? DSColors.neutralDarkRooftop
-            : DSColors.neutralLightBox,
-        sliderActiveTrackColor: isLightBubbleBackground
-            ? DSColors.primaryNight
-            : DSColors.primaryLight,
-        sliderThumbColor: isLightBubbleBackground
-            ? DSColors.neutralDarkRooftop
-            : DSColors.neutralLightSnow,
-        speedForegroundColor: isLightBubbleBackground
-            ? DSColors.neutralDarkCity
-            : DSColors.neutralLightSnow,
-        speedBorderColor: isLightBubbleBackground
-            ? isDefaultBubbleColors
-                ? DSColors.neutralMediumSilver
-                : DSColors.neutralDarkCity
-            : isDefaultBubbleColors
-                ? DSColors.disabledText
-                : DSColors.neutralLightSnow,
+      padding: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(4.0, 8.0, 8.0, 8.0),
+        child: DSAudioPlayer(
+          uri: uri,
+          shouldAuthenticate: shouldAuthenticate,
+          controlForegroundColor: isLightBubbleBackground
+              ? DSColors.neutralDarkRooftop
+              : DSColors.neutralLightSnow,
+          labelColor: isLightBubbleBackground
+              ? DSColors.neutralDarkCity
+              : DSColors.neutralLightSnow,
+          bufferActiveTrackColor: isLightBubbleBackground
+              ? DSColors.neutralMediumWave
+              : DSColors.neutralMediumElephant,
+          bufferInactiveTrackColor: isLightBubbleBackground
+              ? DSColors.neutralDarkRooftop
+              : DSColors.neutralLightBox,
+          sliderActiveTrackColor: isLightBubbleBackground
+              ? DSColors.primaryNight
+              : DSColors.primaryLight,
+          sliderThumbColor: isLightBubbleBackground
+              ? DSColors.neutralDarkRooftop
+              : DSColors.neutralLightSnow,
+          speedForegroundColor: isLightBubbleBackground
+              ? DSColors.neutralDarkCity
+              : DSColors.neutralLightSnow,
+          speedBorderColor: isLightBubbleBackground
+              ? isDefaultBubbleColors
+                  ? DSColors.neutralMediumSilver
+                  : DSColors.neutralDarkCity
+              : isDefaultBubbleColors
+                  ? DSColors.disabledText
+                  : DSColors.neutralLightSnow,
+        ),
       ),
     );
   }

@@ -36,7 +36,7 @@ class DSContactMessageBubble extends StatelessWidget {
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.zero,
       shouldUseDefaultSize: true,
       style: style,
       replyContent: replyContent,
@@ -48,44 +48,51 @@ class DSContactMessageBubble extends StatelessWidget {
     final foregroundColor = style.isLightBubbleBackground(align)
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Visibility(
-          visible: name != null,
-          child: DSBodyText(
-            name,
-            fontWeight: DSFontWeights.semiBold,
-            color: foregroundColor,
-            overflow: TextOverflow.visible,
-          ),
-        ),
-        const SizedBox(height: 16.0),
 
-        /// TODO(format): Format phone number
-        if (phone != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: _buildContactField(
-                title: 'Telefone',
-                body: phone!,
-                foregroundColor: foregroundColor),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 16.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: name != null,
+            child: DSBodyText(
+              name,
+              fontWeight: DSFontWeights.semiBold,
+              color: foregroundColor,
+              overflow: TextOverflow.visible,
+            ),
           ),
-        if (email != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: _buildContactField(
-                title: 'E-mail',
-                body: email!,
-                foregroundColor: foregroundColor),
-          ),
-        if (address != null)
-          _buildContactField(
-            title: 'Endereço',
-            body: address!,
-            foregroundColor: foregroundColor,
-          ),
-      ],
+          const SizedBox(height: 16.0),
+
+          /// TODO(format): Format phone number
+          if (phone != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: _buildContactField(
+                  title: 'Telefone',
+                  body: phone!,
+                  foregroundColor: foregroundColor),
+            ),
+          if (email != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: _buildContactField(
+                  title: 'E-mail',
+                  body: email!,
+                  foregroundColor: foregroundColor),
+            ),
+          if (address != null)
+            _buildContactField(
+              title: 'Endereço',
+              body: address!,
+              foregroundColor: foregroundColor,
+            ),
+        ],
+      ),
     );
   }
 

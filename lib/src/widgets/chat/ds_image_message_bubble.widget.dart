@@ -92,79 +92,84 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       padding: EdgeInsets.zero,
       hasSpacer: widget.hasSpacer,
       style: widget.style,
-      child: LayoutBuilder(
-        builder: (_, constraints) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => _controller.localPath.value != null
-                    ? DSExpandedImage(
-                        appBarText: widget.appBarText,
-                        appBarPhotoUri: widget.appBarPhotoUri,
-                        url: _controller.localPath.value!,
-                        maxHeight: widget.imageMaxHeight != null
-                            ? widget.imageMaxHeight!
-                            : widget.showSelect
-                                ? 200.0
-                                : double.infinity,
-                        minHeight: widget.imageMinHeight != null
-                            ? widget.imageMinHeight!
-                            : widget.showSelect
-                                ? 200.0
-                                : 0.0,
-                        align: widget.align,
-                        style: widget.style,
-                        isLoading: false,
-                        shouldAuthenticate: widget.shouldAuthenticate,
-                      )
-                    : DSCircularProgress(
-                        currentProgress: _controller.downloadProgress,
-                        maximumProgress: _controller.maximumProgress,
-                        foregroundColor: foregroundColor,
+      child: Padding(
+        padding: widget.replyContent == null
+            ? EdgeInsets.zero
+            : const EdgeInsets.only(top: 8.0),
+        child: LayoutBuilder(
+          builder: (_, constraints) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Obx(
+                  () => _controller.localPath.value != null
+                      ? DSExpandedImage(
+                          appBarText: widget.appBarText,
+                          appBarPhotoUri: widget.appBarPhotoUri,
+                          url: _controller.localPath.value!,
+                          maxHeight: widget.imageMaxHeight != null
+                              ? widget.imageMaxHeight!
+                              : widget.showSelect
+                                  ? 200.0
+                                  : double.infinity,
+                          minHeight: widget.imageMinHeight != null
+                              ? widget.imageMinHeight!
+                              : widget.showSelect
+                                  ? 200.0
+                                  : 0.0,
+                          align: widget.align,
+                          style: widget.style,
+                          isLoading: false,
+                          shouldAuthenticate: widget.shouldAuthenticate,
+                        )
+                      : DSCircularProgress(
+                          currentProgress: _controller.downloadProgress,
+                          maximumProgress: _controller.maximumProgress,
+                          foregroundColor: foregroundColor,
+                        ),
+                ),
+                if ((widget.title?.isNotEmpty ?? false) ||
+                    (widget.text?.isNotEmpty ?? false))
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (widget.title?.isNotEmpty ?? false)
+                            DSCaptionText(
+                              widget.title!,
+                              color: foregroundColor,
+                              isSelectable: true,
+                            ),
+                          if ((widget.text?.isNotEmpty ?? false) &&
+                              (widget.title?.isNotEmpty ?? false))
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                          if (widget.text?.isNotEmpty ?? false)
+                            DSShowMoreText(
+                              text: widget.text!,
+                              maxWidth: constraints.maxWidth,
+                              align: widget.align,
+                              style: widget.style,
+                            )
+                        ],
                       ),
-              ),
-              if ((widget.title?.isNotEmpty ?? false) ||
-                  (widget.text?.isNotEmpty ?? false))
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (widget.title?.isNotEmpty ?? false)
-                          DSCaptionText(
-                            widget.title!,
-                            color: foregroundColor,
-                            isSelectable: true,
-                          ),
-                        if ((widget.text?.isNotEmpty ?? false) &&
-                            (widget.title?.isNotEmpty ?? false))
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                        if (widget.text?.isNotEmpty ?? false)
-                          DSShowMoreText(
-                            text: widget.text!,
-                            maxWidth: constraints.maxWidth,
-                            align: widget.align,
-                            style: widget.style,
-                          )
-                      ],
                     ),
                   ),
-                ),
-              if (widget.showSelect)
-                DSDocumentSelect(
-                  align: widget.align,
-                  options: widget.selectOptions,
-                  onSelected: widget.onSelected,
-                  onOpenLink: widget.onOpenLink,
-                  style: widget.style,
-                ),
-            ],
-          );
-        },
+                if (widget.showSelect)
+                  DSDocumentSelect(
+                    align: widget.align,
+                    options: widget.selectOptions,
+                    onSelected: widget.onSelected,
+                    onOpenLink: widget.onOpenLink,
+                    style: widget.style,
+                  ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

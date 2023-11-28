@@ -116,6 +116,8 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      defaultMaxSize: 240,
+      shouldUseDefaultSize: true,
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
@@ -126,68 +128,76 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(
-              () => SizedBox(
-                height: 240,
-                width: 240,
-                child: _controller.hasError.value
-                    ? const Icon(
-                        DSIcons.video_broken_outline,
-                        size: 80.0,
-                        color: DSColors.neutralDarkRooftop,
-                      )
-                    : _controller.isDownloading.value
-                        ? DSCircularProgress(
-                            currentProgress: _controller.downloadProgress,
-                            maximumProgress: _controller.maximumProgress,
-                            foregroundColor: foregroundColor,
-                          )
-                        : _controller.thumbnail.isEmpty
-                            ? Center(
-                                child: SizedBox(
-                                  height: 40,
-                                  child: DSButton(
-                                    leadingIcon: const Icon(
-                                      DSIcons.download_outline,
-                                      size: 20,
+              () => Padding(
+                padding: widget.replyContent == null
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.only(top: 8.0),
+                child: SizedBox(
+                  height: 240,
+                  width: 240,
+                  child: _controller.hasError.value
+                      ? const Icon(
+                          DSIcons.video_broken_outline,
+                          size: 80.0,
+                          color: DSColors.neutralDarkRooftop,
+                        )
+                      : _controller.isDownloading.value
+                          ? DSCircularProgress(
+                              currentProgress: _controller.downloadProgress,
+                              maximumProgress: _controller.maximumProgress,
+                              foregroundColor: foregroundColor,
+                            )
+                          : _controller.thumbnail.isEmpty
+                              ? Center(
+                                  child: SizedBox(
+                                    height: 40,
+                                    child: DSButton(
+                                      leadingIcon: const Icon(
+                                        DSIcons.download_outline,
+                                        size: 20,
+                                      ),
+                                      backgroundColor: buttonBackgroundColor,
+                                      foregroundColor: buttonForegroundColor,
+                                      borderColor: buttonBorderColor,
+                                      label: _controller.size(),
+                                      onPressed: _controller.downloadVideo,
                                     ),
-                                    backgroundColor: buttonBackgroundColor,
-                                    foregroundColor: buttonForegroundColor,
-                                    borderColor: buttonBorderColor,
-                                    label: _controller.size(),
-                                    onPressed: _controller.downloadVideo,
+                                  ),
+                                )
+                              : DSVideoBody(
+                                  align: widget.align,
+                                  appBarPhotoUri: widget.appBarPhotoUri,
+                                  appBarText: widget.appBarText,
+                                  url: widget.url,
+                                  shouldAuthenticate: widget.shouldAuthenticate,
+                                  thumbnail: Center(
+                                    child: Image.file(
+                                      File(
+                                        _controller.thumbnail.value,
+                                      ),
+                                      width: 240,
+                                      height: 240,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              )
-                            : DSVideoBody(
-                                align: widget.align,
-                                appBarPhotoUri: widget.appBarPhotoUri,
-                                appBarText: widget.appBarText,
-                                url: widget.url,
-                                shouldAuthenticate: widget.shouldAuthenticate,
-                                thumbnail: Center(
-                                  child: Image.file(
-                                    File(
-                                      _controller.thumbnail.value,
-                                    ),
-                                    width: 240,
-                                    height: 240,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                ),
               ),
             ),
             if (widget.text?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: DSShowMoreText(
-                  text: widget.text!,
-                  align: widget.align,
-                  style: widget.style,
-                  maxWidth: constraints.maxWidth,
+              SizedBox(
+                width: 240,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: DSShowMoreText(
+                    text: widget.text!,
+                    align: widget.align,
+                    style: widget.style,
+                    maxWidth: constraints.maxWidth,
+                  ),
                 ),
               ),
           ],
