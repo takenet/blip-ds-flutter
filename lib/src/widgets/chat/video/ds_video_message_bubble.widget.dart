@@ -128,6 +128,8 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      defaultMaxSize: DSUtils.bubbleMinSize,
+      shouldUseDefaultSize: true,
       replyContent: widget.replyContent,
       align: widget.align,
       borderRadius: widget.borderRadius,
@@ -224,16 +226,19 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                       : _buidErrorIcon(),
             ),
             if (widget.text?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: DSShowMoreText(
-                  text: widget.text!,
-                  align: widget.align,
-                  style: widget.style,
-                  maxWidth: constraints.maxWidth,
+              SizedBox(
+                width: DSUtils.bubbleMinSize,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: DSShowMoreText(
+                    text: widget.text!,
+                    align: widget.align,
+                    style: widget.style,
+                    maxWidth: constraints.maxWidth,
+                  ),
                 ),
               ),
           ],
