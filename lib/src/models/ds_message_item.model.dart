@@ -30,7 +30,10 @@ class DSMessageItem {
   /// Used to define if a message detail (typicament a messages date and time) should be displayed or not
   bool? hideMessageDetail;
 
-  /// Creates a new Design System's [DSMessageItem] model
+  /// if the media message is uploading
+  bool isUploading;
+
+  /// Creates a new Design System's [DSMessageItemModel] model
   DSMessageItem({
     this.id,
     required this.date,
@@ -41,6 +44,7 @@ class DSMessageItem {
     this.content,
     this.customer,
     this.hideMessageDetail,
+    this.isUploading = false,
   });
 
   factory DSMessageItem.fromJson(Map<String, dynamic> json) {
@@ -53,6 +57,7 @@ class DSMessageItem {
       content: json['content'],
       status: DSDeliveryReportStatus.unknown.getValue(json['status']),
       hideMessageDetail: json['hideMessageDetail'],
+      isUploading: json['isUploading'] ?? false,
     );
 
     if (json.containsKey('customer')) {

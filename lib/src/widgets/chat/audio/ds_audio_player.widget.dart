@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
+import '../../../extensions/future.extension.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../services/ds_file.service.dart';
 import '../../../services/ds_media_format.service.dart';
@@ -112,7 +113,9 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     );
 
     try {
-      await _loadAudio();
+      await _loadAudio().trueWhile(
+        _controller.isLoadingAudio,
+      );
 
       _controller.isInitialized.value = true;
     } catch (_) {
@@ -214,7 +217,8 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
                     ? _controller.player.play
                     : () => {},
                 isLoading: [ProcessingState.loading, ProcessingState.buffering]
-                    .contains(processingState),
+                        .contains(processingState) ||
+                    _controller.isLoadingAudio.value,
                 color: _controller.isInitialized.value
                     ? widget.controlForegroundColor
                     : DSColors.contentDisable,

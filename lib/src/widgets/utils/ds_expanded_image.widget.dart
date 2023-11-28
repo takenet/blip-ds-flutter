@@ -6,19 +6,20 @@ import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../../../blip_ds.dart';
+import '../animations/ds_uploading.widget.dart';
 
 class DSExpandedImage extends StatelessWidget {
   final String appBarText;
   final String url;
   final BoxFit fit;
   final double width;
-  final double minHeight;
-  final double maxHeight;
+  final double height;
   final bool isLoading;
   final Uri? appBarPhotoUri;
   final DSMessageBubbleStyle style;
   final DSAlign align;
   final bool shouldAuthenticate;
+  final bool isUploading;
 
   final _error = RxBool(false);
   final _isAppBarVisible = RxBool(false);
@@ -29,13 +30,13 @@ class DSExpandedImage extends StatelessWidget {
     required this.url,
     this.fit = BoxFit.cover,
     this.width = double.infinity,
-    this.maxHeight = double.infinity,
-    this.minHeight = 0.0,
+    this.height = double.infinity,
     this.isLoading = false,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
     DSAlign? align,
+    this.isUploading = false,
   })  : style = style ?? DSMessageBubbleStyle(),
         align = align ?? DSAlign.center;
 
@@ -50,30 +51,40 @@ class DSExpandedImage extends StatelessWidget {
               _expandImage();
             }
           },
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: maxHeight,
-              minHeight: minHeight,
-            ),
-            child: url.startsWith('http')
-                ? DSCachedNetworkImageView(
-                    fit: fit,
-                    width: width,
-                    url: url,
-                    placeholder: (_, __) => _buildLoading(),
-                    onError: () => _error.value = true,
-                    align: align,
-                    style: style,
-                    shouldAuthenticate: shouldAuthenticate,
-                  )
-                : Image.file(
-                    File(url),
-                    width: width,
-                    fit: fit,
-                    cacheWidth: 360,
-                    errorBuilder: (_, __, ___) => _defaultErrorWidget(),
-                  ),
-          ),
+          child: url.startsWith('http')
+              ? DSCachedNetworkImageView(
+                  fit: fit,
+                  width: width,
+                  height: height,
+                  url: url,
+                  placeholder: (_, __) => _buildLoading(),
+                  onError: () => _error.value = true,
+                  align: align,
+                  style: style,
+                  shouldAuthenticate: shouldAuthenticate,
+                )
+              : Stack(
+                  children: [
+                    Image.file(
+                      File(url),
+                      width: width,
+                      height: height,
+                      fit: fit,
+                      cacheWidth: 360,
+                      errorBuilder: (_, __, ___) => _defaultErrorWidget(),
+                      opacity:
+                          isUploading ? const AlwaysStoppedAnimation(.3) : null,
+                    ),
+                    Positioned(
+                      bottom: 10.0,
+                      right: 10.0,
+                      child: Visibility(
+                        visible: isUploading,
+                        child: const DSUploading(),
+                      ),
+                    ),
+                  ],
+                ),
         ),
       );
 
