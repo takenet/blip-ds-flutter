@@ -164,11 +164,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                   : _isInitialized
                       ? Obx(
                           () => _controller.hasError.value
-                              ? const Icon(
-                                  DSIcons.video_broken_outline,
-                                  size: 80.0,
-                                  color: DSColors.neutralDarkRooftop,
-                                )
+                              ? _buidErrorIcon()
                               : _controller.isLoadingThumbnail.value
                                   ? const SizedBox.shrink()
                                   : _controller.isDownloading.value
@@ -220,7 +216,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                               ),
                                             ),
                         )
-                      : const SizedBox.shrink(),
+                      : _buidErrorIcon(),
             ),
             if (widget.text?.isNotEmpty ?? false)
               Padding(
@@ -240,4 +236,10 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       ),
     );
   }
+
+  Widget _buidErrorIcon() => const Icon(
+        DSIcons.video_broken_outline,
+        size: 80.0,
+        color: DSColors.neutralDarkRooftop,
+      );
 }
