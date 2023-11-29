@@ -144,7 +144,8 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
 export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
-export 'src/widgets/chat/ds_weblink.widget.dart' show DSWeblink;
+export 'src/widgets/chat/ds_weblink_message_bubble.widget.dart'
+    show DSWeblinkMessageBubble;
 export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
     show DSTypingDotAnimation;
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'

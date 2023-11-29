@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../utils/ds_bubble.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../buttons/ds_request_location_button.widget.dart';
@@ -24,7 +25,7 @@ class DSRequestLocationBubble extends StatelessWidget {
   final String? label;
   final String type;
   final String? value;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final bool showRequestLocationButton;

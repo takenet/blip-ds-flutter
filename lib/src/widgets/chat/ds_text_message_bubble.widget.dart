@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_linkify.util.dart';
 import 'ds_message_bubble.widget.dart';
@@ -16,7 +17,7 @@ class DSTextMessageBubble extends StatefulWidget {
   final bool hasSpacer;
   final List<DSBorderRadius> borderRadius;
   final dynamic selectContent;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final bool showSelect;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;

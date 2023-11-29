@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../utils/ds_bubble.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_animated_size.widget.dart';
@@ -11,7 +12,7 @@ import 'ds_reply_container.widget.dart';
 class DSMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget child;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final List<DSBorderRadius> borderRadius;
   final EdgeInsets padding;
   final bool shouldUseDefaultSize;

@@ -7,6 +7,7 @@ import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../models/ds_reply_content.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
@@ -54,7 +55,7 @@ class DSVideoMessageBubble extends StatefulWidget {
   final bool isUploading;
 
   // reply id message
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
 
   /// Card for the purpose of triggering a video to play.
   ///

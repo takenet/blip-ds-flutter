@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../texts/ds_body_text.widget.dart';
@@ -14,7 +15,7 @@ class DSContactMessageBubble extends StatelessWidget {
   final String? phone;
   final String? email;
   final String? address;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;

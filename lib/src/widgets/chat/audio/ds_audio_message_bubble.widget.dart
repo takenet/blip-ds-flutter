@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../models/ds_reply_content.model.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../ds_message_bubble.widget.dart';
 import 'ds_audio_player.widget.dart';
@@ -14,7 +15,7 @@ class DSAudioMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final String? uniqueId;
   final bool shouldAuthenticate;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
 
   DSAudioMessageBubble({
     super.key,

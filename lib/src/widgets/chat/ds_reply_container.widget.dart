@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_message_content_type.util.dart';
@@ -9,19 +10,19 @@ import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_caption_text.widget.dart';
 
 class DSReplyContainer extends StatelessWidget {
-  const DSReplyContainer({
+  DSReplyContainer({
     super.key,
     required this.replyContent,
-    required this.style,
     required this.align,
-  });
+    DSMessageBubbleStyle? style,
+  }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
-  final dynamic replyContent;
+  final DSReplyContent replyContent;
   final DSMessageBubbleStyle style;
 
-  get _foregroundColor => style.isLightBubbleBackground(align)
-      ? DSColors.contentDefault
+  Color get _foregroundColor => style.isLightBubbleBackground(align)
+      ? const Color.fromARGB(255, 39, 4, 4)
       : DSColors.surface1;
 
   @override
@@ -47,6 +48,7 @@ class DSReplyContainer extends StatelessWidget {
               color: style.isLightBubbleBackground(align)
                   ? DSColors.neutralDarkCity
                   : DSColors.neutralLightSnow,
+              size: 24.0,
             ),
             const SizedBox(width: 8.0),
             DSCaptionText(
@@ -98,23 +100,54 @@ class DSReplyContainer extends StatelessWidget {
         ),
       );
 
-  Widget _buildReply() => switch (replyContent['type']) {
+  Widget _buildReply() => switch (replyContent.inReplyTo.type) {
         DSMessageContentType.textPlain => _buildTextPlain(),
+        DSMessageContentType.applicationJson => _buildApplicationJson(),
+        DSMessageContentType.select => _buidSelect(),
         _ => _buildDefault(),
       };
 
-  Widget _buildTextPlain() => DSBodyText(
-        replyContent['value'] is String ? replyContent['value'] : '**********',
+  Widget _buidSelect() => DSBodyText(
+        replyContent.inReplyTo.value['text'],
         color: _foregroundColor,
         overflow: TextOverflow.visible,
       );
 
+  Widget _buildApplicationJson() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (replyContent.inReplyTo.value['interactive']['body']?['text'] !=
+              null)
+            DSBodyText(
+              replyContent.inReplyTo.value['interactive']['body']?['text'],
+              color: _foregroundColor,
+              overflow: TextOverflow.visible,
+            ),
+          if (replyContent.inReplyTo.value['interactive']['footer']?['text'] !=
+              null)
+            DSCaptionText(
+              replyContent.inReplyTo.value['interactive']['footer']?['text'],
+              fontStyle: FontStyle.italic,
+              overflow: TextOverflow.visible,
+              color: _foregroundColor,
+            ),
+        ],
+      );
+
+  Widget _buildTextPlain() => replyContent.inReplyTo.value is String
+      ? DSBodyText(
+          replyContent.inReplyTo.value,
+          color: _foregroundColor,
+          overflow: TextOverflow.visible,
+        )
+      : _buildDefault();
+
   Widget _buildDefault() => Row(
-        mainAxisSize: MainAxisSize.max,
         children: [
           Icon(
             DSIcons.warning_outline,
             color: _foregroundColor,
+            size: 24.0,
           ),
           const SizedBox(width: 8.0),
           Flexible(

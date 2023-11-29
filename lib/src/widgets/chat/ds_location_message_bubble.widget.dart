@@ -4,6 +4,7 @@ import 'package:map_launcher/map_launcher.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -17,7 +18,7 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;

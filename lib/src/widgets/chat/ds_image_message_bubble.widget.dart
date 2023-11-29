@@ -6,6 +6,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 import '../texts/ds_caption_text.widget.dart';
@@ -53,7 +54,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final bool shouldAuthenticate;
   final String? mediaType;
   final bool isUploading;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
 
   @override
   State<StatefulWidget> createState() => _DSImageMessageBubbleState();

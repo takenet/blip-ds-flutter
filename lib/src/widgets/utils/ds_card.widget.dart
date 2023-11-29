@@ -10,6 +10,7 @@ import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
@@ -23,7 +24,7 @@ import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_request_location_bubble.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
-import '../chat/ds_weblink.widget.dart';
+import '../chat/ds_weblink_message_bubble.widget.dart';
 import '../chat/video/ds_video_message_bubble.widget.dart';
 import '../ticket_message/ds_ticket_message.widget.dart';
 
@@ -62,7 +63,7 @@ class DSCard extends StatelessWidget {
   final Map<String, dynamic>? customer;
   final bool showQuickReplyOptions;
   final bool showRequestLocationButton;
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
   final bool isUploading;
 
   @override
@@ -86,9 +87,11 @@ class DSCard extends StatelessWidget {
         return _buildContact();
 
       case DSMessageContentType.reply:
+        final replyContent = DSReplyContent.fromJson(content);
+
         return DSCard(
-          type: content['replied']['type'],
-          content: content['replied']['value'],
+          type: replyContent.replied.type,
+          content: replyContent.replied.value,
           align: align,
           borderRadius: borderRadius,
           status: status,
@@ -98,7 +101,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
-          replyContent: content['inReplyTo'],
+          replyContent: replyContent,
         );
 
       case DSMessageContentType.mediaLink:
@@ -122,7 +125,7 @@ class DSCard extends StatelessWidget {
         );
 
       case DSMessageContentType.webLink:
-        return DSWeblink(
+        return DSWeblinkMessageBubble(
           title: content['title'],
           text: content['text'],
           url: content['uri'],

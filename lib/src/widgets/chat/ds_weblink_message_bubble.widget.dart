@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../texts/ds_body_text.widget.dart';
 import '../texts/ds_headline_small_text.widget.dart';
@@ -10,7 +11,7 @@ import 'ds_message_bubble.widget.dart';
 
 /// A Design System widget used to display weblinks.
 
-class DSWeblink extends StatelessWidget {
+class DSWeblinkMessageBubble extends StatelessWidget {
   /// Show the [title] on the card
   final String title;
 
@@ -30,9 +31,9 @@ class DSWeblink extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   /// replyContent
-  final dynamic replyContent;
+  final DSReplyContent? replyContent;
 
-  DSWeblink({
+  DSWeblinkMessageBubble({
     Key? key,
     required this.title,
     required this.text,
