@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -8,8 +10,10 @@ import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
+import '../../utils/ds_utils.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
@@ -21,7 +25,7 @@ import '../chat/ds_quick_reply.widget.dart';
 import '../chat/ds_request_location_bubble.widget.dart';
 import '../chat/ds_text_message_bubble.widget.dart';
 import '../chat/ds_unsupported_content_message_bubble.widget.dart';
-import '../chat/ds_weblink.widget.dart';
+import '../chat/ds_weblink_message_bubble.widget.dart';
 import '../chat/video/ds_video_message_bubble.widget.dart';
 import '../ticket_message/ds_ticket_message.widget.dart';
 
@@ -43,6 +47,8 @@ class DSCard extends StatelessWidget {
     this.customer,
     this.showQuickReplyOptions = false,
     this.showRequestLocationButton = false,
+    this.replyContent,
+    this.isUploading = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -58,6 +64,8 @@ class DSCard extends StatelessWidget {
   final Map<String, dynamic>? customer;
   final bool showQuickReplyOptions;
   final bool showRequestLocationButton;
+  final DSReplyContent? replyContent;
+  final bool isUploading;
 
   @override
   Widget build(BuildContext context) {
@@ -73,15 +81,18 @@ class DSCard extends StatelessWidget {
           align: align,
           borderRadius: borderRadius,
           style: style,
+          replyContent: replyContent,
         );
 
       case DSMessageContentType.contact:
         return _buildContact();
 
       case DSMessageContentType.reply:
+        final replyContent = DSReplyContent.fromJson(content);
+
         return DSCard(
-          type: content['replied']['type'],
-          content: content['replied']['value'],
+          type: replyContent.replied.type,
+          content: replyContent.replied.value,
           align: align,
           borderRadius: borderRadius,
           status: status,
@@ -91,6 +102,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
+          replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
         );
 
       case DSMessageContentType.mediaLink:
@@ -114,11 +126,12 @@ class DSCard extends StatelessWidget {
         );
 
       case DSMessageContentType.webLink:
-        return DSWeblink(
+        return DSWeblinkMessageBubble(
           title: content['title'],
           text: content['text'],
           url: content['uri'],
           align: align,
+          replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
         );
@@ -131,6 +144,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           align: align,
           style: style,
+          replyContent: replyContent,
         );
       case DSMessageContentType.ticket:
         return DSTicketMessage(
@@ -155,6 +169,7 @@ class DSCard extends StatelessWidget {
       default:
         return DSUnsupportedContentMessageBubble(
           align: align,
+          replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
         );
@@ -179,6 +194,7 @@ class DSCard extends StatelessWidget {
       selectOptions: documentSelectModel.options,
       borderRadius: borderRadius,
       style: style,
+      replyContent: replyContent,
       showSelect: true,
       onSelected: onSelected,
       onOpenLink: onOpenLink,
@@ -197,6 +213,7 @@ class DSCard extends StatelessWidget {
                 child: DSTextMessageBubble(
                   align: align,
                   text: content['text'],
+                  replyContent: replyContent,
                   borderRadius: borderRadius,
                   style: style,
                 ),
@@ -218,6 +235,7 @@ class DSCard extends StatelessWidget {
             borderRadius: borderRadius,
             selectContent: content,
             showSelect: true,
+            replyContent: replyContent,
             onSelected: onSelected,
             style: style,
           );
@@ -230,6 +248,7 @@ class DSCard extends StatelessWidget {
       address: content['address'],
       email: content['email'],
       align: align,
+      replyContent: replyContent,
       style: style,
       borderRadius: borderRadius,
     );
@@ -251,10 +270,13 @@ class DSCard extends StatelessWidget {
 
     if (media.type.contains('audio')) {
       return DSAudioMessageBubble(
-        uri: Uri.parse(media.uri),
+        uri: media.uri.startsWith('http')
+            ? Uri.parse(media.uri)
+            : File(media.uri).uri,
         align: align,
         borderRadius: borderRadius,
         style: style,
+        replyContent: replyContent,
         uniqueId: messageId,
         shouldAuthenticate: shouldAuthenticate,
       );
@@ -271,11 +293,12 @@ class DSCard extends StatelessWidget {
             : avatarConfig.sentAvatar,
         text: media.text,
         title: media.title,
+        replyContent: replyContent,
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
-        imageMaxHeight: 300.0,
+        isUploading: isUploading,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -289,21 +312,25 @@ class DSCard extends StatelessWidget {
             ? avatarConfig.receivedAvatar
             : avatarConfig.sentAvatar,
         text: media.text,
+        replyContent: replyContent,
         borderRadius: borderRadius,
         style: style,
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
+        isUploading: isUploading,
       );
     } else {
       return DSFileMessageBubble(
         align: align,
         url: media.uri,
+        replyContent: replyContent,
         size: size,
         filename: media.title ??
             '${media.uri.hashCode}.${DSFileService.getFileExtensionFromMime(media.type)}',
         borderRadius: borderRadius,
         style: style,
         shouldAuthenticate: shouldAuthenticate,
+        isUploading: isUploading,
       );
     }
   }
@@ -315,6 +342,7 @@ class DSCard extends StatelessWidget {
 
     return DSRequestLocationBubble(
       label: 'Send location',
+      replyContent: replyContent,
       type: type,
       value: value,
       align: align,

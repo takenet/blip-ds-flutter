@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../texts/ds_body_text.widget.dart';
@@ -14,6 +15,7 @@ class DSContactMessageBubble extends StatelessWidget {
   final String? phone;
   final String? email;
   final String? address;
+  final DSReplyContent? replyContent;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
@@ -25,6 +27,7 @@ class DSContactMessageBubble extends StatelessWidget {
     required this.address,
     required this.email,
     required this.align,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -34,9 +37,10 @@ class DSContactMessageBubble extends StatelessWidget {
     return DSMessageBubble(
       align: align,
       borderRadius: borderRadius,
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.zero,
       shouldUseDefaultSize: true,
       style: style,
+      replyContent: replyContent,
       child: _buildContactCard(),
     );
   }
@@ -45,44 +49,51 @@ class DSContactMessageBubble extends StatelessWidget {
     final foregroundColor = style.isLightBubbleBackground(align)
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Visibility(
-          visible: name != null,
-          child: DSBodyText(
-            name,
-            fontWeight: DSFontWeights.semiBold,
-            color: foregroundColor,
-            overflow: TextOverflow.visible,
-          ),
-        ),
-        const SizedBox(height: 16.0),
 
-        /// TODO(format): Format phone number
-        if (phone != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: _buildContactField(
-                title: 'Telefone',
-                body: phone!,
-                foregroundColor: foregroundColor),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 16.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: name != null,
+            child: DSBodyText(
+              name,
+              fontWeight: DSFontWeights.semiBold,
+              color: foregroundColor,
+              overflow: TextOverflow.visible,
+            ),
           ),
-        if (email != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: _buildContactField(
-                title: 'E-mail',
-                body: email!,
-                foregroundColor: foregroundColor),
-          ),
-        if (address != null)
-          _buildContactField(
-            title: 'Endereço',
-            body: address!,
-            foregroundColor: foregroundColor,
-          ),
-      ],
+          const SizedBox(height: 16.0),
+
+          /// TODO(format): Format phone number
+          if (phone != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: _buildContactField(
+                  title: 'Telefone',
+                  body: phone!,
+                  foregroundColor: foregroundColor),
+            ),
+          if (email != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: _buildContactField(
+                  title: 'E-mail',
+                  body: email!,
+                  foregroundColor: foregroundColor),
+            ),
+          if (address != null)
+            _buildContactField(
+              title: 'Endereço',
+              body: address!,
+              foregroundColor: foregroundColor,
+            ),
+        ],
+      ),
     );
   }
 

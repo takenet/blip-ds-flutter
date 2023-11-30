@@ -1,3 +1,8 @@
+## 0.0.90
+
+- [DSReplyContainer] Created the widget.
+- [DSUploading] Created the widget.
+
 ## 0.0.89
 
 - [DSInteractiveButtonMessageBubble] Fixed border radius behavior.

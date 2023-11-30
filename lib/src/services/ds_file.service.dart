@@ -102,6 +102,9 @@ abstract class DSFileService {
     return null;
   }
 
-  static String getFileExtensionFromMime(String? mimeType) =>
-      extensionFromMime(mimeType ?? '');
+  static String getFileExtensionFromMime(String? mimeType) {
+    return mimeType == 'application/vnd.ms-powerpoint'
+        ? 'ppt'
+        : extensionFromMime(mimeType ?? '');
+  }
 }

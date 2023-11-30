@@ -7,9 +7,12 @@ import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../models/ds_reply_content.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
+import '../../../utils/ds_utils.util.dart';
+import '../../animations/ds_uploading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
 import '../../utils/ds_circular_progress.widget.dart';
 import '../ds_message_bubble.widget.dart';
@@ -48,6 +51,12 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Indicates if the HTTP Requests should be authenticated or not.
   final bool shouldAuthenticate;
 
+  /// Indicates if the video file is uploading
+  final bool isUploading;
+
+  // reply id message
+  final DSReplyContent? replyContent;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -65,6 +74,8 @@ class DSVideoMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
+    this.isUploading = false,
+    this.replyContent,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -74,16 +85,22 @@ class DSVideoMessageBubble extends StatefulWidget {
 class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
     with AutomaticKeepAliveClientMixin {
   late final DSVideoMessageBubbleController _controller;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = DSVideoMessageBubbleController(
-      url: widget.url,
-      mediaSize: widget.mediaSize,
-      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
-      type: widget.type,
-    );
+
+    if (!widget.isUploading) {
+      _controller = DSVideoMessageBubbleController(
+        url: widget.url,
+        mediaSize: widget.mediaSize,
+        httpHeaders:
+            widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
+        type: widget.type,
+      );
+      _isInitialized = true;
+    }
   }
 
   @override
@@ -112,6 +129,9 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      defaultMaxSize: DSUtils.bubbleMinSize,
+      shouldUseDefaultSize: true,
+      replyContent: widget.replyContent,
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
@@ -120,69 +140,106 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
         builder: (_, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(
-              () => SizedBox(
-                height: 240,
-                width: 240,
-                child: _controller.hasError.value
-                    ? const Icon(
-                        DSIcons.video_broken_outline,
-                        size: 80.0,
-                        color: DSColors.neutralDarkRooftop,
-                      )
-                    : _controller.isDownloading.value
-                        ? DSCircularProgress(
-                            currentProgress: _controller.downloadProgress,
-                            maximumProgress: _controller.maximumProgress,
-                            foregroundColor: foregroundColor,
-                          )
-                        : _controller.thumbnail.isEmpty
-                            ? Center(
-                                child: SizedBox(
-                                  height: 40,
-                                  child: DSButton(
-                                    leadingIcon: const Icon(
-                                      DSIcons.download_outline,
-                                      size: 20,
-                                    ),
-                                    backgroundColor: buttonBackgroundColor,
-                                    foregroundColor: buttonForegroundColor,
-                                    borderColor: buttonBorderColor,
-                                    label: _controller.size(),
-                                    onPressed: _controller.downloadVideo,
-                                  ),
-                                ),
-                              )
-                            : DSVideoBody(
-                                align: widget.align,
-                                appBarPhotoUri: widget.appBarPhotoUri,
-                                appBarText: widget.appBarText,
-                                url: widget.url,
-                                shouldAuthenticate: widget.shouldAuthenticate,
-                                thumbnail: Center(
-                                  child: Image.file(
-                                    File(
-                                      _controller.thumbnail.value,
-                                    ),
-                                    width: 240,
-                                    height: 240,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-              ),
+            SizedBox(
+              height: DSUtils.bubbleMinSize,
+              width: DSUtils.bubbleMinSize,
+              child: widget.isUploading
+                  ? Stack(
+                      children: [
+                        Image.file(
+                          File(
+                            widget.url,
+                          ),
+                          opacity: const AlwaysStoppedAnimation(.3),
+                          width: DSUtils.bubbleMinSize,
+                          height: DSUtils.bubbleMinSize,
+                          fit: BoxFit.cover,
+                        ),
+                        const Positioned(
+                          bottom: 10.0,
+                          right: 10.0,
+                          child: DSUploading(),
+                        ),
+                        const Center(
+                          child: Icon(
+                            DSIcons.video_outline,
+                            color: DSColors.disabledBg,
+                            size: 80.0,
+                          ),
+                        ),
+                      ],
+                    )
+                  : _isInitialized
+                      ? Obx(
+                          () => _controller.hasError.value
+                              ? _buidErrorIcon()
+                              : _controller.isLoadingThumbnail.value
+                                  ? const SizedBox.shrink()
+                                  : _controller.isDownloading.value
+                                      ? DSCircularProgress(
+                                          currentProgress:
+                                              _controller.downloadProgress,
+                                          maximumProgress:
+                                              _controller.maximumProgress,
+                                          foregroundColor: foregroundColor,
+                                        )
+                                      : _controller.thumbnail.isEmpty
+                                          ? Center(
+                                              child: SizedBox(
+                                                height: 40,
+                                                child: DSButton(
+                                                  leadingIcon: const Icon(
+                                                    DSIcons.download_outline,
+                                                    size: 20,
+                                                  ),
+                                                  backgroundColor:
+                                                      buttonBackgroundColor,
+                                                  foregroundColor:
+                                                      buttonForegroundColor,
+                                                  borderColor:
+                                                      buttonBorderColor,
+                                                  label: _controller.size(),
+                                                  onPressed:
+                                                      _controller.downloadVideo,
+                                                ),
+                                              ),
+                                            )
+                                          : DSVideoBody(
+                                              align: widget.align,
+                                              appBarPhotoUri:
+                                                  widget.appBarPhotoUri,
+                                              appBarText: widget.appBarText,
+                                              url: widget.url,
+                                              shouldAuthenticate:
+                                                  widget.shouldAuthenticate,
+                                              thumbnail: Center(
+                                                child: Image.file(
+                                                  File(
+                                                    _controller.thumbnail.value,
+                                                  ),
+                                                  width: DSUtils.bubbleMinSize,
+                                                  height: DSUtils.bubbleMinSize,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                        )
+                      : _buidErrorIcon(),
             ),
             if (widget.text?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: DSShowMoreText(
-                  text: widget.text!,
-                  align: widget.align,
-                  style: widget.style,
-                  maxWidth: constraints.maxWidth,
+              SizedBox(
+                width: DSUtils.bubbleMinSize,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: DSShowMoreText(
+                    text: widget.text!,
+                    align: widget.align,
+                    style: widget.style,
+                    maxWidth: constraints.maxWidth,
+                  ),
                 ),
               ),
           ],
@@ -190,4 +247,10 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       ),
     );
   }
+
+  Widget _buidErrorIcon() => const Icon(
+        DSIcons.video_broken_outline,
+        size: 80.0,
+        color: DSColors.neutralDarkRooftop,
+      );
 }

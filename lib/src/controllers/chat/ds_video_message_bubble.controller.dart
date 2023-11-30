@@ -109,7 +109,7 @@ class DSVideoMessageBubbleController {
         hasError.value = !isSuccess;
       }
 
-      _generateThumbnail(outputFile.path);
+      await _generateThumbnail(outputFile.path);
     } catch (_) {
       hasError.value = true;
 

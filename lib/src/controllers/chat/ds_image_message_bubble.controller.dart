@@ -13,7 +13,6 @@ class DSImageMessageBubbleController extends GetxController {
   final maximumProgress = RxInt(0);
   final downloadProgress = RxInt(0);
   final localPath = RxnString();
-
   final String url;
   final String? mediaType;
   final bool shouldAuthenticate;

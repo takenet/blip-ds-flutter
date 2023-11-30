@@ -53,6 +53,57 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSTextMessageBubble(
+            text: 'Essa foto é linda',
+            align: DSAlign.left,
+            replyContent: DSReplyContent(
+              replied: DSReplyContentReplied(
+                type: 'text/plain',
+                value: 'Essa foto é linda',
+              ),
+              inReplyTo: DSReplyContentInReplyTo(
+                id: 'id',
+                type: 'application/vnd.lime.media-link+json',
+                value:
+                    '{uri:${_sampleImages['extraLarge']!}, type: "image/jpeg"}',
+                direction: 'received',
+              ),
+            ),
+          ),
+          DSTextMessageBubble(
+            text: 'Sim',
+            align: DSAlign.left,
+            replyContent: DSReplyContent(
+              replied: DSReplyContentReplied(
+                type: 'text/plain',
+                value: 'Sim',
+              ),
+              inReplyTo: DSReplyContentInReplyTo(
+                id: 'id',
+                type: 'text/plain',
+                value: 'Você gostaria de um atendimento humano?',
+                direction: 'received',
+              ),
+            ),
+          ),
+          DSImageMessageBubble(
+            align: DSAlign.left,
+            url: _sampleImages['extraLarge']!,
+            appBarText: 'appBarText',
+            replyContent: DSReplyContent(
+              replied: DSReplyContentReplied(
+                type: 'text/plain',
+                value:
+                    '{type: "image/jpeg", uri: ${_sampleImages['extraLarge']!}}',
+              ),
+              inReplyTo: DSReplyContentInReplyTo(
+                id: 'id',
+                type: 'text/plain',
+                value: 'Envie a imagem por favor',
+                direction: 'received',
+              ),
+            ),
+          ),
           DSApplicationJsonMessageBubble(
             align: DSAlign.right,
             borderRadius: const [
