@@ -11,6 +11,10 @@ class DSReplyContent {
   });
 
   DSReplyContent.fromJson(Map<String, dynamic> json)
-      : replied = DSReplyContentReplied.fromJson(json['replied']),
-        inReplyTo = DSReplyContentInReplyTo.fromJson(json['inReplyTo']);
+      : replied = DSReplyContentReplied.fromJson(
+          json['replied'],
+        ),
+        inReplyTo = DSReplyContentInReplyTo.fromJson(
+          json['inReplyTo'],
+        );
 }

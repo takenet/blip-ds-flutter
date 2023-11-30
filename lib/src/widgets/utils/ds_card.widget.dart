@@ -13,6 +13,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
+import '../../utils/ds_utils.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
@@ -101,7 +102,8 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
-          replyContent: replyContent,
+          replyContent:
+              (DSUtils.shouldShowReplyContainer ?? false) ? replyContent : null,
         );
 
       case DSMessageContentType.mediaLink:
