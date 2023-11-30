@@ -10,9 +10,7 @@ abstract class DSUtils {
   static const bubbleMinSize = 240.0;
   static const bubbleMaxSize = 480.0;
   static const defaultAnimationDuration = Duration(milliseconds: 300);
-
-  static bool? _shouldShowReplyContainer;
-  static bool? get shouldShowReplyContainer => _shouldShowReplyContainer;
+  static bool shouldShowReplyContainer = false;
 
   static String generateUniqueID() =>
       md5.convert(utf8.encode(DateTime.now().toIso8601String())).toString();
@@ -1087,9 +1085,4 @@ abstract class DSUtils {
       flag: 'zimbabwe_flag',
     ),
   ];
-
-  static void setShowReplyContainer({
-    required final bool value,
-  }) =>
-      _shouldShowReplyContainer = value;
 }

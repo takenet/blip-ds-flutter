@@ -102,8 +102,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           messageId: messageId,
           customer: customer,
-          replyContent:
-              (DSUtils.shouldShowReplyContainer ?? false) ? replyContent : null,
+          replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
         );
 
       case DSMessageContentType.mediaLink:
