@@ -4,6 +4,7 @@ import 'package:map_launcher/map_launcher.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -17,6 +18,7 @@ class DSLocationMessageBubble extends StatelessWidget {
   final DSAlign align;
   final DSMessageBubbleStyle style;
   final String? title;
+  final DSReplyContent? replyContent;
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;
@@ -26,6 +28,7 @@ class DSLocationMessageBubble extends StatelessWidget {
     required this.align,
     required this.latitude,
     required this.longitude,
+    this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
@@ -57,49 +60,55 @@ class DSLocationMessageBubble extends StatelessWidget {
         defaultMaxSize: DSUtils.bubbleMinSize,
         defaultMinSize: DSUtils.bubbleMinSize,
         borderRadius: borderRadius,
+        replyContent: replyContent,
         padding: EdgeInsets.zero,
         align: align,
         style: style,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            hasValidCoordinates
-                ? DSCachedNetworkImageView(
-                    url:
-                        'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
-                    placeholder: (_, __) => _buildLoading(),
-                    align: align,
-                    style: style,
-                  )
-                : SizedBox(
-                    width: 240,
-                    height: 240,
-                    child: Icon(
-                      DSIcons.file_image_broken_outline,
-                      size: 80,
-                      color: style.isLightBubbleBackground(align)
-                          ? DSColors.neutralMediumElephant
-                          : DSColors.neutralMediumCloud,
+        child: Padding(
+          padding: replyContent == null
+              ? EdgeInsets.zero
+              : const EdgeInsets.only(top: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              hasValidCoordinates
+                  ? DSCachedNetworkImageView(
+                      url:
+                          'https://maps.googleapis.com/maps/api/staticmap?&size=360x360&markers=$latitude,$longitude&key=${DSAuthService.googleKey}',
+                      placeholder: (_, __) => _buildLoading(),
+                      align: align,
+                      style: style,
+                    )
+                  : SizedBox(
+                      width: 240,
+                      height: 240,
+                      child: Icon(
+                        DSIcons.file_image_broken_outline,
+                        size: 80,
+                        color: style.isLightBubbleBackground(align)
+                            ? DSColors.neutralMediumElephant
+                            : DSColors.neutralMediumCloud,
+                      ),
+                    ),
+              if (title?.isNotEmpty ?? false)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: DSBodyText(
+                      title!,
+                      color: foregroundColor,
+                      isSelectable: true,
+                      overflow: TextOverflow.visible,
                     ),
                   ),
-            if (title?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
                 ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: DSBodyText(
-                    title!,
-                    color: foregroundColor,
-                    isSelectable: true,
-                    overflow: TextOverflow.visible,
-                  ),
-                ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

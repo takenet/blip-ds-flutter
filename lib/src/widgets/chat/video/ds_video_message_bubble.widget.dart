@@ -7,6 +7,7 @@ import '../../../controllers/chat/ds_video_message_bubble.controller.dart';
 import '../../../enums/ds_align.enum.dart';
 import '../../../enums/ds_border_radius.enum.dart';
 import '../../../models/ds_message_bubble_style.model.dart';
+import '../../../models/ds_reply_content.model.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
@@ -53,6 +54,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Indicates if the video file is uploading
   final bool isUploading;
 
+  // reply id message
+  final DSReplyContent? replyContent;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -71,6 +75,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
     this.isUploading = false,
+    this.replyContent,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -124,6 +129,9 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      defaultMaxSize: DSUtils.bubbleMinSize,
+      shouldUseDefaultSize: true,
+      replyContent: widget.replyContent,
       align: widget.align,
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
@@ -219,16 +227,19 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                       : _buidErrorIcon(),
             ),
             if (widget.text?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: DSShowMoreText(
-                  text: widget.text!,
-                  align: widget.align,
-                  style: widget.style,
-                  maxWidth: constraints.maxWidth,
+              SizedBox(
+                width: DSUtils.bubbleMinSize,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: DSShowMoreText(
+                    text: widget.text!,
+                    align: widget.align,
+                    style: widget.style,
+                    maxWidth: constraints.maxWidth,
+                  ),
                 ),
               ),
           ],

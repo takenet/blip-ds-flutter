@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../texts/ds_body_text.widget.dart';
@@ -11,6 +12,7 @@ import 'ds_message_bubble.widget.dart';
 class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSAlign align;
   final Widget? leftWidget;
+  final DSReplyContent? replyContent;
   final String? text;
   final TextOverflow overflow;
   final List<DSBorderRadius> borderRadius;
@@ -21,6 +23,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
     required this.align,
     this.leftWidget,
     this.text,
+    this.replyContent,
     this.overflow = TextOverflow.ellipsis,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
@@ -37,6 +40,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
       borderRadius: borderRadius,
       align: align,
       style: style,
+      replyContent: replyContent,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

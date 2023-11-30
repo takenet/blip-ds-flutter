@@ -8,14 +8,14 @@ class SampleWeblinkShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DSWeblink(
+        DSWeblinkMessageBubble(
           title: 'Take Blip',
           text:
               'Atenda de forma inteligente, no canal digital que seu cliente prefere',
           url: 'https://www.take.net/',
           align: DSAlign.right,
         ),
-        DSWeblink(
+        DSWeblinkMessageBubble(
           title: 'Take Blip',
           text:
               'Atenda de forma inteligente, no canal digital que seu cliente prefere',

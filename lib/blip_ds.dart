@@ -21,6 +21,11 @@ export 'src/models/ds_message_bubble_avatar_config.model.dart'
 export 'src/models/ds_message_bubble_style.model.dart'
     show DSMessageBubbleStyle;
 export 'src/models/ds_message_item.model.dart' show DSMessageItem;
+export 'src/models/ds_reply_content.model.dart' show DSReplyContent;
+export 'src/models/ds_reply_content_in_reply_to.model.dart'
+    show DSReplyContentInReplyTo;
+export 'src/models/ds_reply_content_replied.model.dart'
+    show DSReplyContentReplied;
 export 'src/models/ds_toast_props.model.dart' show DSToastProps;
 export 'src/models/interactive_message/ds_interactive_message.model.dart'
     show DSInteractiveMessage;
@@ -135,6 +140,7 @@ export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
 export 'src/widgets/chat/ds_message_bubble_detail.widget.dart'
     show DSMessageBubbleDetail;
+export 'src/widgets/chat/ds_reply_container.widget.dart' show DSReplyContainer;
 export 'src/widgets/chat/ds_request_location_bubble.widget.dart'
     show DSRequestLocationBubble;
 export 'src/widgets/chat/ds_survey_message_bubble.widget.dart'
@@ -144,7 +150,8 @@ export 'src/widgets/chat/ds_text_message_bubble.widget.dart'
 export 'src/widgets/chat/ds_unsupported_content_message_bubble.widget.dart'
     show DSUnsupportedContentMessageBubble;
 export 'src/widgets/chat/ds_url_preview.widget.dart' show DSUrlPreview;
-export 'src/widgets/chat/ds_weblink.widget.dart' show DSWeblink;
+export 'src/widgets/chat/ds_weblink_message_bubble.widget.dart'
+    show DSWeblinkMessageBubble;
 export 'src/widgets/chat/typing/ds_typing_dot_animation.widget.dart'
     show DSTypingDotAnimation;
 export 'src/widgets/chat/typing/ds_typing_message_bubble.widget.dart'

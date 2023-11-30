@@ -5,6 +5,7 @@ import '../../controllers/chat/ds_file_message_bubble.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
+import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../animations/ds_fading_circle_loading.widget.dart';
@@ -24,6 +25,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final bool shouldAuthenticate;
   final bool isUploading;
+  final DSReplyContent? replyContent;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -36,6 +38,7 @@ class DSFileMessageBubble extends StatelessWidget {
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
     this.isUploading = false,
+    this.replyContent,
   })  : style = style ?? DSMessageBubbleStyle(),
         controller = DSFileMessageBubbleController();
 
@@ -52,6 +55,7 @@ class DSFileMessageBubble extends StatelessWidget {
       child: Opacity(
         opacity: !isUploading ? 1 : .5,
         child: DSMessageBubble(
+          replyContent: replyContent,
           borderRadius: borderRadius,
           padding: EdgeInsets.zero,
           align: align,

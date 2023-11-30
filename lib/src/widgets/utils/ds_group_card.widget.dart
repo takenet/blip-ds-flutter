@@ -211,6 +211,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
         };
       }
     }
+
     groups.add(group);
     return groups;
   }

@@ -10,6 +10,7 @@ abstract class DSUtils {
   static const bubbleMinSize = 240.0;
   static const bubbleMaxSize = 480.0;
   static const defaultAnimationDuration = Duration(milliseconds: 300);
+  static bool shouldShowReplyContainer = false;
 
   static String generateUniqueID() =>
       md5.convert(utf8.encode(DateTime.now().toIso8601String())).toString();
