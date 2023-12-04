@@ -92,7 +92,7 @@ class DSExpandedImage extends StatelessWidget {
     _error.value = true;
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
           child: Padding(
