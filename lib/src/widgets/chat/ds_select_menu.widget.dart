@@ -22,51 +22,61 @@ class DSSelectMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 18.0),
-      child: Column(
-        children: _buildSelectMenu(),
+    final options = _getOptions();
+
+    return Visibility(
+      visible: options.isNotEmpty,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 18.0),
+        child: Column(
+          children: options,
+        ),
       ),
     );
   }
 
-  List<Widget> _buildSelectMenu() {
+  List<Widget> _getOptions() {
     final List<Widget> children = [];
 
     int count = 0;
 
-    List options =
-        content['options'].map((doc) => DSSelectOption.fromJson(doc)).toList();
+    final options = (content['options'] as List?)
+        ?.map(
+          (doc) => DSSelectOption.fromJson(doc),
+        )
+        .toList();
 
-    for (final option in options) {
-      count++;
+    if (options != null) {
+      for (final option in options) {
+        count++;
 
-      children.add(
-        DSMenuItem(
-          text: option.text,
-          align: align,
-          showDivider: count != content['options'].length,
-          onPressed: () {
-            if (onSelected != null) {
-              Map<String, dynamic> payload = {};
+        children.add(
+          DSMenuItem(
+            text: option.text,
+            align: align,
+            showDivider: count != content['options'].length,
+            onPressed: () {
+              if (onSelected != null) {
+                Map<String, dynamic> payload = {};
 
-              if (option.value != null) {
-                String type = option.type!;
-                payload = {"type": type, "content": option.value};
-              } else {
-                payload = {
-                  "type": DSMessageContentType.textPlain,
-                  "content": option.order != null
-                      ? option.order.toString()
-                      : option.text
-                };
+                if (option.value != null) {
+                  String type = option.type!;
+                  payload = {"type": type, "content": option.value};
+                } else {
+                  payload = {
+                    "type": DSMessageContentType.textPlain,
+                    "content": option.order != null
+                        ? option.order.toString()
+                        : option.text
+                  };
+                }
+                onSelected!(option.text, payload);
               }
-              onSelected!(option.text, payload);
-            }
-          },
-          style: style,
-        ),
-      );
+            },
+            style: style,
+          ),
+        );
+      }
     }
 
     return children;

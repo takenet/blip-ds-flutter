@@ -1,3 +1,8 @@
+## 0.0.91
+
+- [DSSelectMenu] Added check to see if options exists before building them.
+- [DSExpandedImage] Centered icon that appears when the image is broken.
+
 ## 0.0.90
 
 - [DSReplyContainer] Created the widget.
