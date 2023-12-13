@@ -20,7 +20,7 @@ abstract class DSMediaFormatService {
       );
 
       return File(result!.path).exists();
-    } catch (e) {
+    } catch (_) {
       return false;
     }
   }
