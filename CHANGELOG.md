@@ -1,3 +1,7 @@
+## 0.0.92
+
+- [DSMediaFormatService] Added a method to compress images.
+
 ## 0.0.91
 
 - [DSSelectMenu] Added check to see if options exists before building them.

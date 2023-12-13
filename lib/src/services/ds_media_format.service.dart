@@ -3,10 +3,28 @@ import 'dart:io';
 
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:video_compress/video_compress.dart';
 
 abstract class DSMediaFormatService {
+  static Future<bool> formatImage({
+    required final String input,
+    required final String output,
+  }) async {
+    try {
+      final result = await FlutterImageCompress.compressAndGetFile(
+        input,
+        output,
+        quality: 80,
+      );
+
+      return File(result!.path).exists();
+    } catch (_) {
+      return false;
+    }
+  }
+
   static Future<bool> formatVideo({
     required final String input,
     required final String output,
