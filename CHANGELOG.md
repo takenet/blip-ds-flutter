@@ -1,3 +1,7 @@
+## 0.0.93
+
+- [DSColors] Added a new color.
+
 ## 0.0.92
 
 - [DSMediaFormatService] Added a method to compress images.
