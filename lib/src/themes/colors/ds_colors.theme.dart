@@ -43,6 +43,7 @@ abstract class DSColors {
   static const Color extendGraysElevator = Color(0xFFA7A9AC);
   static const Color extendGraysMoon = Color(0xFFD1D3D4);
   static const Color extendBrownsWood = Color(0xFF845D37);
+  static const Color extendedYellowDark = Color(0xFFFBCF23);
 
   static const Color actionColorNegative = Color(0xFFE60F0F);
 
