@@ -42,10 +42,11 @@ class DSCircularProgress extends StatelessWidget {
                       : null,
                 ),
               ),
-              DSCaptionSmallText(
-                _buildProgress(),
-                color: foregroundColor ?? DSColors.neutralDarkCity,
-              )
+              if (currentProgress.value > 0 && maximumProgress.value > 0)
+                DSCaptionSmallText(
+                  _buildProgress(),
+                  color: foregroundColor ?? DSColors.neutralDarkCity,
+                )
             ],
           ),
         );

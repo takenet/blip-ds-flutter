@@ -165,23 +165,18 @@ class DSExpandedImage extends StatelessWidget {
         ),
       );
 
-  Widget _buildLoading() => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-            ),
-            child: Center(
-              child: DSSpinnerLoading(
-                color: style.isLightBubbleBackground(align)
-                    ? DSColors.primaryNight
-                    : DSColors.neutralLightSnow,
-                size: 32.0,
-                lineWidth: 4.0,
-              ),
-            ),
+  Widget _buildLoading() => Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 8.0,
           ),
-        ],
+          child: DSSpinnerLoading(
+            color: style.isLightBubbleBackground(align)
+                ? DSColors.primaryNight
+                : DSColors.neutralLightSnow,
+            size: 32.0,
+            lineWidth: 4.0,
+          ),
+        ),
       );
 }
