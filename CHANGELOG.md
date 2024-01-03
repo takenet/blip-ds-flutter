@@ -1,3 +1,7 @@
+## 0.0.94
+
+- [DSExpandedImage] Centered the circular progress loading.
+
 ## 0.0.93
 
 - [DSColors] Added a new color.
