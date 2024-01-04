@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
@@ -79,17 +78,19 @@ abstract class DSFileService {
         final hasExtension = path_utils.extension(savedFilePath).isNotEmpty;
 
         if (!hasExtension) {
-          final newExtension = getFileExtensionFromMime(
-            response.headers.map['content-type']?.first,
-          );
+          final mime = response.headers.map['content-type']?.first;
 
-          if (newExtension.isNotEmpty) {
-            final filename = savedFilePath.substring(0);
+          if (mime?.isNotEmpty ?? false) {
+            final newExtension = getExtensionFromMimeType(mime!);
 
-            final newFilePath = '$filename.$newExtension';
+            if (newExtension.isNotEmpty) {
+              final filename = savedFilePath.substring(0);
 
-            File(savedFilePath).renameSync(newFilePath);
-            savedFilePath = newFilePath;
+              final newFilePath = '$filename.$newExtension';
+
+              File(savedFilePath).renameSync(newFilePath);
+              savedFilePath = newFilePath;
+            }
           }
         }
 
@@ -102,9 +103,12 @@ abstract class DSFileService {
     return null;
   }
 
-  static String getFileExtensionFromMime(String? mimeType) {
+  static String getExtensionFromMimeType(final String mimeType) {
     return mimeType == 'application/vnd.ms-powerpoint'
         ? 'ppt'
-        : extensionFromMime(mimeType ?? '');
+        : RegExp(r'((?<=\/)[a-zA-Z0-9]+)')
+                .firstMatch(mimeType)?[0]
+                ?.toLowerCase() ??
+            '';
   }
 }
