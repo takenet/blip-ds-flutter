@@ -331,6 +331,7 @@ class DSCard extends StatelessWidget {
         style: style,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        // Devo criar um parametro novo no DSFileMessageBubble que será o texto da mensagem? Só depois instanciá-lo aqui no caso.
       );
     }
   }
