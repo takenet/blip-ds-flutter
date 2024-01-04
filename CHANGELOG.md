@@ -1,3 +1,7 @@
+## 0.0.95
+
+- [DSFileService] Fixed ```getExtensionFromMimeType``` method to get mime type based on RegEx.
+
 ## 0.0.94
 
 - [DSExpandedImage] Centered the circular progress loading.
