@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/system_overlay/ds_system_overlay.style.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../themes/texts/styles/ds_headline_small_text_style.theme.dart';
 import '../../themes/texts/styles/ds_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
@@ -112,9 +113,11 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
               text: customerName,
               uri: customerUri,
               radius: 20.0,
-              textColor: isBackgroundLight
-                  ? DSColors.neutralLightSnow
-                  : DSColors.neutralDarkCity,
+              textStyle: DSBodyTextStyle(
+                color: isBackgroundLight
+                    ? DSColors.neutralLightSnow
+                    : DSColors.neutralDarkCity,
+              ),
             )
           : null,
       title: DSText(

@@ -1,6 +1,7 @@
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:sample/widgets/showcase/sample_user_avatar.showcas.dart';
 
 import 'widgets/showcase/sample_bottom_sheet.showcase.dart';
 import 'widgets/showcase/sample_button.showcase.dart';
@@ -55,6 +56,7 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: [
+              const SampleUserAvatarShowcase(),
               SampleMessageBubbleShowcase(),
               const Divider(color: DSColors.neutralDarkCity),
               const SampleTextStyleShowcase(),

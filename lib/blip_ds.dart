@@ -75,6 +75,8 @@ export 'src/themes/texts/styles/ds_caption_small_text_style.theme.dart'
     show DSCaptionSmallTextStyle;
 export 'src/themes/texts/styles/ds_caption_text_style.theme.dart'
     show DSCaptionTextStyle;
+export 'src/themes/texts/styles/ds_headline_extra_large_text_style.theme.dart'
+    show DSHeadlineExtraLargeTextStyle;
 export 'src/themes/texts/styles/ds_headline_large_text_style.theme.dart'
     show DSHeadlineLargeTextStyle;
 export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
@@ -179,6 +181,8 @@ export 'src/widgets/texts/ds_button_text.widget.dart' show DSButtonText;
 export 'src/widgets/texts/ds_caption_small_text.widget.dart'
     show DSCaptionSmallText;
 export 'src/widgets/texts/ds_caption_text.widget.dart' show DSCaptionText;
+export 'src/widgets/texts/ds_headline_extra_large_text.widget.dart'
+    show DSHeadlineExtraLargeText;
 export 'src/widgets/texts/ds_headline_large_text.widget.dart'
     show DSHeadlineLargeText;
 export 'src/widgets/texts/ds_headline_small_text.widget.dart'
