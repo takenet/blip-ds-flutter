@@ -8,18 +8,6 @@ class SampleUserAvatarShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DSHeadlineLargeText(
-          'Headline Large Text',
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        DSHeadlineExtraLargeText(
-          'Headline EXTRA LARGE Text',
-        ),
-        const SizedBox(
-          height: 15,
-        ),
         DSUserAvatar(
           text: "Adriano Chamon Tavares",
         ),

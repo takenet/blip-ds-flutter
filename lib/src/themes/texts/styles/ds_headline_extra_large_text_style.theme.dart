@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/ds_font_weights.theme.dart';
 import 'ds_text_style.theme.dart';
 
-/// A Design System's [TextStyle] primarily used by large titles.
+/// A Design System's [TextStyle] primarily used by extra large titles.
 ///
 /// This style's font variant is $fs-32-h2.
 class DSHeadlineExtraLargeTextStyle extends DSTextStyle {
