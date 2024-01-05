@@ -3,24 +3,30 @@ import 'package:flutter/material.dart';
 
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
-import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_text.widget.dart';
 
 class DSUserAvatar extends StatelessWidget {
   final String? text;
   final Uri? uri;
   final double radius;
   final Color backgroundColor;
-  final Color textColor;
+  final TextStyle textStyle;
 
-  const DSUserAvatar({
+  static const _defaultTextStyle = TextStyle(
+    color: DSColors.neutralDarkCity,
+    overflow: TextOverflow.clip,
+  );
+
+  DSUserAvatar({
     super.key,
     this.text,
     this.uri,
     this.radius = 25.0,
     this.backgroundColor = DSColors.primaryGreensTrue,
-    this.textColor = Colors.black,
-  });
+    TextStyle textStyle = const DSBodyTextStyle(),
+  }) : textStyle = _defaultTextStyle.merge(textStyle);
 
   @override
   Widget build(BuildContext context) => uri != null
@@ -72,10 +78,9 @@ class DSUserAvatar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: _initials.isNotEmpty
-                ? DSBodyText(
+                ? DSText(
                     _initials,
-                    color: textColor,
-                    overflow: TextOverflow.clip,
+                    style: textStyle,
                     maxLines: 1,
                     textAlign: TextAlign.center,
                   )

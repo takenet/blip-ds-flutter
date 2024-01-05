@@ -8,6 +8,9 @@ class SampleTextStyleShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        DSHeadlineExtraLargeText(
+          'Headline EXTRA LARGE Text',
+        ),
         DSHeadlineLargeText(
           'Headline Large Text',
         ),

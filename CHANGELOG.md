@@ -1,3 +1,9 @@
+## 0.0.96
+
+- [DSHeadlineExtraLargeTextStyle] Created text style primarily used by extra large titles.
+- [DSHeadlineExtraLargeText] Created text that uses ```DSHeadlineExtraLargeTextStyle``` as style.
+- [DSUserAvatar] Added ```textStyle``` property to allow customizing the style of font used by name initials.
+
 ## 0.0.95
 
 - [DSFileService] Fixed ```getExtensionFromMimeType``` method to get mime type based on RegEx.
