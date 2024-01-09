@@ -63,28 +63,32 @@ class DSFileMessageBubble extends StatelessWidget {
           padding: EdgeInsets.zero,
           align: align,
           style: style,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: LayoutBuilder(
-              builder: (_, constraints) => Column(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildIcon(),
-                      _buildTitle(),
-                    ],
-                  ),
-                  if (text?.isNotEmpty ?? false)
-                    DSShowMoreText(
+                  _buildIcon(),
+                  _buildTitle(),
+                ],
+              ),
+              if (text?.isNotEmpty ?? false)
+                LayoutBuilder(
+                  builder: (_, constraints) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: DSShowMoreText(
                       text: text!,
                       maxWidth: constraints.maxWidth,
                       align: align,
                       style: style,
-                    )
-                ],
-              ),
-            ),
+                    ),
+                  ),
+                )
+            ],
           ),
         ),
       ),
@@ -94,6 +98,7 @@ class DSFileMessageBubble extends StatelessWidget {
   Widget _buildIcon() {
     return Container(
       width: 80.0,
+      height: 80.0,
       color: DSColors.neutralLightSnow,
       child: Obx(
         () => controller.isDownloading.value
