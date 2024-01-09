@@ -9,6 +9,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_message_item.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import '../../themes/texts/styles/ds_caption_small_text_style.theme.dart';
 import '../../utils/ds_animate.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
@@ -284,6 +285,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                           : Alignment.bottomLeft,
                       child: DSUserAvatar(
                         radius: 12,
+                        textStyle: const DSCaptionSmallTextStyle(),
                         uri: sentMessage
                             ? widget.avatarConfig.sentAvatar
                             : widget.avatarConfig.receivedAvatar,
