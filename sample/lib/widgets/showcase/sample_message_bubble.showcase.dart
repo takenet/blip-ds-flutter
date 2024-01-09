@@ -350,6 +350,8 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             align: DSAlign.right,
           ),
           DSFileMessageBubble(
+            text:
+                'Texto de exemplo para exemplificar uma descrição enviado junto com um File.',
             align: DSAlign.left,
             filename: 'teste.pdf',
             size: 0,

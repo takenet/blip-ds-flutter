@@ -14,7 +14,7 @@ class DSUserAvatar extends StatelessWidget {
   final Color backgroundColor;
   final TextStyle textStyle;
 
-  static const _defaultTextStyle = TextStyle(
+  static const _defaultTextStyle = DSBodyTextStyle(
     color: DSColors.neutralDarkCity,
     overflow: TextOverflow.clip,
   );
@@ -25,8 +25,11 @@ class DSUserAvatar extends StatelessWidget {
     this.uri,
     this.radius = 25.0,
     this.backgroundColor = DSColors.primaryGreensTrue,
-    TextStyle textStyle = const DSBodyTextStyle(),
-  }) : textStyle = _defaultTextStyle.merge(textStyle);
+    TextStyle textStyle = _defaultTextStyle,
+  }) : textStyle = textStyle.copyWith(
+          color: textStyle.color ?? _defaultTextStyle.color,
+          overflow: _defaultTextStyle.overflow,
+        );
 
   @override
   Widget build(BuildContext context) => uri != null
