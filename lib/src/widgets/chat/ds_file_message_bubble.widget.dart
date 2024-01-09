@@ -74,13 +74,13 @@ class DSFileMessageBubble extends StatelessWidget {
                 ],
               ),
               if (text?.isNotEmpty ?? false)
-                LayoutBuilder(
-                  builder: (_, constraints) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
-                    ),
-                    child: DSShowMoreText(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: LayoutBuilder(
+                    builder: (_, constraints) => DSShowMoreText(
                       text: text!,
                       maxWidth: constraints.maxWidth,
                       align: align,
