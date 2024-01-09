@@ -1,3 +1,8 @@
+## 0.0.97
+
+- [DSFileMessageBubble] Added media ```text``` as property so it'll be displayed along with the file itself.
+- [DSUserAvatar] Fixed overflow when passing a custom ```textStyle```.
+
 ## 0.0.96
 
 - [DSHeadlineExtraLargeTextStyle] Created text style primarily used by extra large titles.
