@@ -323,6 +323,7 @@ class DSCard extends StatelessWidget {
       return DSFileMessageBubble(
         align: align,
         url: media.uri,
+        text: media.text,
         replyContent: replyContent,
         size: size,
         filename: media.title ??
