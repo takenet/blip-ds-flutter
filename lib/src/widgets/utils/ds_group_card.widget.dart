@@ -251,6 +251,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               _getBorderRadius(length, msgCount, group['align']);
 
           final bubble = DSCard(
+            key: ValueKey<String>('${message.id}-${message.isUploading}'),
             type: message.type,
             content: message.content,
             align: message.align,
