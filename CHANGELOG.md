@@ -1,3 +1,7 @@
+## 0.0.98
+
+- [DSGroupCard] Added ```key``` property to DSCard.
+
 ## 0.0.97
 
 - [DSFileMessageBubble] Added media ```text``` as property so it'll be displayed along with the file itself.
