@@ -16,6 +16,7 @@ export 'src/extensions/ds_border_radius.extension.dart'
     show DSBorderRadiusExtension, DSBorderRadiusListExtension;
 export 'src/extensions/ds_delivery_report_status.extension.dart'
     show DSDeliveryReportStatusExtension;
+export 'src/extensions/ds_string.extension.dart' show DSStringExtension;
 export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
