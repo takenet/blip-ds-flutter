@@ -151,6 +151,7 @@ class DSCard extends StatelessWidget {
           messageType: DSTicketMessageType.forwardedTicket,
           ticketId: content['formattedTicketId'],
           chatbotIdentity: content['ownerIdentity'],
+          contentStatus: content['status'],
         );
 
       case DSMessageContentType.input:
