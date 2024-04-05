@@ -1,3 +1,8 @@
+## 0.0.99
+
+- [DSTicketMessage] Added ```contentStatus``` property.
+- [DSStringExtension] Added a new string extension ```DSStringExtension``` .
+
 ## 0.0.98
 
 - [DSGroupCard] Added ```key``` property to DSCard.

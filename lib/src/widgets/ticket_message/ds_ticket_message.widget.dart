@@ -23,6 +23,8 @@ class DSTicketMessage extends StatelessWidget {
   /// [DSTicketMessageType.closedAttendant] or [DSTicketMessageType.closedCustomer]
   final DSTicketMessageType messageType;
 
+  final String contentStatus;
+
   final _message = <String>[
     'Chatbot {chatbotIdentity} encaminhou a conversa para atendimento',
     'Atendente {agentIdentity} encerrou o atendimento',
@@ -35,43 +37,38 @@ class DSTicketMessage extends StatelessWidget {
     this.agentIdentity,
     this.chatbotIdentity,
     required this.messageType,
-  })  : assert((messageType == DSTicketMessageType.forwardedTicket)
-            ? (ticketId != null &&
-                chatbotIdentity != null &&
-                ticketId.trim().isNotEmpty &&
-                chatbotIdentity.trim().isNotEmpty)
-            : true),
-        assert((messageType == DSTicketMessageType.closedAttendant)
-            ? (agentIdentity != null && agentIdentity.trim().isNotEmpty)
-            : true);
+    required this.contentStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-      child: Column(
-        children: [
-          DSBodyText(
-            _prepareMessage(messageType),
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.visible,
-            fontWeight: FontWeight.w400,
-            isSelectable: true,
-          ),
-          if (messageType == DSTicketMessageType.forwardedTicket)
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: DSBodyText(
-                'Ticket $ticketId',
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.visible,
-                fontWeight: FontWeight.w700,
-                isSelectable: true,
-              ),
+    return (contentStatus.toLowerCase() == 'waiting')
+        ? Padding(
+            padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+            child: Column(
+              children: [
+                DSBodyText(
+                  _prepareMessage(messageType),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.visible,
+                  fontWeight: FontWeight.w400,
+                  isSelectable: true,
+                ),
+                if (messageType == DSTicketMessageType.forwardedTicket)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: DSBodyText(
+                      'Ticket $ticketId',
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.visible,
+                      fontWeight: FontWeight.w700,
+                      isSelectable: true,
+                    ),
+                  ),
+              ],
             ),
-        ],
-      ),
-    );
+          )
+        : const SizedBox.shrink();
   }
 
   /// Prepare messages with parameters to be displayed
