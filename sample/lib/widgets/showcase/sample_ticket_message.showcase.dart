@@ -13,15 +13,18 @@ class SampleTicketMessage extends StatelessWidget {
           messageType: DSTicketMessageType.forwardedTicket,
           ticketId: '2022000123',
           chatbotIdentity: 'Papagaio',
+          contentStatus: 'waiting',
         ),
         const SizedBox(height: 20.0),
         DSTicketMessage(
           messageType: DSTicketMessageType.closedAttendant,
           agentIdentity: 'Jhon Doe',
+          contentStatus: 'waiting',
         ),
         const SizedBox(height: 20.0),
         DSTicketMessage(
           messageType: DSTicketMessageType.closedCustomer,
+          contentStatus: 'waiting',
         ),
         const SizedBox(height: 20.0),
       ],
