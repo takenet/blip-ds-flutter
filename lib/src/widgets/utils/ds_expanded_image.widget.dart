@@ -129,7 +129,6 @@ class DSExpandedImage extends StatelessWidget {
         child: Obx(
           () => Scaffold(
             backgroundColor: Colors.black,
-            extendBodyBehindAppBar: true,
             appBar: DSHeader(
               showBorder: false,
               visible: _isAppBarVisible.value,
@@ -143,21 +142,23 @@ class DSExpandedImage extends StatelessWidget {
             body: GestureDetector(
               onTap: () => _isAppBarVisible.value = !_isAppBarVisible.value,
               child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: PinchZoom(
-                  child: url.startsWith('http')
-                      ? DSCachedNetworkImageView(
-                          url: url,
-                          fit: BoxFit.contain,
-                          placeholder: (context, _) => _buildLoading(),
-                          align: align,
-                          style: style,
-                          shouldAuthenticate: shouldAuthenticate,
-                        )
-                      : Image.file(
-                          File(url),
-                          fit: BoxFit.contain,
-                        ),
+                color: Colors.black,
+                child: Center(
+                  child: PinchZoom(
+                    child: url.startsWith('http')
+                        ? DSCachedNetworkImageView(
+                            url: url,
+                            fit: BoxFit.contain,
+                            placeholder: (context, _) => _buildLoading(),
+                            align: align,
+                            style: style,
+                            shouldAuthenticate: shouldAuthenticate,
+                          )
+                        : Image.file(
+                            File(url),
+                            fit: BoxFit.contain,
+                          ),
+                  ),
                 ),
               ),
             ),
