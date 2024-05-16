@@ -92,23 +92,26 @@ class _DSUrlPreviewState extends State<DSUrlPreview>
   }
 
   Widget _buildPreview() {
-    return GestureDetector(
-      onTap: () => launchUrl(
-        Uri.parse(_controller.urlPreview.value!.url),
-        mode: LaunchMode.inAppWebView,
-      ).ignore(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (_controller.urlPreview.value?.image != null)
-            _buildImage(
-              path: _controller.urlPreview.value!.image!,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => launchUrl(
+          Uri.parse(_controller.urlPreview.value!.url),
+          mode: LaunchMode.inAppWebView,
+        ).ignore(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (_controller.urlPreview.value?.image != null)
+              _buildImage(
+                path: _controller.urlPreview.value!.image!,
+              ),
+            _buildBody(
+              title: _controller.urlPreview.value?.title,
+              description: _controller.urlPreview.value?.description,
             ),
-          _buildBody(
-            title: _controller.urlPreview.value?.title,
-            description: _controller.urlPreview.value?.description,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
