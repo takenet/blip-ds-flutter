@@ -58,7 +58,7 @@ class DSVideoMessageBubble extends StatefulWidget {
   // reply id message
   final DSReplyContent? replyContent;
 
-  // Video title, shoud the user want it to be sent.
+  /// Title of the video which will be displayed inside the message bubble.
   final String? title;
 
   /// Card for the purpose of triggering a video to play.
@@ -114,6 +114,9 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    final hasText = widget.text?.isNotEmpty ?? false;
+    final hasTitle = widget.title?.isNotEmpty ?? false;
 
     final foregroundColor = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.neutralDarkCity
@@ -231,26 +234,24 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         )
                       : _buidErrorIcon(),
             ),
-            if ((widget.title?.isNotEmpty ?? false) ||
-                (widget.text?.isNotEmpty ?? false))
+            if (hasTitle || hasText)
               SizedBox(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (widget.title?.isNotEmpty ?? false)
+                      if (hasTitle)
                         DSCaptionText(
                           widget.title!,
                           color: foregroundColor,
                           isSelectable: true,
                         ),
-                      if ((widget.text?.isNotEmpty ?? false) &&
-                          (widget.title?.isNotEmpty ?? false))
+                      if (hasTitle && hasText)
                         const SizedBox(
                           height: 6.0,
                         ),
-                      if (widget.text?.isNotEmpty ?? false)
+                      if (hasText)
                         DSShowMoreText(
                           text: widget.text!,
                           align: widget.align,
