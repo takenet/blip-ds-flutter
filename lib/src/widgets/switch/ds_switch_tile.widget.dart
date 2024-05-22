@@ -9,14 +9,14 @@ class DSSwitchTile extends DSSwitchBase {
   /// It is mandatory to inform three parameters: [value], enabling or disabling the switch, [onChanged],
   /// the event that will be executed when changing the value, and [title], which is the title of the tile.
   const DSSwitchTile({
-    Key? key,
+    super.key,
     required super.value,
     required super.onChanged,
     super.isEnabled = true,
     required this.title,
     this.leading,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   /// Switchtile title to be shown referring to the switch
   final Widget? title;

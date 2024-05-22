@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 abstract class DSSwitchBase extends StatelessWidget {
   const DSSwitchBase({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.value,
     this.isEnabled = true,
-  }) : super(
-          key: key,
-        );
+  });
 
   /// Callback performed when changing status [value]
   final ValueChanged<bool> onChanged;

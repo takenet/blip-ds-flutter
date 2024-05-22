@@ -8,10 +8,10 @@ class DSFadingCircleLoading extends StatelessWidget {
 
   /// A Design System's animated spinner fading circle primarily used by loading scenarios.
   const DSFadingCircleLoading({
-    Key? key,
+    super.key,
     required this.color,
     this.size = 30.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -13,9 +13,9 @@ class DSDeliveryReportIcon extends StatelessWidget {
 
   /// Creates a new Design System's [DSDeliveryReportIcon]
   const DSDeliveryReportIcon({
-    Key? key,
+    super.key,
     required this.deliveryStatus,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

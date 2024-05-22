@@ -7,13 +7,11 @@ class DSSwitch extends DSSwitchBase {
   /// Creates a customizable switch for use alone or in conjunction with ListTile
   ///
   const DSSwitch({
-    Key? key,
+    super.key,
     required super.onChanged,
     required super.value,
     super.isEnabled = true,
-  }) : super(
-          key: key,
-        );
+  });
 
   /// Animation duration for [DSSwitch] when activate or deactivate.
   final Duration _animationDuration = const Duration(milliseconds: 400);

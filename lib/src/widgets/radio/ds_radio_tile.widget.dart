@@ -13,7 +13,7 @@ class DSRadioTile<T> extends StatelessWidget {
   ///
   ///To disable the radio button, use the [isEnabled] property
   const DSRadioTile({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     required this.title,
@@ -21,7 +21,7 @@ class DSRadioTile<T> extends StatelessWidget {
     this.subTitle,
     this.isEnabled = true,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 16.0),
-  }) : super(key: key);
+  });
 
   /// Clickable radio group title allowing you to select an option.
   final Widget title;

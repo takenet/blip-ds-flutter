@@ -59,7 +59,7 @@ class _DSTextFieldState extends State<DSTextField> {
   Widget build(BuildContext context) => Obx(
         () => Focus(
           focusNode: widget.focusNode,
-          onFocusChange: hasFocus,
+          onFocusChange: hasFocus.call,
           child: Column(
             children: [
               DSInputContainer(

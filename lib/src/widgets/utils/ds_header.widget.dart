@@ -33,7 +33,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
   late final bool isBackgroundLight;
 
   DSHeader({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     this.customerName,
@@ -52,8 +52,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.visible = true,
     final SystemUiOverlayStyle? systemUiOverlayStyle,
   })  : systemUiOverlayStyle =
-            systemUiOverlayStyle ?? DSSystemOverlayStyle.dark,
-        super(key: key) {
+            systemUiOverlayStyle ?? DSSystemOverlayStyle.dark {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
 

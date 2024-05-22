@@ -18,15 +18,14 @@ class DSMessageBubbleDetail extends StatelessWidget {
 
   /// Creates a new Design System's [DSMessageBubbleDetail]
   const DSMessageBubbleDetail({
-    Key? key,
+    super.key,
     required this.align,
     required this.deliveryStatus,
     required this.style,
     this.showMessageStatus = true,
     this.date,
     this.detailWidget,
-  })  : assert((date != null || detailWidget != null)),
-        super(key: key);
+  })  : assert((date != null || detailWidget != null));
 
   @override
   Widget build(BuildContext context) {

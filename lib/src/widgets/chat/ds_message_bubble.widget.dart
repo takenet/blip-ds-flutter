@@ -22,7 +22,7 @@ class DSMessageBubble extends StatelessWidget {
   final bool hasSpacer;
 
   const DSMessageBubble({
-    Key? key,
+    super.key,
     required this.align,
     required this.child,
     this.replyContent,
@@ -36,7 +36,7 @@ class DSMessageBubble extends StatelessWidget {
     this.defaultMinSize = DSUtils.bubbleMinSize,
     required this.style,
     this.hasSpacer = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Column(

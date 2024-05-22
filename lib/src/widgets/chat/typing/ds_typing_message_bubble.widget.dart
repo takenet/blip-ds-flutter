@@ -14,11 +14,10 @@ class DSTypingAnimationMessageBubble extends StatelessWidget {
   ///
   /// Use [align] left or right to position typing on screen
   DSTypingAnimationMessageBubble({
-    Key? key,
+    super.key,
     required this.align,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

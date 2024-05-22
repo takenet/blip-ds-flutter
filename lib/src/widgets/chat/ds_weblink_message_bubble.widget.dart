@@ -34,7 +34,7 @@ class DSWeblinkMessageBubble extends StatelessWidget {
   final DSReplyContent? replyContent;
 
   DSWeblinkMessageBubble({
-    Key? key,
+    super.key,
     required this.title,
     required this.text,
     required this.align,
@@ -42,8 +42,7 @@ class DSWeblinkMessageBubble extends StatelessWidget {
     this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

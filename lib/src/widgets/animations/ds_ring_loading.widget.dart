@@ -9,11 +9,11 @@ class DSRingLoading extends StatelessWidget {
 
   /// Creates a Design System's animated spinner ring.
   const DSRingLoading({
-    Key? key,
+    super.key,
     required this.color,
     this.size = 24.0,
     this.lineWidth = 2.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
