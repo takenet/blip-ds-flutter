@@ -11,6 +11,7 @@ import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_spinner_loading.widget.dart';
 import '../texts/ds_body_text.widget.dart';
+import '../texts/ds_headline_large_text.widget.dart';
 import '../utils/ds_cached_network_image_view.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
@@ -42,19 +43,77 @@ class DSLocationMessageBubble extends StatelessWidget {
 
     final lat = double.tryParse(latitude);
     final long = double.tryParse(longitude);
-
     final hasValidCoordinates = lat != null && long != null;
-    return GestureDetector(
-      onTap: () async {
-        final availableMaps = await MapLauncher.installedMaps;
+    List<AvailableMap>? availableMaps;
 
-        if (hasValidCoordinates) {
-          await availableMaps.first.showMarker(
-            coords: Coords(lat, long),
-            title: title ?? '',
-          );
-        }
-      },
+    void initMaps() async {
+      availableMaps = await MapLauncher.installedMaps;
+    }
+
+    initMaps();
+
+    void openMapList() {
+      if (availableMaps!.isNotEmpty && hasValidCoordinates) {
+        showModalBottomSheet(
+            showDragHandle: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(
+                  30.0,
+                ),
+              ),
+            ),
+            context: context,
+            builder: (context) {
+              return SafeArea(
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            DSHeadlineLargeText(
+                              "Selecione uma ação",
+                              fontWeight: FontWeight.bold,
+                            ),
+                            IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(Icons.close),
+                            )
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2.0,
+                      ),
+                      for (var map in availableMaps!)
+                        ListTile(
+                          onTap: () {
+                            map.showMarker(
+                              coords: Coords(lat, long),
+                              title: title ?? '',
+                            );
+                            Navigator.pop(context);
+                          },
+                          title: DSBodyText("Abrir com ${map.mapName}"),
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        print("Aplicativo não instalado!");
+      }
+    }
+
+    return GestureDetector(
+      onTap: () => openMapList(),
       child: DSMessageBubble(
         shouldUseDefaultSize: true,
         defaultMaxSize: DSUtils.bubbleMinSize,
