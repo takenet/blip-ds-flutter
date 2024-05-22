@@ -4,15 +4,14 @@ import '../../../blip_ds.dart';
 
 class DSMenuItem extends StatelessWidget {
   DSMenuItem({
-    Key? key,
+    super.key,
     required this.text,
     required this.align,
     this.showDivider = false,
     this.onPressed,
     this.fontWeight = DSFontWeights.bold,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key) {
+  })  : style = style ?? DSMessageBubbleStyle() {
     isDefaultBubbleColors = this.style.isDefaultBubbleBackground(align);
     isLightBubbleBackground = this.style.isLightBubbleBackground(align);
   }

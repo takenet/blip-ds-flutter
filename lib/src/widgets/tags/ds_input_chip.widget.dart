@@ -18,14 +18,14 @@ class DSInputChip extends StatefulWidget {
   final ScrollController? scrollController;
 
   const DSInputChip({
-    Key? key,
+    super.key,
     required this.values,
     required this.controller,
     this.hintText,
     this.onTextChanged,
     this.onDeleted,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   State<DSInputChip> createState() => _DSInputChipState();

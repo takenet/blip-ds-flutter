@@ -29,7 +29,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
   )? errorWidget;
 
   DSCachedNetworkImageView({
-    Key? key,
+    super.key,
     required this.url,
     required this.align,
     this.width,
@@ -40,8 +40,7 @@ class DSCachedNetworkImageView extends StatelessWidget {
     this.onError,
     this.shouldAuthenticate = false,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

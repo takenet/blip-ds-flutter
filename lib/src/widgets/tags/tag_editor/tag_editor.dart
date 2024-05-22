@@ -28,7 +28,7 @@ class TagEditor<T> extends StatefulWidget {
     required this.onTagChanged,
     required this.suggestionBuilder,
     required this.findSuggestions,
-    Key? key,
+    super.key,
     this.focusNode,
     this.hasAddButton = true,
     this.delimiters = const [],
@@ -69,7 +69,7 @@ class TagEditor<T> extends StatefulWidget {
     this.suggestionPadding,
     this.suggestionMargin,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   /// The controller of scroll in tag box area
   final ScrollController? scrollController;

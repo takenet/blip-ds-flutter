@@ -18,14 +18,14 @@ class DSTypingDotAnimation extends StatefulWidget {
   /// To change the animation speed use [animationTime]
   /// To set the dot ascent level use [tweenEndAnimation]
   const DSTypingDotAnimation({
-    Key? key,
+    super.key,
     this.numberDots = 3,
     this.size = 7,
     this.padding = 2,
     this.animationTime = DSUtils.defaultAnimationDuration,
     required this.color,
     this.tweenEndAnimation = -3,
-  }) : super(key: key);
+  });
 
   @override
   State<DSTypingDotAnimation> createState() => _DSTypingDotAnimationState();

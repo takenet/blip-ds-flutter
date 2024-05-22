@@ -26,7 +26,7 @@ class DSVideoPlayer extends StatelessWidget {
   /// In this video player, the slash text is passed by the [appBarText] parameter so that it is contractually shown in the slash.
   /// The [url] parameter contains the reference to be executed
   DSVideoPlayer({
-    Key? key,
+    super.key,
     required this.appBarText,
     required String url,
     this.appBarPhotoUri,
@@ -35,8 +35,7 @@ class DSVideoPlayer extends StatelessWidget {
           DSVideoPlayerController(
             url: url,
           ),
-        ),
-        super(key: key);
+        );
 
   @override
   Widget build(BuildContext context) {

@@ -23,7 +23,7 @@ class DSTextMessageBubble extends StatefulWidget {
   final DSMessageBubbleStyle style;
 
   DSTextMessageBubble({
-    Key? key,
+    super.key,
     required this.text,
     required this.align,
     this.replyContent,
@@ -33,8 +33,7 @@ class DSTextMessageBubble extends StatefulWidget {
     this.showSelect = false,
     this.onSelected,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   State<DSTextMessageBubble> createState() => _DSTextMessageBubbleState();

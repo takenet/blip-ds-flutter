@@ -14,6 +14,7 @@ import '../../../themes/icons/ds_icons.dart';
 import '../../../utils/ds_utils.util.dart';
 import '../../animations/ds_uploading.widget.dart';
 import '../../buttons/ds_button.widget.dart';
+import '../../texts/ds_caption_text.widget.dart';
 import '../../utils/ds_circular_progress.widget.dart';
 import '../ds_message_bubble.widget.dart';
 import '../ds_show_more_text.widget.dart';
@@ -57,6 +58,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   // reply id message
   final DSReplyContent? replyContent;
 
+  /// Title of the video which will be displayed inside the message bubble.
+  final String? title;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -76,6 +80,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     DSMessageBubbleStyle? style,
     this.isUploading = false,
     this.replyContent,
+    this.title,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -109,6 +114,9 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    final hasText = widget.text?.isNotEmpty ?? false;
+    final hasTitle = widget.title?.isNotEmpty ?? false;
 
     final foregroundColor = widget.style.isLightBubbleBackground(widget.align)
         ? DSColors.neutralDarkCity
@@ -226,19 +234,31 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                         )
                       : _buidErrorIcon(),
             ),
-            if (widget.text?.isNotEmpty ?? false)
+            if (hasTitle || hasText)
               SizedBox(
-                width: DSUtils.bubbleMinSize,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 16.0,
-                  ),
-                  child: DSShowMoreText(
-                    text: widget.text!,
-                    align: widget.align,
-                    style: widget.style,
-                    maxWidth: constraints.maxWidth,
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (hasTitle)
+                        DSCaptionText(
+                          widget.title!,
+                          color: foregroundColor,
+                          isSelectable: true,
+                        ),
+                      if (hasTitle && hasText)
+                        const SizedBox(
+                          height: 6.0,
+                        ),
+                      if (hasText)
+                        DSShowMoreText(
+                          text: widget.text!,
+                          align: widget.align,
+                          style: widget.style,
+                          maxWidth: constraints.maxWidth,
+                        )
+                    ],
                   ),
                 ),
               ),
