@@ -313,6 +313,7 @@ class DSCard extends StatelessWidget {
             ? avatarConfig.receivedAvatar
             : avatarConfig.sentAvatar,
         text: media.text,
+        title: media.title,
         replyContent: replyContent,
         borderRadius: borderRadius,
         style: style,
