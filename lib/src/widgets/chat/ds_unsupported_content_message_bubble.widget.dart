@@ -19,7 +19,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   DSUnsupportedContentMessageBubble({
-    Key? key,
+    super.key,
     required this.align,
     this.leftWidget,
     this.text,
@@ -27,8 +27,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
     this.overflow = TextOverflow.ellipsis,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

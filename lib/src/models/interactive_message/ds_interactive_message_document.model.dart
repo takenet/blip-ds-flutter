@@ -8,9 +8,9 @@ class DSInteractiveMessageDocument extends DSInteractiveMessageMedia {
     this.filename,
   });
 
-  DSInteractiveMessageDocument.fromJson(Map<String, dynamic> json)
+  DSInteractiveMessageDocument.fromJson(super.json)
       : filename = json['filename'],
-        super.fromJson(json);
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {

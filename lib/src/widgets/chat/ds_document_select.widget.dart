@@ -24,14 +24,13 @@ class DSDocumentSelect extends StatelessWidget {
 
   /// Creates a new Design System's [DSDocumentSelect]
   DSDocumentSelect({
-    Key? key,
+    super.key,
     required this.align,
     required this.options,
     this.onSelected,
     this.onOpenLink,
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {

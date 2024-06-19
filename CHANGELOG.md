@@ -1,3 +1,8 @@
+## 0.1.1
+
+- [DSVideoMessageBubble] Added title to this bubble.
+- [DSUrlPreview] Added visual feedback when tapped.
+
 ## 0.1.0
 
 - [DSExpandedImage] Fixed image layout when expanded.

@@ -6,13 +6,13 @@ import '../../themes/colors/ds_colors.theme.dart';
 
 class DSSpinnerLoading extends StatefulWidget {
   const DSSpinnerLoading({
-    Key? key,
+    super.key,
     this.color = DSColors.primary,
     this.lineWidth = 5.0,
     this.size = 30.0,
     this.duration = const Duration(milliseconds: 500),
     this.controller,
-  }) : super(key: key);
+  });
 
   final Color color;
   final double size;

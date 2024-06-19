@@ -8,10 +8,10 @@ class DSTypingDot extends StatelessWidget {
   ///
   /// Set the dot size and color using the parameters [size] and [color]
   const DSTypingDot({
-    Key? key,
+    super.key,
     required this.color,
     required this.size,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

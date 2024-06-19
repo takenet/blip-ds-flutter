@@ -4,15 +4,13 @@ import '../../themes/colors/ds_colors.theme.dart';
 
 class DSRadio<T> extends Radio<T> {
   const DSRadio({
-    Key? key,
+    super.key,
     required super.value,
     required super.groupValue,
     required super.onChanged,
     super.materialTapTargetSize,
     this.isEnabled = true,
-  }) : super(
-          key: key,
-        );
+  });
 
   final bool isEnabled;
 

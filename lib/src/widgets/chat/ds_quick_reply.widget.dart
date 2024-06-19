@@ -14,11 +14,11 @@ class DSQuickReply extends StatelessWidget {
   final void Function(String, Map<String, dynamic>)? onSelected;
 
   const DSQuickReply({
-    Key? key,
+    super.key,
     required this.align,
     required this.content,
     this.onSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

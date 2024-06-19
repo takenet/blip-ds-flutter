@@ -36,7 +36,7 @@ class DSCarrousel extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   DSCarrousel({
-    Key? key,
+    super.key,
     required this.align,
     required this.content,
     required this.borderRadius,
@@ -44,8 +44,7 @@ class DSCarrousel extends StatelessWidget {
     this.onOpenLink,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle(),
-        super(key: key);
+  })  : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
