@@ -1,3 +1,7 @@
+## 0.1.2
+
+- [DSLocationMessageBubble] Added app selection when touching the map preview.
+
 ## 0.1.1
 
 - [DSVideoMessageBubble] Added title to this bubble.
