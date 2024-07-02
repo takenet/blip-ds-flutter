@@ -77,6 +77,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
           style: style,
           avatarConfig: avatarConfig,
         ),
+      //'voice_call' => DSInteractiveVoiceCallMessageBubble(),
       _ => _buildUnsupportedContent(),
     };
   }
