@@ -5,12 +5,11 @@ class DSInteractiveMessageAction {
   final String? button;
   final List<DSInteractiveMessageButton>? buttons;
   final List<DSInteractiveMessageSection>? sections;
+  final String? name;
+  final Map<String, dynamic>? parameters;
 
-  DSInteractiveMessageAction({
-    this.button,
-    this.buttons,
-    this.sections,
-  });
+  DSInteractiveMessageAction(
+      {this.button, this.buttons, this.sections, this.name, this.parameters});
 
   DSInteractiveMessageAction.fromJson(Map<String, dynamic> json)
       : button = json['button'],
@@ -27,7 +26,9 @@ class DSInteractiveMessageAction {
                   (e) => DSInteractiveMessageSection.fromJson(e),
                 )
                 .toList()
-            : null;
+            : null,
+        name = json['name'],
+        parameters = json['parameters'];
 
   Map<String, dynamic> toJson() => {
         'button': button,
@@ -41,5 +42,7 @@ class DSInteractiveMessageAction {
               (e) => e.toJson(),
             )
             .toList(),
+        'name': name,
+        'parameters': parameters,
       };
 }
