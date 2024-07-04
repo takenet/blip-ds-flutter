@@ -56,7 +56,10 @@ class _DSInteractiveVoiceCallMessageBubbleState
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(DSIcons.plus_outline),
+                  const Icon(
+                    DSIcons.voip_outline,
+                    color: DSColors.neutralLightSnow,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
