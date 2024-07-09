@@ -6,7 +6,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/interactive_message/ds_interactive_message.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
-import '../texts/ds_headline_small_text.widget.dart';
+import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_divider.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
@@ -41,7 +41,7 @@ class _DSInteractiveVoiceCallMessageBubbleState
           borderRadius: widget.borderRadius,
           child: Column(
             children: [
-              DSHeadlineSmallText(
+              DSBodyText(
                 widget.content.body?.text,
                 overflow: TextOverflow.visible,
                 color: DSColors.neutralLightSnow,
@@ -63,13 +63,16 @@ class _DSInteractiveVoiceCallMessageBubbleState
                   const SizedBox(
                     width: 10,
                   ),
-                  DSHeadlineSmallText(
+                  DSBodyText(
                     widget.content.action?.parameters?['display_text'],
                     overflow: TextOverflow.visible,
                     color: DSColors.neutralLightSnow,
                   )
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 5,
+              ),
             ],
           ),
         )
