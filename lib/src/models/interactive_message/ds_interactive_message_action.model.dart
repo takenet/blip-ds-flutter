@@ -8,8 +8,13 @@ class DSInteractiveMessageAction {
   final String? name;
   final Map<String, dynamic>? parameters;
 
-  DSInteractiveMessageAction(
-      {this.button, this.buttons, this.sections, this.name, this.parameters});
+  DSInteractiveMessageAction({
+    this.button,
+    this.buttons,
+    this.sections,
+    this.name,
+    this.parameters,
+  });
 
   DSInteractiveMessageAction.fromJson(Map<String, dynamic> json)
       : button = json['button'],
