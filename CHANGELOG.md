@@ -1,3 +1,7 @@
+## 0.1.3
+
+- [DSIcons] Added new icons.
+
 ## 0.1.2
 
 - [DSLocationMessageBubble] Added app selection when touching the map preview.
