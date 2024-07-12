@@ -10,11 +10,13 @@ import '../texts/ds_body_text.widget.dart';
 import '../utils/ds_divider.widget.dart';
 import 'ds_message_bubble.widget.dart';
 
-class DSInteractiveVoiceCallMessageBubble extends StatefulWidget {
+class DSInteractiveVoiceCallMessageBubble extends StatelessWidget {
   final DSInteractiveMessage content;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
+
+  late final bool _isLightBubbleBackground;
 
   DSInteractiveVoiceCallMessageBubble({
     super.key,
@@ -22,61 +24,65 @@ class DSInteractiveVoiceCallMessageBubble extends StatefulWidget {
     required this.align,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  }) : style = style ?? DSMessageBubbleStyle();
+  }) : style = style ?? DSMessageBubbleStyle() {
+    _initProperties();
+  }
 
-  @override
-  State<DSInteractiveVoiceCallMessageBubble> createState() =>
-      _DSInteractiveVoiceCallMessageBubbleState();
-}
+  void _initProperties() {
+    _isLightBubbleBackground = style.isLightBubbleBackground(align);
+  }
 
-class _DSInteractiveVoiceCallMessageBubbleState
-    extends State<DSInteractiveVoiceCallMessageBubble> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DSMessageBubble(
-          align: widget.align,
-          style: widget.style,
-          borderRadius: widget.borderRadius,
-          child: Column(
-            children: [
-              DSBodyText(
-                widget.content.body?.text,
-                overflow: TextOverflow.visible,
-                color: DSColors.neutralLightSnow,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const DSDivider(),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    DSIcons.voip_outline,
-                    color: DSColors.neutralLightSnow,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  DSBodyText(
-                    widget.content.action?.parameters?['display_text'],
-                    overflow: TextOverflow.visible,
-                    color: DSColors.neutralLightSnow,
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-            ],
+    return DSMessageBubble(
+      align: align,
+      style: style,
+      borderRadius: borderRadius,
+      child: Column(
+        children: [
+          DSBodyText(
+            content.body?.text,
+            overflow: TextOverflow.visible,
+            color: _isLightBubbleBackground
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
           ),
-        )
-      ],
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: DSDivider(),
+          ),
+          content.action?.name == 'voice_call'
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      DSIcons.voip_outline,
+                      color: _isLightBubbleBackground
+                          ? DSColors.neutralDarkCity
+                          : DSColors.neutralLightSnow,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    content.action?.parameters?.displayText != null
+                        ? DSBodyText(
+                            content.action?.parameters?.displayText,
+                            overflow: TextOverflow.visible,
+                            color: _isLightBubbleBackground
+                                ? DSColors.neutralDarkCity
+                                : DSColors.neutralLightSnow,
+                          )
+                        : const SizedBox.shrink()
+                  ],
+                )
+              : const SizedBox.shrink(),
+          const SizedBox(
+            height: 5,
+          ),
+        ],
+      ),
     );
   }
 }

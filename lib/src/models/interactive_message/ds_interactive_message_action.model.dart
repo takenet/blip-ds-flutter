@@ -1,4 +1,5 @@
 import 'ds_interactive_message_button.model.dart';
+import 'ds_interactive_message_parameters.model.dart';
 import 'ds_interactive_message_section.model.dart';
 
 class DSInteractiveMessageAction {
@@ -6,7 +7,7 @@ class DSInteractiveMessageAction {
   final List<DSInteractiveMessageButton>? buttons;
   final List<DSInteractiveMessageSection>? sections;
   final String? name;
-  final Map<String, dynamic>? parameters;
+  final DSInteractiveMessageParameters? parameters;
 
   DSInteractiveMessageAction({
     this.button,
@@ -33,7 +34,9 @@ class DSInteractiveMessageAction {
                 .toList()
             : null,
         name = json['name'],
-        parameters = json['parameters'];
+        parameters = DSInteractiveMessageParameters.fromJson(
+          json['parameters'],
+        );
 
   Map<String, dynamic> toJson() => {
         'button': button,

@@ -46,6 +46,8 @@ export 'src/models/interactive_message/ds_interactive_message_image.model.dart'
     show DSInteractiveMessageImage;
 export 'src/models/interactive_message/ds_interactive_message_media.model.dart'
     show DSInteractiveMessageMedia;
+export 'src/models/interactive_message/ds_interactive_message_parameters.model.dart'
+    show DSInteractiveMessageParameters;
 export 'src/models/interactive_message/ds_interactive_message_row.model.dart'
     show DSInteractiveMessageRow;
 export 'src/models/interactive_message/ds_interactive_message_section.model.dart'
@@ -138,6 +140,8 @@ export 'src/widgets/chat/ds_interactive_button_message_bubble.widget.dart'
     show DSInteractiveButtonMessageBubble;
 export 'src/widgets/chat/ds_interactive_list_message_bubble.widget.dart'
     show DSInteractiveListMessageBubble;
+export 'src/widgets/chat/ds_interactive_voice_call_message_bubble.widget.dart'
+    show DSInteractiveVoiceCallMessageBubble;
 export 'src/widgets/chat/ds_location_message_bubble.widget.dart'
     show DSLocationMessageBubble;
 export 'src/widgets/chat/ds_message_bubble.widget.dart' show DSMessageBubble;
