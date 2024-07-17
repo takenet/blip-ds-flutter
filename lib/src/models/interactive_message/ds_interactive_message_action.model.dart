@@ -1,15 +1,20 @@
 import 'ds_interactive_message_button.model.dart';
+import 'ds_interactive_message_parameters.model.dart';
 import 'ds_interactive_message_section.model.dart';
 
 class DSInteractiveMessageAction {
   final String? button;
   final List<DSInteractiveMessageButton>? buttons;
   final List<DSInteractiveMessageSection>? sections;
+  final String? name;
+  final DSInteractiveMessageParameters? parameters;
 
   DSInteractiveMessageAction({
     this.button,
     this.buttons,
     this.sections,
+    this.name,
+    this.parameters,
   });
 
   DSInteractiveMessageAction.fromJson(Map<String, dynamic> json)
@@ -27,6 +32,12 @@ class DSInteractiveMessageAction {
                   (e) => DSInteractiveMessageSection.fromJson(e),
                 )
                 .toList()
+            : null,
+        name = json['name'],
+        parameters = json['parameters'] != null
+            ? DSInteractiveMessageParameters.fromJson(
+                json['parameters'],
+              )
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +52,7 @@ class DSInteractiveMessageAction {
               (e) => e.toJson(),
             )
             .toList(),
+        'name': name,
+        'parameters': parameters?.toJson(),
       };
 }
