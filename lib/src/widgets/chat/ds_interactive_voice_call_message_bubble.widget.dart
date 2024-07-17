@@ -17,6 +17,7 @@ class DSInteractiveVoiceCallMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
 
   late final bool _isLightBubbleBackground;
+  late final Color _foregroundColor;
 
   DSInteractiveVoiceCallMessageBubble({
     super.key,
@@ -30,6 +31,10 @@ class DSInteractiveVoiceCallMessageBubble extends StatelessWidget {
 
   void _initProperties() {
     _isLightBubbleBackground = style.isLightBubbleBackground(align);
+
+    _foregroundColor = _isLightBubbleBackground
+        ? DSColors.neutralDarkCity
+        : DSColors.neutralLightSnow;
   }
 
   @override
@@ -43,44 +48,46 @@ class DSInteractiveVoiceCallMessageBubble extends StatelessWidget {
           DSBodyText(
             content.body?.text,
             overflow: TextOverflow.visible,
-            color: _isLightBubbleBackground
-                ? DSColors.neutralDarkCity
-                : DSColors.neutralLightSnow,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            child: DSDivider(),
+            color: _foregroundColor,
           ),
           content.action?.name == 'voice_call'
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ? Column(
                   children: [
-                    Icon(
-                      DSIcons.voip_outline,
-                      color: _isLightBubbleBackground
-                          ? DSColors.neutralDarkCity
-                          : DSColors.neutralLightSnow,
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: DSDivider(),
                     ),
-                    const SizedBox(
-                      width: 10,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            DSIcons.voip_outline,
+                            color: _foregroundColor,
+                          ),
+                          content.action?.parameters?.displayText != null
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 8.0,
+                                  ),
+                                  child: DSBodyText(
+                                    content.action?.parameters?.displayText,
+                                    overflow: TextOverflow.visible,
+                                    color: _foregroundColor,
+                                  ),
+                                )
+                              : const SizedBox.shrink()
+                        ],
+                      ),
                     ),
-                    content.action?.parameters?.displayText != null
-                        ? DSBodyText(
-                            content.action?.parameters?.displayText,
-                            overflow: TextOverflow.visible,
-                            color: _isLightBubbleBackground
-                                ? DSColors.neutralDarkCity
-                                : DSColors.neutralLightSnow,
-                          )
-                        : const SizedBox.shrink()
                   ],
                 )
               : const SizedBox.shrink(),
-          const SizedBox(
-            height: 5,
-          ),
         ],
       ),
     );

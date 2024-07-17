@@ -34,9 +34,11 @@ class DSInteractiveMessageAction {
                 .toList()
             : null,
         name = json['name'],
-        parameters = DSInteractiveMessageParameters.fromJson(
-          json['parameters'],
-        );
+        parameters = json['parameters'] != null
+            ? DSInteractiveMessageParameters.fromJson(
+                json['parameters'],
+              )
+            : null;
 
   Map<String, dynamic> toJson() => {
         'button': button,
@@ -51,6 +53,6 @@ class DSInteractiveMessageAction {
             )
             .toList(),
         'name': name,
-        'parameters': parameters,
+        'parameters': parameters?.toJson(),
       };
 }
