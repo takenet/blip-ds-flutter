@@ -10,6 +10,7 @@ import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import 'ds_interactive_button_message_bubble.widget.dart';
 import 'ds_interactive_list_message_bubble.widget.dart';
+import 'ds_interactive_voice_call_message_bubble.widget.dart';
 import 'ds_unsupported_content_message_bubble.widget.dart';
 
 class DSApplicationJsonMessageBubble extends StatelessWidget {
@@ -76,6 +77,12 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           avatarConfig: avatarConfig,
+        ),
+      'voice_call' => DSInteractiveVoiceCallMessageBubble(
+          content: content,
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
         ),
       _ => _buildUnsupportedContent(),
     };
