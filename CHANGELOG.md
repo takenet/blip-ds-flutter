@@ -1,3 +1,7 @@
+## 0.1.4
+
+- [DSInteractiveVoiceCallMessageBubble] Added new bubble to render the request call message.
+
 ## 0.1.3
 
 - [DSIcons] Added new icons.
