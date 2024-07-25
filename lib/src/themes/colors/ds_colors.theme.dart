@@ -42,6 +42,7 @@ abstract class DSColors {
   static const Color extendRedsDelete = Color(0xFFFF4C4C);
   static const Color extendGraysElevator = Color(0xFFA7A9AC);
   static const Color extendGraysMoon = Color(0xFFD1D3D4);
+  static const Color extendGreenDark = Color(0xFF35DE90);
   static const Color extendBrownsWood = Color(0xFF845D37);
   static const Color extendedYellowDark = Color(0xFFFBCF23);
 
@@ -49,9 +50,12 @@ abstract class DSColors {
 
   static const Color system = Color(0xFFB2DFFD);
   static const Color success = Color(0xFF84EBBC);
+  static const Color positive = Color(0xFF01562F);
   static const Color error = Color(0xFFF99F9F);
+  static const Color surface0 = Color(0xFF424242);
   static const Color surface1 = Color(0xFFF6F6F6);
   static const Color surface3 = Color(0xFFC7C7C7);
+  static const Color surface3Dark = Color(0xFF141414);
   static const Color contentDefault = Color(0xFF454545);
   static const Color contentGhost = Color(0xFF949494);
 
