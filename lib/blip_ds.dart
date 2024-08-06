@@ -61,6 +61,7 @@ export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_media_format.service.dart' show DSMediaFormatService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
+export 'src/themes/colors/ds_dark_colors.theme.dart' show DSDarkColors;
 export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
 export 'src/themes/system_overlay/ds_system_overlay.style.dart'
