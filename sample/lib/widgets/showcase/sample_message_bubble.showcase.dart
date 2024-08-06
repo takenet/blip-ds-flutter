@@ -53,6 +53,10 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
+          DSEndRecord(
+            uri: Uri.parse(_sampleAudio),
+            align: DSAlign.left,
+          ),
           DSTextMessageBubble(
             text: 'Essa foto é linda',
             align: DSAlign.left,
