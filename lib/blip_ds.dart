@@ -133,7 +133,8 @@ export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
     show DSContactMessageBubble;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
-export 'src/widgets/chat/ds_end_record.widget.dart' show DSEndRecord;
+export 'src/widgets/chat/ds_end_calls_message_bubble.widget.dart'
+    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'

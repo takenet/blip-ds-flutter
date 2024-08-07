@@ -53,7 +53,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     return Obx(
       () => Column(
         children: [
-          DSEndRecord(
+          DSEndCallsMessageBubble(
             uri: Uri.parse(_sampleAudio),
             align: DSAlign.left,
           ),
