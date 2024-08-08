@@ -113,6 +113,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
+                  vertical: 4.0,
                 ),
                 child: Obx(
                   () => Row(
@@ -126,24 +127,35 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          color: DSColors.contentDefault,
+                          color: colorsContainer,
                           borderRadius: BorderRadius.circular(
                             10.0,
                           ),
                         ),
                         child: Visibility(
                           visible: isLoadingRecording.value ? false : true,
-                          child: IconButton(
-                            onPressed: () async {
-                              isLoadingRecording.value = true;
-                              callRecordText.value = "Preparando gravação...";
-                              //await onAsyncFetchSession();
-                              await Future.delayed(const Duration(seconds: 3));
-                              isLoadingRecording.value = false;
-                              callRecordText.value = "Carregar gravação";
-                            },
-                            icon: const Icon(DSIcons.refresh_outline,
-                                color: DSColors.neutralLightSnow),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4.0,
+                            ),
+                            child: DSButton(
+                              foregroundColor: Colors.transparent,
+                              backgroundColor: Colors.transparent,
+                              borderColor: DSColors.neutralLightSnow,
+                              onPressed: () async {
+                                isLoadingRecording.value = true;
+                                callRecordText.value = "Preparando gravação...";
+                                //await onAsyncFetchSession();
+                                await Future.delayed(
+                                    const Duration(seconds: 3));
+                                isLoadingRecording.value = false;
+                                callRecordText.value = "Carregar gravação";
+                              },
+                              leadingIcon: const Icon(
+                                DSIcons.refresh_outline,
+                                color: DSColors.neutralLightSnow,
+                              ),
+                            ),
                           ),
                         ),
                       )
