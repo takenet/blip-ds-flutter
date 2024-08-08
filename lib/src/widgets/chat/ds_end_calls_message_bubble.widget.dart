@@ -23,10 +23,10 @@ class DSEndCallsMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorText = style.isLightBubbleBackground(align)
+    final colorsText = style.isLightBubbleBackground(align)
         ? DSColors.neutralDarkCity
         : DSColors.neutralLightSnow;
-    final colorContainer = style.isLightBubbleBackground(align)
+    final colorsContainer = style.isLightBubbleBackground(align)
         ? DSColors.surface3
         : DSColors.neutralDarkDesk;
     final callRecordText = Rx<String>("Carregar gravação");
@@ -74,10 +74,10 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                   children: [
                     DSHeadlineSmallText(
                       "Ligação",
-                      color: colorText,
+                      color: colorsText,
                     ),
                     DSBodyText(
-                      color: colorText,
+                      color: colorsText,
                       callStatus == 'confirmed' || callStatus == 'answered'
                           ? "Finalizada"
                           : (callStatus == 'rejected'
@@ -89,9 +89,14 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                 ),
-                DSBodyText(
-                  "+55 31 999999999",
-                  color: colorText,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 24.0,
+                  ),
+                  child: DSBodyText(
+                    "+55 31 999999999",
+                    color: colorsText,
+                  ),
                 ),
               ],
             ),
@@ -100,7 +105,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: colorContainer,
+                color: colorsContainer,
                 borderRadius: BorderRadius.circular(
                   10.0,
                 ),
@@ -113,13 +118,10 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                   () => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Visibility(
-                        visible: isLoadingRecording.value ? true : false,
-                        child: const DSSpinnerLoading(),
-                      ),
+                      if (isLoadingRecording.value) const DSSpinnerLoading(),
                       DSBodyText(
                         callRecordText.value,
-                        color: colorText,
+                        color: colorsText,
                       ),
                       Container(
                         height: 50,
