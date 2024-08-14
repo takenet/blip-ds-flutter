@@ -18,6 +18,7 @@ import '../chat/audio/ds_audio_message_bubble.widget.dart';
 import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
+import '../chat/ds_end_calls_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_location_message_bubble.widget.dart';
@@ -49,6 +50,7 @@ class DSCard extends StatelessWidget {
     this.showRequestLocationButton = false,
     this.replyContent,
     this.isUploading = false,
+    this.onAsyncFetchSession,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -66,6 +68,7 @@ class DSCard extends StatelessWidget {
   final bool showRequestLocationButton;
   final DSReplyContent? replyContent;
   final bool isUploading;
+  final Future<String?> Function(String)? onAsyncFetchSession;
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +168,15 @@ class DSCard extends StatelessWidget {
           content: content,
           status: status,
           avatarConfig: avatarConfig,
+        );
+
+      case DSMessageContentType.callsMedia:
+        return DSEndCallsMessageBubble(
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+          content: content,
+          onAsyncFetchSession: onAsyncFetchSession,
         );
 
       default:

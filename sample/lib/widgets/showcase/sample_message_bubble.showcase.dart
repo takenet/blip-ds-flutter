@@ -54,7 +54,8 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
       () => Column(
         children: [
           DSEndCallsMessageBubble(
-            uri: Uri.parse(_sampleAudio),
+            content: const {'identification': '55996226444'},
+            onAsyncFetchSession: null,
             align: DSAlign.left,
           ),
           DSTextMessageBubble(

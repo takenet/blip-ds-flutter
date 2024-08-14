@@ -1,172 +1,272 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'dart:async';
 
-import '../../../blip_ds.dart';
+import 'package:flutter/material.dart';
+
+import '../../enums/ds_align.enum.dart';
+import '../../enums/ds_border_radius.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
+import '../../extensions/ds_string.extension.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../animations/ds_spinner_loading.widget.dart';
+import '../buttons/ds_button.widget.dart';
+import '../texts/ds_caption_small_text.widget.dart';
+import '../texts/ds_caption_text.widget.dart';
+import 'audio/ds_audio_player.widget.dart';
+import 'ds_message_bubble.widget.dart';
 
 class DSEndCallsMessageBubble extends StatelessWidget {
-  final Uri uri;
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
-  final String? callStatus;
-  final Function? onAsyncFetchSession;
+  final Map<String, dynamic> content;
+  final Future<String?> Function(String)? onAsyncFetchSession;
+  final StreamController _streamController = StreamController<bool>();
+  final Map<String, dynamic>? translations;
+
+  bool get _isCallAnswered => ['completed', 'answer'].contains(
+        content['status'].toString().toLowerCase(),
+      );
+
+  bool get _isInbound =>
+      content['direction'].toString().toLowerCase() == 'inbound';
+
+  bool get _isLightBubbleBackground => style.isLightBubbleBackground(align);
+  bool get _isDefaultBubbleColors => style.isDefaultBubbleBackground(align);
+
+  Color get _foregroundColor => _isLightBubbleBackground
+      ? DSColors.neutralDarkCity
+      : DSColors.neutralLightSnow;
 
   DSEndCallsMessageBubble({
     super.key,
-    required this.uri,
     required this.align,
+    required this.content,
+    required this.onAsyncFetchSession,
     this.borderRadius = const [DSBorderRadius.all],
-    final DSMessageBubbleStyle? style,
-    this.callStatus,
-    this.onAsyncFetchSession,
+    DSMessageBubbleStyle? style,
+    this.translations,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
-    final colorsText = style.isLightBubbleBackground(align)
-        ? DSColors.neutralDarkCity
-        : DSColors.neutralLightSnow;
-    final colorsContainer = style.isLightBubbleBackground(align)
-        ? DSColors.surface3
-        : DSColors.neutralDarkDesk;
-    final callRecordText = Rx<String>("Carregar gravação");
-    final isLoadingRecording = Rx<bool>(false);
-
     return DSMessageBubble(
       borderRadius: borderRadius,
       align: align,
       style: style,
-      padding: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 8,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              children: [
-                const SizedBox(
-                  width: 8,
-                ),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color:
-                        (callStatus == 'confirmed' || callStatus == 'answered')
-                            ? DSColors.success
-                            : DSColors.error,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    (callStatus == 'confirmed' || callStatus == 'answered'
-                        ? DSIcons.voip_calling_outline
-                        : DSIcons.voip_ended_outline),
-                    color: DSColors.contentDefault,
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Column(
-                  children: [
-                    DSHeadlineSmallText(
-                      "Ligação",
-                      color: colorsText,
-                    ),
-                    DSBodyText(
-                      color: colorsText,
-                      callStatus == 'confirmed' || callStatus == 'answered'
-                          ? "Finalizada"
-                          : (callStatus == 'rejected'
-                              ? "Cancelada"
-                              : "Não atendida"),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 24.0,
-                  ),
-                  child: DSBodyText(
-                    "+55 31 999999999",
-                    color: colorsText,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: colorsContainer,
-                borderRadius: BorderRadius.circular(
-                  10.0,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 4.0,
-                ),
-                child: Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  Row(
                     children: [
-                      if (isLoadingRecording.value) const DSSpinnerLoading(),
-                      DSBodyText(
-                        callRecordText.value,
-                        color: colorsText,
-                      ),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: colorsContainer,
-                          borderRadius: BorderRadius.circular(
-                            10.0,
-                          ),
-                        ),
-                        child: Visibility(
-                          visible: isLoadingRecording.value ? false : true,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4.0,
-                            ),
-                            child: DSButton(
-                              foregroundColor: Colors.transparent,
-                              backgroundColor: Colors.transparent,
-                              borderColor: DSColors.neutralLightSnow,
-                              onPressed: () async {
-                                isLoadingRecording.value = true;
-                                callRecordText.value = "Preparando gravação...";
-                                //await onAsyncFetchSession();
-                                await Future.delayed(
-                                    const Duration(seconds: 3));
-                                isLoadingRecording.value = false;
-                                callRecordText.value = "Carregar gravação";
-                              },
-                              leadingIcon: const Icon(
-                                DSIcons.refresh_outline,
-                                color: DSColors.neutralLightSnow,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: _isCallAnswered
+                                    ? DSColors.success
+                                    : DSColors.error,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                    8.0,
+                                  ),
+                                ),
+                              ),
+                              width: 30,
+                              height: 30,
+                              child: Icon(
+                                _isCallAnswered
+                                    ? _isInbound
+                                        ? DSIcons.voip_receiving_outline
+                                        : DSIcons.voip_calling_outline
+                                    : DSIcons.voip_ended_outline,
+                                size: 20.0,
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      )
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DSCaptionText(
+                            'calls.voice-text'.translate(),
+                            fontWeight: FontWeight.bold,
+                            color: _foregroundColor,
+                          ),
+                          DSCaptionSmallText(
+                            _isCallAnswered
+                                ? 'calls.answered'.translate()
+                                : 'calls.unanswered'.translate(),
+                            color: _foregroundColor,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
+                ],
+              ),
+              Flexible(
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                      future:
+                          content['identification'].toString().asPhoneNumber(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return DSCaptionSmallText(
+                            snapshot.data,
+                            color: _foregroundColor,
+                          );
+                        }
+                        return const DSSpinnerLoading();
+                      },
+                    )
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          if (_isCallAnswered && onAsyncFetchSession != null)
+            StreamBuilder(
+              stream: _streamController.stream,
+              builder: (_, __) {
+                return FutureBuilder<String?>(
+                  future: onAsyncFetchSession!(
+                    content['sessionId'],
+                  ),
+                  builder: (_, snapshot) {
+                    return switch (snapshot.connectionState) {
+                      ConnectionState.waiting => _buildLoading(),
+                      ConnectionState.done => snapshot.hasError
+                          ? _buildError()
+                          : snapshot.data?.isEmpty ?? true
+                              ? const SizedBox.shrink()
+                              : _buildAudioPlayer(snapshot.data!),
+                      _ => const SizedBox.shrink(),
+                    };
+                  },
+                );
+              },
+            )
+        ],
       ),
     );
   }
+
+  Widget _buildContainer(final Widget child) => SizedBox(
+        height: 60.0,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: _isLightBubbleBackground
+                  ? DSColors.neutralLightWhisper
+                  : DSColors.neutralDarkDesk,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(
+                  8.0,
+                ),
+              ),
+            ),
+            child: child,
+          ),
+        ),
+      );
+
+  Widget _buildAudioPlayer(final String data) => _buildContainer(
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: DSAudioPlayer(
+            uri: Uri.parse(data),
+            controlForegroundColor: _isLightBubbleBackground
+                ? DSColors.neutralDarkRooftop
+                : DSColors.neutralLightSnow,
+            labelColor: _isLightBubbleBackground
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
+            bufferActiveTrackColor: _isLightBubbleBackground
+                ? DSColors.neutralMediumWave
+                : DSColors.neutralMediumElephant,
+            bufferInactiveTrackColor: _isLightBubbleBackground
+                ? DSColors.neutralDarkRooftop
+                : DSColors.neutralLightBox,
+            sliderActiveTrackColor: _isLightBubbleBackground
+                ? DSColors.primaryNight
+                : DSColors.primaryLight,
+            sliderThumbColor: _isLightBubbleBackground
+                ? DSColors.neutralDarkRooftop
+                : DSColors.neutralLightSnow,
+            speedForegroundColor: _isLightBubbleBackground
+                ? DSColors.neutralDarkCity
+                : DSColors.neutralLightSnow,
+            speedBorderColor: _isLightBubbleBackground
+                ? _isDefaultBubbleColors
+                    ? DSColors.neutralMediumSilver
+                    : DSColors.neutralDarkCity
+                : _isDefaultBubbleColors
+                    ? DSColors.disabledText
+                    : DSColors.neutralLightSnow,
+          ),
+        ),
+      );
+
+  Widget _buildLoading() => _buildContainer(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              const DSSpinnerLoading(),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: DSCaptionText(
+                  'calls.preparing-record'.translate(),
+                  color: _foregroundColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildError() => _buildContainer(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              DSCaptionText(
+                'calls.load-record'.translate(),
+                color: _foregroundColor,
+              ),
+              DSButton(
+                onPressed: () => _streamController.add(true),
+                borderColor: _isLightBubbleBackground
+                    ? DSColors.neutralMediumSilver
+                    : DSColors.disabledText,
+                foregroundColor: _isLightBubbleBackground
+                    ? DSColors.neutralDarkCity
+                    : DSColors.neutralLightSnow,
+                backgroundColor: _isLightBubbleBackground
+                    ? DSColors.neutralLightWhisper
+                    : DSColors.neutralDarkDesk,
+                trailingIcon: const Icon(
+                  DSIcons.refresh_outline,
+                  size: 25.0,
+                ),
+                autoSize: true,
+              )
+            ],
+          ),
+        ),
+      );
 }
