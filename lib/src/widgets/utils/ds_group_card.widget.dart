@@ -66,6 +66,7 @@ class DSGroupCard extends StatefulWidget {
     bool Function(DSMessageItem, DSMessageItem)? compareMessages,
     ScrollController? scrollController,
     this.onAsyncFetchSession,
+    this.isHistoryPage = false,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle(),
         scrollController = scrollController ?? ScrollController();
@@ -84,6 +85,7 @@ class DSGroupCard extends StatefulWidget {
   final bool shrinkWrap;
   final ScrollController scrollController;
   final Future<String?> Function(String)? onAsyncFetchSession;
+  final bool isHistoryPage;
 
   @override
   State<StatefulWidget> createState() => _DSGroupCardState();
@@ -319,6 +321,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                   date: group['displayDate'],
                   showMessageStatus: widget.showMessageStatus,
                   style: widget.style,
+                  isHistoryPage: widget.isHistoryPage,
                 ),
               ),
             ];

@@ -15,6 +15,7 @@ class DSMessageBubbleDetail extends StatelessWidget {
   final DSDeliveryReportStatus deliveryStatus;
   final DSMessageBubbleStyle style;
   final bool showMessageStatus;
+  final bool isHistoryPage;
 
   /// Creates a new Design System's [DSMessageBubbleDetail]
   const DSMessageBubbleDetail({
@@ -25,7 +26,8 @@ class DSMessageBubbleDetail extends StatelessWidget {
     this.showMessageStatus = true,
     this.date,
     this.detailWidget,
-  })  : assert((date != null || detailWidget != null));
+    this.isHistoryPage = false,
+  }) : assert((date != null || detailWidget != null));
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,9 @@ class DSMessageBubbleDetail extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (showMessageStatus && align == DSAlign.right) ...[
+                if (showMessageStatus &&
+                    align == DSAlign.right &&
+                    !isHistoryPage) ...[
                   DSDeliveryReportIcon(deliveryStatus: deliveryStatus),
                   const SizedBox(
                     width: 6.0,
