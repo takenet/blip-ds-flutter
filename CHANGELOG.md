@@ -1,3 +1,7 @@
+## 0.1.5
+
+- [DSDarkColors] Added new Dark theme colors.
+
 ## 0.1.4
 
 - [DSInteractiveVoiceCallMessageBubble] Added new bubble to render the request call message.
