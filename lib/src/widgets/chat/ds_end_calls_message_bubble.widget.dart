@@ -2,35 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../enums/ds_align.enum.dart';
-import '../../enums/ds_border_radius.enum.dart';
+import '../../../blip_ds.dart';
 import '../../extensions/ds_localization.extension.dart';
-import '../../extensions/ds_string.extension.dart';
-import '../../models/ds_message_bubble_style.model.dart';
-import '../../themes/colors/ds_colors.theme.dart';
-import '../../themes/icons/ds_icons.dart';
-import '../animations/ds_spinner_loading.widget.dart';
-import '../buttons/ds_button.widget.dart';
-import '../texts/ds_caption_small_text.widget.dart';
-import '../texts/ds_caption_text.widget.dart';
-import 'audio/ds_audio_player.widget.dart';
-import 'ds_message_bubble.widget.dart';
+import '../../models/ds_calls_media_message.model.dart';
 
 class DSEndCallsMessageBubble extends StatelessWidget {
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
-  final Map<String, dynamic> content;
+  final DSCallsMediaMessage content;
   final Future<String?> Function(String)? onAsyncFetchSession;
   final StreamController _streamController = StreamController<bool>();
   final Map<String, dynamic>? translations;
 
   bool get _isCallAnswered => ['completed', 'answer'].contains(
-        content['status'].toString().toLowerCase(),
+        content.status.toString().toLowerCase(),
       );
 
   bool get _isInbound =>
-      content['direction'].toString().toLowerCase() == 'inbound';
+      content.direction.toString().toLowerCase() == 'inbound';
 
   bool get _isLightBubbleBackground => style.isLightBubbleBackground(align);
   bool get _isDefaultBubbleColors => style.isDefaultBubbleBackground(align);
@@ -68,39 +58,34 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: _isCallAnswered
-                                    ? DSColors.success
-                                    : DSColors.error,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
-                                ),
-                              ),
-                              width: 30,
-                              height: 30,
-                              child: Icon(
-                                _isCallAnswered
-                                    ? _isInbound
-                                        ? DSIcons.voip_receiving_outline
-                                        : DSIcons.voip_calling_outline
-                                    : DSIcons.voip_ended_outline,
-                                size: 20.0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _isCallAnswered
+                                ? DSColors.success
+                                : DSColors.error,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(
+                                8.0,
                               ),
                             ),
-                          ],
+                          ),
+                          width: 40,
+                          height: 40,
+                          child: Icon(
+                            _isCallAnswered
+                                ? _isInbound
+                                    ? DSIcons.voip_receiving_outline
+                                    : DSIcons.voip_calling_outline
+                                : DSIcons.voip_ended_outline,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DSCaptionText(
+                          DSHeadlineSmallText(
                             'calls.voice-text'.translate(),
-                            fontWeight: FontWeight.bold,
                             color: _foregroundColor,
                           ),
                           DSCaptionSmallText(
@@ -119,8 +104,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future:
-                          content['identification'].toString().asPhoneNumber(),
+                      future: content.identification.toString().asPhoneNumber(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return DSCaptionSmallText(
@@ -142,7 +126,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
               builder: (_, __) {
                 return FutureBuilder<String?>(
                   future: onAsyncFetchSession!(
-                    content['sessionId'],
+                    content.sessionId,
                   ),
                   builder: (_, snapshot) {
                     return switch (snapshot.connectionState) {
@@ -231,6 +215,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                 child: DSCaptionText(
                   'calls.preparing-record'.translate(),
                   color: _foregroundColor,
+                  fontWeight: DSFontWeights.semiBold,
                 ),
               ),
             ],
@@ -247,6 +232,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
               DSCaptionText(
                 'calls.load-record'.translate(),
                 color: _foregroundColor,
+                fontWeight: DSFontWeights.semiBold,
               ),
               DSButton(
                 onPressed: () => _streamController.add(true),
@@ -261,7 +247,7 @@ class DSEndCallsMessageBubble extends StatelessWidget {
                     : DSColors.neutralDarkDesk,
                 trailingIcon: const Icon(
                   DSIcons.refresh_outline,
-                  size: 25.0,
+                  size: 24.0,
                 ),
                 autoSize: true,
               )

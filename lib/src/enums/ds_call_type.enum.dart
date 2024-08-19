@@ -1,0 +1,4 @@
+enum DSCallType {
+  voice,
+  video,
+}

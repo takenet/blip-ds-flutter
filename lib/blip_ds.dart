@@ -2,6 +2,9 @@ library blip_ds;
 
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
+export 'src/enums/ds_call_direction.enum.dart' show DSCallDirection;
+export 'src/enums/ds_call_provider.enum.dart' show DSCallProvider;
+export 'src/enums/ds_call_type.enum.dart' show DSCallType;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
 export 'src/enums/ds_input_container_shape.enum.dart'
@@ -17,6 +20,7 @@ export 'src/extensions/ds_border_radius.extension.dart'
 export 'src/extensions/ds_delivery_report_status.extension.dart'
     show DSDeliveryReportStatusExtension;
 export 'src/extensions/ds_string.extension.dart' show DSStringExtension;
+export 'src/models/ds_calls_media_message.model.dart' show DSCallsMediaMessage;
 export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
