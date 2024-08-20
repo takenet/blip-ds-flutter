@@ -17,7 +17,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
 
   final RxString _sampleText = RxString('');
   final String _sampleAudio =
-      'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+      'https://filesamples.com/samples/video/webm/sample_640x360.webm';
 
   final Map<String, String> _sampleImages = {
     "extraSmall": 'https://cdn-icons-png.flaticon.com/128/6913/6913220.png',
@@ -48,15 +48,46 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
+  Future<String?> _onAsyncFetchSession(_) {
+    return Future.delayed(
+      const Duration(seconds: 2),
+      () => _sampleAudio,
+    );
+  }
+
+  final _callsMediaMessage = {
+    "sessionId": "346b4783-2c8e-4b08-a71f-01904a3c40f3",
+    "type": "voice",
+    "provider": "whatsapp",
+    "direction": "inbound",
+    "status": "completed",
+    "ticketId": "ticketId",
+    "identification": "5548999999999",
+    "callDuration": 60,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
         children: [
           DSEndCallsMessageBubble(
-            content: const {'identification': '55996226444'},
-            onAsyncFetchSession: null,
-            align: DSAlign.left,
+            callsMediaMessage: DSCallsMediaMessage.fromJson(_callsMediaMessage),
+            onAsyncFetchSession: _onAsyncFetchSession,
+            align: DSAlign.right,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: DSEndCallsMessageBubble(
+              callsMediaMessage: DSCallsMediaMessage.fromJson(
+                _callsMediaMessage
+                  ..addAll(
+                    {"callDuration": 0, "status": "noanswer"},
+                  ),
+              ),
+              onAsyncFetchSession: null,
+              align: DSAlign.right,
+            ),
           ),
           DSTextMessageBubble(
             text: 'Essa foto é linda',

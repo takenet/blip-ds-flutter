@@ -1,38 +1,49 @@
 import '../enums/ds_call_direction.enum.dart';
 import '../enums/ds_call_provider.enum.dart';
+import '../enums/ds_call_status.enum.dart';
 import '../enums/ds_call_type.enum.dart';
+import '../extensions/ds_enum.extension.dart';
 
 class DSCallsMediaMessage {
-  DSCallType? type;
-  String sessionId;
-  DSCallProvider? provider;
-  DSCallDirection direction;
-  String? ticketId;
-  String status;
-  String identification;
-  String? media;
-  int? callDuration;
+  final String sessionId;
+  final DSCallType type;
+  final DSCallProvider provider;
+  final DSCallDirection direction;
+  final DSCallStatus status;
+  final String ticketId;
+  final String identification;
+  final int? callDuration;
 
   DSCallsMediaMessage({
-    this.type,
     required this.sessionId,
-    this.provider,
+    required this.type,
+    required this.provider,
     required this.direction,
-    this.ticketId,
     required this.status,
+    required this.ticketId,
     required this.identification,
-    this.media,
     this.callDuration,
   });
 
   DSCallsMediaMessage.fromJson(Map<String, dynamic> json)
-      : type = json['type'],
-        sessionId = json['sessionId'],
-        provider = json['provider'],
-        direction = json['direction'],
+      : sessionId = json['sessionId'],
+        type = DSCallType.values.byNameOrDefault(
+          json['type'],
+          DSCallType.unknown,
+        ),
+        provider = DSCallProvider.values.byNameOrDefault(
+          json['provider'],
+          DSCallProvider.unknown,
+        ),
+        direction = DSCallDirection.values.byNameOrDefault(
+          json['direction'],
+          DSCallDirection.unknown,
+        ),
+        status = DSCallStatus.values.byNameOrDefault(
+          json['status'],
+          DSCallStatus.unknown,
+        ),
         ticketId = json['ticketId'],
-        status = json['status'],
         identification = json['identification'],
-        media = json['media'],
-        callDuration = json['callDuration'];
+        callDuration = json['callDuration'] ?? 0;
 }

@@ -1,4 +1,5 @@
 enum DSCallProvider {
   mobcall,
-  whatsapp,
+  whatsApp,
+  unknown,
 }

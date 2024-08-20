@@ -1,4 +1,5 @@
 enum DSCallDirection {
-  outgoing,
-  incoming,
+  outbound,
+  inbound,
+  unknown,
 }

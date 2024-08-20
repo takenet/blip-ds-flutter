@@ -2,9 +2,6 @@ library blip_ds;
 
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
-export 'src/enums/ds_call_direction.enum.dart' show DSCallDirection;
-export 'src/enums/ds_call_provider.enum.dart' show DSCallProvider;
-export 'src/enums/ds_call_type.enum.dart' show DSCallType;
 export 'src/enums/ds_delivery_report_status.enum.dart'
     show DSDeliveryReportStatus;
 export 'src/enums/ds_input_container_shape.enum.dart'
@@ -131,6 +128,8 @@ export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
+export 'src/widgets/chat/calls/ds_end_calls_message_bubble.widget.dart'
+    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
     show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
@@ -138,8 +137,6 @@ export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
     show DSContactMessageBubble;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
-export 'src/widgets/chat/ds_end_calls_message_bubble.widget.dart'
-    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'
