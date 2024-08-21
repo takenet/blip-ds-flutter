@@ -19,10 +19,14 @@ class DSTertiaryButton extends DSButton {
     super.isLoading,
     super.autoSize,
     super.contentAlignment,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    Color? borderColor,
   }) : super(
-          backgroundColor: Colors.transparent,
+          backgroundColor: backgroundColor ?? Colors.transparent,
           foregroundColor: isEnabled
-              ? DSColors.neutralDarkCity
+              ? foregroundColor ?? DSColors.neutralDarkCity
               : DSColors.neutralMediumElephant,
+          borderColor: borderColor ?? DSColors.neutralLightSnow,
         );
 }

@@ -55,6 +55,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     );
   }
 
+  Future<String?> _onAsyncFetchSessionError(_) {
+    return Future.delayed(
+      const Duration(seconds: 2),
+      () => throw UnimplementedError(),
+    );
+  }
+
   final _callsMediaMessage = {
     "sessionId": "346b4783-2c8e-4b08-a71f-01904a3c40f3",
     "type": "voice",
@@ -79,15 +86,21 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: DSEndCallsMessageBubble(
-              callsMediaMessage: DSCallsMediaMessage.fromJson(
-                _callsMediaMessage
-                  ..addAll(
-                    {"callDuration": 0, "status": "noanswer"},
-                  ),
-              ),
-              onAsyncFetchSession: null,
+              callsMediaMessage:
+                  DSCallsMediaMessage.fromJson(_callsMediaMessage),
+              onAsyncFetchSession: _onAsyncFetchSessionError,
               align: DSAlign.right,
             ),
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage: DSCallsMediaMessage.fromJson(
+              _callsMediaMessage
+                ..addAll(
+                  {"callDuration": 0, "status": "noanswer"},
+                ),
+            ),
+            onAsyncFetchSession: null,
+            align: DSAlign.right,
           ),
           DSTextMessageBubble(
             text: 'Essa foto é linda',

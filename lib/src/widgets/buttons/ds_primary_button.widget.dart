@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import '../../themes/colors/ds_colors.theme.dart';
 import 'ds_button.widget.dart';
 
@@ -17,11 +19,14 @@ class DSPrimaryButton extends DSButton {
     super.isLoading,
     super.autoSize,
     super.contentAlignment,
+    Color? backgroundColor,
+    Color? foregroundColor,
   }) : super(
-          backgroundColor:
-              isEnabled ? DSColors.primaryNight : DSColors.disabledBg,
+          backgroundColor: isEnabled
+              ? backgroundColor ?? DSColors.primaryNight
+              : DSColors.disabledBg,
           foregroundColor: isEnabled
-              ? DSColors.neutralLightSnow
+              ? foregroundColor ?? DSColors.neutralLightSnow
               : DSColors.neutralMediumElephant,
         );
 }

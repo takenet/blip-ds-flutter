@@ -14,7 +14,7 @@ import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../animations/ds_spinner_loading.widget.dart';
-import '../../buttons/ds_button.widget.dart';
+import '../../buttons/ds_tertiary_button.widget.dart';
 import '../../texts/ds_caption_small_text.widget.dart';
 import '../../texts/ds_caption_text.widget.dart';
 import '../../texts/ds_headline_small_text.widget.dart';
@@ -252,7 +252,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
                 color: _foregroundColor,
                 fontWeight: DSFontWeights.semiBold,
               ),
-              DSButton(
+              DSTertiaryButton(
                 onPressed: () => _streamController.add(true),
                 borderColor: _isLightBubbleBackground
                     ? DSColors.neutralMediumSilver
