@@ -48,7 +48,7 @@ class DSEndCallsMessageBubble extends StatefulWidget {
 class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   final StreamController _streamController = StreamController<bool>();
   late final Future<String> _phoneNumber;
-  Future<String?> Function(String)? _onAsyncfetchsession;
+  Future<String?>? _session;
 
   bool get _isCallAnswered =>
       [DSCallStatus.completed, DSCallStatus.answer].contains(
@@ -73,7 +73,9 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
     super.initState();
     _phoneNumber =
         widget.callsMediaMessage.identification.toString().asPhoneNumber();
-    _onAsyncfetchsession = widget.onAsyncFetchSession;
+    _session = widget.onAsyncFetchSession?.call(
+      widget.callsMediaMessage.sessionId,
+    );
   }
 
   @override
@@ -159,14 +161,12 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
         ],
       );
 
-  Widget _buildMediaPlayer() => _isCallAnswered && _onAsyncfetchsession != null
+  Widget _buildMediaPlayer() => _isCallAnswered && _session != null
       ? StreamBuilder(
           stream: _streamController.stream,
           builder: (_, __) {
             return FutureBuilder<String?>(
-              future: _onAsyncfetchsession!(
-                widget.callsMediaMessage.sessionId,
-              ),
+              future: _session,
               builder: (_, snapshot) {
                 return switch (snapshot.connectionState) {
                   ConnectionState.done => snapshot.hasError
