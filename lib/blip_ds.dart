@@ -17,6 +17,7 @@ export 'src/extensions/ds_border_radius.extension.dart'
 export 'src/extensions/ds_delivery_report_status.extension.dart'
     show DSDeliveryReportStatusExtension;
 export 'src/extensions/ds_string.extension.dart' show DSStringExtension;
+export 'src/models/ds_calls_media_message.model.dart' show DSCallsMediaMessage;
 export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
@@ -127,6 +128,8 @@ export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
+export 'src/widgets/chat/calls/ds_end_calls_message_bubble.widget.dart'
+    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
     show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
@@ -134,8 +137,6 @@ export 'src/widgets/chat/ds_contact_message_bubble.widget.dart'
     show DSContactMessageBubble;
 export 'src/widgets/chat/ds_delivery_report_icon.widget.dart'
     show DSDeliveryReportIcon;
-export 'src/widgets/chat/ds_end_calls_message_bubble.widget.dart'
-    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_file_message_bubble.widget.dart'
     show DSFileMessageBubble;
 export 'src/widgets/chat/ds_image_message_bubble.widget.dart'

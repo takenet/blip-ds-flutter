@@ -6,6 +6,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../enums/ds_delivery_report_status.enum.dart';
 import '../../enums/ds_ticket_message_type.enum.dart';
+import '../../models/ds_calls_media_message.model.dart';
 import '../../models/ds_document_select.model.dart';
 import '../../models/ds_media_link.model.dart';
 import '../../models/ds_message_bubble_avatar_config.model.dart';
@@ -15,10 +16,10 @@ import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
+import '../chat/calls/ds_end_calls_message_bubble.widget.dart';
 import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
 import '../chat/ds_contact_message_bubble.widget.dart';
-import '../chat/ds_end_calls_message_bubble.widget.dart';
 import '../chat/ds_file_message_bubble.widget.dart';
 import '../chat/ds_image_message_bubble.widget.dart';
 import '../chat/ds_location_message_bubble.widget.dart';
@@ -175,7 +176,7 @@ class DSCard extends StatelessWidget {
           align: align,
           borderRadius: borderRadius,
           style: style,
-          content: content,
+          callsMediaMessage: DSCallsMediaMessage.fromJson(content),
           onAsyncFetchSession: onAsyncFetchSession,
         );
 
