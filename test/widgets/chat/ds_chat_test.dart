@@ -1,4 +1,5 @@
 import 'package:blip_ds/blip_ds.dart';
+import 'package:blip_ds/src/extensions/ds_localization.extension.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
@@ -33,7 +34,7 @@ void main() {
           await tester.pumpWidgetBuilder(messages);
 
           final Finder findMessage = find.text(
-            'Falha ao enviar mensagem.', // TODO: translate
+            'message.send-fail'.translate(),
             findRichText: true,
           );
 

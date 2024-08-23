@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -27,7 +28,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
     this.overflow = TextOverflow.ellipsis,
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle();
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +56,7 @@ class DSUnsupportedContentMessageBubble extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: DSBodyText(
-                text ??
-                    'Unsupported content', // TODO: Need localized translate.
+                text ?? 'message.unsupported'.translate(),
                 color: color,
                 overflow: overflow,
               ),

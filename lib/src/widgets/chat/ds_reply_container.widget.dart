@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -52,7 +53,7 @@ class DSReplyContainer extends StatelessWidget {
             ),
             const SizedBox(width: 8.0),
             DSCaptionText(
-              'Reply',
+              'message.reply'.translate(),
               fontStyle: FontStyle.italic,
               color: style.isLightBubbleBackground(align)
                   ? DSColors.neutralDarkCity
@@ -152,7 +153,7 @@ class DSReplyContainer extends StatelessWidget {
           const SizedBox(width: 8.0),
           Flexible(
             child: DSBodyText(
-              'Failed to load message',
+              'message.load-fail'.translate(),
               overflow: TextOverflow.visible,
               color: _foregroundColor,
             ),

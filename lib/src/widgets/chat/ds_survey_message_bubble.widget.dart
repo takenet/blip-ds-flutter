@@ -4,6 +4,7 @@ import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../enums/ds_survey_scale.enum.dart';
 import '../../enums/ds_survey_type.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -109,19 +110,19 @@ class DSSurveyMessageBubble extends StatelessWidget {
   _getTitlePreview() {
     switch (type) {
       case DSSurveyType.recommendation:
-        return 'Would you recommend our Chatbot?';
+        return "message.survey-recommendation".translate();
       case DSSurveyType.solution:
-        return 'How did you feel about the service on this channel?';
+        return 'message.survey-solution'.translate();
       case DSSurveyType.chatbot:
-        return 'How did you feel about the chatbot assistance?';
+        return 'message.survey-chatbot'.translate();
     }
   }
 
   _getDescriptionPreview(bool positiveLabel) => positiveLabel
       ? type == DSSurveyType.recommendation
-          ? 'Recommend'
-          : 'Positive'
+          ? 'message.survey-recommendation-answered-positive'.translate()
+          : 'message.survey-positive'.translate()
       : type == DSSurveyType.recommendation
-          ? "Don't Recommend"
-          : 'Negative';
+          ? "message.survey-recommendation-answered-negative".translate()
+          : 'message.survey-negative'.translate();
 }

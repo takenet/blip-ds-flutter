@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../utils/ds_bubble.util.dart';
@@ -56,7 +57,7 @@ class DSRequestLocationBubble extends StatelessWidget {
               ),
             if (showRequestLocationButton)
               DSRequestLocationButton(
-                label: 'Send Location', // TODO: translate
+                label: 'message.send-location'.translate(),
               ),
           ],
         ),
