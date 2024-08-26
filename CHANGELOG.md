@@ -1,3 +1,7 @@
+## 0.1.6
+
+- Added several widgets to support Blip Calls.
+
 ## 0.1.5
 
 - [DSDarkColors] Added new Dark theme colors.
