@@ -13,23 +13,20 @@ class DSEndCallsRecordingContainer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: 60.0,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isLighBubbleBackground
-                  ? DSColors.neutralLightWhisper
-                  : DSColors.neutralDarkDesk,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  8.0,
-                ),
-              ),
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+          color: isLighBubbleBackground
+              ? DSColors.neutralLightWhisper
+              : DSColors.neutralDarkDesk,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              8.0,
             ),
-            child: child,
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: child,
         ),
       );
 }

@@ -73,6 +73,17 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     "callDuration": 60,
   };
 
+  final _callsMediaMessageError = {
+    "sessionId": "346b4783-2c8e-4b08-a71f-01904a3c40f3",
+    "type": "voice",
+    "provider": "whatsapp",
+    "direction": "inbound",
+    "ticketId": "ticketId",
+    "identification": "5548999999999",
+    "callDuration": 0,
+    "status": "noanswer",
+  };
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -93,14 +104,30 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             ),
           ),
           DSEndCallsMessageBubble(
-            callsMediaMessage: DSCallsMediaMessage.fromJson(
-              _callsMediaMessage
-                ..addAll(
-                  {"callDuration": 0, "status": "noanswer"},
-                ),
-            ),
+            callsMediaMessage:
+                DSCallsMediaMessage.fromJson(_callsMediaMessageError),
             onAsyncFetchSession: null,
             align: DSAlign.right,
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage: DSCallsMediaMessage.fromJson(_callsMediaMessage),
+            onAsyncFetchSession: _onAsyncFetchSession,
+            align: DSAlign.left,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: DSEndCallsMessageBubble(
+              callsMediaMessage:
+                  DSCallsMediaMessage.fromJson(_callsMediaMessage),
+              onAsyncFetchSession: _onAsyncFetchSessionError,
+              align: DSAlign.left,
+            ),
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage:
+                DSCallsMediaMessage.fromJson(_callsMediaMessageError),
+            onAsyncFetchSession: null,
+            align: DSAlign.left,
           ),
           DSTextMessageBubble(
             text: 'Essa foto é linda',
