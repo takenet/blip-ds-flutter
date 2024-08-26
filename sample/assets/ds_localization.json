@@ -1,0 +1,24 @@
+{
+    "pt_BR": {
+      "calls.answered": "Finalizada",
+      "calls.unanswered": "Não atendida",
+      "calls.voice-text": "Ligação",
+      "calls.preparing-record": "Preparando gravação...",
+      "calls.load-record": "Carregar gravação"
+      
+    },
+    "en_US": {
+      "calls.answered": "Ended",
+      "calls.unanswered": "Not answered",
+      "calls.voice-text": "Phone call",
+      "calls.preparing-record": "Preparing recording...",
+      "calls.load-record": "Load recording"
+    },
+    "es_LA": {
+      "calls.answered": "Finalizada",
+      "calls.unanswered": "No atendida",
+      "calls.voice-text": "Llamada",
+      "calls.preparing-record": "Grabación en curso...",
+      "calls.load-record": "Cargar grabación"
+    }
+  }

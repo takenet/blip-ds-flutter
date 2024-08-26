@@ -65,6 +65,7 @@ class DSGroupCard extends StatefulWidget {
     DSMessageBubbleStyle? style,
     bool Function(DSMessageItem, DSMessageItem)? compareMessages,
     ScrollController? scrollController,
+    this.onAsyncFetchSession,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle(),
         scrollController = scrollController ?? ScrollController();
@@ -82,6 +83,7 @@ class DSGroupCard extends StatefulWidget {
   final void Function()? onInfinitScroll;
   final bool shrinkWrap;
   final ScrollController scrollController;
+  final Future<String?> Function(String)? onAsyncFetchSession;
 
   @override
   State<StatefulWidget> createState() => _DSGroupCardState();
@@ -264,6 +266,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             messageId: message.id,
             customer: message.customer,
             isUploading: message.isUploading,
+            onAsyncFetchSession: widget.onAsyncFetchSession,
           );
 
           final isLastMsg = msgCount == length;
