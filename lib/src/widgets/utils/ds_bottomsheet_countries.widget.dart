@@ -41,7 +41,7 @@ abstract class DSBottomSheetCountries {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DSHeadlineLargeText(
-                    'country.country-name'.translate(),
+                    'country.name'.translate(),
                   ),
                   DSIconButton(
                     onPressed: () {
