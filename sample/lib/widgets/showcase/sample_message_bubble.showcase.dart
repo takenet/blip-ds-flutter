@@ -17,7 +17,7 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
 
   final RxString _sampleText = RxString('');
   final String _sampleAudio =
-      'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+      'https://filesamples.com/samples/video/webm/sample_640x360.webm';
 
   final Map<String, String> _sampleImages = {
     "extraSmall": 'https://cdn-icons-png.flaticon.com/128/6913/6913220.png',
@@ -48,11 +48,87 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
 
   SampleMessageBubbleShowcase({Key? key}) : super(key: key);
 
+  Future<String?> _onAsyncFetchSession(_) {
+    return Future.delayed(
+      const Duration(seconds: 2),
+      () => _sampleAudio,
+    );
+  }
+
+  Future<String?> _onAsyncFetchSessionError(_) {
+    return Future.delayed(
+      const Duration(seconds: 2),
+      () => throw UnimplementedError(),
+    );
+  }
+
+  final _callsMediaMessage = {
+    "sessionId": "346b4783-2c8e-4b08-a71f-01904a3c40f3",
+    "type": "voice",
+    "provider": "whatsapp",
+    "direction": "inbound",
+    "status": "completed",
+    "ticketId": "ticketId",
+    "identification": "5548999999999",
+    "callDuration": 60,
+  };
+
+  final _callsMediaMessageError = {
+    "sessionId": "346b4783-2c8e-4b08-a71f-01904a3c40f3",
+    "type": "voice",
+    "provider": "whatsapp",
+    "direction": "inbound",
+    "ticketId": "ticketId",
+    "identification": "5548999999999",
+    "callDuration": 0,
+    "status": "noanswer",
+  };
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
         children: [
+          DSEndCallsMessageBubble(
+            callsMediaMessage: DSCallsMediaMessage.fromJson(_callsMediaMessage),
+            onAsyncFetchSession: _onAsyncFetchSession,
+            align: DSAlign.right,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: DSEndCallsMessageBubble(
+              callsMediaMessage:
+                  DSCallsMediaMessage.fromJson(_callsMediaMessage),
+              onAsyncFetchSession: _onAsyncFetchSessionError,
+              align: DSAlign.right,
+            ),
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage:
+                DSCallsMediaMessage.fromJson(_callsMediaMessageError),
+            onAsyncFetchSession: null,
+            align: DSAlign.right,
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage: DSCallsMediaMessage.fromJson(_callsMediaMessage),
+            onAsyncFetchSession: _onAsyncFetchSession,
+            align: DSAlign.left,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: DSEndCallsMessageBubble(
+              callsMediaMessage:
+                  DSCallsMediaMessage.fromJson(_callsMediaMessage),
+              onAsyncFetchSession: _onAsyncFetchSessionError,
+              align: DSAlign.left,
+            ),
+          ),
+          DSEndCallsMessageBubble(
+            callsMediaMessage:
+                DSCallsMediaMessage.fromJson(_callsMediaMessageError),
+            onAsyncFetchSession: null,
+            align: DSAlign.left,
+          ),
           DSTextMessageBubble(
             text: 'Essa foto é linda',
             align: DSAlign.left,

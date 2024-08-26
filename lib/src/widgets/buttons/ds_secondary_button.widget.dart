@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../themes/colors/ds_colors.theme.dart';
 import 'ds_button.widget.dart';
 
@@ -17,13 +19,18 @@ class DSSecondaryButton extends DSButton {
     super.isLoading,
     super.autoSize,
     super.contentAlignment,
-    super.backgroundColor = DSColors.neutralLightSnow,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    Color? borderColor,
   }) : super(
-          foregroundColor: isEnabled
-              ? DSColors.primaryNight
-              : DSColors.neutralMediumElephant,
-          borderColor: isEnabled
-              ? DSColors.primaryNight
-              : DSColors.neutralMediumElephant,
+          backgroundColor: backgroundColor ?? DSColors.neutralLightSnow,
+          foregroundColor: foregroundColor ??
+              (isEnabled
+                  ? DSColors.primaryNight
+                  : DSColors.neutralMediumElephant),
+          borderColor: borderColor ??
+              (isEnabled
+                  ? DSColors.primaryNight
+                  : DSColors.neutralMediumElephant),
         );
 }

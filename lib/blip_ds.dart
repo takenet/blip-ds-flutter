@@ -17,6 +17,7 @@ export 'src/extensions/ds_border_radius.extension.dart'
 export 'src/extensions/ds_delivery_report_status.extension.dart'
     show DSDeliveryReportStatusExtension;
 export 'src/extensions/ds_string.extension.dart' show DSStringExtension;
+export 'src/models/ds_calls_media_message.model.dart' show DSCallsMediaMessage;
 export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
@@ -58,6 +59,7 @@ export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
 export 'src/services/ds_file.service.dart' show DSFileService;
+export 'src/services/ds_localization.service.dart' show DSLocalizationService;
 export 'src/services/ds_media_format.service.dart' show DSMediaFormatService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
@@ -112,6 +114,7 @@ export 'src/widgets/buttons/ds_attachment_button.widget.dart'
 export 'src/widgets/buttons/ds_button.widget.dart' show DSButton;
 export 'src/widgets/buttons/ds_custom_replies_icon_button.widget.dart'
     show DSCustomRepliesIconButton;
+export 'src/widgets/buttons/ds_ghost_button.widget.dart' show DSGhostButton;
 export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_pause_button.widget.dart' show DSPauseButton;
 export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
@@ -126,6 +129,8 @@ export 'src/widgets/buttons/ds_tertiary_button.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
     show DSAudioMessageBubble;
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
+export 'src/widgets/chat/calls/ds_end_calls_message_bubble.widget.dart'
+    show DSEndCallsMessageBubble;
 export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
     show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;
