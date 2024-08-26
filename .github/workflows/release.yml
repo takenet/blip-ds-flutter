@@ -89,7 +89,7 @@ jobs:
 
   publish:
     name: Upload package to pub.dev
-    needs: tests
+    needs: create-release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
