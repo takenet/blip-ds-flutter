@@ -114,6 +114,7 @@ export 'src/widgets/buttons/ds_attachment_button.widget.dart'
 export 'src/widgets/buttons/ds_button.widget.dart' show DSButton;
 export 'src/widgets/buttons/ds_custom_replies_icon_button.widget.dart'
     show DSCustomRepliesIconButton;
+export 'src/widgets/buttons/ds_ghost_button.widget.dart' show DSGhostButton;
 export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_pause_button.widget.dart' show DSPauseButton;
 export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
