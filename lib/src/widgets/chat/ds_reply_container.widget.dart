@@ -53,7 +53,7 @@ class DSReplyContainer extends StatelessWidget {
             ),
             const SizedBox(width: 8.0),
             DSCaptionText(
-              'message.reply'.translate(),
+              'reply.text'.translate(),
               fontStyle: FontStyle.italic,
               color: style.isLightBubbleBackground(align)
                   ? DSColors.neutralDarkCity
@@ -153,7 +153,7 @@ class DSReplyContainer extends StatelessWidget {
           const SizedBox(width: 8.0),
           Flexible(
             child: DSBodyText(
-              'message.load-fail'.translate(),
+              'reply.load-fail'.translate(),
               overflow: TextOverflow.visible,
               color: _foregroundColor,
             ),

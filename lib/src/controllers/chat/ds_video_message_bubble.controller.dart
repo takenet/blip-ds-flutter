@@ -40,7 +40,7 @@ class DSVideoMessageBubbleController {
             mediaSize,
             precision: PrecisionValue.One,
           )
-        : 'message.download'.translate();
+        : 'video.download'.translate();
   }
 
   Future<void> getStoredVideo() async {
@@ -115,8 +115,8 @@ class DSVideoMessageBubbleController {
 
       DSToastService.error(
         DSToastProps(
-          title: 'message.download-title-error'.translate(),
-          message: 'message.download-message-error'.translate(),
+          title: 'video.download-title-error'.translate(),
+          message: 'video.download-message-error'.translate(),
         ),
       );
     } finally {

@@ -156,7 +156,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DSHeadlineLargeText(
-                  'message.select-action'.translate(),
+                  'location.select-action'.translate(),
                 ),
                 DSIconButton(
                   onPressed: () {
@@ -198,7 +198,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
                       Get.back();
                     },
                     title: DSBodyText(
-                      "message.open-with".translate() + " ${map.mapName}",
+                      "location.open-with".translate() + " ${map.mapName}",
                     ),
                   );
                 },

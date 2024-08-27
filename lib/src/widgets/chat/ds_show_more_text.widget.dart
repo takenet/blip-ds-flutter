@@ -72,7 +72,7 @@ class DSShowMoreText extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => shouldShowFullText.value = true,
                   child: DSBodyText(
-                    'message.show-more'.translate(),
+                    'show-more.text'.translate(),
                     color: isLightBubbleBackground
                         ? isDefaultBubbleColors
                             ? DSColors.primaryNight

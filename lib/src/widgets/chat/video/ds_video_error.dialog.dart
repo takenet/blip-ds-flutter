@@ -16,8 +16,8 @@ abstract class DSVideoErrorDialog {
     final Map<String, String?>? httpHeaders,
   }) async {
     await DSDialogService(
-      title: 'message.error-video-reproduction-title'.translate(),
-      text: 'message.error-video-reproduction-message'.translate(),
+      title: 'video-error.reproduction-title'.translate(),
+      text: 'video-error.reproduction-message'.translate(),
       primaryButton: DSPrimaryButton(
           onPressed: () async {
             Get.back();

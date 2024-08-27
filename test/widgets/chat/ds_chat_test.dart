@@ -34,7 +34,7 @@ void main() {
           await tester.pumpWidgetBuilder(messages);
 
           final Finder findMessage = find.text(
-            'message.send-fail'.translate(),
+            'delivery.send-fail'.translate(),
             findRichText: true,
           );
 

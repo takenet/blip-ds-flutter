@@ -57,7 +57,7 @@ class DSRequestLocationBubble extends StatelessWidget {
               ),
             if (showRequestLocationButton)
               DSRequestLocationButton(
-                label: 'message.send-location'.translate(),
+                label: 'location.send'.translate(),
               ),
           ],
         ),

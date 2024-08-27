@@ -35,7 +35,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
 
       case DSDeliveryReportStatus.failed:
         return DSCaptionSmallText(
-          'message.send-fail'.translate(),
+          'delivery.send-fail'.translate(),
           color: DSColors.actionColorNegative,
         );
 
