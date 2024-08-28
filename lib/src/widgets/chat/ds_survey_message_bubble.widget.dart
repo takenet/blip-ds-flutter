@@ -112,17 +112,17 @@ class DSSurveyMessageBubble extends StatelessWidget {
       case DSSurveyType.recommendation:
         return "survey.recommendation".translate();
       case DSSurveyType.solution:
-        return 'survey-solution'.translate();
+        return 'survey.solution'.translate();
       case DSSurveyType.chatbot:
-        return 'survey-chatbot'.translate();
+        return 'survey.chatbot'.translate();
     }
   }
 
   _getDescriptionPreview(bool positiveLabel) => positiveLabel
       ? type == DSSurveyType.recommendation
-          ? 'survey-recommendation-answered-positive'.translate()
-          : 'survey-positive'.translate()
+          ? 'survey.recommendation-answered-positive'.translate()
+          : 'survey.positive'.translate()
       : type == DSSurveyType.recommendation
-          ? "survey-recommendation-answered-negative".translate()
-          : 'survey-negative'.translate();
+          ? "survey.recommendation-answered-negative".translate()
+          : 'survey.negative'.translate();
 }
