@@ -26,7 +26,7 @@ abstract class DSFileService {
       return;
     }
 
-    final result = await OpenFilex.open(filePath);
+    final result = await OpenFilex.open(filePath!);
 
     switch (result.type) {
       case ResultType.done:

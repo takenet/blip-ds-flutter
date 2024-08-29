@@ -1,3 +1,7 @@
+## 0.1.8
+
+- Added translation to all hard coded texts.
+
 ## 0.1.7
 
 - Upgraded dependencies.

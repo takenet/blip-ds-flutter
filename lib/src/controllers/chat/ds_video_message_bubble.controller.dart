@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:get/get.dart';
 
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_toast_props.model.dart';
 import '../../services/ds_file.service.dart';
 import '../../services/ds_media_format.service.dart';
@@ -39,8 +40,7 @@ class DSVideoMessageBubbleController {
             mediaSize,
             precision: PrecisionValue.One,
           )
-        // TODO: translate
-        : 'Download';
+        : 'video.download'.translate();
   }
 
   Future<void> getStoredVideo() async {
@@ -113,11 +113,10 @@ class DSVideoMessageBubbleController {
     } catch (_) {
       hasError.value = true;
 
-      // TODO: translate
       DSToastService.error(
         DSToastProps(
-          title: 'Erro ao baixar vídeo',
-          message: 'Ops! Houve um erro ao baixar o vídeo para reprodução.',
+          title: 'video.download-title-error'.translate(),
+          message: 'video.download-message-error'.translate(),
         ),
       );
     } finally {

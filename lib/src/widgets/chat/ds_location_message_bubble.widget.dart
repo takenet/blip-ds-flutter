@@ -4,6 +4,7 @@ import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_auth.service.dart';
@@ -155,7 +156,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DSHeadlineLargeText(
-                  'Selecione uma ação',
+                  'location.select-action'.translate(),
                 ),
                 DSIconButton(
                   onPressed: () {
@@ -197,7 +198,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
                       Get.back();
                     },
                     title: DSBodyText(
-                      'Abrir com ${map.mapName}',
+                      "location.open-with".translate() + " ${map.mapName}",
                     ),
                   );
                 },
