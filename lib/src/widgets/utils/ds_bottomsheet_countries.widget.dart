@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_country.model.dart';
 import '../../services/ds_bottom_sheet.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
@@ -40,7 +41,7 @@ abstract class DSBottomSheetCountries {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DSHeadlineLargeText(
-                    'País',
+                    'country.name'.translate(),
                   ),
                   DSIconButton(
                     onPressed: () {
@@ -64,7 +65,7 @@ abstract class DSBottomSheetCountries {
             child: Obx(
               () => DSSearchInput(
                 iconBackgroundColor: Colors.transparent,
-                hintText: 'Buscar por nome do país ou código',
+                hintText: 'country.search'.translate(),
                 onSearch: _onSearch,
                 onClear: _onClear,
                 showSuffixIcon: showClearButton.value,

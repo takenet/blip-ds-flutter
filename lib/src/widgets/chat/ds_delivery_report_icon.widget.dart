@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../enums/ds_delivery_report_status.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
@@ -34,7 +35,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
 
       case DSDeliveryReportStatus.failed:
         return DSCaptionSmallText(
-          'Falha ao enviar mensagem.',
+          'delivery.send-fail'.translate(),
           color: DSColors.actionColorNegative,
         );
 

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_country.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
@@ -209,7 +210,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                               border: InputBorder.none,
                               hintText: widget.hintText ??
                                   widget.labelText ??
-                                  'Número de telefone',
+                                  'phone.number'.translate(),
                               hintStyle: const DSBodyTextStyle(
                                 color: DSColors.neutralMediumWave,
                               ),

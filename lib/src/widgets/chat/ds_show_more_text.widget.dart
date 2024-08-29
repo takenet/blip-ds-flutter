@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 import '../../enums/ds_align.enum.dart';
+import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
@@ -71,8 +72,7 @@ class DSShowMoreText extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => shouldShowFullText.value = true,
                   child: DSBodyText(
-                    // TODO: Need localized translate.
-                    'Mostrar mais',
+                    'show-more.text'.translate(),
                     color: isLightBubbleBackground
                         ? isDefaultBubbleColors
                             ? DSColors.primaryNight
