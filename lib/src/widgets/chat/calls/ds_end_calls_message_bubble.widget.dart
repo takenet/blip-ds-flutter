@@ -162,14 +162,13 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
               child: DSAnimatedSize(
                 child: FutureBuilder<String?>(
                   future: _session,
-                  builder: (_, snapshot) {
-                    return switch (snapshot.connectionState) {
-                      ConnectionState.done =>
-                        snapshot.hasError || (snapshot.data?.isEmpty ?? true)
-                            ? _buildError()
-                            : _buildAudioPlayer(snapshot.data!),
-                      _ => _buildLoading(),
-                    };
+                  builder: (_, snapshot) => switch (snapshot.connectionState) {
+                    ConnectionState.done => snapshot.hasError
+                        ? _buildError()
+                        : (snapshot.data?.isNotEmpty ?? false)
+                            ? _buildAudioPlayer(snapshot.data!)
+                            : const SizedBox.shrink(),
+                    _ => _buildLoading(),
                   },
                 ),
               ),

@@ -1,3 +1,7 @@
+## 0.1.9
+
+- [DSEndCallsMessageBubble] Removed load recording state when session doesn't have available recording.
+  
 ## 0.1.8
 
 - Added translation to all hard coded texts.
