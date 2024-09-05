@@ -32,7 +32,7 @@ class DSEndCallsMessageBubble extends StatefulWidget {
 }
 
 class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
-  final StreamController _streamController = StreamController<bool>();
+  final StreamController _streamController = StreamController<bool>.broadcast();
   late final Future<String> _phoneNumber;
   Future<String?>? _session;
 
@@ -71,6 +71,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
+      shouldUseDefaultSize: true,
       padding: const EdgeInsets.symmetric(
         vertical: 12.0,
         horizontal: 12.0,
@@ -79,6 +80,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
       align: widget.align,
       style: widget.style,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildCallInfo(),
           _buildMediaPlayer(),
@@ -87,11 +89,14 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
     );
   }
 
-  Widget _buildCallInfo() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildCallInfo() => Wrap(
+        direction: Axis.horizontal,
+        alignment: WrapAlignment.spaceBetween,
+        runAlignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.start,
         children: [
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -131,22 +136,20 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
                     fontWeight: DSFontWeights.semiBold,
                   ),
                 ],
-              ),
+              )
             ],
           ),
-          Flexible(
-            child: FutureBuilder(
-              future: _phoneNumber,
-              builder: (_, snapshot) {
-                if (snapshot.hasData && !snapshot.hasError) {
-                  return DSCaptionSmallText(
-                    snapshot.data,
-                    color: _foregroundColor,
-                  );
-                }
-                return const DSSpinnerLoading();
-              },
-            ),
+          FutureBuilder(
+            future: _phoneNumber,
+            builder: (_, snapshot) {
+              if (snapshot.hasData && !snapshot.hasError) {
+                return DSCaptionSmallText(
+                  snapshot.data,
+                  color: _foregroundColor,
+                );
+              }
+              return const DSSpinnerLoading();
+            },
           ),
         ],
       );
@@ -155,22 +158,34 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
       ? StreamBuilder(
           stream: _streamController.stream,
           builder: (_, __) {
-            return Padding(
-              padding: const EdgeInsets.only(
-                top: 8.0,
-              ),
-              child: DSAnimatedSize(
-                child: FutureBuilder<String?>(
-                  future: _session,
-                  builder: (_, snapshot) => switch (snapshot.connectionState) {
-                    ConnectionState.done => snapshot.hasError
-                        ? _buildError()
-                        : (snapshot.data?.isNotEmpty ?? false)
-                            ? _buildAudioPlayer(snapshot.data!)
-                            : const SizedBox.shrink(),
-                    _ => _buildLoading(),
-                  },
-                ),
+            return DSAnimatedSize(
+              child: FutureBuilder<String?>(
+                future: _session,
+                builder: (_, snapshot) {
+                  Widget child;
+
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.done:
+                      if (snapshot.hasError) {
+                        child = _buildError();
+                      } else if (snapshot.data?.isNotEmpty ?? false) {
+                        child = _buildAudioPlayer(snapshot.data!);
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                      break;
+
+                    default:
+                      child = _buildLoading();
+                  }
+
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                    ),
+                    child: child,
+                  );
+                },
               ),
             );
           },

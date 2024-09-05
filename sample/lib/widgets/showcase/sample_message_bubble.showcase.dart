@@ -55,6 +55,13 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
     );
   }
 
+  Future<String?> _onAsyncFetchEmptySession(_) {
+    return Future.delayed(
+      const Duration(seconds: 2),
+      () => null,
+    );
+  }
+
   Future<String?> _onAsyncFetchSessionError(_) {
     return Future.delayed(
       const Duration(seconds: 2),
@@ -93,6 +100,15 @@ class SampleMessageBubbleShowcase extends StatelessWidget {
             callsMediaMessage: DSCallsMediaMessage.fromJson(_callsMediaMessage),
             onAsyncFetchSession: _onAsyncFetchSession,
             align: DSAlign.right,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: DSEndCallsMessageBubble(
+              callsMediaMessage:
+                  DSCallsMediaMessage.fromJson(_callsMediaMessage),
+              onAsyncFetchSession: _onAsyncFetchEmptySession,
+              align: DSAlign.right,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
