@@ -75,7 +75,9 @@ class DSMessageBubble extends StatelessWidget {
             color: style.bubbleBackgroundColor(align),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: shouldUseDefaultSize
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.start,
               children: [
                 if (replyContent != null)
                   DSReplyContainer(
