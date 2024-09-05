@@ -53,11 +53,15 @@ class DSSurveyMessageBubble extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              DSCaptionText(
-                _getDescriptionPreview(false),
+              Flexible(
+                child: DSCaptionText(
+                  _getDescriptionPreview(false),
+                ),
               ),
-              DSCaptionText(
-                _getDescriptionPreview(true),
+              Flexible(
+                child: DSCaptionText(
+                  _getDescriptionPreview(true),
+                ),
               ),
             ],
           ),
@@ -118,7 +122,7 @@ class DSSurveyMessageBubble extends StatelessWidget {
     }
   }
 
-  _getDescriptionPreview(bool positiveLabel) => positiveLabel
+  String _getDescriptionPreview(bool positiveLabel) => positiveLabel
       ? type == DSSurveyType.recommendation
           ? 'survey.recommendation-answered-positive'.translate()
           : 'survey.positive'.translate()
