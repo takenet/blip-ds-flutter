@@ -1,3 +1,7 @@
+## 0.2.0
+
+- [DSEndCallsMessageBubble] Fixed layout when used by small screens.
+
 ## 0.1.9
 
 - [DSEndCallsMessageBubble] Removed load recording state when session doesn't have available recording.
