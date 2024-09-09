@@ -69,9 +69,11 @@ class DSButton extends StatelessWidget {
             : RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
-        side: BorderSide(
-          color: borderColor ?? backgroundColor,
-        ),
+        side: borderColor != null
+            ? BorderSide(
+                color: borderColor!,
+              )
+            : null,
       ),
       child: DSAnimatedSize(
         child: Row(

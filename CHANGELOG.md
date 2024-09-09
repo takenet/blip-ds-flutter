@@ -1,3 +1,7 @@
+## 0.2.1
+
+- [DSButton] Removed border color when `borderColor` property is not informed.
+
 ## 0.2.0
 
 - [DSEndCallsMessageBubble] Fixed layout when used by small screens.
