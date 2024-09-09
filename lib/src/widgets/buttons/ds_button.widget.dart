@@ -73,7 +73,7 @@ class DSButton extends StatelessWidget {
             ? BorderSide(
                 color: borderColor!,
               )
-            : null,
+            : BorderSide.none,
       ),
       child: DSAnimatedSize(
         child: Row(
