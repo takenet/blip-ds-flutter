@@ -18,6 +18,7 @@ export 'src/extensions/ds_delivery_report_status.extension.dart'
     show DSDeliveryReportStatusExtension;
 export 'src/extensions/ds_string.extension.dart' show DSStringExtension;
 export 'src/models/ds_calls_media_message.model.dart' show DSCallsMediaMessage;
+export 'src/models/ds_country.model.dart' show DSCountry;
 export 'src/models/ds_message_bubble_avatar_config.model.dart'
     show DSMessageBubbleAvatarConfig;
 export 'src/models/ds_message_bubble_style.model.dart'
