@@ -45,12 +45,12 @@ abstract class DSBottomSheetCountries {
                   ),
                   DSIconButton(
                     onPressed: () {
-                      Get.back(
-                        result: selectedCountry.value,
-                      );
+                      Get.back();
                     },
-                    icon: const Icon(DSIcons.close_outline,
-                        color: DSColors.neutralDarkRooftop),
+                    icon: const Icon(
+                      DSIcons.close_outline,
+                      color: DSColors.neutralDarkRooftop,
+                    ),
                   ),
                 ],
               ),

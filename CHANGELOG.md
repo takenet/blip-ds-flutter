@@ -1,3 +1,7 @@
+## 0.2.3
+
+- [DSPhoneInput] Add support to select current country code.
+
 ## 0.2.2
 
 - [DSButton] Removed border color when `borderColor` property is not informed.

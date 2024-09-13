@@ -27,6 +27,7 @@ class DSPhoneInput extends StatefulWidget {
     this.errorText,
     this.onChanged,
     this.shouldFocus = false,
+    this.initialCountry,
   });
 
   final TextEditingController controller;
@@ -36,6 +37,7 @@ class DSPhoneInput extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final bool shouldFocus;
   final void Function(DSCountry)? onChangeCountry;
+  final DSCountry? initialCountry;
 
   @override
   State<DSPhoneInput> createState() => _DSPhoneInputState();
@@ -65,7 +67,10 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
       _borderColor.value = _color();
     });
 
-    DSBottomSheetCountries.selectedCountry.value = null;
+    _dropdownValue.value =
+        widget.initialCountry ?? (DSUtils.countriesList.first);
+
+    DSBottomSheetCountries.selectedCountry.value = widget.initialCountry;
     widget.onChangeCountry?.call(_dropdownValue.value);
   }
 
