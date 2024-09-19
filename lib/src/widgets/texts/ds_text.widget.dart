@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_security.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../utils/ds_linkify.util.dart';
@@ -58,7 +59,9 @@ class DSText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      isSelectable ? _buildSelectableText() : _buildText();
+      DSSecurityService.isSelectableTextsEnabled && isSelectable
+          ? _buildSelectableText()
+          : _buildText();
 
   InlineSpan get _formattedText {
     List<InlineSpan>? formattedText;
