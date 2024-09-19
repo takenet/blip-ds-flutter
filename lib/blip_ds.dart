@@ -62,6 +62,7 @@ export 'src/services/ds_dialog.service.dart' show DSDialogService;
 export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_localization.service.dart' show DSLocalizationService;
 export 'src/services/ds_media_format.service.dart' show DSMediaFormatService;
+export 'src/services/ds_security.service.dart' show DSSecurityService;
 export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 export 'src/themes/colors/ds_dark_colors.theme.dart' show DSDarkColors;
