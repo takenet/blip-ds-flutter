@@ -37,10 +37,11 @@ class DSImageMessageBubbleController extends GetxController {
     }
 
     final uri = Uri.parse(url);
+    final identifier = uri.queryParameters['asset_id'] ?? uri.path;
 
     final cachePath = await DSDirectoryFormatter.getCachePath(
       type: mediaType!,
-      filename: md5.convert(utf8.encode(uri.path)).toString(),
+      filename: md5.convert(utf8.encode(identifier)).toString(),
     );
 
     if (File(cachePath).existsSync()) {
