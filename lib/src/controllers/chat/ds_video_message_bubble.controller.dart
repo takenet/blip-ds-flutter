@@ -46,7 +46,7 @@ class DSVideoMessageBubbleController {
   Future<void> getStoredVideo() async {
     try {
       isLoadingThumbnail.value = true;
-      final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
+      final fileName = _getFileName(url);
 
       final fullPath = await DSDirectoryFormatter.getCachePath(
         type: type,
@@ -72,7 +72,7 @@ class DSVideoMessageBubbleController {
   }
 
   Future<String> getFullThumbnailPath() async {
-    final fileName = md5.convert(utf8.encode(Uri.parse(url).path)).toString();
+    final fileName = _getFileName(url);
 
     return DSDirectoryFormatter.getCachePath(
       type: 'image/png',
@@ -86,7 +86,7 @@ class DSVideoMessageBubbleController {
     try {
       final cachePath = await DSDirectoryFormatter.getCachePath(
         type: 'video/mp4',
-        filename: md5.convert(utf8.encode(Uri.parse(url).path)).toString(),
+        filename: _getFileName(url),
       );
 
       final outputFile = File(cachePath);
@@ -142,5 +142,12 @@ class DSVideoMessageBubbleController {
         );
 
     return '${getSize(downloadProgress.value)} / ${getSize(maximumProgress.value)}';
+  }
+
+  String _getFileName(String url) {
+    final uri = Uri.parse(url);
+    final identifier = uri.queryParameters['asset_id'] ?? uri.path;
+
+    return md5.convert(utf8.encode(identifier)).toString();
   }
 }

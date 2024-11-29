@@ -1,3 +1,7 @@
+## 0.2.5
+
+- [DSImageMessageBubble] Fix when channel is instagram.
+
 ## 0.2.4
 
 - [DSSecurityService] Add service to manage security features.
