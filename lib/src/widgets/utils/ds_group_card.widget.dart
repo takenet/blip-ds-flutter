@@ -59,6 +59,7 @@ class DSGroupCard extends StatefulWidget {
     this.onOpenLink,
     this.hideOptions = false,
     this.showMessageStatus = true,
+    this.simpleStyle = false,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     this.onInfinitScroll,
     this.shrinkWrap = false,
@@ -78,6 +79,7 @@ class DSGroupCard extends StatefulWidget {
   final void Function(Map<String, dynamic>)? onOpenLink;
   final bool hideOptions;
   final bool showMessageStatus;
+  final bool simpleStyle;
   final DSMessageBubbleStyle style;
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
@@ -266,6 +268,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
             messageId: message.id,
             customer: message.customer,
             isUploading: message.isUploading,
+            simpleStyle: widget.simpleStyle,
             onAsyncFetchSession: widget.onAsyncFetchSession,
           );
 

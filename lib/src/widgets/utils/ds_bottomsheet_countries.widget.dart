@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_country.model.dart';
 import '../../services/ds_bottom_sheet.service.dart';
+import '../../services/ds_context.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
@@ -76,7 +77,7 @@ abstract class DSBottomSheetCountries {
           const DSDivider(),
         ],
       ),
-      context: Get.context!,
+      context: DSContextService.context!,
       builder: (_) => _builderCountries(),
     ).show();
   }

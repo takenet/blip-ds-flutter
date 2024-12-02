@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
 import '../../../extensions/ds_localization.extension.dart';
+import '../../../services/ds_context.service.dart';
 import '../../../services/ds_dialog.service.dart';
 import '../../../services/ds_file.service.dart';
 import '../../../utils/ds_directory_formatter.util.dart';
@@ -39,7 +40,7 @@ abstract class DSVideoErrorDialog {
         onPressed: () => Get.back(),
         label: 'message.no'.translate(),
       ),
-      context: Get.context!,
+      context: DSContextService.context!,
     ).showError();
   }
 }

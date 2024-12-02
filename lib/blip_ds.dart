@@ -58,6 +58,7 @@ export 'src/models/interactive_message/ds_interactive_message_video.model.dart'
     show DSInteractiveMessageVideo;
 export 'src/services/ds_auth.service.dart' show DSAuthService;
 export 'src/services/ds_bottom_sheet.service.dart' show DSBottomSheetService;
+export 'src/services/ds_context.service.dart' show DSContextService;
 export 'src/services/ds_dialog.service.dart' show DSDialogService;
 export 'src/services/ds_file.service.dart' show DSFileService;
 export 'src/services/ds_localization.service.dart' show DSLocalizationService;
@@ -67,6 +68,7 @@ export 'src/services/ds_toast.service.dart' show DSToastService;
 export 'src/themes/colors/ds_colors.theme.dart' show DSColors;
 export 'src/themes/colors/ds_dark_colors.theme.dart' show DSDarkColors;
 export 'src/themes/colors/ds_linear_gradient.theme.dart' show DSLinearGradient;
+export 'src/themes/enums/ds_theme_type.enum.dart' show DSThemeType;
 export 'src/themes/icons/ds_icons.dart' show DSIcons;
 export 'src/themes/system_overlay/ds_system_overlay.style.dart'
     show DSSystemOverlayStyle;
@@ -89,6 +91,7 @@ export 'src/themes/texts/styles/ds_headline_large_text_style.theme.dart'
     show DSHeadlineLargeTextStyle;
 export 'src/themes/texts/styles/ds_headline_small_text_style.theme.dart'
     show DSHeadlineSmallTextStyle;
+export 'src/themes/texts/styles/ds_text_style.theme.dart' show DSTextStyle;
 export 'src/themes/texts/utils/ds_font_families.theme.dart' show DSFontFamilies;
 export 'src/themes/texts/utils/ds_font_weights.theme.dart' show DSFontWeights;
 export 'src/utils/ds_animate.util.dart' show DSAnimate;
@@ -133,6 +136,8 @@ export 'src/widgets/chat/audio/ds_audio_message_bubble.widget.dart'
 export 'src/widgets/chat/audio/ds_audio_player.widget.dart' show DSAudioPlayer;
 export 'src/widgets/chat/calls/ds_end_calls_message_bubble.widget.dart'
     show DSEndCallsMessageBubble;
+export 'src/widgets/chat/ds_active_campaign_message_bubble.widget.dart'
+    show DSActiveCampaignMessageBubble;
 export 'src/widgets/chat/ds_application_json_message_bubble.widget.dart'
     show DSApplicationJsonMessageBubble;
 export 'src/widgets/chat/ds_carrousel.widget.dart' show DSCarrousel;

@@ -5,6 +5,7 @@ import '../enums/ds_toast_type.enum.dart';
 import '../models/ds_toast_props.model.dart';
 import '../utils/ds_utils.util.dart';
 import '../widgets/toast/ds_toast.widget.dart';
+import 'ds_context.service.dart';
 
 /// A Design System's [DSToastService] used to display a toast.
 abstract class DSToastService {
@@ -33,7 +34,7 @@ abstract class DSToastService {
       _controller = ScrollController();
       _overlayEntry = _createOverlayEntry();
 
-      Overlay.of(Get.overlayContext!).insert(_overlayEntry!);
+      Overlay.of(DSContextService.overlayContext!).insert(_overlayEntry!);
     }
   }
 

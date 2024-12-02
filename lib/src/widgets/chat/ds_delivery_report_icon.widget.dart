@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../enums/ds_delivery_report_status.enum.dart';
 import '../../extensions/ds_localization.extension.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/enums/ds_theme_type.enum.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
 import '../texts/ds_caption_small_text.widget.dart';
@@ -11,11 +12,13 @@ import '../texts/ds_caption_small_text.widget.dart';
 /// A Design System widget used to display a delivery report status icon.
 class DSDeliveryReportIcon extends StatelessWidget {
   final DSDeliveryReportStatus deliveryStatus;
+  final DSThemeType theme;
 
   /// Creates a new Design System's [DSDeliveryReportIcon]
   const DSDeliveryReportIcon({
     super.key,
     required this.deliveryStatus,
+    this.theme = DSThemeType.dark,
   });
 
   @override
@@ -30,7 +33,9 @@ class DSDeliveryReportIcon extends StatelessWidget {
       case DSDeliveryReportStatus.accepted:
         return _getIcon(
           '$path/check.svg',
-          DSColors.neutralMediumElephant,
+          theme == DSThemeType.dark
+              ? DSColors.neutralMediumElephant
+              : DSColors.neutralLightSnow,
         );
 
       case DSDeliveryReportStatus.failed:
@@ -40,16 +45,20 @@ class DSDeliveryReportIcon extends StatelessWidget {
         );
 
       case DSDeliveryReportStatus.sending:
-        return const Icon(
+        return Icon(
           DSIcons.clock_outline,
           size: 16,
-          color: DSColors.contentDefault,
+          color: theme == DSThemeType.dark
+              ? DSColors.contentDefault
+              : DSColors.neutralLightSnow,
         );
 
       case DSDeliveryReportStatus.received:
         return _getIcon(
           '$path/check_double.svg',
-          DSColors.neutralMediumElephant,
+          theme == DSThemeType.dark
+              ? DSColors.neutralMediumElephant
+              : DSColors.neutralLightSnow,
         );
 
       case DSDeliveryReportStatus.consumed:
@@ -74,10 +83,12 @@ class DSDeliveryReportIcon extends StatelessWidget {
         );
 
       default:
-        return const Icon(
+        return Icon(
           DSIcons.clock_outline,
           size: 16,
-          color: DSColors.contentDefault,
+          color: theme == DSThemeType.dark
+              ? DSColors.contentDefault
+              : DSColors.neutralLightSnow,
         );
     }
   }

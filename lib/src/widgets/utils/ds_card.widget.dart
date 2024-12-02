@@ -51,6 +51,7 @@ class DSCard extends StatelessWidget {
     this.showRequestLocationButton = false,
     this.replyContent,
     this.isUploading = false,
+    this.simpleStyle = false,
     this.onAsyncFetchSession,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -69,6 +70,7 @@ class DSCard extends StatelessWidget {
   final bool showRequestLocationButton;
   final DSReplyContent? replyContent;
   final bool isUploading;
+  final bool simpleStyle;
   final Future<String?> Function(String)? onAsyncFetchSession;
 
   @override
@@ -151,12 +153,14 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
         );
       case DSMessageContentType.ticket:
-        return DSTicketMessage(
-          messageType: DSTicketMessageType.forwardedTicket,
-          ticketId: content['formattedTicketId'],
-          chatbotIdentity: content['ownerIdentity'],
-          contentStatus: content['status'],
-        );
+        return simpleStyle
+            ? const SizedBox.shrink()
+            : DSTicketMessage(
+                messageType: DSTicketMessageType.forwardedTicket,
+                ticketId: content['formattedTicketId'],
+                chatbotIdentity: content['ownerIdentity'],
+                contentStatus: content['status'],
+              );
 
       case DSMessageContentType.input:
         return _buildRequestLocation();
@@ -169,6 +173,7 @@ class DSCard extends StatelessWidget {
           content: content,
           status: status,
           avatarConfig: avatarConfig,
+          simpleStyle: simpleStyle,
         );
 
       case DSMessageContentType.callsMedia:

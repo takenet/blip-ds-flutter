@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import '../enums/ds_dialog_type.enum.dart';
 import '../themes/colors/ds_colors.theme.dart';
@@ -8,6 +7,7 @@ import '../themes/icons/ds_icons.dart';
 import '../themes/system_overlay/ds_system_overlay.style.dart';
 import '../widgets/texts/ds_body_text.widget.dart';
 import '../widgets/texts/ds_headline_small_text.widget.dart';
+import 'ds_context.service.dart';
 
 /// A Design System's [Dialog] used to display a dialog box.
 class DSDialogService {
@@ -18,7 +18,7 @@ class DSDialogService {
     this.primaryButton,
     this.secondaryButton,
     final BuildContext? context,
-  }) : context = context ?? Get.overlayContext ?? Get.context!;
+  }) : context = context ?? DSContextService.overlayContext!;
 
   final String title;
   final String text;
