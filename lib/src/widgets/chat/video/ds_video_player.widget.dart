@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/ds_video_player.controller.dart';
+import '../../../services/ds_navigation.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../../themes/system_overlay/ds_system_overlay.style.dart';
@@ -31,7 +32,7 @@ class DSVideoPlayer extends StatelessWidget {
     required String url,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
-  })  : controller = Get.put(
+  }) : controller = Get.put(
           DSVideoPlayerController(
             url: url,
           ),
@@ -56,7 +57,7 @@ class DSVideoPlayer extends StatelessWidget {
             systemUiOverlayStyle: overlayStyle,
             onBackButtonPressed: () {
               Get.delete<DSVideoPlayerController>();
-              Get.back();
+              NavigationService.pop();
             },
           ),
           body: Obx(

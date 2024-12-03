@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 import '../services/ds_auth.service.dart';
+import '../services/ds_navigation.service.dart';
 import '../themes/colors/ds_colors.theme.dart';
 import '../widgets/chat/video/ds_video_error.dialog.dart';
 
@@ -66,7 +67,7 @@ class DSVideoPlayerController extends GetxController {
   }
 
   Future<void> _showErrorDialog() async {
-    Get.back();
+    NavigationService.pop();
     Get.delete<DSVideoPlayerController>();
 
     await DSVideoErrorDialog.show(

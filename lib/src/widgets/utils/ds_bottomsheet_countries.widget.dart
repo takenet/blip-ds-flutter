@@ -6,6 +6,7 @@ import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_country.model.dart';
 import '../../services/ds_bottom_sheet.service.dart';
 import '../../services/ds_context.service.dart';
+import '../../services/ds_navigation.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
@@ -46,7 +47,7 @@ abstract class DSBottomSheetCountries {
                   ),
                   DSIconButton(
                     onPressed: () {
-                      Get.back();
+                      NavigationService.pop();
                     },
                     icon: const Icon(
                       DSIcons.close_outline,
@@ -114,7 +115,7 @@ abstract class DSBottomSheetCountries {
                       value: country,
                       onChanged: (value) {
                         selectedCountry.value = value!;
-                        Get.back(result: selectedCountry.value);
+                        NavigationService.pop(selectedCountry.value);
                       },
                       title: Row(
                         children: [

@@ -8,6 +8,7 @@ import 'package:pinch_zoom/pinch_zoom.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../models/ds_message_bubble_style.model.dart';
 import '../../services/ds_context.service.dart';
+import '../../services/ds_navigation.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/system_overlay/ds_system_overlay.style.dart';
@@ -145,7 +146,7 @@ class DSExpandedImage extends StatelessWidget {
               customerUri: appBarPhotoUri,
               customerName: appBarText,
               backgroundColor: Colors.black.withOpacity(0.7),
-              onBackButtonPressed: Get.back,
+              onBackButtonPressed: NavigationService.pop,
               systemUiOverlayStyle: DSSystemOverlayStyle.light,
             ),
             body: GestureDetector(

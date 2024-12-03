@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../services/ds_navigation.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/system_overlay/ds_system_overlay.style.dart';
@@ -51,7 +52,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.showBorder = true,
     this.visible = true,
     final SystemUiOverlayStyle? systemUiOverlayStyle,
-  })  : systemUiOverlayStyle =
+  }) : systemUiOverlayStyle =
             systemUiOverlayStyle ?? DSSystemOverlayStyle.dark {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
@@ -146,7 +147,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
                 splashRadius: 17,
                 padding: EdgeInsets.zero,
                 onPressed: visible
-                    ? onBackButtonPressed ?? Navigator.of(context).pop
+                    ? onBackButtonPressed ?? NavigationService.pop
                     : null,
                 iconSize: 28,
                 icon: Icon(
