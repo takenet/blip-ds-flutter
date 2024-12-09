@@ -17,8 +17,14 @@ class DSVideoMessageBubbleController {
   final int mediaSize;
   final Map<String, String?>? httpHeaders;
   final String type;
+
   final maximumProgress = RxInt(0);
   final downloadProgress = RxInt(0);
+  final isDownloading = RxBool(false);
+  final thumbnail = RxString('');
+  final hasError = RxBool(false);
+  final isLoadingThumbnail = RxBool(false);
+  final isThumbnailUnavailable = RxBool(false);
 
   DSVideoMessageBubbleController({
     required this.url,
@@ -28,11 +34,6 @@ class DSVideoMessageBubbleController {
   }) {
     getStoredVideo();
   }
-
-  final isDownloading = RxBool(false);
-  final thumbnail = RxString('');
-  final hasError = RxBool(false);
-  final isLoadingThumbnail = RxBool(false);
 
   String size() {
     return mediaSize > 0
@@ -127,10 +128,14 @@ class DSVideoMessageBubbleController {
   Future<void> _generateThumbnail(String path) async {
     final thumbnailPath = await getFullThumbnailPath();
 
-    await DSMediaFormatService.getVideoThumbnail(
-      input: path,
-      output: thumbnailPath,
-    );
+    try {
+      await DSMediaFormatService.getVideoThumbnail(
+        input: path,
+        output: thumbnailPath,
+      );
+    } catch (e) {
+      isThumbnailUnavailable.value = true;
+    }
 
     thumbnail.value = thumbnailPath;
   }

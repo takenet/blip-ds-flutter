@@ -220,16 +220,23 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                               url: widget.url,
                                               shouldAuthenticate:
                                                   widget.shouldAuthenticate,
-                                              thumbnail: Center(
-                                                child: Image.file(
-                                                  File(
-                                                    _controller.thumbnail.value,
-                                                  ),
-                                                  width: DSUtils.bubbleMinSize,
-                                                  height: DSUtils.bubbleMinSize,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                              thumbnail: _controller
+                                                      .isThumbnailUnavailable
+                                                      .value
+                                                  ? const SizedBox.shrink()
+                                                  : Center(
+                                                      child: Image.file(
+                                                        File(
+                                                          _controller
+                                                              .thumbnail.value,
+                                                        ),
+                                                        width: DSUtils
+                                                            .bubbleMinSize,
+                                                        height: DSUtils
+                                                            .bubbleMinSize,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
                                             ),
                         )
                       : _buidErrorIcon(),
