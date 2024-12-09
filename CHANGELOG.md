@@ -1,3 +1,7 @@
+## 0.2.6
+
+- [DSVideoMessageBubble] Fix when thumbnail is unavailable.
+
 ## 0.2.5
 
 - [DSImageMessageBubble] Fix when channel is instagram.
