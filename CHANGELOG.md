@@ -9,7 +9,7 @@
 ## 0.2.4
 
 - [DSSecurityService] Add service to manage security features.
-- 
+
 ## 0.2.3
 
 - [DSPhoneInput] Add support to select current country code.
