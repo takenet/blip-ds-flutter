@@ -30,6 +30,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
     const String path = 'assets/images';
 
     switch (deliveryStatus) {
+      case DSDeliveryReportStatus.dispatched:
       case DSDeliveryReportStatus.accepted:
         return _getIcon(
           '$path/check.svg',
