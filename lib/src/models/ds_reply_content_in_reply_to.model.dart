@@ -1,8 +1,8 @@
 class DSReplyContentInReplyTo {
   String id;
-  String type;
+  String? type;
   dynamic value;
-  String direction;
+  String? direction;
 
   DSReplyContentInReplyTo({
     required this.id,

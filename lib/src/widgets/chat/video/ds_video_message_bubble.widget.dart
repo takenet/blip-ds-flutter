@@ -61,6 +61,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Title of the video which will be displayed inside the message bubble.
   final String? title;
 
+  /// simpleStyle
+  final bool simpleStyle;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -77,10 +80,11 @@ class DSVideoMessageBubble extends StatefulWidget {
     this.text,
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
-    DSMessageBubbleStyle? style,
     this.isUploading = false,
     this.replyContent,
     this.title,
+    this.simpleStyle = false,
+    DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -144,6 +148,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
       borderRadius: widget.borderRadius,
       padding: EdgeInsets.zero,
       style: widget.style,
+      simpleStyle: widget.simpleStyle,
       child: LayoutBuilder(
         builder: (_, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,

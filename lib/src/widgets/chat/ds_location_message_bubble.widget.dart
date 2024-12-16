@@ -28,6 +28,7 @@ class DSLocationMessageBubble extends StatefulWidget {
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;
+  final bool simpleStyle;
 
   DSLocationMessageBubble({
     super.key,
@@ -38,6 +39,7 @@ class DSLocationMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
+    this.simpleStyle = false,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -80,6 +82,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
           padding: EdgeInsets.zero,
           align: widget.align,
           style: widget.style,
+          simpleStyle: widget.simpleStyle,
           child: _buildBody(),
         ),
       );

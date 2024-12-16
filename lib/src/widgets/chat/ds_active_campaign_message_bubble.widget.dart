@@ -20,6 +20,7 @@ class DSActiveCampaignMessageBubble extends StatelessWidget {
     this.replyContent,
     this.overflow = TextOverflow.visible,
     this.borderRadius = const [DSBorderRadius.all],
+    this.simpleStyle = false,
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -30,6 +31,7 @@ class DSActiveCampaignMessageBubble extends StatelessWidget {
   final TextOverflow overflow;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
+  final bool simpleStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class DSActiveCampaignMessageBubble extends StatelessWidget {
       align: align,
       style: style,
       replyContent: replyContent,
+      simpleStyle: simpleStyle,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

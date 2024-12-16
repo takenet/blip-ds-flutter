@@ -88,6 +88,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           replyContent: replyContent,
+          simpleStyle: simpleStyle,
         );
 
       case DSMessageContentType.contact:
@@ -109,6 +110,7 @@ class DSCard extends StatelessWidget {
           messageId: messageId,
           customer: customer,
           replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
+          simpleStyle: simpleStyle,
         );
 
       case DSMessageContentType.mediaLink:
@@ -140,6 +142,7 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
+          simpleStyle: simpleStyle,
         );
 
       case DSMessageContentType.location:
@@ -151,6 +154,7 @@ class DSCard extends StatelessWidget {
           align: align,
           style: style,
           replyContent: replyContent,
+          simpleStyle: simpleStyle,
         );
       case DSMessageContentType.ticket:
         return simpleStyle
@@ -191,6 +195,7 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
+          simpleStyle: simpleStyle,
         );
     }
   }
@@ -218,6 +223,7 @@ class DSCard extends StatelessWidget {
       onSelected: onSelected,
       onOpenLink: onOpenLink,
       mediaType: documentSelectModel.header.mediaLink.type,
+      simpleStyle: simpleStyle,
     );
   }
 
@@ -235,6 +241,7 @@ class DSCard extends StatelessWidget {
                   replyContent: replyContent,
                   borderRadius: borderRadius,
                   style: style,
+                  simpleStyle: simpleStyle,
                 ),
               ),
               Visibility(
@@ -257,6 +264,7 @@ class DSCard extends StatelessWidget {
             replyContent: replyContent,
             onSelected: onSelected,
             style: style,
+            simpleStyle: simpleStyle,
           );
   }
 
@@ -270,6 +278,7 @@ class DSCard extends StatelessWidget {
       replyContent: replyContent,
       style: style,
       borderRadius: borderRadius,
+      simpleStyle: simpleStyle,
     );
   }
 
@@ -298,6 +307,7 @@ class DSCard extends StatelessWidget {
         replyContent: replyContent,
         uniqueId: messageId,
         shouldAuthenticate: shouldAuthenticate,
+        simpleStyle: simpleStyle,
       );
     } else if (media.type.contains('image')) {
       return DSImageMessageBubble(
@@ -318,6 +328,7 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -338,6 +349,7 @@ class DSCard extends StatelessWidget {
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
       );
     } else {
       return DSFileMessageBubble(
@@ -352,6 +364,7 @@ class DSCard extends StatelessWidget {
         style: style,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
       );
     }
   }
@@ -370,6 +383,7 @@ class DSCard extends StatelessWidget {
       borderRadius: borderRadius,
       style: style,
       showRequestLocationButton: showRequestLocationButton,
+      simpleStyle: simpleStyle,
     );
   }
 }

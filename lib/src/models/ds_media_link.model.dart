@@ -6,6 +6,7 @@ class DSMediaLink {
   String? aspectRatio;
   int? size;
   String? authorizationRealm;
+  String? previewUri;
 
   DSMediaLink({
     required this.uri,
@@ -15,6 +16,7 @@ class DSMediaLink {
     this.aspectRatio,
     this.size,
     this.authorizationRealm,
+    this.previewUri,
   });
 
   DSMediaLink.fromJson(Map<String, dynamic> json)
@@ -24,5 +26,6 @@ class DSMediaLink {
         text = json['text'],
         aspectRatio = json['aspectRatio'],
         size = json['size'],
-        authorizationRealm = json['authorizationRealm'];
+        authorizationRealm = json['authorizationRealm'],
+        previewUri = json['previewUri'];
 }

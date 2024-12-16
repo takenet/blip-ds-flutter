@@ -20,11 +20,13 @@ class DSMessageBubble extends StatelessWidget {
   final double defaultMinSize;
   final DSMessageBubbleStyle style;
   final bool hasSpacer;
+  final bool simpleStyle;
 
   const DSMessageBubble({
     super.key,
     required this.align,
     required this.child,
+    required this.style,
     this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
     this.padding = const EdgeInsets.symmetric(
@@ -34,8 +36,8 @@ class DSMessageBubble extends StatelessWidget {
     this.shouldUseDefaultSize = false,
     this.defaultMaxSize = DSUtils.bubbleMaxSize,
     this.defaultMinSize = DSUtils.bubbleMinSize,
-    required this.style,
     this.hasSpacer = true,
+    this.simpleStyle = false,
   });
 
   @override
@@ -84,6 +86,7 @@ class DSMessageBubble extends StatelessWidget {
                     replyContent: replyContent!,
                     style: style,
                     align: align,
+                    simpleStyle: simpleStyle,
                   ),
                 child,
               ],
