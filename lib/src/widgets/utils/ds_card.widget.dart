@@ -52,6 +52,7 @@ class DSCard extends StatelessWidget {
     this.replyContent,
     this.isUploading = false,
     this.onAsyncFetchSession,
+    this.onReplyTap,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -70,6 +71,7 @@ class DSCard extends StatelessWidget {
   final DSReplyContent? replyContent;
   final bool isUploading;
   final Future<String?> Function(String)? onAsyncFetchSession;
+  final void Function(String)? onReplyTap;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           replyContent: replyContent,
+          onReplyTap: onReplyTap,
         );
 
       case DSMessageContentType.contact:
@@ -107,6 +110,7 @@ class DSCard extends StatelessWidget {
           messageId: messageId,
           customer: customer,
           replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
+          onReplyTap: onReplyTap,
         );
 
       case DSMessageContentType.mediaLink:
@@ -213,6 +217,7 @@ class DSCard extends StatelessWidget {
       onSelected: onSelected,
       onOpenLink: onOpenLink,
       mediaType: documentSelectModel.header.mediaLink.type,
+      onReplyTap: onReplyTap,
     );
   }
 
@@ -293,6 +298,7 @@ class DSCard extends StatelessWidget {
         replyContent: replyContent,
         uniqueId: messageId,
         shouldAuthenticate: shouldAuthenticate,
+        onReplyTap: onReplyTap,
       );
     } else if (media.type.contains('image')) {
       return DSImageMessageBubble(
@@ -313,6 +319,7 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
         isUploading: isUploading,
+        onReplyTap: onReplyTap,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -333,6 +340,7 @@ class DSCard extends StatelessWidget {
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        onReplyTap: onReplyTap,
       );
     } else {
       return DSFileMessageBubble(

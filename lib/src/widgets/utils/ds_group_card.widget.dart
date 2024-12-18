@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
@@ -64,11 +65,9 @@ class DSGroupCard extends StatefulWidget {
     this.shrinkWrap = false,
     DSMessageBubbleStyle? style,
     bool Function(DSMessageItem, DSMessageItem)? compareMessages,
-    ScrollController? scrollController,
     this.onAsyncFetchSession,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
-        style = style ?? DSMessageBubbleStyle(),
-        scrollController = scrollController ?? ScrollController();
+        style = style ?? DSMessageBubbleStyle();
 
   final List<DSMessageItem> documents;
   final bool Function(DSMessageItem, DSMessageItem) compareMessages;
@@ -82,7 +81,6 @@ class DSGroupCard extends StatefulWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
   final bool shrinkWrap;
-  final ScrollController scrollController;
   final Future<String?> Function(String)? onAsyncFetchSession;
 
   @override
@@ -92,21 +90,24 @@ class DSGroupCard extends StatefulWidget {
 class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
+  late final AutoScrollController controller;
 
   @override
   void initState() {
-    widget.scrollController.addListener(() {
-      final nextPageTrigger =
-          0.90 * widget.scrollController.position.maxScrollExtent;
+    controller = AutoScrollController(
+      viewportBoundaryGetter: () =>
+          Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+      axis: Axis.vertical,
+    );
 
-      if (widget.scrollController.position.pixels > nextPageTrigger) {
-        if (widget.onInfinitScroll != null) {
-          widget.onInfinitScroll!();
-        }
+    controller.addListener(() {
+      final nextPageTrigger = 0.90 * controller.position.maxScrollExtent;
+
+      if (controller.position.pixels > nextPageTrigger) {
+        widget.onInfinitScroll?.call();
       }
 
-      showScrollBottomButton.value =
-          widget.scrollController.position.pixels > 600;
+      showScrollBottomButton.value = controller.position.pixels > 600;
     });
 
     super.initState();
@@ -114,7 +115,6 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
   @override
   void dispose() {
-    widget.scrollController.dispose();
     super.dispose();
   }
 
@@ -125,13 +125,19 @@ class _DSGroupCardState extends State<DSGroupCard> {
     return Stack(
       children: [
         ListView.builder(
+          controller: controller,
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          controller: widget.scrollController,
           reverse: true,
           shrinkWrap: widget.shrinkWrap,
           itemCount: widgets.length,
           itemBuilder: (_, int index) {
-            return widgets[index];
+            return AutoScrollTag(
+              key: widgets[index].key as ValueKey<String>,
+              controller: controller,
+              index: index,
+              highlightColor: Colors.black.withOpacity(0.1),
+              child: widgets[index],
+            );
           },
           findChildIndexCallback: (Key key) {
             final valueKey = key as ValueKey<String>;
@@ -152,7 +158,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 child: DSButton(
                   shape: DSButtonShape.rounded,
                   onPressed: () async => await DSAnimate.animateTo(
-                    widget.scrollController,
+                    controller,
                     duration: const Duration(milliseconds: 600),
                   ),
                   leadingIcon: const Icon(
@@ -267,6 +273,23 @@ class _DSGroupCardState extends State<DSGroupCard> {
             customer: message.customer,
             isUploading: message.isUploading,
             onAsyncFetchSession: widget.onAsyncFetchSession,
+            onReplyTap: (final id) async {
+              final index = widgets.indexWhere(
+                (element) => element.key.toString().contains(id),
+              );
+
+              if (index == -1) {
+                return;
+              }
+
+              await controller.scrollToIndex(
+                index,
+                preferPosition: AutoScrollPosition.middle,
+                duration: const Duration(milliseconds: 500),
+              );
+
+              controller.highlight(index);
+            },
           );
 
           final isLastMsg = msgCount == length;

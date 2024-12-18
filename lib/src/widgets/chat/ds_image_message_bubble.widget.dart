@@ -36,6 +36,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.mediaType,
     this.isUploading = false,
     this.replyContent,
+    this.onReplyTap,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
@@ -55,6 +56,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final String? mediaType;
   final bool isUploading;
   final DSReplyContent? replyContent;
+  final void Function(String)? onReplyTap;
 
   @override
   State<StatefulWidget> createState() => _DSImageMessageBubbleState();
@@ -84,6 +86,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
         : DSColors.neutralLightSnow;
 
     return DSMessageBubble(
+      onReplyTap: widget.onReplyTap,
       replyContent: widget.replyContent,
       defaultMaxSize: DSUtils.bubbleMinSize,
       shouldUseDefaultSize: true,
