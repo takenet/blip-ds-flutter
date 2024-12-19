@@ -13,6 +13,7 @@ import '../../themes/texts/styles/ds_caption_small_text_style.theme.dart';
 import '../../utils/ds_animate.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
+import '../animations/ds_reply_swipe.widget.dart';
 import '../buttons/ds_button.widget.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
@@ -67,6 +68,7 @@ class DSGroupCard extends StatefulWidget {
     bool Function(DSMessageItem, DSMessageItem)? compareMessages,
     ScrollController? scrollController,
     this.onAsyncFetchSession,
+    this.onReply,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle(),
         scrollController = scrollController ?? ScrollController();
@@ -86,6 +88,7 @@ class DSGroupCard extends StatefulWidget {
   final bool shrinkWrap;
   final ScrollController scrollController;
   final Future<String?> Function(String)? onAsyncFetchSession;
+  final void Function(DSMessageItem)? onReply;
 
   @override
   State<StatefulWidget> createState() => _DSGroupCardState();
@@ -282,8 +285,9 @@ class _DSGroupCardState extends State<DSGroupCard> {
             ),
           ];
 
-          if ((sentMessage && widget.avatarConfig.showSentAvatar) ||
-              (!sentMessage && widget.avatarConfig.showReceivedAvatar)) {
+          if (!widget.simpleStyle &&
+              ((sentMessage && widget.avatarConfig.showSentAvatar) ||
+                  (!sentMessage && widget.avatarConfig.showReceivedAvatar))) {
             columns.add(
               isLastMsg
                   ? Align(
@@ -301,13 +305,33 @@ class _DSGroupCardState extends State<DSGroupCard> {
                             : widget.avatarConfig.receivedName,
                       ),
                     )
-                  : const SizedBox(),
+                  : const SizedBox.shrink(),
             );
           }
 
           rows.add(
             TableRow(
               children: sentMessage ? columns : columns.reversed.toList(),
+            ),
+          );
+
+          items.insert(
+            0,
+            DSReplySwipe(
+              key: ValueKey<String>(
+                message.id ?? DSUtils.generateUniqueID(),
+              ),
+              message: message,
+              onReply: widget.onReply,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Table(
+                  columnWidths:
+                      sentMessage ? sentColumnWidths : receivedColumnWidths,
+                  defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                  children: rows,
+                ),
+              ),
             ),
           );
 
@@ -329,32 +353,31 @@ class _DSGroupCardState extends State<DSGroupCard> {
             if ((sentMessage && widget.avatarConfig.showSentAvatar) ||
                 (!sentMessage && widget.avatarConfig.showReceivedAvatar)) {
               columns.add(
-                const SizedBox(),
+                const SizedBox.shrink(),
               );
             }
 
-            rows.add(
-              TableRow(
-                children: sentMessage ? columns : columns.reversed.toList(),
+            items.insert(
+              0,
+              Padding(
+                key: ValueKey<String>(
+                  DSUtils.generateUniqueID(),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Table(
+                  columnWidths:
+                      sentMessage ? sentColumnWidths : receivedColumnWidths,
+                  defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                  children: [
+                    TableRow(
+                      children:
+                          sentMessage ? columns : columns.reversed.toList(),
+                    ),
+                  ],
+                ),
               ),
             );
           }
-
-          items.insert(
-            0,
-            Padding(
-              key: ValueKey<String>(
-                message.id ?? DSUtils.generateUniqueID(),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Table(
-                columnWidths:
-                    sentMessage ? sentColumnWidths : receivedColumnWidths,
-                defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-                children: rows,
-              ),
-            ),
-          );
 
           final hideOptions = widget.documents.last != message;
           if (!hideOptions &&
@@ -391,7 +414,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
       if (widget.avatarConfig.showReceivedAvatar) {
         columns.insert(
           0,
-          const SizedBox(),
+          const SizedBox.shrink(),
         );
       }
 

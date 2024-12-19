@@ -33,6 +33,9 @@ class DSMessageItem {
   /// if the media message is uploading
   bool isUploading;
 
+  /// Message metadata
+  Map<String, dynamic>? metadata;
+
   /// Creates a new Design System's [DSMessageItemModel] model
   DSMessageItem({
     this.id,
@@ -45,6 +48,7 @@ class DSMessageItem {
     this.customer,
     this.hideMessageDetail,
     this.isUploading = false,
+    this.metadata,
   });
 
   factory DSMessageItem.fromJson(Map<String, dynamic> json) {
@@ -66,6 +70,10 @@ class DSMessageItem {
 
     if (json.containsKey('hideMessageDetail')) {
       messageItem.hideMessageDetail = json['hideMessageDetail'];
+    }
+
+    if (json.containsKey('metadata')) {
+      messageItem.metadata = json['metadata'];
     }
 
     return messageItem;

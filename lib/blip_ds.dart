@@ -1,4 +1,4 @@
-library blip_ds;
+library;
 
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
@@ -222,3 +222,5 @@ export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
+export 'src/widgets/utils/reply_content/ds_reply_preview.widget.dart'
+    show DSReplyPreview;

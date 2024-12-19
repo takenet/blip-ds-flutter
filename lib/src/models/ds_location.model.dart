@@ -2,9 +2,9 @@ import '../extensions/ds_localization.extension.dart';
 
 class DSLocation {
   DSLocation({
-    required this.latitude,
-    required this.longitude,
     required this.text,
+    this.latitude,
+    this.longitude,
   });
 
   final double? latitude;
@@ -13,8 +13,8 @@ class DSLocation {
 
   factory DSLocation.fromJson(Map<String, dynamic> json) {
     return DSLocation(
-      latitude: double.tryParse(json['latitude']),
-      longitude: double.tryParse(json['longitude']),
+      latitude: double.tryParse(json['latitude']?.toString() ?? ''),
+      longitude: double.tryParse(json['longitude']?.toString() ?? ''),
       text: (json['text']?.isNotEmpty ?? false)
           ? json['text']
           : 'location.text'.translate(),

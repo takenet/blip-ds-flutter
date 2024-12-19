@@ -1,5 +1,5 @@
 class DSReplyContentInReplyTo {
-  String id;
+  String? id;
   String? type;
   dynamic value;
   String? direction;
