@@ -28,6 +28,7 @@ class DSLocationMessageBubble extends StatefulWidget {
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;
+  final void Function(String)? onTapReply;
 
   DSLocationMessageBubble({
     super.key,
@@ -38,6 +39,7 @@ class DSLocationMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -72,6 +74,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
   Widget build(BuildContext context) => GestureDetector(
         onTap: _hasValidCoordinates ? _openMapList : null,
         child: DSMessageBubble(
+          onTapReply: widget.onTapReply,
           shouldUseDefaultSize: true,
           defaultMaxSize: DSUtils.bubbleMinSize,
           defaultMinSize: DSUtils.bubbleMinSize,

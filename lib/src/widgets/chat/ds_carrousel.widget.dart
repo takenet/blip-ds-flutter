@@ -35,6 +35,9 @@ class DSCarrousel extends StatelessWidget {
   /// Card styling to adjust custom colors
   final DSMessageBubbleStyle style;
 
+  /// Callback function to be executed when the reply button is tapped.
+  final void Function(String)? onTapReply;
+
   DSCarrousel({
     super.key,
     required this.align,
@@ -44,7 +47,8 @@ class DSCarrousel extends StatelessWidget {
     this.onOpenLink,
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     DSMessageBubbleStyle? style,
-  })  : style = style ?? DSMessageBubbleStyle();
+    this.onTapReply,
+  }) : style = style ?? DSMessageBubbleStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +98,7 @@ class DSCarrousel extends StatelessWidget {
               onOpenLink: onOpenLink,
               style: style,
               mediaType: header["value"]["type"],
+              onTapReply: onTapReply,
             ),
           ),
         );

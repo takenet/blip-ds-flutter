@@ -52,7 +52,7 @@ class DSCard extends StatelessWidget {
     this.replyContent,
     this.isUploading = false,
     this.onAsyncFetchSession,
-    this.onReplyTap,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -71,7 +71,7 @@ class DSCard extends StatelessWidget {
   final DSReplyContent? replyContent;
   final bool isUploading;
   final Future<String?> Function(String)? onAsyncFetchSession;
-  final void Function(String)? onReplyTap;
+  final void Function(String)? onTapReply;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           replyContent: replyContent,
-          onReplyTap: onReplyTap,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.contact:
@@ -110,7 +110,7 @@ class DSCard extends StatelessWidget {
           messageId: messageId,
           customer: customer,
           replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
-          onReplyTap: onReplyTap,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.mediaLink:
@@ -131,6 +131,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           avatarConfig: avatarConfig,
           style: style,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.webLink:
@@ -142,6 +143,7 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.location:
@@ -153,6 +155,7 @@ class DSCard extends StatelessWidget {
           align: align,
           style: style,
           replyContent: replyContent,
+          onTapReply: onTapReply,
         );
       case DSMessageContentType.ticket:
         return DSTicketMessage(
@@ -173,6 +176,7 @@ class DSCard extends StatelessWidget {
           content: content,
           status: status,
           avatarConfig: avatarConfig,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.callsMedia:
@@ -182,6 +186,7 @@ class DSCard extends StatelessWidget {
           style: style,
           callsMediaMessage: DSCallsMediaMessage.fromJson(content),
           onAsyncFetchSession: onAsyncFetchSession,
+          onTapReply: onTapReply,
         );
 
       default:
@@ -217,7 +222,7 @@ class DSCard extends StatelessWidget {
       onSelected: onSelected,
       onOpenLink: onOpenLink,
       mediaType: documentSelectModel.header.mediaLink.type,
-      onReplyTap: onReplyTap,
+      onTapReply: onTapReply,
     );
   }
 
@@ -230,6 +235,7 @@ class DSCard extends StatelessWidget {
                   horizontal: showQuickReplyOptions ? 16.0 : 0.0,
                 ),
                 child: DSTextMessageBubble(
+                  onTapReply: onTapReply,
                   align: align,
                   text: content['text'],
                   replyContent: replyContent,
@@ -249,6 +255,7 @@ class DSCard extends StatelessWidget {
             ],
           )
         : DSTextMessageBubble(
+            onTapReply: onTapReply,
             align: align,
             text: content['text'],
             borderRadius: borderRadius,
@@ -298,7 +305,7 @@ class DSCard extends StatelessWidget {
         replyContent: replyContent,
         uniqueId: messageId,
         shouldAuthenticate: shouldAuthenticate,
-        onReplyTap: onReplyTap,
+        onTapReply: onTapReply,
       );
     } else if (media.type.contains('image')) {
       return DSImageMessageBubble(
@@ -319,7 +326,7 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
         isUploading: isUploading,
-        onReplyTap: onReplyTap,
+        onTapReply: onTapReply,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -340,7 +347,7 @@ class DSCard extends StatelessWidget {
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
-        onReplyTap: onReplyTap,
+        onTapReply: onTapReply,
       );
     } else {
       return DSFileMessageBubble(

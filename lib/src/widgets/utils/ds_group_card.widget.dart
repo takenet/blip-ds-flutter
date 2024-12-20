@@ -271,8 +271,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             customer: message.customer,
             isUploading: message.isUploading,
             onAsyncFetchSession: widget.onAsyncFetchSession,
-            onReplyTap: (final inReplyToId) =>
-                _onReplyTap(inReplyToId, message.id!),
+            onTapReply: (final inReplyToId) =>
+                _onTapReply(inReplyToId, message.id!),
           );
 
           final isLastMsg = msgCount == length;
@@ -486,7 +486,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
     previousReplyId = null;
   }
 
-  Future<void> _onReplyTap(
+  Future<void> _onTapReply(
     final String inReplyToId,
     final String repliedId,
   ) async {

@@ -20,7 +20,7 @@ class DSMessageBubble extends StatelessWidget {
   final double defaultMinSize;
   final DSMessageBubbleStyle style;
   final bool hasSpacer;
-  final void Function(String)? onReplyTap;
+  final void Function(String)? onTapReply;
 
   const DSMessageBubble({
     super.key,
@@ -37,7 +37,7 @@ class DSMessageBubble extends StatelessWidget {
     this.defaultMinSize = DSUtils.bubbleMinSize,
     required this.style,
     this.hasSpacer = true,
-    this.onReplyTap,
+    this.onTapReply,
   });
 
   @override
@@ -82,13 +82,11 @@ class DSMessageBubble extends StatelessWidget {
                   : CrossAxisAlignment.start,
               children: [
                 if (replyContent != null)
-                  GestureDetector(
-                    onTap: () => onReplyTap?.call(replyContent!.inReplyTo.id),
-                    child: DSReplyContainer(
-                      replyContent: replyContent!,
-                      style: style,
-                      align: align,
-                    ),
+                  DSReplyContainer(
+                    replyContent: replyContent!,
+                    style: style,
+                    align: align,
+                    onTap: onTapReply,
                   ),
                 child,
               ],
