@@ -90,7 +90,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
   late final AutoScrollController controller;
-  String? lastMsgId;
+  String? previousReplyId;
 
   @override
   void initState() {
@@ -158,32 +158,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 padding: const EdgeInsets.all(16),
                 child: DSButton(
                   shape: DSButtonShape.rounded,
-                  onPressed: () async {
-                    int index = 0;
-
-                    if (lastMsgId != null) {
-                      index = widgets.indexWhere(
-                        (element) =>
-                            element.key.toString().contains(lastMsgId!),
-                      );
-                    }
-
-                    if (index == -1) {
-                      index = 0;
-                    }
-
-                    await controller.scrollToIndex(
-                      index,
-                      preferPosition: AutoScrollPosition.middle,
-                      duration: const Duration(milliseconds: 500),
-                    );
-
-                    if (index != 0) {
-                      controller.highlight(index);
-                    }
-
-                    lastMsgId = null;
-                  },
+                  onPressed: () => _onScrollPrevious(),
                   leadingIcon: const Icon(
                     DSIcons.arrow_down_outline,
                     size: 20,
@@ -296,25 +271,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             customer: message.customer,
             isUploading: message.isUploading,
             onAsyncFetchSession: widget.onAsyncFetchSession,
-            onReplyTap: (final id) async {
-              lastMsgId = message.id!;
-
-              final index = widgets.indexWhere(
-                (element) => element.key.toString().contains(id),
-              );
-
-              if (index == -1) {
-                return;
-              }
-
-              await controller.scrollToIndex(
-                index,
-                preferPosition: AutoScrollPosition.middle,
-                duration: const Duration(milliseconds: 500),
-              );
-
-              controller.highlight(index);
-            },
+            onReplyTap: (final inReplyToId) =>
+                _onReplyTap(inReplyToId, message.id!),
           );
 
           final isLastMsg = msgCount == length;
@@ -508,5 +466,52 @@ class _DSGroupCardState extends State<DSGroupCard> {
     }
 
     return borderRadius;
+  }
+
+  Future<void> _onScrollPrevious() async {
+    int index = 0;
+
+    if (previousReplyId != null) {
+      index = widgets.indexWhere(
+        (element) => element.key.toString().contains(previousReplyId!),
+      );
+    }
+
+    if (index == -1) {
+      index = 0;
+    }
+
+    await _scrollToIndex(index, highlight: index != 0);
+
+    previousReplyId = null;
+  }
+
+  Future<void> _onReplyTap(
+    final String inReplyToId,
+    final String repliedId,
+  ) async {
+    previousReplyId = repliedId;
+
+    final index = widgets.indexWhere(
+      (element) => element.key.toString().contains(inReplyToId),
+    );
+
+    if (index == -1) {
+      return;
+    }
+
+    await _scrollToIndex(index);
+  }
+
+  Future<void> _scrollToIndex(final int index, {bool highlight = true}) async {
+    await controller.scrollToIndex(
+      index,
+      preferPosition: AutoScrollPosition.middle,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    if (highlight) {
+      controller.highlight(index);
+    }
   }
 }
