@@ -16,6 +16,7 @@ class DSAudioMessageBubble extends StatelessWidget {
   final String? uniqueId;
   final bool shouldAuthenticate;
   final DSReplyContent? replyContent;
+  final void Function(String)? onTapReply;
 
   DSAudioMessageBubble({
     super.key,
@@ -26,6 +27,7 @@ class DSAudioMessageBubble extends StatelessWidget {
     this.borderRadius = const [DSBorderRadius.all],
     this.shouldAuthenticate = false,
     final DSMessageBubbleStyle? style,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -34,6 +36,7 @@ class DSAudioMessageBubble extends StatelessWidget {
     final isLightBubbleBackground = style.isLightBubbleBackground(align);
 
     return DSMessageBubble(
+      onTapReply: onTapReply,
       borderRadius: borderRadius,
       align: align,
       replyContent: replyContent,

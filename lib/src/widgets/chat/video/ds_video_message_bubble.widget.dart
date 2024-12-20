@@ -61,6 +61,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// Title of the video which will be displayed inside the message bubble.
   final String? title;
 
+  /// Callback function to be executed when the reply button is tapped.
+  final void Function(String)? onTapReply;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -81,6 +84,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     this.isUploading = false,
     this.replyContent,
     this.title,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -137,6 +141,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      onTapReply: widget.onTapReply,
       defaultMaxSize: DSUtils.bubbleMinSize,
       shouldUseDefaultSize: true,
       replyContent: widget.replyContent,

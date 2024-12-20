@@ -15,6 +15,7 @@ class DSEndCallsMessageBubble extends StatefulWidget {
   final DSCallsMediaMessage callsMediaMessage;
   final Future<String?> Function(String)? onAsyncFetchSession;
   final Map<String, dynamic>? translations;
+  final void Function(String)? onTapReply;
 
   DSEndCallsMessageBubble({
     super.key,
@@ -24,6 +25,7 @@ class DSEndCallsMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.translations,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -71,6 +73,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   @override
   Widget build(BuildContext context) {
     return DSMessageBubble(
+      onTapReply: widget.onTapReply,
       shouldUseDefaultSize: true,
       padding: const EdgeInsets.symmetric(
         vertical: 12.0,
