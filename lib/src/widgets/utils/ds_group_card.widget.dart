@@ -11,7 +11,6 @@ import '../../models/ds_message_item.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_caption_small_text_style.theme.dart';
-import '../../utils/ds_animate.util.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../buttons/ds_button.widget.dart';
@@ -91,10 +90,12 @@ class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
   late final AutoScrollController controller;
+  String? lastMsgId;
 
   @override
   void initState() {
     controller = AutoScrollController(
+      suggestedRowHeight: 80,
       viewportBoundaryGetter: () =>
           Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
       axis: Axis.vertical,
@@ -157,10 +158,32 @@ class _DSGroupCardState extends State<DSGroupCard> {
                 padding: const EdgeInsets.all(16),
                 child: DSButton(
                   shape: DSButtonShape.rounded,
-                  onPressed: () async => await DSAnimate.animateTo(
-                    controller,
-                    duration: const Duration(milliseconds: 600),
-                  ),
+                  onPressed: () async {
+                    int index = 0;
+
+                    if (lastMsgId != null) {
+                      index = widgets.indexWhere(
+                        (element) =>
+                            element.key.toString().contains(lastMsgId!),
+                      );
+                    }
+
+                    if (index == -1) {
+                      index = 0;
+                    }
+
+                    await controller.scrollToIndex(
+                      index,
+                      preferPosition: AutoScrollPosition.middle,
+                      duration: const Duration(milliseconds: 500),
+                    );
+
+                    if (index != 0) {
+                      controller.highlight(index);
+                    }
+
+                    lastMsgId = null;
+                  },
                   leadingIcon: const Icon(
                     DSIcons.arrow_down_outline,
                     size: 20,
@@ -274,6 +297,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
             isUploading: message.isUploading,
             onAsyncFetchSession: widget.onAsyncFetchSession,
             onReplyTap: (final id) async {
+              lastMsgId = message.id!;
+
               final index = widgets.indexWhere(
                 (element) => element.key.toString().contains(id),
               );

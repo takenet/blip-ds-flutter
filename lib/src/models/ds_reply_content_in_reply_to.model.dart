@@ -13,7 +13,7 @@ class DSReplyContentInReplyTo {
 
   DSReplyContentInReplyTo.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        type = json['type'],
-        value = json['value'],
-        direction = json['direction'];
+        type = json['type'] ?? "",
+        value = json['value'] ?? "",
+        direction = json['direction'] ?? "";
 }
