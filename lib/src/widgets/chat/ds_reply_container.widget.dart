@@ -16,24 +16,29 @@ class DSReplyContainer extends StatelessWidget {
     required this.align,
     this.simpleStyle = false,
     DSMessageBubbleStyle? style,
+    this.onTap,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final DSAlign align;
   final DSReplyContent replyContent;
   final bool simpleStyle;
   final DSMessageBubbleStyle style;
+  final void Function(String)? onTap;
 
   late final isLightBubbleBackground = style.isLightBubbleBackground(align);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          _buildTitle(),
-          _buildReplyContainer(),
-        ],
+    return GestureDetector(
+      onTap: () => onTap?.call(replyContent.inReplyTo.id),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            _buildTitle(),
+            _buildReplyContainer(),
+          ],
+        ),
       ),
     );
   }

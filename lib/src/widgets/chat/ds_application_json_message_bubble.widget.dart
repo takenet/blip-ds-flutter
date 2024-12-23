@@ -24,6 +24,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     this.simpleStyle = false,
     DSMessageBubbleStyle? style,
+    this.onTapReply,
   })  : style = style ?? DSMessageBubbleStyle(),
         interactive = content['interactive'] ?? {},
         template = content['template'] ?? {};
@@ -38,6 +39,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
   final Map<String, dynamic> content;
   final Map<String, dynamic> interactive;
   final Map<String, dynamic> template;
+  final void Function(String)? onTapReply;
 
   @override
   Widget build(BuildContext context) => switch (content['type']) {

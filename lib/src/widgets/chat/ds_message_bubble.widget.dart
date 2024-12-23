@@ -21,6 +21,7 @@ class DSMessageBubble extends StatelessWidget {
   final DSMessageBubbleStyle style;
   final bool hasSpacer;
   final bool simpleStyle;
+  final void Function(String)? onTapReply;
 
   const DSMessageBubble({
     super.key,
@@ -38,6 +39,7 @@ class DSMessageBubble extends StatelessWidget {
     this.defaultMinSize = DSUtils.bubbleMinSize,
     this.hasSpacer = true,
     this.simpleStyle = false,
+    this.onTapReply,
   });
 
   @override
@@ -87,6 +89,7 @@ class DSMessageBubble extends StatelessWidget {
                     style: style,
                     align: align,
                     simpleStyle: simpleStyle,
+                    onTap: onTapReply,
                   ),
                 child,
               ],

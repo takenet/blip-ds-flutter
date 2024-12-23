@@ -64,6 +64,9 @@ class DSVideoMessageBubble extends StatefulWidget {
   /// simpleStyle
   final bool simpleStyle;
 
+  /// Callback function to be executed when the reply button is tapped.
+  final void Function(String)? onTapReply;
+
   /// Card for the purpose of triggering a video to play.
   ///
   /// This widget is intended to display a video card from a url passed in the [url] parameter.
@@ -85,6 +88,7 @@ class DSVideoMessageBubble extends StatefulWidget {
     this.title,
     this.simpleStyle = false,
     DSMessageBubbleStyle? style,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   @override
@@ -141,6 +145,7 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
             : DSColors.neutralDarkCity;
 
     return DSMessageBubble(
+      onTapReply: widget.onTapReply,
       defaultMaxSize: DSUtils.bubbleMinSize,
       shouldUseDefaultSize: true,
       replyContent: widget.replyContent,
@@ -225,16 +230,23 @@ class _DSVideoMessageBubbleState extends State<DSVideoMessageBubble>
                                               url: widget.url,
                                               shouldAuthenticate:
                                                   widget.shouldAuthenticate,
-                                              thumbnail: Center(
-                                                child: Image.file(
-                                                  File(
-                                                    _controller.thumbnail.value,
-                                                  ),
-                                                  width: DSUtils.bubbleMinSize,
-                                                  height: DSUtils.bubbleMinSize,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                              thumbnail: _controller
+                                                      .isThumbnailUnavailable
+                                                      .value
+                                                  ? const SizedBox.shrink()
+                                                  : Center(
+                                                      child: Image.file(
+                                                        File(
+                                                          _controller
+                                                              .thumbnail.value,
+                                                        ),
+                                                        width: DSUtils
+                                                            .bubbleMinSize,
+                                                        height: DSUtils
+                                                            .bubbleMinSize,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
                                             ),
                         )
                       : _buidErrorIcon(),

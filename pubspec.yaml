@@ -1,6 +1,6 @@
 name: blip_ds
 description: Blip Design System for Flutter.
-version: 0.2.5
+version: 0.2.6
 homepage: https://github.com/takenet/blip-ds-flutter#readme
 repository: https://github.com/takenet/blip-ds-flutter
 
@@ -40,7 +40,8 @@ dependencies:
   video_compress: ^3.1.3
   flutter_image_compress: ^2.1.0
   phone_number: ^2.0.1
-
+  scroll_to_index: ^3.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
