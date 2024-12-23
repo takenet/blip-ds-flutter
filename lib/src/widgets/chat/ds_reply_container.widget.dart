@@ -30,7 +30,9 @@ class DSReplyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap?.call(replyContent.inReplyTo.id),
+      onTap: () => (replyContent.inReplyTo.id?.isNotEmpty ?? false)
+          ? onTap?.call(replyContent.inReplyTo.id!)
+          : null,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

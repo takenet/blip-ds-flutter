@@ -64,10 +64,11 @@ class DSGroupCard extends StatefulWidget {
     this.avatarConfig = const DSMessageBubbleAvatarConfig(),
     this.onInfinitScroll,
     this.shrinkWrap = false,
-    DSMessageBubbleStyle? style,
-    bool Function(DSMessageItem, DSMessageItem)? compareMessages,
+    this.scrollController,
     this.onAsyncFetchSession,
     this.onReply,
+    DSMessageBubbleStyle? style,
+    bool Function(DSMessageItem, DSMessageItem)? compareMessages,
   })  : compareMessages = compareMessages ?? _defaultCompareMessageFuntion,
         style = style ?? DSMessageBubbleStyle();
 
@@ -84,6 +85,7 @@ class DSGroupCard extends StatefulWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
   final bool shrinkWrap;
+  final AutoScrollController? scrollController;
   final Future<String?> Function(String)? onAsyncFetchSession;
   final void Function(DSMessageItem)? onReply;
 
@@ -99,12 +101,13 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
   @override
   void initState() {
-    controller = AutoScrollController(
-      suggestedRowHeight: 80,
-      viewportBoundaryGetter: () =>
-          Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-      axis: Axis.vertical,
-    );
+    controller = widget.scrollController ??
+        AutoScrollController(
+          suggestedRowHeight: 80,
+          viewportBoundaryGetter: () =>
+              Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+          axis: Axis.vertical,
+        );
 
     controller.addListener(() {
       final nextPageTrigger = 0.90 * controller.position.maxScrollExtent;
@@ -261,6 +264,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
           List<DSBorderRadius> borderRadius =
               _getBorderRadius(length, msgCount, group['align']);
 
+          final messageId = message.id ?? DSUtils.generateUniqueID();
+
           final bubble = DSCard(
             key: ValueKey<String>('${message.id}-${message.isUploading}'),
             type: message.type,
@@ -272,13 +277,13 @@ class _DSGroupCardState extends State<DSGroupCard> {
             avatarConfig: widget.avatarConfig,
             style: widget.style,
             onOpenLink: widget.onOpenLink,
-            messageId: message.id,
+            messageId: messageId,
             customer: message.customer,
             isUploading: message.isUploading,
             simpleStyle: widget.simpleStyle,
             onAsyncFetchSession: widget.onAsyncFetchSession,
             onTapReply: (final inReplyToId) =>
-                _onTapReply(inReplyToId, message.id!),
+                _onTapReply(inReplyToId, messageId),
           );
 
           final isLastMsg = msgCount == length;
@@ -324,9 +329,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
           items.insert(
             0,
             DSReplySwipe(
-              key: ValueKey<String>(
-                message.id ?? DSUtils.generateUniqueID(),
-              ),
+              key: ValueKey<String>(messageId),
               message: message,
               onReply: widget.onReply,
               child: Padding(
@@ -516,6 +519,8 @@ class _DSGroupCardState extends State<DSGroupCard> {
     final String inReplyToId,
     final String repliedId,
   ) async {
+    if (inReplyToId.isEmpty) return;
+
     previousReplyId = repliedId;
 
     final index = widgets.indexWhere(
