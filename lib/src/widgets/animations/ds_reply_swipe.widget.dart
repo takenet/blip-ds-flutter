@@ -52,8 +52,8 @@ class _DSReplySwipeState extends State<DSReplySwipe> {
       background: ValueListenableBuilder(
         valueListenable: progress,
         builder: (context, swipeProgress, _) {
-          final paddingProgress = clampDouble(swipeProgress * 2.5, 0, 1);
-          final opacityProgress = clampDouble(swipeProgress * 1.5, 0, 1);
+          final paddingProgress = clampDouble(swipeProgress * 3.5, 0, 1);
+          final opacityProgress = clampDouble(swipeProgress * 2.5, 0, 1);
 
           if (!endReached && paddingProgress == 1) {
             endReached = true;

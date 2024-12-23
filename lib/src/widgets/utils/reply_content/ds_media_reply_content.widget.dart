@@ -132,7 +132,7 @@ class DSMediaReplyContent extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         style: style,
         align: align,
-        mediaSize: media.size!,
+        mediaSize: media.size ?? 0,
         type: media.type,
         placeholder: _buildLoadingPlaceholder,
       ),

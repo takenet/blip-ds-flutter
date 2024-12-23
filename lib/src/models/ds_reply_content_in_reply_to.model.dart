@@ -16,4 +16,26 @@ class DSReplyContentInReplyTo {
         type = json['type'] ?? '',
         value = json['value'] ?? '',
         direction = json['direction'] ?? '';
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+
+    if (id != null) {
+      data['id'] = id;
+    }
+
+    if (type != null) {
+      data['type'] = type;
+    }
+
+    if (value != null) {
+      data['value'] = value;
+    }
+
+    if (direction != null) {
+      data['direction'] = direction;
+    }
+
+    return data;
+  }
 }
