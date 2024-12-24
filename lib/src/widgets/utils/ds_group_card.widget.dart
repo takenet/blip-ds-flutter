@@ -144,7 +144,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               key: widgets[index].key as ValueKey<String>,
               controller: controller,
               index: index,
-              highlightColor: Colors.black.withOpacity(0.1),
+              highlightColor: Colors.black.withValues(alpha: 0.1),
               child: widgets[index],
             );
           },
@@ -152,7 +152,9 @@ class _DSGroupCardState extends State<DSGroupCard> {
             final valueKey = key as ValueKey<String>;
             final index = widgets.indexWhere((widget) =>
                 (widget.key as ValueKey<String>).value == valueKey.value);
+
             if (index == -1) return null;
+
             return index;
           },
         ),
@@ -264,10 +266,10 @@ class _DSGroupCardState extends State<DSGroupCard> {
           List<DSBorderRadius> borderRadius =
               _getBorderRadius(length, msgCount, group['align']);
 
-          final messageId = message.id ?? DSUtils.generateUniqueID();
+          final messageId =
+              '${message.id ?? DSUtils.generateUniqueID()}-${message.isUploading}';
 
           final bubble = DSCard(
-            key: ValueKey<String>('${message.id}-${message.isUploading}'),
             type: message.type,
             content: message.content,
             align: message.align,
