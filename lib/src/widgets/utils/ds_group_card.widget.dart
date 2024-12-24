@@ -124,6 +124,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
   @override
   void dispose() {
+    controller.dispose();
     super.dispose();
   }
 
@@ -270,6 +271,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               '${message.id ?? DSUtils.generateUniqueID()}-${message.isUploading}';
 
           final bubble = DSCard(
+            key: ValueKey<String>(messageId),
             type: message.type,
             content: message.content,
             align: message.align,

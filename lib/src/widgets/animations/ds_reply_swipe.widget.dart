@@ -38,7 +38,7 @@ class _DSReplySwipeState extends State<DSReplySwipe> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: UniqueKey(),
+      key: widget.key ?? UniqueKey(),
       onUpdate: (details) {
         progress.value = details.progress;
       },
