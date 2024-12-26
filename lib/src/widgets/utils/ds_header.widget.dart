@@ -71,7 +71,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
           automaticallyImplyLeading: false,
           elevation: elevation,
           backgroundColor: backgroundColor,
-          shadowColor: DSColors.neutralMediumWave,
+          shadowColor: (elevation ?? 0) > 0 ? DSColors.neutralMediumWave : null,
           bottom: bottomWidget != null
               ? PreferredSize(
                   preferredSize: const Size.fromHeight(48),
