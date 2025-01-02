@@ -11,6 +11,7 @@ class DSInputContainer extends StatelessWidget {
   final bool? hasFocus;
   final DSInputContainerShape shape;
   final bool hasError;
+  final double minHeight;
 
   const DSInputContainer({
     super.key,
@@ -20,6 +21,7 @@ class DSInputContainer extends StatelessWidget {
     this.isEnabled = true,
     this.shape = DSInputContainerShape.rectangle,
     this.hasError = false,
+    this.minHeight = 44.0,
   });
 
   @override
@@ -47,8 +49,8 @@ class DSInputContainer extends StatelessWidget {
                 : DSColors.neutralLightWhisper,
           ),
           child: Container(
-            constraints: const BoxConstraints(
-              minHeight: 44.0,
+            constraints: BoxConstraints(
+              minHeight: minHeight,
             ),
             padding: padding,
             child: child,

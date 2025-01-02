@@ -20,6 +20,7 @@ class DSRequestLocationBubble extends StatelessWidget {
     this.type = DSMessageContentType.textPlain,
     this.borderRadius = const [DSBorderRadius.all],
     this.showRequestLocationButton = false,
+    this.simpleStyle = false,
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -31,6 +32,7 @@ class DSRequestLocationBubble extends StatelessWidget {
   final List<DSBorderRadius> borderRadius;
   final bool showRequestLocationButton;
   final DSMessageBubbleStyle style;
+  final bool simpleStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class DSRequestLocationBubble extends StatelessWidget {
                   align: align,
                   borderRadius: borderRadius,
                   style: style,
+                  simpleStyle: simpleStyle,
                 ),
               ),
             if (showRequestLocationButton)

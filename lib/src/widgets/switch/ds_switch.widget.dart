@@ -68,8 +68,6 @@ class DSSwitch extends DSSwitchBase {
         return isEnabled ? _activeColor : DSColors.primaryLight;
       case (false):
         return isEnabled ? _inactiveColor : DSColors.neutralMediumWave;
-      default:
-        return _activeColor;
     }
   }
 }

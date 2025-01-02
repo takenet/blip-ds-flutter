@@ -33,6 +33,9 @@ class DSWeblinkMessageBubble extends StatelessWidget {
   /// replyContent
   final DSReplyContent? replyContent;
 
+  /// simpleStyle
+  final bool simpleStyle;
+
   /// Callback function to be executed when the reply button is tapped.
   final void Function(String)? onTapReply;
 
@@ -44,6 +47,7 @@ class DSWeblinkMessageBubble extends StatelessWidget {
     required this.url,
     this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
+    this.simpleStyle = false,
     DSMessageBubbleStyle? style,
     this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -62,6 +66,7 @@ class DSWeblinkMessageBubble extends StatelessWidget {
       replyContent: replyContent,
       borderRadius: borderRadius,
       style: style,
+      simpleStyle: simpleStyle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

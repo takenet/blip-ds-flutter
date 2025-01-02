@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:blip_ds/blip_ds.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SampleGroupCardController {
   Future<List<DSMessageItem>> getMessages() async {
-    String data = await DefaultAssetBundle.of(Get.context!)
+    String data = await DefaultAssetBundle.of(DSContextService.context!)
         .loadString("assets/messages.json");
     final jsonResult = jsonDecode(data);
 

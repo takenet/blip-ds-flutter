@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 import '../../enums/ds_align.enum.dart';
@@ -9,6 +8,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/ds_reply_content.model.dart';
 import '../../services/ds_auth.service.dart';
 import '../../services/ds_bottom_sheet.service.dart';
+import '../../services/ds_navigation.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
@@ -28,6 +28,7 @@ class DSLocationMessageBubble extends StatefulWidget {
   final String latitude;
   final String longitude;
   final List<DSBorderRadius> borderRadius;
+  final bool simpleStyle;
   final void Function(String)? onTapReply;
 
   DSLocationMessageBubble({
@@ -39,6 +40,7 @@ class DSLocationMessageBubble extends StatefulWidget {
     this.borderRadius = const [DSBorderRadius.all],
     DSMessageBubbleStyle? style,
     this.title,
+    this.simpleStyle = false,
     this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -83,6 +85,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
           padding: EdgeInsets.zero,
           align: widget.align,
           style: widget.style,
+          simpleStyle: widget.simpleStyle,
           child: _buildBody(),
         ),
       );
@@ -163,7 +166,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
                 ),
                 DSIconButton(
                   onPressed: () {
-                    Get.back();
+                    NavigationService.pop();
                   },
                   icon: const Icon(DSIcons.close_outline,
                       color: DSColors.neutralDarkRooftop),
@@ -198,7 +201,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
                         title: widget.title ?? '',
                       );
 
-                      Get.back();
+                      NavigationService.pop();
                     },
                     title: DSBodyText(
                       "location.open-with".translate() + " ${map.mapName}",

@@ -12,6 +12,7 @@ class DSChip extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? trailingIcon;
   final EdgeInsetsGeometry? textPadding;
+  final EdgeInsetsGeometry? margin;
   final double? size;
 
   const DSChip({
@@ -25,6 +26,7 @@ class DSChip extends StatelessWidget {
     this.border,
     this.onTap,
     this.textPadding,
+    this.margin,
     this.size,
   });
 
@@ -36,6 +38,7 @@ class DSChip extends StatelessWidget {
         height: size,
         width: size,
         padding: padding,
+        margin: margin,
         decoration: text == null
             ? BoxDecoration(
                 color: background,

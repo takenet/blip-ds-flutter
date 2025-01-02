@@ -125,8 +125,8 @@ class DSBottomSheetService {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
-      builder: (_) => WillPopScope(
-        onWillPop: () async => false,
+      builder: (_) => PopScope(
+        canPop: false,
         child: _buildBottomSheet(
           hideGrabber: true,
         ),

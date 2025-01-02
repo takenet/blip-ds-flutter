@@ -21,6 +21,7 @@ class DSTextMessageBubble extends StatefulWidget {
   final bool showSelect;
   final void Function(String, Map<String, dynamic>)? onSelected;
   final DSMessageBubbleStyle style;
+  final bool simpleStyle;
   final void Function(String)? onTapReply;
 
   DSTextMessageBubble({
@@ -33,6 +34,7 @@ class DSTextMessageBubble extends StatefulWidget {
     this.hasSpacer = true,
     this.showSelect = false,
     this.onSelected,
+    this.simpleStyle = false,
     DSMessageBubbleStyle? style,
     this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
@@ -67,6 +69,7 @@ class _DSTextMessageBubbleState extends State<DSTextMessageBubble> {
       style: widget.style,
       hasSpacer: widget.hasSpacer,
       replyContent: widget.replyContent,
+      simpleStyle: widget.simpleStyle,
       child: _buildText(),
     );
   }

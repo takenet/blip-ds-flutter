@@ -98,7 +98,9 @@ class _AnimatedBarWidgetState extends State<AnimatedBarWidget>
           child: Text(
             '/',
             style: TextStyle(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(
+                alpha: 0.2,
+              ),
               fontSize: 14.0,
               height: 1.0,
             ),

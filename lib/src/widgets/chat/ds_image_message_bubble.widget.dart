@@ -36,6 +36,7 @@ class DSImageMessageBubble extends StatefulWidget {
     this.mediaType,
     this.isUploading = false,
     this.replyContent,
+    this.simpleStyle = false,
     this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -56,6 +57,7 @@ class DSImageMessageBubble extends StatefulWidget {
   final String? mediaType;
   final bool isUploading;
   final DSReplyContent? replyContent;
+  final bool simpleStyle;
   final void Function(String)? onTapReply;
 
   @override
@@ -95,6 +97,7 @@ class _DSImageMessageBubbleState extends State<DSImageMessageBubble>
       padding: EdgeInsets.zero,
       hasSpacer: widget.hasSpacer,
       style: widget.style,
+      simpleStyle: widget.simpleStyle,
       child: Padding(
         padding: widget.replyContent == null
             ? EdgeInsets.zero

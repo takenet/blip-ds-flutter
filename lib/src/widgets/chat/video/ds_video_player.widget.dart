@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/ds_video_player.controller.dart';
+import '../../../services/ds_navigation.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../themes/icons/ds_icons.dart';
 import '../../../themes/system_overlay/ds_system_overlay.style.dart';
@@ -31,7 +32,7 @@ class DSVideoPlayer extends StatelessWidget {
     required String url,
     this.appBarPhotoUri,
     this.shouldAuthenticate = false,
-  })  : controller = Get.put(
+  }) : controller = Get.put(
           DSVideoPlayerController(
             url: url,
           ),
@@ -43,8 +44,17 @@ class DSVideoPlayer extends StatelessWidget {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle,
-      child: WillPopScope(
-        onWillPop: () => Get.delete<DSVideoPlayerController>(),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) {
+            return;
+          }
+
+          if (await Get.delete<DSVideoPlayerController>()) {
+            NavigationService.pop(result);
+          }
+        },
         child: Scaffold(
           backgroundColor: Colors.black,
           appBar: DSHeader(
@@ -52,11 +62,13 @@ class DSVideoPlayer extends StatelessWidget {
             title: appBarText,
             customerUri: appBarPhotoUri,
             customerName: appBarText,
-            backgroundColor: Colors.black.withOpacity(.7),
+            backgroundColor: Colors.black.withValues(
+              alpha: .7,
+            ),
             systemUiOverlayStyle: overlayStyle,
             onBackButtonPressed: () {
               Get.delete<DSVideoPlayerController>();
-              Get.back();
+              NavigationService.pop();
             },
           ),
           body: Obx(
