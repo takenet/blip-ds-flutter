@@ -42,7 +42,9 @@ class _DSReplySwipeState extends State<DSReplySwipe> {
       onUpdate: (details) {
         progress.value = details.progress;
       },
-      direction: DismissDirection.startToEnd,
+      direction: widget.onReply != null
+          ? DismissDirection.startToEnd
+          : DismissDirection.none,
       dismissThresholds: {
         DismissDirection.startToEnd: double.infinity,
       },
