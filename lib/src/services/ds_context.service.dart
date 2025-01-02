@@ -5,8 +5,10 @@ abstract class DSContextService {
   static BuildContext? _context = Get.context;
   static BuildContext? _overlayContext = Get.overlayContext;
 
-  static init(final BuildContext context,
-      [final BuildContext? overlayContext]) {
+  static init(
+    final BuildContext context, [
+    final BuildContext? overlayContext,
+  ]) {
     _context = context;
     _overlayContext = overlayContext;
   }
