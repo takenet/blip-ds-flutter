@@ -68,8 +68,8 @@ class DSDialogService {
   Widget _buildDialog(final DSDialogType type) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: DSSystemOverlayStyle.light,
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -81,7 +81,9 @@ class DSDialogService {
               borderRadius: const BorderRadius.all(Radius.circular(15.0)),
               boxShadow: [
                 BoxShadow(
-                  color: DSColors.neutralDarkEclipse.withOpacity(0.4),
+                  color: DSColors.neutralDarkEclipse.withValues(
+                    alpha: 0.4,
+                  ),
                   blurRadius: 15.0,
                   offset: const Offset(0.0, 3.0),
                 ),

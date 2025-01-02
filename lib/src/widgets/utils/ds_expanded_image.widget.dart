@@ -145,7 +145,9 @@ class DSExpandedImage extends StatelessWidget {
               title: appBarText,
               customerUri: appBarPhotoUri,
               customerName: appBarText,
-              backgroundColor: Colors.black.withOpacity(0.7),
+              backgroundColor: Colors.black.withValues(
+                alpha: 0.7,
+              ),
               onBackButtonPressed: NavigationService.pop,
               systemUiOverlayStyle: DSSystemOverlayStyle.light,
             ),

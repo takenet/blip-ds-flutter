@@ -44,8 +44,19 @@ class DSVideoPlayer extends StatelessWidget {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle,
-      child: WillPopScope(
-        onWillPop: () => Get.delete<DSVideoPlayerController>(),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) {
+            return;
+          }
+
+          final navigator = Navigator.of(context);
+
+          if (await Get.delete<DSVideoPlayerController>()) {
+            navigator.pop(result);
+          }
+        },
         child: Scaffold(
           backgroundColor: Colors.black,
           appBar: DSHeader(
@@ -53,7 +64,9 @@ class DSVideoPlayer extends StatelessWidget {
             title: appBarText,
             customerUri: appBarPhotoUri,
             customerName: appBarText,
-            backgroundColor: Colors.black.withOpacity(.7),
+            backgroundColor: Colors.black.withValues(
+              alpha: .7,
+            ),
             systemUiOverlayStyle: overlayStyle,
             onBackButtonPressed: () {
               Get.delete<DSVideoPlayerController>();
