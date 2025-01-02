@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../enums/ds_toast_action_type.enum.dart';
 import '../../enums/ds_toast_type.enum.dart';
 import '../../models/ds_toast_props.model.dart';
+import '../../services/ds_context.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
@@ -201,7 +201,7 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
 
-    double start = (MediaQuery.of(Get.context!).size.width) * -1.0;
+    double start = (MediaQuery.of(DSContextService.context!).size.width) * -1.0;
     double end = 0.0;
 
     final duration = props.toastDuration ??

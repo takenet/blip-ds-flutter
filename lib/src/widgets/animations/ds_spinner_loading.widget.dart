@@ -66,7 +66,9 @@ class DSSpinnerLoadingState extends State<DSSpinnerLoading>
               color: Colors.transparent,
               border: Border.all(
                 width: widget.lineWidth,
-                color: DSColors.neutralDarkEclipse.withOpacity(0.32),
+                color: DSColors.neutralDarkEclipse.withValues(
+                  alpha: 0.32,
+                ),
                 style: BorderStyle.solid,
               ),
             ),

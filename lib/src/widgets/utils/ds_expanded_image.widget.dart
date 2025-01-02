@@ -5,8 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
-import '../../../blip_ds.dart';
+import '../../enums/ds_align.enum.dart';
+import '../../models/ds_message_bubble_style.model.dart';
+import '../../services/ds_context.service.dart';
+import '../../services/ds_navigation.service.dart';
+import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/icons/ds_icons.dart';
+import '../../themes/system_overlay/ds_system_overlay.style.dart';
+import '../../utils/ds_utils.util.dart';
+import '../animations/ds_spinner_loading.widget.dart';
 import '../animations/ds_uploading.widget.dart';
+import 'ds_cached_network_image_view.widget.dart';
+import 'ds_header.widget.dart';
 
 class DSExpandedImage extends StatelessWidget {
   final String appBarText;
@@ -111,7 +121,7 @@ class DSExpandedImage extends StatelessWidget {
   }
 
   Future<T?> _expandImage<T>() => showGeneralDialog<T>(
-        context: Get.context!,
+        context: DSContextService.context!,
         barrierDismissible: false,
         transitionDuration: DSUtils.defaultAnimationDuration,
         transitionBuilder: (_, animation, __, child) => FadeTransition(
@@ -135,8 +145,10 @@ class DSExpandedImage extends StatelessWidget {
               title: appBarText,
               customerUri: appBarPhotoUri,
               customerName: appBarText,
-              backgroundColor: Colors.black.withOpacity(0.7),
-              onBackButtonPressed: Get.back,
+              backgroundColor: Colors.black.withValues(
+                alpha: 0.7,
+              ),
+              onBackButtonPressed: NavigationService.pop,
               systemUiOverlayStyle: DSSystemOverlayStyle.light,
             ),
             body: GestureDetector(

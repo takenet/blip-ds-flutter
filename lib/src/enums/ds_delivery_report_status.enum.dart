@@ -7,5 +7,6 @@ enum DSDeliveryReportStatus {
   consumed,
   failed,
   sending,
+  dispatched,
   unknown,
 }

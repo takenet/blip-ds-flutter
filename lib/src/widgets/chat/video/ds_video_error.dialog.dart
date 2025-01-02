@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:get/get.dart';
 
 import '../../../extensions/ds_localization.extension.dart';
+import '../../../services/ds_context.service.dart';
 import '../../../services/ds_dialog.service.dart';
 import '../../../services/ds_file.service.dart';
+import '../../../services/ds_navigation.service.dart';
 import '../../../utils/ds_directory_formatter.util.dart';
 import '../../buttons/ds_primary_button.widget.dart';
 import '../../buttons/ds_secondary_button.widget.dart';
@@ -20,7 +21,7 @@ abstract class DSVideoErrorDialog {
       text: 'video-error.reproduction-message'.translate(),
       primaryButton: DSPrimaryButton(
           onPressed: () async {
-            Get.back();
+            NavigationService.pop();
 
             final cachePath = await DSDirectoryFormatter.getCachePath(
               type: 'video/mp4',
@@ -36,10 +37,10 @@ abstract class DSVideoErrorDialog {
           },
           label: 'message.yes'.translate()),
       secondaryButton: DSSecondaryButton(
-        onPressed: () => Get.back(),
+        onPressed: () => NavigationService.pop(),
         label: 'message.no'.translate(),
       ),
-      context: Get.context!,
+      context: DSContextService.context!,
     ).showError();
   }
 }

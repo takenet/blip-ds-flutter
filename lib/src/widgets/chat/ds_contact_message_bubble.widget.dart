@@ -19,6 +19,7 @@ class DSContactMessageBubble extends StatelessWidget {
   final DSAlign align;
   final List<DSBorderRadius> borderRadius;
   final DSMessageBubbleStyle style;
+  final bool simpleStyle;
 
   DSContactMessageBubble({
     super.key,
@@ -29,6 +30,7 @@ class DSContactMessageBubble extends StatelessWidget {
     required this.align,
     this.replyContent,
     this.borderRadius = const [DSBorderRadius.all],
+    this.simpleStyle = false,
     DSMessageBubbleStyle? style,
   }) : style = style ?? DSMessageBubbleStyle();
 
@@ -41,6 +43,7 @@ class DSContactMessageBubble extends StatelessWidget {
       shouldUseDefaultSize: true,
       style: style,
       replyContent: replyContent,
+      simpleStyle: simpleStyle,
       child: _buildContactCard(),
     );
   }

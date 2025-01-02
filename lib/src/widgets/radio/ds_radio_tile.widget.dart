@@ -28,7 +28,7 @@ class DSRadioTile<T> extends StatelessWidget {
 
   /// Determines the grouping of buttons allowing one of them to be selected
   ///
-  /// The <T> type determines which type of variable to use as [value],
+  /// The &lt;T&gt; type determines which type of variable to use as [value],
   /// which can be int, String, or even an object.
   final T? groupValue;
 

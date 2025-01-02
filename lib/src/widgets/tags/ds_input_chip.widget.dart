@@ -104,7 +104,9 @@ class _DSInputChipState extends State<DSInputChip> {
               size: 32.0,
               icon: Icon(
                 DSIcons.error_solid,
-                color: DSColors.neutralDarkCity.withOpacity(0.6),
+                color: DSColors.neutralDarkCity.withValues(
+                  alpha: 0.6,
+                ),
               ),
               onPressed: () => widget.onDeleted?.call(index),
             ),

@@ -51,7 +51,9 @@ class DSCard extends StatelessWidget {
     this.showRequestLocationButton = false,
     this.replyContent,
     this.isUploading = false,
+    this.simpleStyle = false,
     this.onAsyncFetchSession,
+    this.onTapReply,
   }) : style = style ?? DSMessageBubbleStyle();
 
   final String type;
@@ -69,7 +71,9 @@ class DSCard extends StatelessWidget {
   final bool showRequestLocationButton;
   final DSReplyContent? replyContent;
   final bool isUploading;
+  final bool simpleStyle;
   final Future<String?> Function(String)? onAsyncFetchSession;
+  final void Function(String)? onTapReply;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +90,8 @@ class DSCard extends StatelessWidget {
           borderRadius: borderRadius,
           style: style,
           replyContent: replyContent,
+          simpleStyle: simpleStyle,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.contact:
@@ -107,6 +113,9 @@ class DSCard extends StatelessWidget {
           messageId: messageId,
           customer: customer,
           replyContent: DSUtils.shouldShowReplyContainer ? replyContent : null,
+          simpleStyle: simpleStyle,
+          isUploading: isUploading,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.mediaLink:
@@ -127,6 +136,7 @@ class DSCard extends StatelessWidget {
           onOpenLink: onOpenLink,
           avatarConfig: avatarConfig,
           style: style,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.webLink:
@@ -138,6 +148,8 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
+          simpleStyle: simpleStyle,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.location:
@@ -149,14 +161,18 @@ class DSCard extends StatelessWidget {
           align: align,
           style: style,
           replyContent: replyContent,
+          simpleStyle: simpleStyle,
+          onTapReply: onTapReply,
         );
       case DSMessageContentType.ticket:
-        return DSTicketMessage(
-          messageType: DSTicketMessageType.forwardedTicket,
-          ticketId: content['formattedTicketId'],
-          chatbotIdentity: content['ownerIdentity'],
-          contentStatus: content['status'],
-        );
+        return simpleStyle
+            ? const SizedBox.shrink()
+            : DSTicketMessage(
+                messageType: DSTicketMessageType.forwardedTicket,
+                ticketId: content['formattedTicketId'],
+                chatbotIdentity: content['ownerIdentity'],
+                contentStatus: content['status'],
+              );
 
       case DSMessageContentType.input:
         return _buildRequestLocation();
@@ -169,6 +185,8 @@ class DSCard extends StatelessWidget {
           content: content,
           status: status,
           avatarConfig: avatarConfig,
+          simpleStyle: simpleStyle,
+          onTapReply: onTapReply,
         );
 
       case DSMessageContentType.callsMedia:
@@ -178,6 +196,7 @@ class DSCard extends StatelessWidget {
           style: style,
           callsMediaMessage: DSCallsMediaMessage.fromJson(content),
           onAsyncFetchSession: onAsyncFetchSession,
+          onTapReply: onTapReply,
         );
 
       default:
@@ -186,6 +205,7 @@ class DSCard extends StatelessWidget {
           replyContent: replyContent,
           borderRadius: borderRadius,
           style: style,
+          simpleStyle: simpleStyle,
         );
     }
   }
@@ -213,6 +233,8 @@ class DSCard extends StatelessWidget {
       onSelected: onSelected,
       onOpenLink: onOpenLink,
       mediaType: documentSelectModel.header.mediaLink.type,
+      simpleStyle: simpleStyle,
+      onTapReply: onTapReply,
     );
   }
 
@@ -225,11 +247,13 @@ class DSCard extends StatelessWidget {
                   horizontal: showQuickReplyOptions ? 16.0 : 0.0,
                 ),
                 child: DSTextMessageBubble(
+                  onTapReply: onTapReply,
                   align: align,
                   text: content['text'],
                   replyContent: replyContent,
                   borderRadius: borderRadius,
                   style: style,
+                  simpleStyle: simpleStyle,
                 ),
               ),
               Visibility(
@@ -244,6 +268,7 @@ class DSCard extends StatelessWidget {
             ],
           )
         : DSTextMessageBubble(
+            onTapReply: onTapReply,
             align: align,
             text: content['text'],
             borderRadius: borderRadius,
@@ -252,6 +277,7 @@ class DSCard extends StatelessWidget {
             replyContent: replyContent,
             onSelected: onSelected,
             style: style,
+            simpleStyle: simpleStyle,
           );
   }
 
@@ -265,6 +291,7 @@ class DSCard extends StatelessWidget {
       replyContent: replyContent,
       style: style,
       borderRadius: borderRadius,
+      simpleStyle: simpleStyle,
     );
   }
 
@@ -293,6 +320,8 @@ class DSCard extends StatelessWidget {
         replyContent: replyContent,
         uniqueId: messageId,
         shouldAuthenticate: shouldAuthenticate,
+        simpleStyle: simpleStyle,
+        onTapReply: onTapReply,
       );
     } else if (media.type.contains('image')) {
       return DSImageMessageBubble(
@@ -313,6 +342,8 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         mediaType: media.type,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
+        onTapReply: onTapReply,
       );
     } else if (media.type.contains('video')) {
       return DSVideoMessageBubble(
@@ -333,6 +364,8 @@ class DSCard extends StatelessWidget {
         mediaSize: size,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
+        onTapReply: onTapReply,
       );
     } else {
       return DSFileMessageBubble(
@@ -347,6 +380,7 @@ class DSCard extends StatelessWidget {
         style: style,
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
+        simpleStyle: simpleStyle,
       );
     }
   }
@@ -365,6 +399,7 @@ class DSCard extends StatelessWidget {
       borderRadius: borderRadius,
       style: style,
       showRequestLocationButton: showRequestLocationButton,
+      simpleStyle: simpleStyle,
     );
   }
 }

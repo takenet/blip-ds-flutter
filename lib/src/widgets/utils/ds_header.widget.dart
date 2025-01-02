@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../services/ds_navigation.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/system_overlay/ds_system_overlay.style.dart';
@@ -51,7 +52,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     this.showBorder = true,
     this.visible = true,
     final SystemUiOverlayStyle? systemUiOverlayStyle,
-  })  : systemUiOverlayStyle =
+  }) : systemUiOverlayStyle =
             systemUiOverlayStyle ?? DSSystemOverlayStyle.dark {
     isBackgroundLight = backgroundColor.computeLuminance() > 0.5;
   }
@@ -61,39 +62,28 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
     return AnimatedOpacity(
       opacity: visible ? 1.0 : 0.0,
       duration: DSUtils.defaultAnimationDuration,
-      child: Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: showBorder
-              ? Border(
-                  bottom: BorderSide(
-                    color: borderColor,
-                  ),
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: AppBar(
+          surfaceTintColor: Colors.transparent,
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          elevation: elevation,
+          backgroundColor: backgroundColor,
+          shadowColor: (elevation ?? 0) > 0 ? DSColors.neutralMediumWave : null,
+          bottom: bottomWidget != null
+              ? PreferredSize(
+                  preferredSize: const Size.fromHeight(48),
+                  child: bottomWidget!,
                 )
               : null,
-        ),
-        child: SafeArea(
-          top: false,
-          bottom: false,
-          child: AppBar(
-            centerTitle: false,
-            automaticallyImplyLeading: false,
-            elevation: elevation,
-            backgroundColor: Colors.transparent,
-            shadowColor: DSColors.neutralMediumWave,
-            bottom: bottomWidget != null
-                ? PreferredSize(
-                    preferredSize: const Size.fromHeight(48),
-                    child: bottomWidget!,
-                  )
-                : null,
-            actions: actions,
-            titleSpacing: 0,
-            leadingWidth: 40.0,
-            leading: _buildLeading(context),
-            title: _buildTitle(context),
-            systemOverlayStyle: systemUiOverlayStyle,
-          ),
+          actions: actions,
+          titleSpacing: 0,
+          leadingWidth: 40.0,
+          leading: _buildLeading(context),
+          title: _buildTitle(context),
+          systemOverlayStyle: systemUiOverlayStyle,
         ),
       ),
     );
@@ -146,7 +136,7 @@ class DSHeader extends StatelessWidget implements PreferredSizeWidget {
                 splashRadius: 17,
                 padding: EdgeInsets.zero,
                 onPressed: visible
-                    ? onBackButtonPressed ?? Navigator.of(context).pop
+                    ? onBackButtonPressed ?? NavigationService.pop
                     : null,
                 iconSize: 28,
                 icon: Icon(

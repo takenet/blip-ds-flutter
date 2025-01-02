@@ -1,0 +1,4 @@
+enum DSThemeType {
+  dark,
+  light,
+}
