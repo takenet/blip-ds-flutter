@@ -51,10 +51,8 @@ class DSVideoPlayer extends StatelessWidget {
             return;
           }
 
-          final navigator = Navigator.of(context);
-
           if (await Get.delete<DSVideoPlayerController>()) {
-            navigator.pop(result);
+            NavigationService.pop(result);
           }
         },
         child: Scaffold(
