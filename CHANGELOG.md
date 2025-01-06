@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Add support to new Flutter version (3.27.1)
+
 ## 0.2.6
 
 - [DSVideoMessageBubble] Fix when thumbnail is unavailable.
