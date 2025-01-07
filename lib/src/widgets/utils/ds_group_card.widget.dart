@@ -367,8 +367,9 @@ class _DSGroupCardState extends State<DSGroupCard> {
               ),
             ];
 
-            if ((sentMessage && widget.avatarConfig.showSentAvatar) ||
-                (!sentMessage && widget.avatarConfig.showReceivedAvatar)) {
+            if (!widget.simpleStyle &&
+                ((sentMessage && widget.avatarConfig.showSentAvatar) ||
+                    (!sentMessage && widget.avatarConfig.showReceivedAvatar))) {
               columns.add(
                 const SizedBox.shrink(),
               );
