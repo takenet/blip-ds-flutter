@@ -1,7 +1,5 @@
 library;
 
-export 'package:scroll_to_index/scroll_to_index.dart' show AutoScrollController;
-
 export 'src/enums/ds_align.enum.dart' show DSAlign;
 export 'src/enums/ds_border_radius.enum.dart' show DSBorderRadius;
 export 'src/enums/ds_delivery_report_status.enum.dart'

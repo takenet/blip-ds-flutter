@@ -29,6 +29,7 @@ class DSFileMessageBubble extends StatelessWidget {
   final bool isUploading;
   final DSReplyContent? replyContent;
   final bool simpleStyle;
+  final void Function(String)? onTapReply;
 
   /// Creates a Design System's [DSMessageBubble] used on files other than image, audio, or video
   DSFileMessageBubble({
@@ -44,6 +45,7 @@ class DSFileMessageBubble extends StatelessWidget {
     this.isUploading = false,
     this.replyContent,
     this.simpleStyle = false,
+    this.onTapReply,
   })  : style = style ?? DSMessageBubbleStyle(),
         controller = DSFileMessageBubbleController();
 
@@ -60,6 +62,7 @@ class DSFileMessageBubble extends StatelessWidget {
       child: Opacity(
         opacity: !isUploading ? 1 : .5,
         child: DSMessageBubble(
+          onTapReply: onTapReply,
           replyContent: replyContent,
           borderRadius: borderRadius,
           padding: EdgeInsets.zero,
