@@ -1,3 +1,7 @@
+## 0.3.1
+
+- [DSGroupCard] Improved the scrolling of reply messages
+
 ## 0.3.0
 
 - Add support to new Flutter version (3.27.1)
