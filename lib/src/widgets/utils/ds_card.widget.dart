@@ -381,6 +381,7 @@ class DSCard extends StatelessWidget {
         shouldAuthenticate: shouldAuthenticate,
         isUploading: isUploading,
         simpleStyle: simpleStyle,
+        onTapReply: onTapReply,
       );
     }
   }

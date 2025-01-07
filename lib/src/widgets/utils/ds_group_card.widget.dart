@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 
+import '../../controllers/chat/ds_highlight.controller.dart';
 import '../../enums/ds_align.enum.dart';
 import '../../enums/ds_border_radius.enum.dart';
 import '../../enums/ds_button_shape.enum.dart';
@@ -15,6 +18,7 @@ import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../animations/ds_reply_swipe.widget.dart';
 import '../buttons/ds_button.widget.dart';
+import '../chat/ds_highlight.dart';
 import '../chat/ds_message_bubble_detail.widget.dart';
 import '../chat/ds_quick_reply.widget.dart';
 import '../chat/typing/ds_typing_message_bubble.widget.dart';
@@ -85,7 +89,7 @@ class DSGroupCard extends StatefulWidget {
   final DSMessageBubbleAvatarConfig avatarConfig;
   final void Function()? onInfinitScroll;
   final bool shrinkWrap;
-  final AutoScrollController? scrollController;
+  final ScrollController? scrollController;
   final Future<String?> Function(String)? onAsyncFetchSession;
   final void Function(DSMessageItem)? onReply;
 
@@ -96,18 +100,18 @@ class DSGroupCard extends StatefulWidget {
 class _DSGroupCardState extends State<DSGroupCard> {
   final List<Widget> widgets = [];
   final showScrollBottomButton = false.obs;
-  late final AutoScrollController controller;
+  final highlightController = DSHighlightController();
+
   String? previousReplyId;
+
+  late ListObserverController observerController;
+  late ScrollController controller;
 
   @override
   void initState() {
-    controller = widget.scrollController ??
-        AutoScrollController(
-          suggestedRowHeight: 80,
-          viewportBoundaryGetter: () =>
-              Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-          axis: Axis.vertical,
-        );
+    controller = widget.scrollController ?? ScrollController();
+
+    observerController = ListObserverController(controller: controller);
 
     controller.addListener(() {
       final nextPageTrigger = 0.90 * controller.position.maxScrollExtent;
@@ -125,6 +129,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
   @override
   void dispose() {
     controller.dispose();
+    highlightController.dispose();
     super.dispose();
   }
 
@@ -134,30 +139,29 @@ class _DSGroupCardState extends State<DSGroupCard> {
 
     return Stack(
       children: [
-        ListView.builder(
-          controller: controller,
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          reverse: true,
-          shrinkWrap: widget.shrinkWrap,
-          itemCount: widgets.length,
-          itemBuilder: (_, int index) {
-            return AutoScrollTag(
-              key: widgets[index].key as ValueKey<String>,
-              controller: controller,
-              index: index,
-              highlightColor: Colors.black.withValues(alpha: 0.1),
+        ListViewObserver(
+          controller: observerController,
+          child: ListView.builder(
+            controller: controller,
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            reverse: true,
+            shrinkWrap: widget.shrinkWrap,
+            itemCount: widgets.length,
+            itemBuilder: (_, int index) => DSHighlight(
+              key: widgets[index].key,
+              controller: highlightController,
               child: widgets[index],
-            );
-          },
-          findChildIndexCallback: (Key key) {
-            final valueKey = key as ValueKey<String>;
-            final index = widgets.indexWhere((widget) =>
-                (widget.key as ValueKey<String>).value == valueKey.value);
+            ),
+            findChildIndexCallback: (Key key) {
+              final valueKey = key as ValueKey<String>;
+              final index = widgets.indexWhere((widget) =>
+                  (widget.key as ValueKey<String>).value == valueKey.value);
 
-            if (index == -1) return null;
+              if (index == -1) return null;
 
-            return index;
-          },
+              return index;
+            },
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,
@@ -268,7 +272,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
               _getBorderRadius(length, msgCount, group['align']);
 
           final messageId =
-              '${message.id ?? DSUtils.generateUniqueID()}-${message.isUploading}';
+              '${message.id ?? DSUtils.generateUniqueID()}-${message.metadata?['#uniqueId']}-${message.isUploading}';
 
           final bubble = DSCard(
             key: ValueKey<String>(messageId),
@@ -501,25 +505,28 @@ class _DSGroupCardState extends State<DSGroupCard> {
     return borderRadius;
   }
 
-  Future<void> _onScrollPrevious() async {
+  void _onScrollPrevious() {
     int index = 0;
 
-    if (previousReplyId != null) {
-      index = widgets.indexWhere(
-        (element) => element.key.toString().contains(previousReplyId!),
-      );
+    if (previousReplyId == null) {
+      return _scrollToIndex(index);
     }
+
+    index = widgets.indexWhere(
+      (element) => element.key.toString().contains(previousReplyId!),
+    );
 
     if (index == -1) {
       index = 0;
     }
 
-    await _scrollToIndex(index, highlight: index != 0);
+    _scrollToIndex(index);
 
+    highlightController.highlight(previousReplyId!);
     previousReplyId = null;
   }
 
-  Future<void> _onTapReply(
+  void _onTapReply(
     final String inReplyToId,
     final String repliedId,
   ) async {
@@ -535,18 +542,16 @@ class _DSGroupCardState extends State<DSGroupCard> {
       return;
     }
 
-    await _scrollToIndex(index);
+    _scrollToIndex(index);
+
+    highlightController.highlight(inReplyToId);
   }
 
-  Future<void> _scrollToIndex(final int index, {bool highlight = true}) async {
-    await controller.scrollToIndex(
-      index,
-      preferPosition: AutoScrollPosition.middle,
-      duration: const Duration(milliseconds: 500),
+  void _scrollToIndex(final int index) {
+    observerController.animateTo(
+      index: index,
+      duration: const Duration(seconds: 1),
+      curve: Curves.ease,
     );
-
-    if (highlight) {
-      controller.highlight(index);
-    }
   }
 }
