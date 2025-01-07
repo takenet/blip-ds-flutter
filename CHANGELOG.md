@@ -1,6 +1,10 @@
-## 0.3.1
+## 0.3.2
 
 - [DSGroupCard] fix avatar with `simpleStyle` param
+
+## 0.3.1
+
+- [DSGroupCard] Improved the scrolling of reply messages
 
 ## 0.3.0
 
