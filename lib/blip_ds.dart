@@ -221,6 +221,7 @@ export 'src/widgets/utils/ds_file_extension_icon.util.dart'
 export 'src/widgets/utils/ds_group_card.widget.dart' show DSGroupCard;
 export 'src/widgets/utils/ds_header.widget.dart' show DSHeader;
 export 'src/widgets/utils/ds_progress_bar.widget.dart' show DSProgressBar;
+export 'src/widgets/utils/ds_tab_bar.widget.dart' show DSTabBar;
 export 'src/widgets/utils/ds_user_avatar.widget.dart' show DSUserAvatar;
 export 'src/widgets/utils/reply_content/ds_reply_preview.widget.dart'
     show DSReplyPreview;
