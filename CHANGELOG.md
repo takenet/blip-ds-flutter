@@ -1,7 +1,7 @@
-## 0.3.2
+## 0.3.3
 
 - [DSTabBar] Added new widget based on Material TabBar.
-- 
+
 ## 0.3.2
 
 - [DSGroupCard] Fixed avatar with `simpleStyle` param.
