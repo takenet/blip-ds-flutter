@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../services/ds_security.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
@@ -23,13 +24,13 @@ class DSText extends StatelessWidget {
   final double? height;
 
   /// Creates a Design System's [Text].
-  const DSText(
+  DSText(
     this.text, {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
     this.fontStyle = FontStyle.normal,
-    this.color = DSColors.neutralDarkCity,
+    Color? color,
     this.linkColor = DSColors.primaryNight,
     this.overflow = TextOverflow.ellipsis,
     this.decoration,
@@ -38,15 +39,16 @@ class DSText extends StatelessWidget {
     this.shouldLinkify = true,
     this.isSelectable = false,
     this.height,
-  }) : span = null;
+  })  : color = DSThemeService.foregoundColor,
+        span = null;
 
-  const DSText.rich(
+  DSText.rich(
     this.span, {
     required this.style,
     super.key,
     this.fontWeight = DSFontWeights.regular,
     this.fontStyle = FontStyle.normal,
-    this.color = DSColors.neutralDarkCity,
+    Color? color,
     this.linkColor = DSColors.primaryNight,
     this.overflow = TextOverflow.ellipsis,
     this.decoration,
@@ -55,7 +57,8 @@ class DSText extends StatelessWidget {
     this.shouldLinkify = true,
     this.isSelectable = false,
     this.height,
-  }) : text = null;
+  })  : color = DSThemeService.foregoundColor,
+        text = null;
 
   @override
   Widget build(BuildContext context) =>

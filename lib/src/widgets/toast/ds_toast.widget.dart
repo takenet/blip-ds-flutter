@@ -162,11 +162,13 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
                               DSHeadlineSmallText(
                                 props.title,
                                 overflow: TextOverflow.visible,
+                                color: DSColors.neutralDarkCity,
                               ),
                             if (props.message?.isNotEmpty ?? false)
                               DSBodyText(
                                 props.message,
                                 overflow: TextOverflow.visible,
+                                color: DSColors.neutralDarkCity,
                               ),
                           ],
                         ),
@@ -175,7 +177,10 @@ class _DSToastState extends State<DSToast> with AutomaticKeepAliveClientMixin {
                     if (props.actionType == DSToastActionType.icon)
                       DSIconButton(
                         size: 40.0,
-                        icon: const Icon(DSIcons.close_outline),
+                        icon: Icon(
+                          DSIcons.close_outline,
+                          color: DSColors.neutralDarkCity,
+                        ),
                         onPressed: () => state!(_closeToast),
                       ),
                   ],

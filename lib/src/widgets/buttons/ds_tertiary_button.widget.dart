@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import 'ds_button.widget.dart';
 
@@ -22,7 +23,11 @@ class DSTertiaryButton extends DSButton {
   }) : super(
           backgroundColor: Colors.transparent,
           foregroundColor: isEnabled
-              ? DSColors.neutralDarkCity
-              : DSColors.neutralMediumElephant,
+              ? DSThemeService.isDarkMode()
+                  ? DSColors.neutralLightSnow
+                  : DSColors.neutralDarkCity
+              : DSThemeService.isDarkMode()
+                  ? DSColors.neutralDarkCity
+                  : DSColors.neutralMediumElephant,
         );
 }

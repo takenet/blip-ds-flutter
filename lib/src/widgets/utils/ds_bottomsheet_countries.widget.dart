@@ -7,7 +7,9 @@ import '../../models/ds_country.model.dart';
 import '../../services/ds_bottom_sheet.service.dart';
 import '../../services/ds_context.service.dart';
 import '../../services/ds_navigation.service.dart';
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../utils/ds_utils.util.dart';
 import '../buttons/ds_icon_button.widget.dart';
@@ -32,6 +34,7 @@ abstract class DSBottomSheetCountries {
 
   static Future<void> _bottomSheetCountries() {
     return DSBottomSheetService(
+      darkMode: DSThemeService.isDarkMode() ? RxBool(true) : RxBool(false),
       fixedHeader: Column(
         children: [
           Padding(
@@ -58,7 +61,11 @@ abstract class DSBottomSheetCountries {
               ),
             ),
           ),
-          const DSDivider(),
+          DSDivider(
+            color: DSThemeService.isDarkMode()
+                ? DSDarkColors.surface1
+                : DSColors.neutralMediumWave,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
@@ -75,7 +82,11 @@ abstract class DSBottomSheetCountries {
               ),
             ),
           ),
-          const DSDivider(),
+          DSDivider(
+            color: DSThemeService.isDarkMode()
+                ? DSDarkColors.surface1
+                : DSColors.neutralMediumWave,
+          ),
         ],
       ),
       context: DSContextService.context!,
@@ -130,7 +141,11 @@ abstract class DSBottomSheetCountries {
                       ),
                       groupValue: selectedCountry.value,
                     ),
-                    const DSDivider(),
+                    DSDivider(
+                      color: DSThemeService.isDarkMode()
+                          ? DSDarkColors.surface1
+                          : DSColors.neutralMediumWave,
+                    ),
                   ],
                 ),
               ),

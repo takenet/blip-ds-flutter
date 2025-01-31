@@ -5,7 +5,9 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../extensions/ds_localization.extension.dart';
 import '../../models/ds_country.model.dart';
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../themes/texts/styles/ds_text_style.theme.dart';
@@ -95,7 +97,9 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
             () => Container(
               padding: const EdgeInsets.fromLTRB(12.0, 0.0, 4.0, 0.0),
               decoration: BoxDecoration(
-                color: DSColors.neutralLightSnow,
+                color: DSThemeService.isDarkMode()
+                    ? DSDarkColors.surface3
+                    : DSColors.neutralLightSnow,
                 border: Border.all(color: _borderColor.value),
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -111,10 +115,12 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                       ),
                       child: DSText(
                         widget.labelText,
-                        style: const DSTextStyle(
+                        style: DSTextStyle(
                           fontSize: 9.0,
                           fontWeight: DSFontWeights.bold,
-                          color: DSColors.neutralMediumCloud,
+                          color: DSThemeService.isDarkMode()
+                              ? DSColors.neutralLightSnow
+                              : DSColors.neutralMediumCloud,
                         ),
                         height: 0.0,
                       ),
@@ -202,9 +208,9 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                                 widget.onChanged!(value);
                               }
                             },
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 16.0,
-                              color: DSColors.neutralDarkCity,
+                              color: DSThemeService.foregoundColor,
                               fontFamily: DSFontFamilies.nunitoSans,
                             ),
                             keyboardType: TextInputType.number,
@@ -267,7 +273,9 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
     } else if (_focusNode.hasFocus && widget.shouldFocus) {
       return DSColors.primaryNight;
     } else {
-      return DSColors.neutralMediumWave;
+      return DSThemeService.isDarkMode()
+          ? DSDarkColors.surface0
+          : DSColors.neutralMediumWave;
     }
   }
 }

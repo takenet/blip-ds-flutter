@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../blip_ds.dart';
 import '../../controllers/chat/ds_highlight.controller.dart';
 
 class DSHighlight extends StatefulWidget {
@@ -38,7 +39,9 @@ class _DSTesteState extends State<DSHighlight> with TickerProviderStateMixin {
       decoration: DecorationTween(
         begin: BoxDecoration(),
         end: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.1),
+          color: DSThemeService.isDarkMode()
+              ? DSDarkColors.surface1
+              : Colors.black.withValues(alpha: 0.1),
         ),
       ).animate(animationController!),
       child: widget.child,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import 'ds_icon_button.widget.dart';
@@ -22,9 +23,11 @@ class DSCustomRepliesIconButton extends StatelessWidget {
         child: DSIconButton(
           isLoading: isLoading,
           onPressed: onPressed,
-          icon: const Icon(
+          icon: Icon(
             DSIcons.message_talk_outline,
-            color: DSColors.neutralDarkRooftop,
+            color: DSThemeService.isDarkMode()
+                ? DSColors.neutralLightSnow
+                : DSColors.neutralDarkRooftop,
           ),
         ),
       );

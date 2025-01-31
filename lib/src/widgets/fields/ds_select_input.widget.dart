@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 
@@ -49,7 +51,11 @@ class DSSelectInput extends StatelessWidget {
               focusNode: focusNode,
               controller: controller,
               onChanged: onChanged,
-              style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
+              style: DSBodyTextStyle(
+                color: DSThemeService.isDarkMode()
+                    ? DSColors.neutralLightSnow
+                    : DSColors.neutralDarkCity,
+              ),
               autofocus: false,
               decoration: InputDecoration(
                 suffixIcon: Visibility(
@@ -59,7 +65,9 @@ class DSSelectInput extends StatelessWidget {
                     color: DSColors.neutralMediumCloud,
                   ),
                 ),
-                fillColor: DSColors.neutralLightSnow,
+                fillColor: DSThemeService.isDarkMode()
+                    ? DSDarkColors.surface3
+                    : DSColors.neutralLightSnow,
                 contentPadding: const EdgeInsets.all(10.0),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -70,8 +78,10 @@ class DSSelectInput extends StatelessWidget {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(
-                    color: DSColors.neutralMediumWave,
+                  borderSide: BorderSide(
+                    color: DSThemeService.isDarkMode()
+                        ? DSDarkColors.surface0
+                        : DSColors.neutralMediumWave,
                     width: 1.0,
                   ),
                 ),
