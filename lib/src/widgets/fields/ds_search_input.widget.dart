@@ -36,6 +36,7 @@ class DSSearchInput extends StatelessWidget {
     return SizedBox(
       height: 44.0,
       child: TextField(
+        cursorColor: DSColors.primaryMain,
         enabled: enabled ?? true,
         focusNode: focusNode,
         controller: controller,
