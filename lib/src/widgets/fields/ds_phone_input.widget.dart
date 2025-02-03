@@ -128,6 +128,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 4.0),
@@ -179,13 +180,10 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3.0),
-                              child: Obx(
-                                () => DSBodyText(
-                                  _dropdownValue.value.code,
-                                  color: DSColors.neutralMediumElephant,
-                                ),
+                            Obx(
+                              () => DSBodyText(
+                                _dropdownValue.value.code,
+                                color: DSColors.neutralMediumElephant,
                               ),
                             ),
                           ],

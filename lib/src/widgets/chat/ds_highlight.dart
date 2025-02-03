@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../blip_ds.dart';
 import '../../controllers/chat/ds_highlight.controller.dart';
+import '../../services/ds_theme.service.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 
 class DSHighlight extends StatefulWidget {
   final Widget child;
