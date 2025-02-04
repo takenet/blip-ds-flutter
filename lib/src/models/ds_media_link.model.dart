@@ -21,11 +21,18 @@ class DSMediaLink {
 
   DSMediaLink.fromJson(Map<String, dynamic> json)
       : uri = json['uri'],
-        type = json['type'],
+        type = _formatMimeType(
+          type: json['type'],
+        ),
         title = json['title'],
         text = json['text'],
         aspectRatio = json['aspectRatio'],
         size = json['size'],
         authorizationRealm = json['authorizationRealm'],
         previewUri = json['previewUri'];
+
+  static String _formatMimeType({
+    required final String? type,
+  }) =>
+      type?.replaceFirst('sticker/', 'image/') ?? '';
 }
