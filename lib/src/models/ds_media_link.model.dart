@@ -34,5 +34,5 @@ class DSMediaLink {
   static String _formatMimeType({
     required final String? type,
   }) =>
-      type?.replaceFirst('sticker/', 'image/') ?? '';
+      type?.toLowerCase().replaceFirst('sticker/', 'image/') ?? '';
 }
