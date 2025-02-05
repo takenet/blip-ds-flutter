@@ -121,6 +121,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
                             : DSIcons.voip_calling_outline
                         : DSIcons.voip_ended_outline,
                     size: 24.0,
+                    color: DSColors.neutralDarkCity,
                   ),
                 ),
               ),

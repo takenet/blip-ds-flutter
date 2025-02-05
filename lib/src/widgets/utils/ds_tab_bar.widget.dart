@@ -8,12 +8,14 @@ class DSTabBar extends StatelessWidget {
   final TabController? controller;
   final Function(int)? onTap;
   final List<Widget> tabs;
+  final Color? dividerColor;
 
   const DSTabBar({
     required this.tabs,
     super.key,
     this.controller,
     this.onTap,
+    this.dividerColor,
   });
 
   @override
@@ -27,7 +29,7 @@ class DSTabBar extends StatelessWidget {
         unselectedLabelStyle: const DSBodyTextStyle(
           color: DSColors.neutralDarkCity,
         ),
-        dividerColor: DSColors.neutralMediumWave,
+        dividerColor: dividerColor ?? DSColors.neutralMediumWave,
         indicatorSize: TabBarIndicatorSize.tab,
         indicatorWeight: 0.0,
         indicator: const UnderlineTabIndicator(

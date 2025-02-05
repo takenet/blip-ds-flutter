@@ -7,6 +7,7 @@ import '/src/themes/texts/styles/ds_body_text_style.theme.dart';
 import '/src/widgets/tags/tag_editor/tag_editor.dart';
 import '/src/widgets/texts/ds_headline_small_text.widget.dart';
 import '/src/widgets/utils/ds_chip.widget.dart';
+import '../../services/ds_theme.service.dart';
 import '../buttons/ds_icon_button.widget.dart';
 
 class DSInputChip extends StatefulWidget {
@@ -62,7 +63,7 @@ class _DSInputChipState extends State<DSInputChip> {
         borderRadius: 8.0,
         enableBorderColor: DSColors.neutralMediumWave,
         focusedBorderColor: DSColors.primaryMain,
-        textStyle: const DSBodyTextStyle(),
+        textStyle: DSBodyTextStyle(color: DSThemeService.foregoundColor),
         controller: widget.controller,
         length: widget.values.length,
         delimiters: const [],
@@ -97,7 +98,10 @@ class _DSInputChipState extends State<DSInputChip> {
           borderRadius: const BorderRadius.all(
             Radius.circular(16.0),
           ),
-          text: DSHeadlineSmallText(widget.values[index]),
+          text: DSHeadlineSmallText(
+            widget.values[index],
+            color: DSColors.neutralDarkCity,
+          ),
           background: DSColors.primaryLight,
           trailingIcon: SizedBox(
             child: DSIconButton(

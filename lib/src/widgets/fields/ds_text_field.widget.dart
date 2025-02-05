@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../enums/ds_input_container_shape.enum.dart';
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../utils/ds_utils.util.dart';
@@ -128,7 +130,7 @@ class _DSTextFieldState extends State<DSTextField> {
             scrollController: _scrollController,
             enabled: widget.isEnabled,
             obscureText: widget.obscureText,
-            style: const DSBodyTextStyle(),
+            style: DSBodyTextStyle(color: DSThemeService.foregoundColor),
             cursorColor: DSColors.primaryMain,
             cursorHeight: 20.0,
             textCapitalization: widget.textCapitalization,
@@ -138,6 +140,14 @@ class _DSTextFieldState extends State<DSTextField> {
             onTap: widget.onTap,
             onTapOutside: widget.onTapOutside,
             decoration: InputDecoration(
+              fillColor: widget.isEnabled
+                  ? DSThemeService.isDarkMode()
+                      ? DSDarkColors.surface3
+                      : DSColors.neutralLightSnow
+                  : DSThemeService.isDarkMode()
+                      ? DSDarkColors.surface1
+                      : DSColors.neutralLightWhisper,
+              filled: true,
               isDense: true,
               contentPadding: EdgeInsets.zero,
               border: InputBorder.none,

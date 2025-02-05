@@ -9,10 +9,11 @@ class DSAttachmentButton extends DSIconButton {
     super.key,
     required super.onPressed,
     super.isLoading,
+    Color? iconColor,
   }) : super(
-          icon: const Icon(
+          icon: Icon(
             DSIcons.attach_outline,
-            color: DSColors.neutralDarkRooftop,
+            color: iconColor ?? DSColors.neutralDarkRooftop,
           ),
         );
 }

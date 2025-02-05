@@ -2,6 +2,7 @@ import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../texts/ds_caption_small_text.widget.dart';
 
@@ -45,7 +46,7 @@ class DSCircularProgress extends StatelessWidget {
               if (currentProgress.value > 0 && maximumProgress.value > 0)
                 DSCaptionSmallText(
                   _buildProgress(),
-                  color: foregroundColor ?? DSColors.neutralDarkCity,
+                  color: foregroundColor ?? DSThemeService.foregoundColor,
                 )
             ],
           ),
