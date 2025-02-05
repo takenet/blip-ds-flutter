@@ -175,7 +175,7 @@ class _DSLocationMessageBubbleState extends State<DSLocationMessageBubble> {
             ),
           ),
         ),
-        const DSDivider()
+        DSDivider()
       ],
     );
   }

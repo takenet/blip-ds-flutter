@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 import '../../themes/texts/styles/ds_caption_small_text_style.theme.dart';
@@ -64,8 +66,12 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             padding: const EdgeInsets.fromLTRB(12.0, 6.0, 4.0, 6.0),
             decoration: BoxDecoration(
               color: widget.isEnabled
-                  ? DSColors.neutralLightSnow
-                  : DSColors.neutralLightWhisper,
+                  ? DSThemeService.isDarkMode()
+                      ? DSDarkColors.surface3
+                      : DSColors.neutralLightSnow
+                  : DSThemeService.isDarkMode()
+                      ? DSDarkColors.surface1
+                      : DSColors.neutralLightWhisper,
               border: Border.all(color: _borderColor.value),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -76,7 +82,9 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
               onChanged: widget.onChanged,
               style: DSBodyTextStyle(
                 color: widget.isEnabled
-                    ? DSColors.neutralDarkCity
+                    ? DSThemeService.isDarkMode()
+                        ? DSColors.neutralLightSnow
+                        : DSColors.neutralDarkCity
                     : DSColors.neutralMediumSilver,
               ),
               autofocus: false,
@@ -84,15 +92,21 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
               inputFormatters: widget.inputFormatters,
               decoration: InputDecoration(
                 fillColor: widget.isEnabled
-                    ? DSColors.neutralLightSnow
-                    : DSColors.neutralLightWhisper,
+                    ? DSThemeService.isDarkMode()
+                        ? DSDarkColors.surface3
+                        : DSColors.neutralLightSnow
+                    : DSThemeService.isDarkMode()
+                        ? DSDarkColors.surface1
+                        : DSColors.neutralLightWhisper,
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
                 labelText: widget.labelText,
                 labelStyle: DSCaptionSmallTextStyle(
                   fontWeight: DSFontWeights.bold,
                   color: widget.isEnabled
-                      ? DSColors.neutralMediumCloud
+                      ? DSThemeService.isDarkMode()
+                          ? DSColors.neutralLightSnow
+                          : DSColors.neutralMediumCloud
                       : DSColors.neutralMediumSilver,
                 ),
                 filled: true,
@@ -134,9 +148,13 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
     } else if (_focusNode.hasFocus) {
       return DSColors.primaryNight;
     } else if (widget.isEnabled) {
-      return DSColors.neutralMediumWave;
+      return DSThemeService.isDarkMode()
+          ? DSDarkColors.surface0
+          : DSColors.neutralMediumWave;
     } else {
-      return DSColors.neutralLightBox;
+      return DSThemeService.isDarkMode()
+          ? DSDarkColors.surface0
+          : DSColors.neutralLightBox;
     }
   }
 }

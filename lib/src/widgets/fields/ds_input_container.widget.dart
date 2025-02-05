@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../enums/ds_input_container_shape.enum.dart';
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../utils/ds_utils.util.dart';
 
 class DSInputContainer extends StatelessWidget {
@@ -45,8 +47,12 @@ class DSInputContainer extends StatelessWidget {
                           : DSColors.neutralLightBox,
             ),
             color: isEnabled
-                ? DSColors.neutralLightSnow
-                : DSColors.neutralLightWhisper,
+                ? DSThemeService.isDarkMode()
+                    ? DSDarkColors.surface3
+                    : DSColors.neutralLightSnow
+                : DSThemeService.isDarkMode()
+                    ? DSDarkColors.surface1
+                    : DSColors.neutralLightWhisper,
           ),
           child: Container(
             constraints: BoxConstraints(

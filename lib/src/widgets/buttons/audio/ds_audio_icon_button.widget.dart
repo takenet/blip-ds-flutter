@@ -10,12 +10,13 @@ class DSAudioIconButton extends DSTertiaryButton {
     super.key,
     super.onPressed,
     super.isLoading,
+    Color? iconColor,
   }) : super(
           leadingIcon: SvgPicture.asset(
             'assets/images/microphone.svg',
             package: DSUtils.packageName,
-            colorFilter: const ColorFilter.mode(
-              DSColors.neutralDarkRooftop,
+            colorFilter: ColorFilter.mode(
+              iconColor ?? DSColors.neutralDarkRooftop,
               BlendMode.srcIn,
             ),
             height: 24.0,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
+import '../../themes/colors/ds_dark_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
 import '../../themes/texts/styles/ds_body_text_style.theme.dart';
 
@@ -34,11 +36,15 @@ class DSSearchInput extends StatelessWidget {
     return SizedBox(
       height: 44.0,
       child: TextField(
+        cursorColor: DSColors.primaryMain,
         enabled: enabled ?? true,
         focusNode: focusNode,
         controller: controller,
         onChanged: onSearch,
-        style: const DSBodyTextStyle(color: DSColors.neutralDarkCity),
+        style: DSBodyTextStyle(
+            color: DSThemeService.isDarkMode()
+                ? DSColors.neutralLightSnow
+                : DSColors.neutralDarkCity),
         autofocus: false,
         decoration: InputDecoration(
           suffixIcon: Visibility(
@@ -52,7 +58,9 @@ class DSSearchInput extends StatelessWidget {
               ),
             ),
           ),
-          fillColor: DSColors.neutralLightSnow,
+          fillColor: DSThemeService.isDarkMode()
+              ? DSDarkColors.surface3
+              : DSColors.neutralLightSnow,
           prefixIconConstraints: const BoxConstraints(
             minWidth: 25.0,
             minHeight: 25.0,
@@ -98,8 +106,10 @@ class DSSearchInput extends StatelessWidget {
 
   OutlineInputBorder _getBorder() => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(
-          color: DSColors.neutralMediumWave,
+        borderSide: BorderSide(
+          color: DSThemeService.isDarkMode()
+              ? DSDarkColors.surface0
+              : DSColors.neutralMediumWave,
           width: 1.0,
         ),
       );

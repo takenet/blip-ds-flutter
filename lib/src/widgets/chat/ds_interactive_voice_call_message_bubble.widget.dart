@@ -53,7 +53,7 @@ class DSInteractiveVoiceCallMessageBubble extends StatelessWidget {
           content.action?.name == 'voice_call'
               ? Column(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 8.0,
                       ),
