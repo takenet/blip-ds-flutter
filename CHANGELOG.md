@@ -1,3 +1,7 @@
+## 0.3.4
+
+- Added support to dark mode.
+
 ## 0.3.3
 
 - [DSTabBar] Added new widget based on Material TabBar.
