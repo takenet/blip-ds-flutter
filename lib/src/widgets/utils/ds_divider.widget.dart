@@ -12,7 +12,7 @@ class DSDivider extends Divider {
     Color? color,
   }) : super(
           color: color ??
-              (DSThemeService.isDarkMode()
+              (DSThemeService.isDarkMode
                   ? DSDarkColors.surface1
                   : DSColors.neutralMediumWave),
         );

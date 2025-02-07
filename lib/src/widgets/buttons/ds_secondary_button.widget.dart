@@ -26,12 +26,12 @@ class DSSecondaryButton extends DSButton {
     Color? borderColor,
   }) : super(
           backgroundColor: backgroundColor ??
-              (DSThemeService.isDarkMode()
+              (DSThemeService.isDarkMode
                   ? DSDarkColors.surface3
                   : DSColors.neutralLightSnow),
           foregroundColor: foregroundColor ??
               (isEnabled
-                  ? DSThemeService.isDarkMode()
+                  ? DSThemeService.isDarkMode
                       ? DSColors.neutralLightSnow
                       : DSColors.primaryNight
                   : DSColors.neutralMediumElephant),

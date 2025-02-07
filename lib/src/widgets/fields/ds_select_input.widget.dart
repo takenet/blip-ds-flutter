@@ -52,7 +52,7 @@ class DSSelectInput extends StatelessWidget {
               controller: controller,
               onChanged: onChanged,
               style: DSBodyTextStyle(
-                color: DSThemeService.isDarkMode()
+                color: DSThemeService.isDarkMode
                     ? DSColors.neutralLightSnow
                     : DSColors.neutralDarkCity,
               ),
@@ -65,7 +65,7 @@ class DSSelectInput extends StatelessWidget {
                     color: DSColors.neutralMediumCloud,
                   ),
                 ),
-                fillColor: DSThemeService.isDarkMode()
+                fillColor: DSThemeService.isDarkMode
                     ? DSDarkColors.surface3
                     : DSColors.neutralLightSnow,
                 contentPadding: const EdgeInsets.all(10.0),
@@ -79,7 +79,7 @@ class DSSelectInput extends StatelessWidget {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide(
-                    color: DSThemeService.isDarkMode()
+                    color: DSThemeService.isDarkMode
                         ? DSDarkColors.surface0
                         : DSColors.neutralMediumWave,
                     width: 1.0,

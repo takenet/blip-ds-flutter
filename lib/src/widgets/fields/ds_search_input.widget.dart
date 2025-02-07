@@ -42,7 +42,7 @@ class DSSearchInput extends StatelessWidget {
         controller: controller,
         onChanged: onSearch,
         style: DSBodyTextStyle(
-            color: DSThemeService.isDarkMode()
+            color: DSThemeService.isDarkMode
                 ? DSColors.neutralLightSnow
                 : DSColors.neutralDarkCity),
         autofocus: false,
@@ -58,7 +58,7 @@ class DSSearchInput extends StatelessWidget {
               ),
             ),
           ),
-          fillColor: DSThemeService.isDarkMode()
+          fillColor: DSThemeService.isDarkMode
               ? DSDarkColors.surface3
               : DSColors.neutralLightSnow,
           prefixIconConstraints: const BoxConstraints(
@@ -107,7 +107,7 @@ class DSSearchInput extends StatelessWidget {
   OutlineInputBorder _getBorder() => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(
-          color: DSThemeService.isDarkMode()
+          color: DSThemeService.isDarkMode
               ? DSDarkColors.surface0
               : DSColors.neutralMediumWave,
           width: 1.0,

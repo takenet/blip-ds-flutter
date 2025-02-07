@@ -79,7 +79,7 @@ class DSDialogService {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400.0),
             decoration: BoxDecoration(
-              color: DSThemeService.isDarkMode()
+              color: DSThemeService.isDarkMode
                   ? DSDarkColors.surface3
                   : DSColors.neutralLightSnow,
               borderRadius: const BorderRadius.all(Radius.circular(15.0)),

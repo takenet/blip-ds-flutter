@@ -97,7 +97,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
             () => Container(
               padding: const EdgeInsets.fromLTRB(12.0, 0.0, 4.0, 0.0),
               decoration: BoxDecoration(
-                color: DSThemeService.isDarkMode()
+                color: DSThemeService.isDarkMode
                     ? DSDarkColors.surface3
                     : DSColors.neutralLightSnow,
                 border: Border.all(color: _borderColor.value),
@@ -118,7 +118,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
                         style: DSTextStyle(
                           fontSize: 9.0,
                           fontWeight: DSFontWeights.bold,
-                          color: DSThemeService.isDarkMode()
+                          color: DSThemeService.isDarkMode
                               ? DSColors.neutralLightSnow
                               : DSColors.neutralMediumCloud,
                         ),
@@ -271,7 +271,7 @@ class _DSPhoneInputState extends State<DSPhoneInput> {
     } else if (_focusNode.hasFocus && widget.shouldFocus) {
       return DSColors.primaryNight;
     } else {
-      return DSThemeService.isDarkMode()
+      return DSThemeService.isDarkMode
           ? DSDarkColors.surface0
           : DSColors.neutralMediumWave;
     }

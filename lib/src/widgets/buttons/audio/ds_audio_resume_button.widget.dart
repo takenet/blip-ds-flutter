@@ -16,7 +16,7 @@ class DSAudioResumeButton extends DSTertiaryButton {
             'assets/images/microphone.svg',
             package: DSUtils.packageName,
             colorFilter: ColorFilter.mode(
-              DSThemeService.isDarkMode()
+              DSThemeService.isDarkMode
                   ? DSColors.neutralLightSnow
                   : DSColors.neutralDarkRooftop,
               BlendMode.srcIn,
