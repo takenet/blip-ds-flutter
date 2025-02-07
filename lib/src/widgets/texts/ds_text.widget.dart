@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../services/ds_theme.service.dart';
 import '../../services/ds_security.service.dart';
+import '../../services/ds_theme.service.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/texts/utils/ds_font_weights.theme.dart';
 import '../../utils/ds_linkify.util.dart';
@@ -31,7 +31,7 @@ class DSText extends StatelessWidget {
     this.fontWeight = DSFontWeights.regular,
     this.fontStyle = FontStyle.normal,
     Color? color,
-    this.linkColor = DSColors.primaryNight,
+    Color? linkColor,
     this.overflow = TextOverflow.ellipsis,
     this.decoration,
     this.textAlign,
@@ -40,6 +40,9 @@ class DSText extends StatelessWidget {
     this.isSelectable = false,
     this.height,
   })  : color = DSThemeService.foregoundColor,
+        linkColor = DSThemeService.isDarkMode
+            ? DSColors.primaryLight
+            : DSColors.primaryNight,
         span = null;
 
   DSText.rich(
@@ -49,7 +52,7 @@ class DSText extends StatelessWidget {
     this.fontWeight = DSFontWeights.regular,
     this.fontStyle = FontStyle.normal,
     Color? color,
-    this.linkColor = DSColors.primaryNight,
+    Color? linkColor,
     this.overflow = TextOverflow.ellipsis,
     this.decoration,
     this.textAlign,
@@ -58,6 +61,9 @@ class DSText extends StatelessWidget {
     this.isSelectable = false,
     this.height,
   })  : color = DSThemeService.foregoundColor,
+        linkColor = DSThemeService.isDarkMode
+            ? DSColors.primaryLight
+            : DSColors.primaryNight,
         text = null;
 
   @override

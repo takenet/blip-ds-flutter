@@ -141,10 +141,10 @@ class _DSTextFieldState extends State<DSTextField> {
             onTapOutside: widget.onTapOutside,
             decoration: InputDecoration(
               fillColor: widget.isEnabled
-                  ? DSThemeService.isDarkMode()
+                  ? DSThemeService.isDarkMode
                       ? DSDarkColors.surface3
                       : DSColors.neutralLightSnow
-                  : DSThemeService.isDarkMode()
+                  : DSThemeService.isDarkMode
                       ? DSDarkColors.surface1
                       : DSColors.neutralLightWhisper,
               filled: true,

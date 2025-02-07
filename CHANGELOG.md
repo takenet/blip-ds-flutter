@@ -1,3 +1,7 @@
+## 0.3.6
+
+- Improved link color contrast in Dark Mode.
+
 ## 0.3.5
 
 - Added support for Reactions.

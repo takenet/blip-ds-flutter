@@ -40,7 +40,7 @@ class _DSTesteState extends State<DSHighlight> with TickerProviderStateMixin {
       decoration: DecorationTween(
         begin: BoxDecoration(),
         end: BoxDecoration(
-          color: DSThemeService.isDarkMode()
+          color: DSThemeService.isDarkMode
               ? DSDarkColors.surface1
               : Colors.black.withValues(alpha: 0.1),
         ),

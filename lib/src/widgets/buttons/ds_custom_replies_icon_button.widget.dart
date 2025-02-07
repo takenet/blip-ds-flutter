@@ -25,7 +25,7 @@ class DSCustomRepliesIconButton extends StatelessWidget {
           onPressed: onPressed,
           icon: Icon(
             DSIcons.message_talk_outline,
-            color: DSThemeService.isDarkMode()
+            color: DSThemeService.isDarkMode
                 ? DSColors.neutralLightSnow
                 : DSColors.neutralDarkRooftop,
           ),

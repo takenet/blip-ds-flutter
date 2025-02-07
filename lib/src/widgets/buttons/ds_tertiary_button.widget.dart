@@ -23,10 +23,10 @@ class DSTertiaryButton extends DSButton {
   }) : super(
           backgroundColor: Colors.transparent,
           foregroundColor: isEnabled
-              ? DSThemeService.isDarkMode()
+              ? DSThemeService.isDarkMode
                   ? DSColors.neutralLightSnow
                   : DSColors.neutralDarkCity
-              : DSThemeService.isDarkMode()
+              : DSThemeService.isDarkMode
                   ? DSColors.neutralDarkCity
                   : DSColors.neutralMediumElephant,
         );

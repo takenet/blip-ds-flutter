@@ -66,10 +66,10 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             padding: const EdgeInsets.fromLTRB(12.0, 6.0, 4.0, 6.0),
             decoration: BoxDecoration(
               color: widget.isEnabled
-                  ? DSThemeService.isDarkMode()
+                  ? DSThemeService.isDarkMode
                       ? DSDarkColors.surface3
                       : DSColors.neutralLightSnow
-                  : DSThemeService.isDarkMode()
+                  : DSThemeService.isDarkMode
                       ? DSDarkColors.surface1
                       : DSColors.neutralLightWhisper,
               border: Border.all(color: _borderColor.value),
@@ -82,7 +82,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
               onChanged: widget.onChanged,
               style: DSBodyTextStyle(
                 color: widget.isEnabled
-                    ? DSThemeService.isDarkMode()
+                    ? DSThemeService.isDarkMode
                         ? DSColors.neutralLightSnow
                         : DSColors.neutralDarkCity
                     : DSColors.neutralMediumSilver,
@@ -92,10 +92,10 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
               inputFormatters: widget.inputFormatters,
               decoration: InputDecoration(
                 fillColor: widget.isEnabled
-                    ? DSThemeService.isDarkMode()
+                    ? DSThemeService.isDarkMode
                         ? DSDarkColors.surface3
                         : DSColors.neutralLightSnow
-                    : DSThemeService.isDarkMode()
+                    : DSThemeService.isDarkMode
                         ? DSDarkColors.surface1
                         : DSColors.neutralLightWhisper,
                 contentPadding: EdgeInsets.zero,
@@ -104,7 +104,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
                 labelStyle: DSCaptionSmallTextStyle(
                   fontWeight: DSFontWeights.bold,
                   color: widget.isEnabled
-                      ? DSThemeService.isDarkMode()
+                      ? DSThemeService.isDarkMode
                           ? DSColors.neutralLightSnow
                           : DSColors.neutralMediumCloud
                       : DSColors.neutralMediumSilver,
@@ -148,11 +148,11 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
     } else if (_focusNode.hasFocus) {
       return DSColors.primaryNight;
     } else if (widget.isEnabled) {
-      return DSThemeService.isDarkMode()
+      return DSThemeService.isDarkMode
           ? DSDarkColors.surface0
           : DSColors.neutralMediumWave;
     } else {
-      return DSThemeService.isDarkMode()
+      return DSThemeService.isDarkMode
           ? DSDarkColors.surface0
           : DSColors.neutralLightBox;
     }

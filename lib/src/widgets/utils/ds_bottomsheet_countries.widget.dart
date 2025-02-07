@@ -33,7 +33,7 @@ abstract class DSBottomSheetCountries {
 
   static Future<void> _bottomSheetCountries() {
     return DSBottomSheetService(
-      darkMode: DSThemeService.isDarkMode() ? RxBool(true) : RxBool(false),
+      darkMode: DSThemeService.isDarkMode ? RxBool(true) : RxBool(false),
       fixedHeader: Column(
         children: [
           Padding(

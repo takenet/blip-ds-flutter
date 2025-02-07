@@ -47,10 +47,10 @@ class DSInputContainer extends StatelessWidget {
                           : DSColors.neutralLightBox,
             ),
             color: isEnabled
-                ? DSThemeService.isDarkMode()
+                ? DSThemeService.isDarkMode
                     ? DSDarkColors.surface3
                     : DSColors.neutralLightSnow
-                : DSThemeService.isDarkMode()
+                : DSThemeService.isDarkMode
                     ? DSDarkColors.surface1
                     : DSColors.neutralLightWhisper,
           ),
