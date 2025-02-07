@@ -1,6 +1,10 @@
+## 0.3.5
+
+- Added support for Reactions.
+
 ## 0.3.4
 
-- Added support to dark mode.
+- Added support to Dark Mode.
 
 ## 0.3.3
 
@@ -16,7 +20,7 @@
 
 ## 0.3.0
 
-- Add support to new Flutter version (3.27.1)
+- Added support to new Flutter version (3.27.1)
 
 ## 0.2.6
 
