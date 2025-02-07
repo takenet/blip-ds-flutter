@@ -77,10 +77,6 @@ class DSCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _resolveWidget();
-  }
-
-  Widget _resolveWidget() {
     switch (type) {
       case DSMessageContentType.textPlain:
       case DSMessageContentType.sensitive:
@@ -94,10 +90,7 @@ class DSCard extends StatelessWidget {
           onTapReply: onTapReply,
         );
 
-      case DSMessageContentType.contact:
-        return _buildContact();
-
-      case DSMessageContentType.reply:
+      case DSMessageContentType.reply || DSMessageContentType.reaction:
         final replyContent = DSReplyContent.fromJson(content);
 
         return DSCard(
@@ -117,6 +110,9 @@ class DSCard extends StatelessWidget {
           isUploading: isUploading,
           onTapReply: onTapReply,
         );
+
+      case DSMessageContentType.contact:
+        return _buildContact();
 
       case DSMessageContentType.mediaLink:
         return _buildMediaLink();
