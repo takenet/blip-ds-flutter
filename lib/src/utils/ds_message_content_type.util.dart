@@ -14,4 +14,5 @@ abstract class DSMessageContentType {
   static const String applicationJson = 'application/json';
   static const String reply = 'application/vnd.lime.reply+json';
   static const String callsMedia = 'application/vnd.iris.calls.media+json';
+  static const String reaction = 'application/vnd.lime.reaction+json';
 }
