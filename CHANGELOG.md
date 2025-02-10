@@ -1,3 +1,7 @@
+## 0.3.7
+
+- [DSGroupCard] Added dark color to scroll button.
+
 ## 0.3.6
 
 - Improved link color contrast in Dark Mode.
