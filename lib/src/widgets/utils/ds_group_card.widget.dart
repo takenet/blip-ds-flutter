@@ -177,6 +177,7 @@ class _DSGroupCardState extends State<DSGroupCard> {
                   leadingIcon: const Icon(
                     DSIcons.arrow_down_outline,
                     size: 20,
+                    color: DSColors.neutralDarkCity,
                   ),
                   backgroundColor: DSColors.neutralLightSnow,
                   foregroundColor: DSColors.neutralDarkCity,
