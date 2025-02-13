@@ -53,6 +53,10 @@ class DSDialogService {
   }) {
     this.type = type;
 
+    for (var i = 0; i < 10; i++) {
+      print('hello ${i + 1}');
+    }
+
     _isDialogOpen = true;
 
     return showDialog<T>(
