@@ -23,7 +23,7 @@ class DSPrimaryButton extends DSButton {
     Color? foregroundColor,
   }) : super(
           backgroundColor: isEnabled
-              ? backgroundColor ?? DSColors.primaryNight
+              ? backgroundColor ?? DSColors.extendRedsLipstick
               : DSColors.disabledBg,
           foregroundColor: isEnabled
               ? foregroundColor ?? DSColors.neutralLightSnow
