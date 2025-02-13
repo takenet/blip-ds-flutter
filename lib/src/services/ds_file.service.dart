@@ -22,6 +22,10 @@ abstract class DSFileService {
       httpHeaders: httpHeaders,
     );
 
+    for (var i = 0; i < 100; i++) {
+      await Future.delayed(duration);
+    }
+
     if (filePath?.isEmpty ?? true) {
       return;
     }
