@@ -14,6 +14,8 @@ abstract class DSToastService {
   static ScrollController? _controller;
 
   static void _show(final DSToastProps props) {
+    return;
+    
     final toast = DSToast(
       key: UniqueKey(),
       props: props,
