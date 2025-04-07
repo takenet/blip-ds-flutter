@@ -1,3 +1,7 @@
+## 0.3.8
+
+- Remove dependency from ffmpeg_kit_flutter_full_gpl package
+
 ## 0.3.7
 
 - [DSGroupCard] Added dark color to scroll button.
