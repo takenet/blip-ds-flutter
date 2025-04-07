@@ -166,33 +166,13 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
 
   Future<void> _downloadAudio({
     required final String outputPath,
-  }) async {
-    final tempPath = await DSFileService.download(
-      url: widget.uri.toString(),
-      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
-    );
-
-    if (tempPath?.isNotEmpty ?? false) {
-      final isSuccess = await DSMediaFormatService.transcodeAudio(
-        input: tempPath!,
-        output: outputPath,
+  }) async =>
+      await DSFileService.download(
+        path: outputPath,
+        url: widget.uri.toString(),
+        httpHeaders:
+            widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
       );
-
-      final tempFile = File(tempPath);
-
-      if (tempFile.existsSync()) {
-        tempFile.deleteSync();
-      }
-
-      if (!isSuccess) {
-        final outputFile = File(outputPath);
-
-        if (outputFile.existsSync()) {
-          outputFile.deleteSync();
-        }
-      }
-    }
-  }
 
   Widget _buildSpeedButton() => Obx(
         () => DSAudioSpeedButton(

@@ -123,6 +123,7 @@ export 'src/widgets/buttons/ds_custom_replies_icon_button.widget.dart'
 export 'src/widgets/buttons/ds_ghost_button.widget.dart' show DSGhostButton;
 export 'src/widgets/buttons/ds_icon_button.widget.dart' show DSIconButton;
 export 'src/widgets/buttons/ds_pause_button.widget.dart' show DSPauseButton;
+export 'src/widgets/buttons/ds_stop_button.widget.dart' show DSStopButton;
 export 'src/widgets/buttons/ds_play_button.widget.dart' show DSPlayButton;
 export 'src/widgets/buttons/ds_primary_button.widget.dart' show DSPrimaryButton;
 export 'src/widgets/buttons/ds_request_location_button.widget.dart'
