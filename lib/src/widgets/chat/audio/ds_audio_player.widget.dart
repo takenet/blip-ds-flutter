@@ -133,10 +133,12 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       return;
     }
 
+    final extension = widget.uri.path.split('.').last.toLowerCase();
+
     final outputPath = await DSDirectoryFormatter.getCachePath(
-      type: 'audio/mp4',
+      type: 'audio/$extension',
       filename: md5.convert(utf8.encode(widget.uri.path)).toString(),
-      extension: 'm4a',
+      extension: extension,
     );
 
     final outputFile = File(outputPath);

@@ -1,3 +1,7 @@
+## 0.3.9
+
+- Fixed iOS audio player reproduction.
+
 ## 0.3.8
 
 - Remove dependency from ffmpeg_kit_flutter_full_gpl package
