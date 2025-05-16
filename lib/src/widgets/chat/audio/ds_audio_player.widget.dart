@@ -10,7 +10,6 @@ import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../extensions/future.extension.dart';
 import '../../../services/ds_auth.service.dart';
 import '../../../services/ds_file.service.dart';
-import '../../../services/ds_media_format.service.dart';
 import '../../../themes/colors/ds_colors.theme.dart';
 import '../../../utils/ds_directory_formatter.util.dart';
 import '../../buttons/ds_pause_button.widget.dart';
@@ -134,10 +133,12 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       return;
     }
 
+    final extension = widget.uri.path.split('.').last.toLowerCase();
+
     final outputPath = await DSDirectoryFormatter.getCachePath(
-      type: 'audio/mp4',
+      type: 'audio/$extension',
       filename: md5.convert(utf8.encode(widget.uri.path)).toString(),
-      extension: 'm4a',
+      extension: extension,
     );
 
     final outputFile = File(outputPath);
