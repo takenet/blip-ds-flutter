@@ -50,7 +50,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
           DSIcons.clock_outline,
           size: 16,
           color: theme == DSThemeType.dark
-              ? DSColors.contentDefault
+              ? DSColors.neutralMediumElephant
               : DSColors.neutralLightSnow,
         );
 
@@ -88,7 +88,7 @@ class DSDeliveryReportIcon extends StatelessWidget {
           DSIcons.clock_outline,
           size: 16,
           color: theme == DSThemeType.dark
-              ? DSColors.contentDefault
+              ? DSColors.neutralMediumElephant
               : DSColors.neutralLightSnow,
         );
     }
