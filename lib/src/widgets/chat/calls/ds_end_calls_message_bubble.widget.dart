@@ -172,7 +172,8 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
                     case ConnectionState.done:
                       if (snapshot.hasError) {
                         child = _buildError();
-                      } else if (snapshot.data?.isNotEmpty ?? false) {
+                      } else if (DSUtils.shouldShowCallRecordingAudioPlayer &&
+                          (snapshot.data?.isNotEmpty ?? false)) {
                         child = _buildAudioPlayer(snapshot.data!);
                       } else {
                         return const SizedBox.shrink();

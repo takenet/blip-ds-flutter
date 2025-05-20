@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as path_utils;
 import 'package:path_provider/path_provider.dart';
@@ -103,12 +104,8 @@ abstract class DSFileService {
     return null;
   }
 
-  static String getExtensionFromMimeType(final String mimeType) {
-    return mimeType == 'application/vnd.ms-powerpoint'
-        ? 'ppt'
-        : RegExp(r'((?<=\/)[a-zA-Z0-9]+)')
-                .firstMatch(mimeType)?[0]
-                ?.toLowerCase() ??
-            '';
-  }
+  static String getExtensionFromMimeType(
+    final String mimeType,
+  ) =>
+      mimeType == 'audio/mpeg' ? 'mp3' : (extensionFromMime(mimeType) ?? '');
 }

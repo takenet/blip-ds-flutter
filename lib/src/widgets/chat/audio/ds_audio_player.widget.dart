@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:path/path.dart';
 
 import '../../../controllers/chat/ds_audio_player.controller.dart';
 import '../../../extensions/future.extension.dart';
@@ -133,22 +134,39 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
       return;
     }
 
-    final extension = widget.uri.path.split('.').last.toLowerCase();
-
-    final outputPath = await DSDirectoryFormatter.getCachePath(
-      type: 'audio/$extension',
+    var outputPath = await DSDirectoryFormatter.getCachePath(
+      type: 'audio',
       filename: md5.convert(utf8.encode(widget.uri.path)).toString(),
-      extension: extension,
     );
 
-    final outputFile = File(outputPath);
+    var outputDirectory = Directory(
+      outputPath.substring(
+        0,
+        outputPath.lastIndexOf('/'),
+      ),
+    );
+
+    if (outputDirectory.existsSync()) {
+      final allFiles = outputDirectory.listSync();
+
+      final fileSearched = allFiles.firstWhereOrNull(
+        (file) =>
+            basenameWithoutExtension(file.path) ==
+            basenameWithoutExtension(outputPath),
+      );
+
+      outputPath = fileSearched?.path ?? outputPath;
+    }
+
+    File outputFile = File(outputPath);
     var hasCachedFile = outputFile.existsSync();
 
     if (!hasCachedFile) {
-      await _downloadAudio(
+      outputPath = await _downloadAudio(
         outputPath: outputPath,
       );
 
+      outputFile = File(outputPath);
       hasCachedFile = outputFile.existsSync();
     }
 
@@ -165,15 +183,26 @@ class _DSAudioPlayerState extends State<DSAudioPlayer>
     );
   }
 
-  Future<void> _downloadAudio({
-    required final String outputPath,
-  }) async =>
-      await DSFileService.download(
-        path: outputPath,
-        url: widget.uri.toString(),
-        httpHeaders:
-            widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
-      );
+  Future<String> _downloadAudio({
+    required String outputPath,
+  }) async {
+    final tempPath = await DSFileService.download(
+      url: widget.uri.toString(),
+      httpHeaders: widget.shouldAuthenticate ? DSAuthService.httpHeaders : null,
+    );
+
+    if (tempPath?.isNotEmpty ?? false) {
+      final tempFile = File(tempPath!);
+      outputPath += extension(tempPath);
+
+      if (tempFile.existsSync()) {
+        tempFile.copySync(outputPath);
+        tempFile.deleteSync();
+      }
+    }
+
+    return outputPath;
+  }
 
   Widget _buildSpeedButton() => Obx(
         () => DSAudioSpeedButton(

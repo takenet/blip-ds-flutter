@@ -7,14 +7,19 @@ abstract class DSDirectoryFormatter {
   static Future<String> getCachePath({
     required final String type,
     required final String filename,
-    String? extension,
+    String extension = '',
   }) async {
     final cachePath = (await getApplicationCacheDirectory()).path;
 
     final typeComponents = type.split('/');
 
     final typeFolder = '${typeComponents.first.capitalizeFirst}';
-    extension ??= typeComponents.last;
+
+    if (extension.isNotEmpty) {
+      extension = '.$extension';
+    } else if (typeComponents.length > 1) {
+      extension = '.${typeComponents.last}';
+    }
 
     final typePrefix = '${typeFolder.substring(0, 3).toUpperCase()}-';
 
@@ -26,7 +31,7 @@ abstract class DSDirectoryFormatter {
       directory: cachePath,
     );
 
-    return '$path/$newFileName.$extension';
+    return '$path/$newFileName$extension';
   }
 
   static Future<String> _formatDirectory({
