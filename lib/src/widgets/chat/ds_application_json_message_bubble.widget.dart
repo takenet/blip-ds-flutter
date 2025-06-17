@@ -54,7 +54,7 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
       var templateTextContent = content['templateContent']['components']
           ?.firstWhere((component) => component['type'] == 'BODY')['text'];
 
-      var templateComponentsBody = content['template']['components']
+      final templateComponentsBody = content['template']['components']
           .firstWhere((component) => component['type'] == 'body');
 
       final bodyFilledVariables = templateComponentsBody['parameters'] ?? [];
