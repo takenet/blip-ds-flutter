@@ -51,12 +51,29 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
   Widget _buildTemplate() {
     Widget child;
     try {
-      final templateTextContent =
-          content['templateContent']['components'][0]['text'];
+      var templateTextContent = content['templateContent']['components']
+          ?.firstWhere((component) => component['type'] == 'BODY')['text'];
+
+      var templateComponentsBody = content['template']['components']
+          .firstWhere((component) => component['type'] == 'body');
+
+      final bodyFilledVariables = templateComponentsBody['parameters'] ?? [];
+
+      templateTextContent = templateTextContent.toString().replaceAllMapped(
+        RegExp(r'\{\{(\d+)\}\}'),
+        (match) {
+          final index = int.parse(match.group(1) ?? '0') - 1;
+          if (index >= 0 && index < bodyFilledVariables.length) {
+            final variable = bodyFilledVariables[index];
+            return variable['text'] ?? match.group(0) ?? '';
+          }
+          return match.group(0) ?? '';
+        },
+      );
 
       child = DSActiveCampaignMessageBubble(
         name: simpleStyle ? '' : template['name'],
-        text: templateTextContent.toString().replaceAll(r"\n", '\n').trim(),
+        text: templateTextContent.replaceAll(r"\n", '\n').trim(),
         align: align,
         borderRadius: borderRadius,
         style: style,
