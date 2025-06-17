@@ -1,3 +1,7 @@
+## 0.4.1
+
+- [DSApplicationJsonMessageBubble] Improved the active message template text.
+
 ## 0.4.0
 
 - Fixed iOS audio player reproduction.
