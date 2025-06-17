@@ -1,6 +1,6 @@
 ## 0.4.1
 
-- [DSApplicationJsonMessageBubble] Improved the active message tamplate text
+- [DSApplicationJsonMessageBubble] Improved the active message template text.
 
 ## 0.4.0
 
