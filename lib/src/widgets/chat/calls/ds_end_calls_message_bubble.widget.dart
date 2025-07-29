@@ -112,8 +112,8 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
                       ),
                     ),
                   ),
-                  width: 40,
-                  height: 40,
+                  width: 32,
+                  height: 32,
                   child: Icon(
                     _isCallAnswered
                         ? _isInbound
@@ -128,11 +128,11 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DSHeadlineSmallText(
+                  DSCaptionText(
                     'calls.voice-text'.translate(),
                     color: _foregroundColor,
                   ),
-                  DSCaptionText(
+                  DSCaptionSmallText(
                     _isCallAnswered
                         ? 'calls.answered'.translate()
                         : 'calls.unanswered'.translate(),

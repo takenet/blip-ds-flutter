@@ -8,6 +8,7 @@ import '../../models/ds_message_bubble_style.model.dart';
 import '../../models/interactive_message/ds_interactive_message.model.dart';
 import '../../themes/colors/ds_colors.theme.dart';
 import '../../themes/icons/ds_icons.dart';
+import 'calls/ds_interactive_request_call_message_bubble.widget.dart';
 import 'ds_active_campaign_message_bubble.widget.dart';
 import 'ds_interactive_button_message_bubble.widget.dart';
 import 'ds_interactive_list_message_bubble.widget.dart';
@@ -119,6 +120,12 @@ class DSApplicationJsonMessageBubble extends StatelessWidget {
           avatarConfig: avatarConfig,
         ),
       'voice_call' => DSInteractiveVoiceCallMessageBubble(
+          content: content,
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+        ),
+      'call_permission_request' => DSInteractiveRequestCallMessageBubble(
           content: content,
           align: align,
           borderRadius: borderRadius,
