@@ -74,7 +74,6 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   Widget build(BuildContext context) {
     return DSMessageBubble(
       onTapReply: widget.onTapReply,
-      shouldUseDefaultSize: true,
       padding: const EdgeInsets.symmetric(
         vertical: 12.0,
         horizontal: 12.0,
@@ -83,7 +82,6 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
       align: widget.align,
       style: widget.style,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildCallInfo(),
           _buildMediaPlayer(),
@@ -92,69 +90,61 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
     );
   }
 
-  Widget _buildCallInfo() => Wrap(
-        direction: Axis.horizontal,
-        alignment: WrapAlignment.spaceBetween,
-        runAlignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.start,
+  Widget _buildCallInfo() => Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: _isCallAnswered ? DSColors.success : DSColors.error,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(
-                        8.0,
-                      ),
-                    ),
-                  ),
-                  width: 32,
-                  height: 32,
-                  child: Icon(
-                    _isCallAnswered
-                        ? _isInbound
-                            ? DSIcons.voip_receiving_outline
-                            : DSIcons.voip_calling_outline
-                        : DSIcons.voip_ended_outline,
-                    size: 24.0,
-                    color: DSColors.neutralDarkCity,
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: _isCallAnswered ? DSColors.success : DSColors.error,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    8.0,
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DSCaptionText(
-                    'calls.voice-text'.translate(),
-                    color: _foregroundColor,
-                  ),
-                  DSCaptionSmallText(
-                    _isCallAnswered
-                        ? 'calls.answered'.translate()
-                        : 'calls.unanswered'.translate(),
-                    color: _foregroundColor,
-                    fontWeight: DSFontWeights.semiBold,
-                  ),
-                ],
-              )
+              width: 32,
+              height: 32,
+              child: Icon(
+                _isCallAnswered
+                    ? _isInbound
+                        ? DSIcons.voip_receiving_outline
+                        : DSIcons.voip_calling_outline
+                    : DSIcons.voip_ended_outline,
+                size: 24.0,
+                color: DSColors.neutralDarkCity,
+              ),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DSHeadlineSmallText(
+                'calls.voice-text'.translate(),
+                color: _foregroundColor,
+              ),
+              DSCaptionSmallText(
+                _isCallAnswered
+                    ? 'calls.answered'.translate()
+                    : 'calls.unanswered'.translate(),
+                color: _foregroundColor,
+                fontWeight: DSFontWeights.semiBold,
+              ),
+              FutureBuilder(
+                future: _phoneNumber,
+                builder: (_, snapshot) {
+                  if (snapshot.hasData && !snapshot.hasError) {
+                    return DSCaptionSmallText(
+                      snapshot.data,
+                      color: _foregroundColor,
+                    );
+                  }
+                  return const DSSpinnerLoading();
+                },
+              ),
             ],
-          ),
-          FutureBuilder(
-            future: _phoneNumber,
-            builder: (_, snapshot) {
-              if (snapshot.hasData && !snapshot.hasError) {
-                return DSCaptionSmallText(
-                  snapshot.data,
-                  color: _foregroundColor,
-                );
-              }
-              return const DSSpinnerLoading();
-            },
-          ),
+          )
         ],
       );
 
