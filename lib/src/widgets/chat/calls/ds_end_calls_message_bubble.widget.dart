@@ -74,14 +74,12 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   Widget build(BuildContext context) {
     return DSMessageBubble(
       onTapReply: widget.onTapReply,
-      padding: const EdgeInsets.symmetric(
-        vertical: 12.0,
-        horizontal: 12.0,
-      ),
+      padding: const EdgeInsets.all(12.0),
       borderRadius: widget.borderRadius,
       align: widget.align,
       style: widget.style,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildCallInfo(),
           _buildMediaPlayer(),
@@ -225,6 +223,7 @@ class _DSEndCallsMessageBubbleState extends State<DSEndCallsMessageBubble> {
   Widget _buildLoading() => DSEndCallsRecordingContainer(
         isLighBubbleBackground: _isLightBubbleBackground,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const DSSpinnerLoading(),
             Padding(
