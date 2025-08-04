@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Create new Blip Calls bubbles
+
 ## 0.4.1
 
 - [DSApplicationJsonMessageBubble] Improved the active message template text.

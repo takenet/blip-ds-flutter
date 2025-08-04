@@ -16,6 +16,7 @@ import '../../services/ds_file.service.dart';
 import '../../utils/ds_message_content_type.util.dart';
 import '../../utils/ds_utils.util.dart';
 import '../chat/audio/ds_audio_message_bubble.widget.dart';
+import '../chat/calls/ds_calls_customer_permissions_bubble.widget.dart';
 import '../chat/calls/ds_end_calls_message_bubble.widget.dart';
 import '../chat/ds_application_json_message_bubble.widget.dart';
 import '../chat/ds_carrousel.widget.dart';
@@ -193,6 +194,14 @@ class DSCard extends StatelessWidget {
           callsMediaMessage: DSCallsMediaMessage.fromJson(content),
           onAsyncFetchSession: onAsyncFetchSession,
           onTapReply: onTapReply,
+        );
+
+      case DSMessageContentType.customerPermission:
+        return DSCallsCustomerPermissionsBubble(
+          align: align,
+          borderRadius: borderRadius,
+          style: style,
+          content: content,
         );
 
       default:

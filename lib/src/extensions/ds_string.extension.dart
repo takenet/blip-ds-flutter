@@ -7,7 +7,12 @@ extension DSStringExtension on String {
     try {
       final plugin = PhoneNumberUtil();
 
-      final phone = startsWith('+') ? this : '+$this';
+      String phone = startsWith('+') ? this : '+$this';
+
+      if (phone.startsWith('+55') && phone.length == 13) {
+        phone = '${phone.substring(0, 5)}9${phone.substring(5)}';
+      }
+
       final regionCode = (await plugin.parse(phone)).regionCode;
 
       return plugin.format(
