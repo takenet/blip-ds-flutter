@@ -1,3 +1,7 @@
+## 0.4.3
+
+- Fix [DSToast] in Flutter 3.38.5+
+
 ## 0.4.2
 
 - Create new Blip Calls bubbles
