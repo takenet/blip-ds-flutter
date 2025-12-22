@@ -36,8 +36,8 @@ abstract class DSToastService {
 
       //workaround Flutter 3.38+
       //https://github.com/jonataslaw/getx/issues/3419
-      final overlayState =
-          Get.overlayContext!.findAncestorStateOfType<OverlayState>();
+      final overlayState = DSContextService.overlayContext
+          ?.findAncestorStateOfType<OverlayState>();
 
       overlayState?.insert(_overlayEntry!);
     }
