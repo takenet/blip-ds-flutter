@@ -34,7 +34,12 @@ abstract class DSToastService {
       _controller = ScrollController();
       _overlayEntry = _createOverlayEntry();
 
-      Overlay.of(DSContextService.overlayContext!).insert(_overlayEntry!);
+      //workaround Flutter 3.38+
+      //https://github.com/jonataslaw/getx/issues/3419
+      final overlayState =
+          Get.overlayContext!.findAncestorStateOfType<OverlayState>();
+
+      overlayState?.insert(_overlayEntry!);
     }
   }
 
