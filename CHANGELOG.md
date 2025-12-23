@@ -1,3 +1,7 @@
+## 0.4.4
+
+- Fix [DSAudioSeekBar] for Flutter 3.38+
+
 ## 0.4.3
 
 - Fix [DSToast] for Flutter 3.38+
