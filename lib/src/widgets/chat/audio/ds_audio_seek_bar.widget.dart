@@ -62,61 +62,79 @@ class DSAudioSeekBarState extends State<DSAudioSeekBar> {
   }
 
   Widget _bufferSlider() => SliderTheme(
-        data: sliderThemeData.copyWith(
-          thumbShape: HiddenThumbComponentShape(),
-          activeTrackColor: widget.bufferActiveTrackColor,
-          inactiveTrackColor: widget.bufferInactiveTrackColor,
-        ),
-        child: ExcludeSemantics(
+    data: sliderThemeData.copyWith(
+      thumbShape: HiddenThumbComponentShape(),
+      activeTrackColor: widget.bufferActiveTrackColor,
+      inactiveTrackColor: widget.bufferInactiveTrackColor,
+    ),
+    child: ExcludeSemantics(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SizedBox(
+            width: constraints.maxWidth,
+            child: Slider(
+              min: 0.0,
+              max: widget.duration.inMilliseconds.toDouble(),
+              value: min(
+                widget.bufferedPosition.inMilliseconds.toDouble(),
+                widget.duration.inMilliseconds.toDouble(),
+              ),
+              onChanged: (v) {},
+            ),
+          );
+        },
+      ),
+    ),
+  );
+
+  Widget _slider() => SliderTheme(
+    data: sliderThemeData.copyWith(
+      inactiveTrackColor: Colors.transparent,
+      thumbColor: widget.sliderThumbColor,
+      activeTrackColor: widget.sliderActiveTrackColor,
+      thumbShape: const RoundSliderThumbShape(
+        enabledThumbRadius: 7.0,
+      ),
+    ),
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        return SizedBox(
+          width: constraints.maxWidth,
           child: Slider(
             min: 0.0,
             max: widget.duration.inMilliseconds.toDouble(),
-            value: min(widget.bufferedPosition.inMilliseconds.toDouble(),
-                widget.duration.inMilliseconds.toDouble()),
-            onChanged: (v) {},
+            value: min(
+              widget.position.inMilliseconds.toDouble(),
+              widget.duration.inMilliseconds.toDouble(),
+            ),
+            onChanged: (value) {
+              if (widget.onChanged != null) {
+                widget.onChanged!(Duration(milliseconds: value.round()));
+              }
+            },
+            onChangeEnd: (value) {
+              if (widget.onChangeEnd != null) {
+                widget.onChangeEnd!();
+              }
+            },
+            onChangeStart: (value) {
+              if (widget.onChangeStart != null) {
+                widget.onChangeStart!();
+              }
+            },
           ),
-        ),
-      );
-
-  Widget _slider() => SliderTheme(
-        data: sliderThemeData.copyWith(
-          inactiveTrackColor: Colors.transparent,
-          thumbColor: widget.sliderThumbColor,
-          activeTrackColor: widget.sliderActiveTrackColor,
-          thumbShape: const RoundSliderThumbShape(
-            enabledThumbRadius: 7.0,
-          ),
-        ),
-        child: Slider(
-          min: 0.0,
-          max: widget.duration.inMilliseconds.toDouble(),
-          value: min(widget.position.inMilliseconds.toDouble(),
-              widget.duration.inMilliseconds.toDouble()),
-          onChanged: (value) {
-            if (widget.onChanged != null) {
-              widget.onChanged!(Duration(milliseconds: value.round()));
-            }
-          },
-          onChangeEnd: (value) {
-            if (widget.onChangeEnd != null) {
-              widget.onChangeEnd!();
-            }
-          },
-          onChangeStart: (value) {
-            if (widget.onChangeStart != null) {
-              widget.onChangeStart!();
-            }
-          },
-        ),
-      );
+        );
+      },
+    ),
+  );
 
   Widget _audioLabel(final Duration value) => DSCaptionText(
-        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                .firstMatch("$value")
-                ?.group(1) ??
-            "$value",
-        color: widget.labelColor,
-      );
+    RegExp(
+          r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
+        ).firstMatch("$value")?.group(1) ??
+        "$value",
+    color: widget.labelColor,
+  );
 }
 
 class HiddenThumbComponentShape extends SliderComponentShape {

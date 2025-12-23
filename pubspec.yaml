@@ -1,11 +1,11 @@
 name: blip_ds
 description: Blip Design System for Flutter.
-version: 0.4.2
+version: 0.4.4
 homepage: https://github.com/takenet/blip-ds-flutter#readme
 repository: https://github.com/takenet/blip-ds-flutter
 
 environment:
-  sdk: ^3.5.3
+  sdk: ^3.10.0
 
 dependencies:
   flutter:
@@ -13,7 +13,7 @@ dependencies:
   just_audio: ^0.10.2
   rxdart: ^0.27.7
   flutter_spinkit: ^5.1.0
-  get: ^4.6.5
+  get: ^4.7.3
   open_filex: ^4.7.0
   path_provider: ^2.1.1
   dio: ^5.2.1+1
